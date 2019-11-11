@@ -1,0 +1,301 @@
+*{
+	/**font-family:'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+	**/
+	color:white;
+	font-family: Quicksand, 游ゴシック体, "Yu Gothic", YuGothic, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+body{
+	background:#36393E;
+}
+.wrapper{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	-webkit-flex-wrap: nowrap;
+	flex-wrap: nowrap;
+	-webkit-align-items: stretch;
+	align-items: stretch;
+	-webkit-justify-content: center;
+	justify-content: center;
+	buckground:white;
+}
+.row{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+}
+.column{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+a {
+    outline: none;
+}
+a:focus, *:focus { outline:none; }
+button{
+	border:none;
+	background-color: transparent;
+}
+.nav{
+	z-index:1;
+	width:100px;
+	position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+	height:100vh;
+	background:#212226;
+}
+.content-title{
+	max-width:600px;
+	height:50px;
+	line-height:50px;
+	font-size:20px;
+	position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+	color:white;
+	background:#212226;
+}
+.nav-icon{
+	position:relative;
+	max-width: 100%;
+	width:100%;
+	padding:15px 20px;
+	fill:#4B4B4B;
+	transition: width 0.4s,max-width 0.4s,fill 0.4s,padding-left 0.4s,padding-top 0.4s,padding-bottom 0.4s;
+}
+.nav-icon:hover{
+	max-width:115%;
+	width:115%;
+	padding-left:5px;
+	padding-top:0;
+	padding-bottom:0;
+	fill:white;
+	transition: width 0.3s,max-width 0.3s,fill 0.3s,padding-left 0.3s,padding-top 0.3s,padding-bottom 0.3s;
+}
+
+
+.list{
+	z-index:1;
+	min-width:100px;
+	max-width:100px;
+	position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+	height:100vh;
+	background:#212226;
+}
+.list-icon{
+	border-radius:100%;
+	max-width: 100%;
+	width:100%;
+	padding:15px 20px;
+	transition: border-radius 0.5s;
+}
+.list-icon:hover{
+	border-radius:40%;
+	transition: border-radius 0.3s;
+}
+.edit-list-icon{
+	max-width: 100%;
+	width:100%;
+	padding:15px 20px;
+	fill:#4B4B4B;
+	transition: width 0.3s,max-width 0.3s,fill 0.3s,padding-left 0.3s,padding-top 0.3s,padding-bottom 0.3s;
+}
+.edit-list-icon:hover{
+	max-width:115%;
+	width:115%;
+	padding-left:5px;
+	padding-top:0;
+	padding-bottom:0;
+	fill:white;
+	transition: width 0.3s,max-width 0.3s,fill 0.3s,padding-left 0.3s,padding-top 0.3s,padding-bottom 0.3s;
+}
+.modal{
+	display:none;
+	position:fixed;
+	top:0;
+	left:0;
+	width:100vw;
+	height:100vh;
+	background-color:rgba(0,0,0,0.7);
+	z-index:1000;
+}
+.modal-content{
+	display:none;
+	text-align:center;
+	opacity:1;
+	position:fixed;
+	top:-100px;
+	left:50%;
+	transform:translate(-50%, -50%);
+	padding:30px;
+	height:500px;
+	width:400px;
+	border-radius:5px;
+	background-color:white;
+	z-index:1200;
+}
+.modal-content h1{
+	margin:0;
+}
+.modal-content2{
+	display:none;
+	text-align:center;
+	opacity:1;
+	position:fixed;
+	top:50%;
+	left:120%;
+	transform:translate(-50%, -50%);
+	padding:30px;
+	height:500px;
+	width:400px;
+	border-radius:5px;
+	background-color:white;
+	z-index:1200;
+}
+.modal-content2 h1{
+	margin:0;
+}
+.modal-form{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+.message-area{
+	padding: 10px;
+    line-height: 1.5;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+	border-radius:15px;
+	box-shadow:none;
+	width: 100%;
+	height:300px;
+	max-height: 400px;
+}
+.modal-control{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	justify-content: space-between;
+	padding:10px;
+}
+.modal-negative-button{
+	background:#a61a37;
+	color:white;
+	border-radius:15px;
+}
+.modal-positive-button{
+	background:#8ce196;
+	color:white;
+	border-radius:15px;
+}
+.modal-icon-area{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+}
+.modal-list-area{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	background:black;
+	height:300px;
+	padding:10px;
+	border-radius:15px;
+}
+.modal-list{
+	display: -webkit-flex;
+	display: flex;
+	display: -webkit-inline-flex;
+	display: inline-flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	justify-content: space-between;
+	padding-bottom:10px;
+}
+.modal-list-icon{
+	border-radius:100%;
+	width:100%;
+}
+.modal-list span{
+	line-height: 50px;
+}
+.modal-list a{
+	height:50px;
+	width:50px;
+}
+
+.switch{
+	width:100%;
+	margin-bottom:15px;
+}
+.cmn-toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+
+.cmn-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  margin: 0 auto;
+}
+
+input.cmn-toggle-round-flat + label {
+  padding: 2px;
+  width: 60px;
+  height: 30px;
+  background-color: #8ce196;
+  border-radius: 60px;
+  transition: background 0.4s;
+}
+
+input.cmn-toggle-round-flat + label:before,
+input.cmn-toggle-round-flat + label:after {
+  display: block;
+  position: absolute;
+  content: "";
+}
+
+input.cmn-toggle-round-flat + label:before {
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  right: 2px;
+  background-color: #fff;
+  border-radius: 60px;
+  transition: background 0.4s;
+}
+
+input.cmn-toggle-round-flat + label:after {
+  top: 4px;
+  left: 4px;
+  bottom: 4px;
+  width: 22px;
+  background-color: #8ce196;
+  border-radius: 22px;
+  transition: margin 0.4s, background 0.4s;
+}
+
+input.cmn-toggle-round-flat:checked + label {
+  background-color: #a61a37;
+}
+
+input.cmn-toggle-round-flat:checked + label:after {
+  margin-left: 30px;
+  background-color: #a61a37;
+}
+
