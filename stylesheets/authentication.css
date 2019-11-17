@@ -1,0 +1,30 @@
+.title-wrapper{
+	text-align:left;
+}
+.form-title{
+	font-size:20px;
+}
+.form-comment{
+	padding:10px;
+	font-size:15px;
+}
+.form-mailaddress{
+	padding:10px;	
+	padding-bottom:0;
+	font-size:15px;
+}
+.authentication_string{
+    width: 100px; /*文字列分の長さ*/
+}
+#text:focus + .authentication_string, .keepfocus {
+    font-size: 14px;
+    line-height: 10px;
+    width: 70px;
+    height: 10px;
+    padding: 0 2px;
+    background-color: white;
+    transform:translate3d(5px, -6px, 0);
+}
+.control-button{
+	justify-content: flex-end;
+}
