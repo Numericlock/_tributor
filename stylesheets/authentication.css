@@ -16,7 +16,7 @@
 .authentication_string{
     width: 100px; /*文字列分の長さ*/
 }
-#text:focus + .authentication_string, .keepfocus {
+#text3:focus + .authentication_string, .keepfocus {
     font-size: 14px;
     line-height: 10px;
     width: 70px;
