@@ -8,14 +8,15 @@
 	<script src="javascripts/barba.js"></script>
 	<link rel="stylesheet" href="stylesheets/fonts.css">
 	<link rel="stylesheet" href="stylesheets/opening-common.css">
-	<link rel="stylesheet" href="stylesheets/signUp.css">
 	<link rel="stylesheet" href="stylesheets/wave.css">
 </head>
 <body>
+<div id="barba-wrapper">
 	<div class='wave -one'></div>
 	<div class='wave -two'></div>
 	<div class='wave -three'></div>
 	<div class="barba-container">
+		<link rel="stylesheet" href="stylesheets/signUp.css">
 		<div class="title-wrapper">
 			<span class="app-title">-tributor</span>
 			<span class="form-title">アカウントの作成</span>
@@ -42,12 +43,236 @@
 			<a href="authentication.html"><button type="button">次へ</button></a>
 		</div>
 	</div>
+</div>
 </body>
 <script>
     window.onload = function () {
 		$('#text').val("");
 		$('#text2').val("");
+		$('#text3').val("");
+		$('#text4').val("");
+		$('#text5').val("");
     };
+Barba.Pjax.init();
+
+Barba.Prefetch.init();
+
+ 
+
+Barba.Pjax.init();
+
+Barba.Prefetch.init();
+
+ 
+
+// headタグ内の書き換え
+
+Barba.Dispatcher.on('newPageReady', function(currentStatus, oldStatus, container, newPageRawHTML) {
+
+ 
+
+  var head = document.head;
+
+  var newPageRawHead = newPageRawHTML.match(/<head[^>]*>([\s\S.]*)<\/head>/i)[0];
+
+  var newPageHead = document.createElement('head');
+
+  newPageHead.innerHTML = newPageRawHead;
+
+ 
+
+  var removeHeadTags = [
+
+    "meta[name='description']",
+
+    "meta[property^='og']",
+
+    "meta[name^='twitter']",
+
+    "link[rel='canonical']"
+
+  ].join(',');
+
+  var headTags = head.querySelectorAll(removeHeadTags)
+
+  for(var i = 0; i < headTags.length; i++ ){
+
+    head.removeChild(headTags[i]);
+
+  }
+
+  var newHeadTags = newPageHead.querySelectorAll(removeHeadTags)
+
+ 
+
+  for(var i = 0; i < newHeadTags.length; i++ ){
+
+    head.appendChild(newHeadTags[i]);
+
+  }
+
+ 
+
+});
+
+ 
+
+// Googleアナリティクスに情報を送る
+
+Barba.Dispatcher.on('initStateChange', function() {
+
+  if (typeof ga === 'function') {
+
+    ga('send', 'pageview', window.location.pathname.replace(/^\/?/, '/') + window.location.search);
+
+  }
+
+});
+
+ 
+
+// ページごとの処理
+
+var HomeTransition = Barba.BaseView.extend({
+
+  namespace: 'home',
+
+  onEnter: () => {
+
+    // 読み込みを開始した時の処理
+
+  },
+
+  onEnterCompleted: () => {
+
+    // トランジションを完了した時の処理
+
+  }
+
+});
+
+HomeTransition.init();
+
+ 
+
+// 共通アニメーション
+
+var PageTransition = Barba.BaseTransition.extend({
+
+  start: function() {
+
+    Promise
+
+      .all([this.newContainerLoading, this.moveOut()])
+
+      .then(this.moveIn.bind(this));
+
+  },
+
+  moveOut: function() {
+
+    // 遷移前の処理（内容はお好みで）
+
+    //moveOutAnim();
+
+    return $(this.oldContainer).animate({ left: '-50%' }, 300).promise();
+
+  },
+
+  moveIn: function() {
+
+    var _this = this;
+
+    var $el = $(this.newContainer);
+
+ 
+
+    // 遷移後の処理（内容はお好みで）
+		$('#text3').focus(function(){
+		$('.authentication_box').animate({borderTopColor: '#3be5ae', borderLeftColor: '#3be5ae', borderRightColor: '#3be5ae', borderBottomColor: '#3be5ae'}, 200);
+	}).blur(function(){
+		$('.authentication_box').animate({borderTopColor: '#d3d3d3', borderLeftColor: '#d3d3d3', borderRightColor: '#d3d3d3', borderBottomColor: '#d3d3d3'}, 200);
+	});
+	
+	$('#text3').change(function() {
+		const str = $('#text3').val();
+		if(str===""){
+			const result = $('.authentication_string').removeClass('keepfocus');
+		}else{ 
+			const result = $('.authentication_string').addClass('keepfocus')
+		}
+	});
+	$('#text4').focus(function(){
+		$('.password_box').animate({borderTopColor: '#3be5ae', borderLeftColor: '#3be5ae', borderRightColor: '#3be5ae', borderBottomColor: '#3be5ae'}, 200);
+	}).blur(function(){
+		$('.password_box').animate({borderTopColor: '#d3d3d3', borderLeftColor: '#d3d3d3', borderRightColor: '#d3d3d3', borderBottomColor: '#d3d3d3'}, 200);
+	});
+	
+	$('#text4').change(function() {
+		const str = $('#text4').val();
+		if(str===""){
+			const result = $('.password_string').removeClass('keepfocus');
+		}else{ 
+			const result = $('.password_string').addClass('keepfocus')
+		}
+	});	
+	$('#text5').focus(function(){
+		$('.password2_box').animate({borderTopColor: '#3be5ae', borderLeftColor: '#3be5ae', borderRightColor: '#3be5ae', borderBottomColor: '#3be5ae'}, 200);
+	}).blur(function(){
+		$('.password2_box').animate({borderTopColor: '#d3d3d3', borderLeftColor: '#d3d3d3', borderRightColor: '#d3d3d3', borderBottomColor: '#d3d3d3'}, 200);
+	});
+	
+	$('#text5').change(function() {
+		const str = $('#text5').val();
+		if(str===""){
+			const result = $('.password2_string').removeClass('keepfocus2');
+		}else{ 
+			const result = $('.password2_string').addClass('keepfocus2')
+		}
+	});
+	$('#homehtml').on('click',function(){
+		window.location.href = 'home.html'; // 通常の遷移
+	});
+    window.scrollTo( 0, 0 );
+
+    $(this.oldContainer).hide();
+
+    $el.css({
+
+      visibility : 'visible',
+
+	  left: '150%'
+
+    });
+
+   // moveInAnim();
+
+ 
+
+    $el.animate( { left: '50%' }, 400,function() {
+
+      _this.done();
+
+    });
+
+  }
+
+ 
+
+});
+
+ 
+
+Barba.Pjax.getTransition = function() {
+
+  return PageTransition;
+
+};
+ 
+
+Barba.BaseView.init()
+
+Barba.Pjax.start();
 	$('#text').focus(function(){
 		$('.name_box').animate({borderTopColor: '#3be5ae', borderLeftColor: '#3be5ae', borderRightColor: '#3be5ae', borderBottomColor: '#3be5ae'}, 200);
 	}).blur(function(){
