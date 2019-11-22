@@ -45,6 +45,7 @@ body{
     height: 50px;
     border-radius: 5px;
     border: 1px solid lightgray;
+	position: relative;
 }
 
 .inner{
@@ -80,6 +81,13 @@ body{
     box-sizing: border-box; /*横幅の解釈をpadding, borderまでとする*/
     transition: all 0.2s;
     -webkit-transition: all 0.2s;
+}
+.input-info-wrapper{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	justify-content: space-between;
 }
 .id_string{
    width: 200px; /*文字列分の長さ*/

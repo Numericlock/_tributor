@@ -9,14 +9,14 @@
 .form-title{
 	font-size:20px;
 }
-.name_string{
+.id_string{
     width: 100px; /*文字列分の長さ*/
 }
 .mailaddress_string{
     width: 130px; /*文字列分の長さ*/
 }
 /*アニメーション*/
-#text:focus + .name_string, .keepfocus {
+#text:focus + .id_string, .keepfocus {
     font-size: 14px;
     line-height: 10px;
     width: 90px;
@@ -36,4 +36,13 @@
 }
 .control-button{
 	justify-content: flex-end;
+}
+.id-line, .mail-line{
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 2px;
+	width: 0%;
+	background:red;
 }
