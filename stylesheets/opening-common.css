@@ -5,6 +5,7 @@ body{
 	background:#36393E;
 	overflow: hidden;
 }
+
 .barba-container {
 	display: -webkit-flex;
 	display: flex;
@@ -23,20 +24,24 @@ body{
 	background-color:white;
 	z-index:4;
 }
+
 .title-wrapper{
 	display: -webkit-flex;
 	display: flex;
 	-webkit-flex-direction: column;
 	flex-direction: column;
 }
+
 .app-title{
 	font-size:70px;
 	font-family:mitubachi;
 }
+
 .form-title{
 	padding:10px;
 	font-size:20px;
 }
+
 .box{
     display: flex; /*アイコン、テキストボックスを調整する*/
     align-items: center; /*アイコン、テキストボックスを縦方向の中心に*/
@@ -82,6 +87,7 @@ body{
     transition: all 0.2s;
     -webkit-transition: all 0.2s;
 }
+
 .input-info-wrapper{
 	display: -webkit-flex;
 	display: flex;
@@ -89,9 +95,11 @@ body{
 	flex-direction: row;
 	justify-content: space-between;
 }
+
 .id_string{
    width: 200px; /*文字列分の長さ*/
 }
+
 .password_string{
     width: 110px; /*文字列分の長さ*/
 }
@@ -107,20 +115,16 @@ body{
 	display: flex;
 	-webkit-flex-direction: row;
 	flex-direction: row;
-}
-.control-button{
-	display: -webkit-flex;
-	display: flex;
-	-webkit-flex-direction: row;
-	flex-direction: row;
 	justify-content: space-between;
 }
+
 .control-button button{
 	border:ridge 1px #80868b;
 	border-radius:12px;
 	padding:8px;
 	background:none;
 }
+
 .control-button button:hover{
-	background:none;
+	border:ridge 1px red;
 }
