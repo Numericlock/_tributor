@@ -49,7 +49,7 @@
 				</div>
 			</div>
 			<div class="control-button">
-				<a class="no-link" href="password.php"><button type="button">次へ</button></a>
+				<a class="no-link" href="signUp_password.php"><button type="button">次へ</button></a>
 			</div>
 		</div>
 	</div>
