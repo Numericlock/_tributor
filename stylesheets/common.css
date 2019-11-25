@@ -126,23 +126,6 @@ button {
 	transition: width 0.3s, max-width 0.3s, fill 0.3s, padding-left 0.3s, padding-top 0.3s, padding-bottom 0.3s;
 }
 
-.list-modal-content{
-	display:none;
-	text-align:center;
-	opacity:1;
-	position:fixed;
-	top:-100px;
-	left:50%;
-	transform:translate(-50%, -50%);
-	padding:30px;
-	height:700px;
-	width:600px;
-	border-radius:5px;
-	background-color:white;
-	z-index:1200;
-	
-}
-
 .edit-list-icon:hover {
 	max-width: 115%;
 	width: 115%;
