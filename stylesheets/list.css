@@ -51,9 +51,15 @@
 
 .list-name {
 	font-size: 30px;
+	color: black;
 	text-align: center;
 	width: 50px;
 	line-height: 100px;
+}
+
+.list-friend-select {
+	width: 25%;
+
 }
 
 .list-member {
@@ -206,6 +212,7 @@
 
 .list-friend-name {
 	line-height: 40px;
+	color: black;
 	font-size: 20px;
 
 }

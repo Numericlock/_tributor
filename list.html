@@ -217,41 +217,45 @@
 							<span class="list-friend-name">お友達
 							</span>
 						</div>
+						<div class="list-friend-select">
+						</div>
 					</div>
 				</div>
-
-				<div class="modal-control">
-					<button class="modal-negative-button" id="modal_cancel" type='button'>キャンセル</button>
-					<button class="modal-positive-button" id="modal_next" type='button'>作成</button>
+				<div class="sample1">
+			
+					</div>
+					<div class="modal-control">
+						<button class="modal-negative-button" id="modal_cancel" type='button'>キャンセル</button>
+						<button class="modal-positive-button" id="modal_next" type='button'>作成</button>
+					</div>
 				</div>
 			</div>
-		</div>
-		<script>
-			$('.btn-square').on('click', function() {
-				$('.modal').stop(true, true).fadeIn('500');
-				$('.list-modal-content').show().stop(true, true).animate({
-					top: "50%",
-					display: "fixed",
-					opacity: 1.0
-				}, 500);
-				$('.modal-content2').show().stop(true, true).animate({
-					top: "50%",
-					left: "120%",
-					display: "fixed",
-					opacity: 0
-				}, 500);
-			});
-			$('.modal').on('click', function() {
-				$('.modal').stop(true, true).fadeOut('500');
-				$('.list-modal-content').stop(true, true).animate({
-					top: "-100px",
-					left: "50%",
-					opacity: 0
-				}, 500, function() {
-					$('.modal-content').hide();
+			<script>
+				$('.btn-square').on('click', function() {
+					$('.modal').stop(true, true).fadeIn('500');
+					$('.list-modal-content').show().stop(true, true).animate({
+						top: "50%",
+						display: "fixed",
+						opacity: 1.0
+					}, 500);
+					$('.modal-content2').show().stop(true, true).animate({
+						top: "50%",
+						left: "120%",
+						display: "fixed",
+						opacity: 0
+					}, 500);
 				});
-			});
-		</script>
+				$('.modal').on('click', function() {
+					$('.modal').stop(true, true).fadeOut('500');
+					$('.list-modal-content').stop(true, true).animate({
+						top: "-100px",
+						left: "50%",
+						opacity: 0
+					}, 500, function() {
+						$('.modal-content').hide();
+					});
+				});
+			</script>
 </body>
 
 </html>
