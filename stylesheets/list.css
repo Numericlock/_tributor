@@ -28,29 +28,33 @@
 	margin-bottom: 5px;
 }
 
-.create {
-/*なんかいい感じのやつ*/
+.list-create-btn{
+    padding-bottom: 20px;
+    position: fixed;
+    bottom:0;
 }
 
 .btn-square {
-	width: 120px;
+	width: 180px;
 	height: 50px;
 	margin: auto;
 	display: inline-block;
 	padding: 0.5em 1em;
 	font-size: 1.2em;
 	text-decoration: none;
-	background: #668ad8;
-	/*ボタン色*/
-	color: #FFF;
-	border-bottom: solid 4px #627295;
+	background: white;
+	color: #212226;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+	border-bottom: solid 3px lightgray;
 	border-radius: 3px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 .btn-square:active {
 	/*ボタンを押したとき*/
-	-webkit-transform: translateY(4px);
-	transform: translateY(4px);
+	-webkit-transform: translateY(3px);
+	transform: translateY(3px);
 	/*下に動く*/
 	border-bottom: none;
 	/*線を消す*/
@@ -135,6 +139,20 @@
     font-size:20px;
 }
 
+.list-modal-closeButton{
+    position: absolute;
+    left:10px;
+    top:5px;
+    fill:#4B4B4B;
+    height:40px;
+	transition: fill 0.2s;
+}
+
+.list-modal-closeButton:hover{
+    fill:white;
+	transition: fill 0.3s;
+}
+
 .list-modal-minimumInputs{
     display: flex;
 	flex-direction: row;
@@ -201,12 +219,12 @@
 .list-modal-addUsers-searchArea-result{
     display: flex;
 	flex-direction: column;
-    border-bottom:groove 0.5px lightgray;
-    padding:8px 5px;
 }
 .list-modal-addUsers-searchArea-result-user{
     display: flex;
 	flex-direction: row;
+    padding:8px 5px;
+    border-bottom:groove 0.5px lightgray;
 }
 .list-modal-addUsers-searchArea-result-user-icon{
     width: 20%;

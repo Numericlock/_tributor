@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>ホーム/</title>
+	<title>リスト/-tributor</title>
 	<script src="javascripts/jquery-2.1.3.js"></script>
     <link rel="icon" href="favicon/favicon.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -108,11 +108,8 @@
 				　<span>リスト管理</span>
 			</div>
 			<div class="content-wrapper">
-				<div class="list-create">
-					<span class="create">リストを作成する</span>
-				</div>
 				<div class="list-create-btn">
-					<button type="button" class="btn-square">新規リスト</button>
+					<button type="button" class="btn-square">リストを作成する</button>
 				</div>
 				<div class="lists-wrapper">
 					<div class="list-content">
@@ -206,9 +203,16 @@
 	<div class="modal">
 	</div>
         <div class=list-modal-content>
-                    <div class="list-modal-title">
-            <span>リストを作成</span>
-        </div>  
+            <div class="list-modal-title">
+                <span>リストを作成</span>
+                <svg class="list-modal-closeButton" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     viewBox="0 0 512 512" xml:space="preserve">
+                    <g>
+                        <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
+                            52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
+                    </g>
+                </svg>
+            </div>  
             <div class="list-modal-minimumInputs">
                 <div class="list-modal-profileImageInput">
 					<img src="images/2.jpg">			        			
@@ -253,6 +257,42 @@
                                 </div>
                             </div>
                         </div> 
+                        <div class="list-modal-addUsers-searchArea-result-user">
+                            <div class="list-modal-addUsers-searchArea-result-user-icon">
+                                <img src="images/2.jpg">
+                            </div>
+                            <div class="list-modal-addUsers-searchArea-result-user-name">
+                                <span>ホスト</span>
+                            </div>
+                            <div class="list-modal-addUsers-searchArea-result-user-checkbox">
+                                <div class="checkbox">
+                                    <div>
+                                        <input type="checkbox" id="check2" name="check2" value="" />
+                                        <label class="checkbox-label" for="check2">
+                                            <span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="list-modal-addUsers-searchArea-result-user">
+                            <div class="list-modal-addUsers-searchArea-result-user-icon">
+                                <img src="images/2.jpg">
+                            </div>
+                            <div class="list-modal-addUsers-searchArea-result-user-name">
+                                <span>ブラック</span>
+                            </div>
+                            <div class="list-modal-addUsers-searchArea-result-user-checkbox">
+                                <div class="checkbox">
+                                    <div>
+                                        <input type="checkbox" id="check2" name="check2" value="" />
+                                        <label class="checkbox-label" for="check2">
+                                            <span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
                     </div>
                 </div>
                 <div class="list-modal-addUsers-IntendAdd">
@@ -262,7 +302,6 @@
                 </div>
             </div>
         <div class="modal-control">
-            <button class="modal-negative-button" id="modal_cancel" type='button'>キャンセル</button>
             <button class="modal-positive-button" id="modal_next" type='button'>作成</button>
         </div>
     </div>
