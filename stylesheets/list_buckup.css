@@ -1,0 +1,240 @@
+#list-home{
+    width:600px;
+	min-width:200px;
+	background:none;
+}
+.content-wrapper {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+    align-items: center;
+}
+
+.lists-wrapper {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	padding: 5px;
+    width:100%;
+}
+
+.list-content {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	background: white;
+	width: 100%;
+	height: 100px;
+	border: none;
+	border-radius: 12px;
+	margin-bottom: 5px;
+}
+
+.create {
+/*なんかいい感じのやつ*/
+}
+
+.list-icon {
+	width: 20%;
+    height:100%;
+	line-height: 100px;
+    padding:0 20px;
+}
+
+.list-icon img {
+	width: 70px;
+	border-radius: 100%;
+}
+
+.list-title {
+	width: 40%;
+    height:100%;
+}
+
+.list-title span{
+    font-size: 30px;
+	color: black;
+	text-align: center;
+	width: 50px;
+	line-height: 100px;
+}
+
+.list-control-icon-wrapper {
+	width: 20%;
+    height:100%;
+}
+
+.list-control-icon {
+    max-width: 100%;
+	width: 100%;
+    height:100%;
+    fill:#4B4B4B;
+}
+
+.setting {
+    padding:10px;
+}
+.list-control-icon:hover {
+    /*なんかいい感じのやつ*/
+}
+
+
+
+
+
+.list-modal-content{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	display:none;
+	text-align:center;
+	opacity:1;
+	position:fixed;
+	top:-100px;
+	left:50%;
+	transform:translate(-50%, -50%);
+	padding:30px;
+	height:700px;
+	width:600px;
+	border-radius:5px;
+	background-color:white;
+	z-index:1200;
+	
+}
+
+.list-modal-inputIcon {
+	display: -webkit-flex;
+	display: flex;
+	padding: 10px;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.list-modal-inputName {
+	text-align: center;
+	padding: 10px;
+}
+
+.list-modal-usersSelectArea{
+	background: #eaf0f0;
+	padding: 5px;
+	width: 100%;
+	height: 300px;
+	flex-direction: row;
+	border: ridge 2px black;
+	border-radius: 10px;
+	margin-bottom: 10px;
+}
+
+.list-user-content {
+	background: white;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	border: ridge 2px black;
+	border-radius: 50px;
+	padding: 2px;
+	height: 50px;
+}
+
+.list-input-name input {
+	width: 300px;
+	height: 30px;
+}
+
+.list-userIcon-wrapper {
+	width: 30%;
+}
+
+.list-userIcon {
+	width: 45px;
+	border-radius: 100%;
+	height: 45px;
+	line-height: 40px;
+}
+
+.list-userName {
+	line-height: 40px;
+	font-size: 20px;
+}
+
+.list-userName span{
+    color:black;
+}
+
+.list-friend-select {
+	width: 25%;
+
+}
+.btn-square {
+	width: 120px;
+	height: 50px;
+	margin: auto;
+	display: inline-block;
+	padding: 0.5em 1em;
+	font-size: 1.2em;
+	text-decoration: none;
+	background: #668ad8;
+	/*ボタン色*/
+	color: #FFF;
+	border-bottom: solid 4px #627295;
+	border-radius: 3px;
+}
+
+.btn-square:active {
+	/*ボタンを押したとき*/
+	-webkit-transform: translateY(4px);
+	transform: translateY(4px);
+	/*下に動く*/
+	border-bottom: none;
+	/*線を消す*/
+}
+
+#edit-icon {
+	display: block;
+	position: relative;
+	background: #303136;
+	width: 4px;
+	height: 50px;
+	left: 39px;
+	border-radius: 20px;
+	transition: background-color 0.3s;
+}
+
+#edit-icon:before {
+	display: block;
+	content: "";
+	position: absolute;
+	background: #303136;
+	top: 50%;
+	left: -22px;
+	width: 50px;
+	height: 4px;
+	margin-top: -2px;
+	border-radius: 10px;
+	transition: background-color 0.3s;
+}
+
+#radius-icon {
+	background: transparent;
+	border: double 2px #303136;
+	border-style: dashed;
+	border-radius: 100%;
+	width: 100px;
+	height: 100px;
+	color: white;
+	position: relative;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	-webkit-transition: -webkit-transform ease-out 200ms;
+	transition: -webkit-transform ease-out 200ms;
+	transition: transform ease-out 200ms;
+	transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
+	transition: border 0.3s;
+}

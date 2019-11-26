@@ -9,6 +9,7 @@
 	<script src="javascripts/jquery-2.1.3.js"></script>
 	<script src="javascripts/jquery.pjax.js"></script>
 	<script src="javascripts/barba.js"></script>
+    <link rel="icon" href="favicon/favicon.ico">
 	<link rel="stylesheet" href="stylesheets/fonts.css">
 	<link rel="stylesheet" href="stylesheets/opening-common.css">
 	<link rel="stylesheet" href="stylesheets/wave.css">

@@ -1,12 +1,11 @@
 * {
 	/**font-family:'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
 	**/
-	color: white;
 	font-family: Quicksand, 游ゴシック体, "Yu Gothic", YuGothic, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
 
 body {
-	background: #36393E;
+	background: #212226;
 }
 
 .wrapper {
@@ -59,6 +58,13 @@ button {
 	top: 0;
 	height: 100vh;
 	background: #212226;
+}
+
+.content{
+	max-width:600px;
+	width:600px;
+	min-width:200px;
+	background:#36393E;
 }
 
 .content-title {

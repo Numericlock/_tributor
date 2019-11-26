@@ -1,8 +1,8 @@
-#notice{
-	max-width:600px;
-	min-width:200px;
+*{
+    color: white;
+}
+.content{
 	width:600px;
-	background:white;
 	display: -webkit-flex;
 	display: flex;
 	-webkit-flex-direction: column;
@@ -55,10 +55,10 @@
 	-webkit-flex-direction: row;
 	flex-direction: row;
 }
-.content{
+.users-content-sentence{
 	font-size:15px;
 }
-.content img{
+.users-content-sentence img{
 	width:100%;
 }
 .control{

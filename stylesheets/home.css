@@ -1,7 +1,5 @@
-#timeLine{
-	max-width:600px;
-	min-width:200px;
-	background:white;
+*{
+    color: white;
 }
 .home-icon{
 	max-width:115%;
@@ -12,7 +10,7 @@
 	fill:white;
 }
 .users-content{
-	border-bottom:1px solid;
+	border-bottom:solid 1px lightgray;
 	padding:10px;
 	display: -webkit-flex;
 	display: flex;
@@ -48,11 +46,11 @@
 	-webkit-flex-direction: row;
 	flex-direction: row;
 }
-.content{
+.users-content-sentence{
 	z-index: 1;
 	font-size:15px;
 }
-.content img{
+.users-content-sentence img{
 	width:100%;
 }
 .control{

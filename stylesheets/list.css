@@ -1,8 +1,3 @@
-#list-home{
-    width:600px;
-	min-width:200px;
-	background:none;
-}
 .content-wrapper {
 	display: -webkit-flex;
 	display: flex;
@@ -35,6 +30,30 @@
 
 .create {
 /*なんかいい感じのやつ*/
+}
+
+.btn-square {
+	width: 120px;
+	height: 50px;
+	margin: auto;
+	display: inline-block;
+	padding: 0.5em 1em;
+	font-size: 1.2em;
+	text-decoration: none;
+	background: #668ad8;
+	/*ボタン色*/
+	color: #FFF;
+	border-bottom: solid 4px #627295;
+	border-radius: 3px;
+}
+
+.btn-square:active {
+	/*ボタンを押したとき*/
+	-webkit-transform: translateY(4px);
+	transform: translateY(4px);
+	/*下に動く*/
+	border-bottom: none;
+	/*線を消す*/
 }
 
 .list-icon {
@@ -84,157 +103,163 @@
 
 
 
-
+/*モーダル部分*/
 .list-modal-content{
-	display: -webkit-flex;
 	display: flex;
-	-webkit-flex-direction: column;
 	flex-direction: column;
-	display:none;
 	text-align:center;
-	opacity:1;
+	display:none;
+	opacity:0;
 	position:fixed;
 	top:-100px;
 	left:50%;
 	transform:translate(-50%, -50%);
-	padding:30px;
 	height:700px;
 	width:600px;
-	border-radius:5px;
-	background-color:white;
+	min-width:200px;
+	background-color:#36393E;
+    border-radius: 6px;
+    border-color: none;
 	z-index:1200;
-	
 }
 
-.list-modal-inputIcon {
-	display: -webkit-flex;
-	display: flex;
-	padding: 10px;
-	-webkit-flex-direction: row;
+.list-modal-title{
+    height:50px;
+    background-color:#212226;
+    color:white;
+    line-height: 50px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: solid 1px #212226;
+    padding-left:10px;
+    font-size:20px;
+}
+
+.list-modal-minimumInputs{
+    display: flex;
 	flex-direction: row;
-	justify-content: center;
+    padding:15px;
 }
-
-.list-modal-inputName {
-	text-align: center;
-	padding: 10px;
+.list-modal-profileImageInput{
+    width:20%;
 }
-
-.list-modal-usersSelectArea{
-	background: #eaf0f0;
-	padding: 5px;
-	width: 100%;
-	height: 300px;
-	flex-direction: row;
-	border: ridge 2px black;
-	border-radius: 10px;
-	margin-bottom: 10px;
+.list-modal-profileImageInput img{
+    width:100%;
+    border-radius:100%;
 }
-
-.list-user-content {
-	background: white;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-flex-direction: row;
-	flex-direction: row;
-	border: ridge 2px black;
-	border-radius: 50px;
-	padding: 2px;
-	height: 50px;
+.list-modal-listNameInput{
+    width:75%;
+    padding:30px 20px;
 }
-
-.list-input-name input {
-	width: 300px;
-	height: 30px;
-}
-
-.list-userIcon-wrapper {
-	width: 30%;
-}
-
-.list-userIcon {
-	width: 45px;
-	border-radius: 100%;
-	height: 45px;
-	line-height: 40px;
-}
-
-.list-userName {
-	line-height: 40px;
-	font-size: 20px;
-}
-
-.list-userName span{
+.text{
     color:black;
+    width:100%;
+}
+.listName_string{
+    width: 150px; /*文字列分の長さ*/
+}
+/*アニメーション*/
+#text:focus + .listName_string, .keepfocus {
+    font-size: 14px;
+    line-height: 10px;
+    width: 115px;
+    height: 10px;
+    padding: 0 2px;
+    background-color: #36393E;
+    transform:translate3d(5px, -6px, 0);
+}
+/*アニメーション*/
+#search_text:focus + .listName_string, .keepfocus {
+    font-size: 14px;
+    line-height: 10px;
+    width: 115px;
+    height: 10px;
+    padding: 0 2px;
+    background-color: #36393E;
+    transform:translate3d(5px, -6px, 0);
 }
 
-.list-friend-select {
-	width: 25%;
-
-}
-.btn-square {
-	width: 120px;
-	height: 50px;
-	margin: auto;
-	display: inline-block;
-	padding: 0.5em 1em;
-	font-size: 1.2em;
-	text-decoration: none;
-	background: #668ad8;
-	/*ボタン色*/
-	color: #FFF;
-	border-bottom: solid 4px #627295;
-	border-radius: 3px;
+.list-modal-addUsers{
+    display: flex;
+	flex-direction: row;
+    width:100%;
+    height:65%;
 }
 
-.btn-square:active {
-	/*ボタンを押したとき*/
-	-webkit-transform: translateY(4px);
-	transform: translateY(4px);
-	/*下に動く*/
-	border-bottom: none;
-	/*線を消す*/
+.list-modal-addUsers-searchArea{
+    width:55%;
+    border-top:groove 0.5px lightgray;
+    border-bottom:groove 0.5px lightgray;
+    border-right:groove 0.5px lightgray;
+    height:100%;
+}
+.list-modal-addUsers-searchArea-searchBox{
+    width:100%;
+    padding:8px 5px;
+    border-bottom:groove 0.5px lightgray;
+}
+.list-modal-addUsers-searchArea-result{
+    display: flex;
+	flex-direction: column;
+    border-bottom:groove 0.5px lightgray;
+    padding:8px 5px;
+}
+.list-modal-addUsers-searchArea-result-user{
+    display: flex;
+	flex-direction: row;
+}
+.list-modal-addUsers-searchArea-result-user-icon{
+    width: 20%;
+}
+.list-modal-addUsers-searchArea-result-user-icon img{
+    border-radius: 100%;
+    width: 100%;
+}
+.list-modal-addUsers-searchArea-result-user-name{
+    width: 60%;
+    line-height: 60px;
+    text-align: left;
+    padding-left:10px;
+}
+.list-modal-addUsers-searchArea-result-user-name span{
+    color: white;
+    font-size: 20px;
+}
+.list-modal-addUsers-searchArea-result-user-checkbox{
+    width:20%;
+    line-height: 60px;
+}
+.list-modal-addUsers-IntendAdd{
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+    height:100%;
+    width:45%;
+    padding:15px 10px;
+    border-top:groove 0.5px lightgray;
+    border-bottom:groove 0.5px lightgray;
+}
+.list-modal-addUsers-IntendAdd span{
+    border-radius:3px;
+    background:#212226;
+    padding: 3px;
+    margin:2px;
+    color:white;
+}
+.modal-control{
+    height:50px;
 }
 
-#edit-icon {
-	display: block;
-	position: relative;
-	background: #303136;
-	width: 4px;
-	height: 50px;
-	left: 39px;
-	border-radius: 20px;
-	transition: background-color 0.3s;
-}
 
-#edit-icon:before {
-	display: block;
-	content: "";
-	position: absolute;
-	background: #303136;
-	top: 50%;
-	left: -22px;
-	width: 50px;
-	height: 4px;
-	margin-top: -2px;
-	border-radius: 10px;
-	transition: background-color 0.3s;
-}
 
-#radius-icon {
-	background: transparent;
-	border: double 2px #303136;
-	border-style: dashed;
-	border-radius: 100%;
-	width: 100px;
-	height: 100px;
-	color: white;
-	position: relative;
-	-webkit-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
-	-webkit-transition: -webkit-transform ease-out 200ms;
-	transition: -webkit-transform ease-out 200ms;
-	transition: transform ease-out 200ms;
-	transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
-	transition: border 0.3s;
-}
+
+
+
+
+
+
+
+
+

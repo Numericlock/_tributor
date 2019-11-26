@@ -7,7 +7,7 @@
 
 label {
   display: inline-block;
-  color: #fff;
+  color: #212226;
   cursor: pointer;
   position: relative;
 }
@@ -18,7 +18,7 @@ label span {
   width: 25px;
   height: 25px;
   transform-origin: center;
-  border: 2px solid #fff;
+  border: 2px solid #212226;
   border-radius: 50%;
   vertical-align: -6px;
   margin-right: 10px;
@@ -63,7 +63,7 @@ input[type="checkbox"] {
   display: none;
 }
 input[type="checkbox"]:checked + label span {
-  background-color: #fff;
+  background-color: #212226;
   transform: scale(1.25);
 }
 input[type="checkbox"]:checked + label span:after {
@@ -77,7 +77,7 @@ input[type="checkbox"]:checked + label span:before {
   transition: width 150ms ease 100ms;
 }
 input[type="checkbox"]:checked + label:hover span {
-  background-color: #fff;
+  background-color: #212226;
   transform: scale(1.25);
 }
 input[type="checkbox"]:checked + label:hover span:after {
