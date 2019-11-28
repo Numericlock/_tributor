@@ -202,10 +202,10 @@
 	<!--リスト作成のmodal部分-->
 	<div class="modal">
 	</div>
-        <div class=list-modal-content>
-            <div class="list-modal-title">
+        <div id="list-modal-content" class=modal-content>
+            <div class="modal-title">
                 <span>リストを作成</span>
-                <svg class="list-modal-closeButton" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                <svg class="modal-closeButton" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                      viewBox="0 0 512 512" xml:space="preserve">
                     <g>
                         <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
@@ -225,6 +225,13 @@
                         </div>
                         <i class="fas fa-eye-slash"></i>
                     </div>
+                </div>
+                <div class="list-modal-isPublish">
+                    <span>公開</span>
+                    <input type="checkbox" id="isPublish" value="" />
+                    <label class="checkbox-label" for="isPublish">
+                        <span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
+                    </label> 
                 </div>
             </div>
             <div class="list-modal-addUsers">
@@ -302,28 +309,105 @@
                 </div>
             </div>
         <div class="modal-control">
-            <button class="modal-positive-button" id="modal_next" type='button'>作成</button>
+            <button class="modal-positive-button" id="modal_submit" type='button'>作成</button>
         </div>
     </div>
     <script>
+        function postForm(list_name_value, list_icon_value, list_users_id_value, is_publish_value) {
+            $.ajax({
+                url: 'disclosure_list_insert.php',
+                type:'POST',
+                dataType: 'json',
+                data : {list_name : list_name_value, list_icon : list_icon_value, is_publish : is_publish_value },
+                timeout:3000,
+            }).done(function(data) {
+                alert("ok");
+            }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("error");
+            })
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+/*
+            var form = document.createElement('form');
+            var list_name_request = document.createElement('input');
+            var list_icon_request = document.createElement('input');
+            var list_users_id_request = document.createElement('input');
+            var is_publish_request = document.createElement('input');
+
+            form.method = 'POST';
+            form.action = 'disclosure_list_insert.php';
+
+            list_name_request.type = 'hidden'; //入力フォームが表示されないように
+            list_name_request.name = 'list_name';
+            list_name_request.value = list_name_value;
+
+            list_icon_request.type = 'hidden'; //入力フォームが表示されないように
+            list_icon_request.name = 'list_icon';
+            list_icon_request.value = list_icon_value;
+            
+            list_user_id_request.type = 'hidden'; //入力フォームが表示されないように
+            list_user_id_request.name = 'list-user_id';
+            list_user_id_request.value = list_users_id_value;
+
+            is_publish_request.type = 'hidden'; //入力フォームが表示されないように
+            is_publish_request.name = 'is_publish';
+            is_publish_request.value = is_publish_value;
+            
+            form.appendChild(list_name_request);
+            form.appendChild(list_icon_request);
+            form.appendChild(list_user_id_request);
+            form.appendChild(is_publish_value);
+            document.body.appendChild(form);
+
+            form.submit();
+*/
+        }
+        
+		$('#modal_submit').on('click',function(){
+            console.log($("#isPublish").prop("checked"));
+            
+            postForm($('#text').val(), list_icon_value, list_users_id_value, $("#isPublish").prop("checked"));
+		});	
+        
         $('.btn-square').on('click', function() {
             $('.modal').stop(true, true).fadeIn('500');
-            $('.list-modal-content').show().stop(true, true).animate({
+            $('#list-modal-content').show().stop(true, true).animate({
                 top: "50%",
                 display: "fixed",
                 opacity: 1.0
             }, 500);
         });
+        
         $('.modal').on('click', function() {
             $('.modal').stop(true, true).fadeOut('500');
-            $('.list-modal-content').stop(true, true).animate({
+            $('#list-modal-content').stop(true, true).animate({
                 top: "-1000px",
                 left: "50%",
                 opacity: 0
-            }, 500, function() {
-                $('.modal-content').hide();
-            });
+            }, 500, function(){
+				$('#list-modal-content').hide();
+			});
         });
+        
+		$('#modal_cancel').on('click',function(){
+			$('.modal').stop(true, true).fadeOut('500');
+			$('#list-modal-content').stop(true, true).animate({
+				top: "-100px",
+				opacity: 0
+			}, 500, function(){
+				$('#list-modal-content').hide();
+			});
+		});	
+        
         $('#text').focus(function(){
             $('.id_box').animate({borderTopColor: '#3be5ae', borderLeftColor: '#3be5ae', borderRightColor: '#3be5ae', borderBottomColor: '#3be5ae'}, 200);
         }).blur(function(){

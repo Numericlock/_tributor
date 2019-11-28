@@ -11,7 +11,7 @@
     session_destroy();
     }	
 
-    if (isset($_SESSION["ID"])) {
+    if (isset($_SESSION["user_id"])) {
         header("Location: ../index.php");
         exit;
     }
@@ -22,12 +22,13 @@
         challenge($_POST["id"] , $_POST["password"]))
     {
         echo "kuria-";
+        $_SESSION["user_id"] = $_POST["id"];
     //    header('Location: home.php');  // メイン画面へ遷移
     //    exit();  // 処理終了
     }else{
         echo "desutoroi";
     //    destroy();
-     //   header('Location: login_id.php');  // メイン画面へ遷移
+     //   header('Location: login_id.php');  
     //    exit();  // 処理終了
     }
 

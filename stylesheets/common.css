@@ -154,68 +154,82 @@ button {
 }
 
 .modal-content {
-	display: none;
-	text-align: center;
-	opacity: 1;
-	position: fixed;
-	top: -100px;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	padding: 30px;
-	height: 500px;
-	width: 400px;
-	border-radius: 5px;
-	background-color: white;
-	z-index: 1200;
-}
-
-.modal-content h1 {
-	margin: 0;
-}
-
-.modal-content2 {
-	display: none;
-	text-align: center;
-	opacity: 1;
-	position: fixed;
-	top: 50%;
-	left: 120%;
-	transform: translate(-50%, -50%);
-	padding: 30px;
-	height: 500px;
-	width: 400px;
-	border-radius: 5px;
-	background-color: white;
-	z-index: 1200;
-}
-
-.modal-content2 h1 {
-	margin: 0;
-}
-
-.modal-form {
-	display: -webkit-flex;
 	display: flex;
-	-webkit-flex-direction: column;
 	flex-direction: column;
+	text-align:center;
+	display:none;
+	opacity:0;
+	position:fixed;
+	top:-100px;
+	left:50%;
+	transform:translate(-50%, -50%);
+	width:600px;
+	min-width:200px;
+	background-color:#36393E;
+    border-radius: 6px;
+    border-color: none;
+	z-index:1200;
 }
 
-.message-area {
-	padding: 10px;
+.modal-title{
+    height:50px;
+    background-color:#212226;
+    color:white;
+    line-height: 50px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: solid 1px #212226;
+    padding-left:10px;
+    font-size:20px;
+}
+
+.modal-closeButton{
+    position: absolute;
+    left:10px;
+    top:5px;
+    fill:#4B4B4B;
+    height:40px;
+	transition: fill 0.2s;
+}
+
+.modal-closeButton:hover{
+    fill:white;
+	transition: fill 0.3s;
+}
+
+.modal-textarea {
+	display: flex;
+	flex-direction: row;
+    padding: 10px 15px;
+}
+
+.modal-textarea-userImage {
+    padding: 10px;
+	width: 15%;
+}
+.modal-textarea-userImage img{
+    width:100%;
+    border-radius: 100%;
+}
+
+.modal-textarea textarea {
+    padding: 10px;
+    padding-top:20px;
 	line-height: 1.5;
 	border: 1px solid #ccc;
 	box-shadow: 1px 1px 1px #999;
 	border-radius: 15px;
 	box-shadow: none;
-	width: 100%;
+	width: 80%;
+    min-height:300px;
 	height: 300px;
-	max-height: 400px;
+    max-height: 70vh;
+    background-color:#36393E;
+    color: white;
 }
 
 .modal-control {
-	display: -webkit-flex;
 	display: flex;
-	-webkit-flex-direction: row;
 	flex-direction: row;
 	justify-content: flex-end;
 	padding: 5px 15px;
@@ -250,23 +264,16 @@ button {
 	border-bottom: none;
 	/*線を消す*/
 }
-
-.modal-icon-area {
-	display: -webkit-flex;
-	display: flex;
-	-webkit-flex-direction: row;
-	flex-direction: row;
-}
+/*モーダル　
+リスト選択部分*/
 
 .modal-list-area {
 	display: -webkit-flex;
 	display: flex;
 	-webkit-flex-direction: column;
 	flex-direction: column;
-	background: black;
+	background:　none;
 	height: 300px;
-	padding: 10px;
-	border-radius: 15px;
 }
 
 .modal-list {
@@ -277,7 +284,8 @@ button {
 	-webkit-flex-direction: row;
 	flex-direction: row;
 	justify-content: space-between;
-	padding-bottom: 10px;
+	padding: 10px 20px;
+    border-bottom:solid 1px lightgray;
 }
 
 .modal-list-icon {

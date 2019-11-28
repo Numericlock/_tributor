@@ -52,11 +52,13 @@
     $('#signUp_button').on('click',function(){
         window.location.href = 'signUp.php'; // 通常の遷移
     });
+    
     function hashHex(str){
         const SHA_OBJ = new jsSHA("SHA-256","TEXT");
         SHA_OBJ.update(str);
         return SHA_OBJ.getHash("HEX");
     }
+    
     function postForm(idVal, passwordVal, textVal) {
 
         var form = document.createElement('form');
