@@ -40,7 +40,7 @@
                echo 'IDもしくはメールアドレスが重複しています。';
             }else{
                 //データベースに挿入
-                $stmt = $bdd->prepare("INSERT INTO users (id, password, e_mail) VALUES (?, ?, ?)");
+                $stmt = $bdd->prepare("INSERT INTO disclosure_lists (name, owner_user_id, is_published, is_hidden) VALUES (?, ?, ?, ?)");
                 $stmt->execute(array($id, $password,$mailaddress));  // パスワードのハッシュ化
              //   header('Location:login.php');  // ログイン画面へ遷移
                 exit();  // 処理終了

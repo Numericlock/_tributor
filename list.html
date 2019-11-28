@@ -313,6 +313,23 @@
         </div>
     </div>
     <script>
+/*\
+|*|
+|*|  Polyfill which enables the passage of arbitrary arguments to the
+|*|  callback functions of JavaScript timers (HTML5 standard syntax).
+|*|
+|*|  https://developer.mozilla.org/en-US/docs/DOM/window.setInterval
+|*|
+|*|  Syntax:
+|*|  var timeoutID = window.setTimeout(func, delay[, param1, param2, ...]);
+|*|  var timeoutID = window.setTimeout(code, delay);
+|*|  var intervalID = window.setInterval(func, delay[, param1, param2, ...]);
+|*|  var intervalID = window.setInterval(code, delay);
+|*|
+\*/
+        var searchTimer;
+        var searchStr;
+        
         function postForm(list_name_value, list_icon_value, list_users_id_value, is_publish_value) {
             $.ajax({
                 url: 'disclosure_list_insert.php',
@@ -371,7 +388,29 @@
             form.submit();
 */
         }
+        function append_span(value, id){
+            $(".list-modal-addUsers-IntendAdd").append(
+                "<span id="+ id +"_span"+">"+value+"</span>"
+            );
+        }
+        function remove_span(value, id){
+            $("#"+id+"_span").remove();
+        }
+        function search_for(){
+            console.log(searchStr);
+            $(".list-modal-addUsers-searchArea-result").empty();
+            $.get("search_for_users.php",{'list-users' : searchStr},function(data){
+                console.log(data);
+                $('.list-modal-addUsers-searchArea-result').append(data);
+            });
+        }
         
+        $("#search_text").on("input", function() {
+      //      document.getElementById("id_count").innerText = idStr.length+"/24";
+            searchStr = $(this).val();
+            clearTimeout(searchTimer);
+            searchTimer = window.setTimeout(search_for, 700);
+        });
 		$('#modal_submit').on('click',function(){
             console.log($("#isPublish").prop("checked"));
             
