@@ -4,11 +4,11 @@
     session_start();
     $session_id = session_id();
     if (!empty($_POST['logout'])){
-        // セッションの変数のクリア
-    $_SESSION = array();
+			// セッションの変数のクリア
+		$_SESSION = array();
 
-    // セッションクリア
-    session_destroy();
+		// セッションクリア
+		session_destroy();
     }	
 
     if (isset($_SESSION["user_id"])) {

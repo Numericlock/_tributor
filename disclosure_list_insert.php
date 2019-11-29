@@ -8,7 +8,7 @@
         exit;
     }
 
-    if( isset( $_POST["user_id"], $_POST["list_name"], $_POST["list_icon"], $_POST["is_publish"] )==true ){
+    if( isset($_POST["list_name"], $_POST["is_publish"] )==true ){
         
         if(idCheck()==true && mailCheck()==true && passwordCheck()==true){
             //id_generator($_POST["id"]);
@@ -17,35 +17,39 @@
     }
     function insert(){
         require 'bdd.php';
-        // 入力したユーザIDとパスワードの格納
-        //$user_id = $str;
-        $id = $_POST["id"];
-        $password = $_POST["password"];
-        $mailaddress = $_POST["email"];
-       // $user_id = "hishida";
-     //   $password = "hishida1";
-     //   $mailaddress = "tatsuki1@live.jp";
+        $list_name = $_POST["list_name"];
+        $list_icon = $_POST["list_icon"];
+        $is_publish = $_POST["is_publish"];
+        $list_users_id_array = $_POST["list_user_id_array"];
+		$list_id ="";
 
         // エラー処理
         try {
-            $id_result = "SELECT * FROM users WHERE id ='$id'";
-                $id_stmt = $bdd->prepare($id_result);
-                $id_stmt->execute();
-                $id_count=$id_stmt->rowCount();
-            $mail_result = "SELECT * FROM users WHERE e_mail ='$mailaddress'";
-                $mail_stmt = $bdd->prepare($mail_result);
-                $mail_stmt->execute();
-                $mail_count=$mail_stmt->rowCount();
-            if($id_count>=1 && $mail_count>1){
-               echo 'IDもしくはメールアドレスが重複しています。';
-            }else{
-                //データベースに挿入
-                $stmt = $bdd->prepare("INSERT INTO disclosure_lists (name, owner_user_id, is_published, is_hidden) VALUES (?, ?, ?, ?)");
-                $stmt->execute(array($id, $password,$mailaddress));  // パスワードのハッシュ化
-             //   header('Location:login.php');  // ログイン画面へ遷移
-                exit();  // 処理終了
-            }
+			$stmt = $bdd->prepare("INSERT INTO disclosure_lists (name, owner_user_id, is_published, is_hidden) VALUES (?, ?, ?, ?)");
+			$stmt->execute(array($list_name, $_SESSION["user_id"], $is_publish)); 
+			$stmt = $bdd->prepare("SELECT id FROM users WHERE created_at =(select max(created_at) from users)");
+			$stmt->execute();  
+			foreach($stmt as $row){ //データの表示
+				$list_id=$row['id'];
+			}
+			for($i=0;$i < count($list_users_id_array.length);$i++){
+				$stmt = $bdd->prepare("INSERT INTO disclosure_lists_users (list_id, id) VALUES (?, ?)");
+				$stmt->execute(array($list_id, $list_users_id_array.length[i] ));  	
+			} 
         } catch (PDOException $e) {
             echo 'データベースエラー';
+        }
+    }
+    function is_have($user_id){
+        require 'bdd.php';
+        $stmt = $bdd->prepare('SELECT * FROM users WHERE id = ?');
+        $stmt->execute(array($user_id));
+
+        $cntent =$stmt->rowCount();
+
+        if($cntent != '0'){
+            return true;
+        }else{
+            return false;
         }
     }

@@ -4,10 +4,10 @@
 	//session_start();
 
 	//user_id or user_name データ呼び出し
-	if(isset($_GET['list-users'])){
-		$search_str=$_GET['list-users'];
-		$stmt = $bdd->prepare('SELECT id,nickname FROM users WHERE id LIKE ? OR nickname LIKE ?');
-		$stmt->execute(array($search_str."%", $search_str."%"));
+	if(isset($_GET['list-id'])){
+		$id=$_GET['list-id'];
+		$stmt = $bdd->prepare('SELECT * FROM disclosure_lists_users WHERE id = ?');
+		$stmt->execute(array($id));
 		foreach($stmt as $row){
 			print '<div class="list-modal-addUsers-searchArea-result-user">
 						<div class="list-modal-addUsers-searchArea-result-user-icon">
