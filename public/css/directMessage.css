@@ -1,0 +1,113 @@
+
+.directMessage-wrapper{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;	
+}
+.content-title{
+	max-width:1000px;
+	z-index:100;
+}
+.directMessage-icon{
+	max-width:115%;
+	width:115%;
+	padding-left:5px;
+	padding-top:0;
+	padding-bottom:0;
+	fill:white;
+}
+.talkRoom-wrapper{
+	background:white;
+	width:350px;
+	min-height:100vw;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;	
+	border-right:1px ridge #212226;
+}
+.talkRoom{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	padding:10px;
+	border-bottom:1px ridge #212226;
+	transition:background 0.3s;
+}
+.talkRoom:hover{
+	background:#CCCCCC;
+	transition:background 0.2s;
+	
+}
+.users-icon{
+	width:60px;
+}
+.users-icon img{
+	width:100%;
+	border-radius:100%;
+}
+.users-information{
+	width:90%;
+	padding:0 10px;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+.users-name{
+	font-size:14px;
+	font-weight: bolder;
+}
+.latest-message-post-time{
+	
+}
+.talk-wrapper{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	background:white;
+	width:400px;
+	min-height:100vw;
+}
+.talk{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+.talkRoom-title{
+	
+}
+.message-partner{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	align-items: flex-start;
+	padding:5px 10px;
+}
+.messageUser-icon{
+	width:40px;
+	min-width:40px;
+}
+.messageUser-icon img{
+	width:100%;
+	border-radius:100%;
+}
+.message{
+word-wrap:break-word;
+white-space:pre-wrap;
+	
+}
+.message-mine{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-end;
+	padding:5px 10px;
+}

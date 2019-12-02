@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="public/css/bmesse.css" />
-    <script src="public/js/jquery-2.1.3.js"></script>
-    <link rel="icon" href="public/favicon.ico">
+	<meta charset="utf-8">
+	<title>通知/-tributor</title>
+	<script src="/_tributor/public/js/jquery-2.1.3.js"></script>
+    <link rel="icon" href="/_tributor/public/favicon.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="public/css/discord.css">
-	<link rel="stylesheet" href="public/css/common.css">
-	<link rel="stylesheet" href="public/css/home.css">
-	<link rel="stylesheet" href="public/css/plus.css">
-	<link rel="stylesheet" href="public/css/checkbox.css">
+	<link rel="stylesheet" href="/_tributor/public/css/common.css">
+	<link rel="stylesheet" href="/_tributor/public/css/notice.css">
+	<link rel="stylesheet" href="/_tributor/public/css/plus.css">
+	<link rel="stylesheet" href="/_tributor/public/css/checkbox.css">
 	<script src="http://cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
-    <title>チャットサンプル</title>
 </head>
 <body>
-<div class="wrapper">
+	<div class="wrapper">
 		<div class="nav">
-			<a href="#">
-				<svg class="nav-icon home-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+			<a href="/_tributor/home/">
+				<svg class="nav-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 						 viewBox="0 0 512 512" xml:space="preserve">
 					<g>
 						<polygon class="st0" points="442.531,218 344.828,120.297 256,31.469 167.172,120.297 69.438,218.047 0,287.469 39.984,327.453 
@@ -29,8 +26,8 @@
 					</g>
 				</svg>
 			</a>
-			<a href="notice.html">
-				<svg class="nav-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+			<a>
+				<svg class="nav-icon notice-icon"  version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 					 viewBox="0 0 512 512" xml:space="preserve">
 					<g>
 						<path class="st0" d="M127.75,398h256.5V282.125c0-70.813-57.422-128.25-128.25-128.25c-70.844,0-128.25,57.438-128.25,128.25V398z
@@ -51,7 +48,7 @@
 					</g>
 				</svg>
 			</a>
-			<a href="#">
+			<a href="">
 				<svg class="nav-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 					 viewBox="0 0 512 512" xml:space="preserve">
 					<g>
@@ -66,7 +63,7 @@
 					</g>
 				</svg>
 			</a>
-			<a href="#">
+			<a href="/_tributor/lists/">
 				<svg class="nav-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 					 viewBox="0 0 512 512" xml:space="preserve">
 					<g>
@@ -88,7 +85,7 @@
 					</g>
 				</svg>
 			</a>
-			<a href="#">
+			<a href="directmessage.html">
 				<svg class="nav-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 					 viewBox="0 0 512 512" xml:space="preserve">
 					<g>
@@ -109,55 +106,155 @@
 			</div>
 			
 		</div>
-		<div id="timeLine">
+		<div class="content">
 			<div class="content-title">
-				　<span>ぬなめ</span>
+		　		<span>通知</span>
 			</div>
-			<div class="users-content">
-				<div class="users-information-wrapper">
-    <div id="your_container">
-        <!-- チャットの外側部分① -->
-        <div id="bms_messages_container">
-            <!-- ヘッダー部分② -->
-            <div id="bms_chat_header">
-                <!--ステータス-->
-            </div>
-
-            <!-- タイムライン部分③ -->
-            <div id="bms_messages">
-    
-                <!--メッセージ１（左側）-->
-                <div class="bms_message bms_left">
-                    <div class="bms_message_box">
-                        <div class="bms_message_content">
-                            <div class="bms_message_text">ほうほうこりゃー便利じゃないか</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
-
-                <!--メッセージ２（右側）-->
-                <div class="bms_message bms_right">
-                    <div class="bms_message_box">
-                        <div class="bms_message_content">
-                            <div class="bms_message_text">うん、まあまあいけとるな</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
-            </div>
-    
-            <!-- テキストボックス、送信ボタン④ -->
-            <div id="bms_send">
-                <textarea id="bms_send_message"></textarea>
-                <div id="bms_send_btn">送信</div>
-            </div>
-        </div>
-        </div>
-
+			<div class="tab-wrapper">
+				<button type='button' id="reaction_button">いいね　リツ</button>
+				<button type='button' id="reply_button">リプライ</button>
+			</div>
+			<div class="reaction-wrapper">
+				<div class="users-content">
+					<div class="users-information-wrapper">
+					<!--	<img src="/_tributor/public/img/1.jpg"></img>
+					-->
+						<div class="users-icon">
+							<img src="/_tributor/public/img/2.jpg">
+						</div>
+						<div class="users-information">
+							<div class="users-name">
+								<span>にゅーめりっくろっく</span>
+							</div>
+							<div class="information">
+								<span><img class="information-icon" src="/_tributor/public/img/comment.svg">文章-20分前-<img class="information-icon" src="/_tributor/public/img/list2.svg"></span>
+							</div>
+						</div>
+					</div>
+					<div class="users-content-sentence">
+						<span>くそねむい</span>
+					</div>				
+					<div class="control">
+						<button type='button'><img class="control-icon" src="/_tributor/public/img/comment.svg"></button>
+						<button type='button'><img class="control-icon" src="/_tributor/public/img/爆発.svg"></button>
+						<button type='button'><img class="control-icon" src="/_tributor/public/img/heart.svg"></button>
+					</div>
+				</div>
+			</div>
+			<div class="reply-wrapper">
+				<div class="users-content">
+					<div class="users-information-wrapper">
+					<!--	<img src="/_tributor/public/img/1.jpg"></img>
+					-->
+						<div class="users-icon">
+							<img src="/_tributor/public/img/2.jpg">
+						</div>
+						<div class="users-information">
+							<div class="users-name">
+								<span>にゅーめりっくろっく</span>
+							</div>
+							<div class="information">
+								<span><img class="information-icon" src="/_tributor/public/img/comment.svg">文章-20分前-<img class="information-icon" src="/_tributor/public/img/list2.svg"></span>
+							</div>
+						</div>
+					</div>
+					<div class="users-content-sentence">
+						<span>くそねむい</span>
+					</div>				
+					<div class="control">
+						<button type='button'><img class="control-icon" src="/_tributor/public/img/comment.svg"></button>
+						<button type='button'><img class="control-icon" src="/_tributor/public/img/爆発.svg"></button>
+						<button type='button'><img class="control-icon" src="/_tributor/public/img/heart.svg"></button>
+					</div>
+				</div>
+				<div class="users-content">
+					<div class="users-information-wrapper">
+					<!--	<img src="/_tributor/public/img/1.jpg"></img>
+					-->
+						<div class="users-icon">
+							<img src="/_tributor/public/img/2.jpg">
+						</div>
+						<div class="users-information">
+							<div class="users-name">
+								<span>にゅーめりっくろっく</span>
+							</div>
+							<div class="information">
+								<span><img class="information-icon" src="/_tributor/public/img/comment.svg">文章-20分前-<img class="information-icon" src="/_tributor/public/img/list2.svg"></span>
+							</div>
+						</div>
+					</div>
+					<div class="users-content-sentence">
+						<span>くそねむい</span>
+						<img src="/_tributor/public/img/3.jpg">
+					</div>				
+					<div class="control">
+						<button type='button'><img class="control-icon" src="/_tributor/public/img/comment.svg"></button>
+						<button type='button'><img class="control-icon" src="/_tributor/public/img/爆発.svg"></button>
+						<button type='button'><img class="control-icon" src="/_tributor/public/img/heart.svg"></button>
+					</div>
+				</div>
+				<div class="users-content">
+					<div class="users-information-wrapper">
+					<!--	<img src="/_tributor/public/img/1.jpg"></img>
+					-->
+						<div class="users-icon">
+							<img src="/_tributor/public/img/2.jpg">
+						</div>
+						<div class="users-information">
+							<div class="users-name">
+								<span>にゅーめりっくろっく</span>
+							</div>
+							<div class="information">
+								<span><img class="information-icon" src="/_tributor/public/img/comment.svg">文章-20分前-<img class="information-icon" src="/_tributor/public/img/list2.svg"></span>
+							</div>
+						</div>
+					</div>
+					<div class="users-content-sentence">
+						<span>くそねむい</span>
+						<img src="/_tributor/public/img/1.jpg">
+					</div>				
+					<div class="control">
+						<button type='button'><img class="control-icon" src="/_tributor/public/img/comment.svg"></button>
+						<button type='button'><img class="control-icon" src="/_tributor/public/img/爆発.svg"></button>
+						<button type='button'><img class="control-icon" src="/_tributor/public/img/heart.svg"></button>
+					</div>
+				</div>
+			</div>
 		</div>
-			
-
+		<div class="list">
+			<a href="#"><img class="common-list-icon" src="/_tributor/public/img/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="/_tributor/public/img/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="/_tributor/public/img/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="/_tributor/public/img/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="/_tributor/public/img/2.jpg"></a>
+			<a href="#">
+				<svg class="edit-list-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+					 viewBox="0 0 512 512" xml:space="preserve">
+					<g>
+						<path class="st0" d="M504.16,183.326l-17.24-17.233c-10.453-10.461-27.415-10.452-37.868,0l-16.127,16.136l55.1,55.099
+							l16.135-16.126C514.613,210.741,514.613,193.787,504.16,183.326z"/>
+						<path class="st0" d="M18.474,178.378H64.86c10.199,0,18.474-8.274,18.474-18.49c0-10.208-8.275-18.482-18.474-18.482H18.474
+							C8.274,141.406,0,149.68,0,159.888C0,170.104,8.274,178.378,18.474,178.378z"/>
+						<rect x="22.83" y="197.722" class="st0" width="34.583" height="116.557"/>
+						<path class="st0" d="M83.334,352.113c0-10.208-8.275-18.491-18.474-18.491H18.474C8.274,333.622,0,341.905,0,352.113
+							c0,10.207,8.274,18.482,18.474,18.482H64.86C75.059,370.595,83.334,362.32,83.334,352.113z"/>
+						<rect x="139.594" y="150.44" class="st0" width="155.624" height="25.937"/>
+						<rect x="139.594" y="245.543" class="st0" width="155.624" height="25.938"/>
+						<rect x="139.594" y="340.647" class="st0" width="95.104" height="25.937"/>
+						<path class="st0" d="M57.413,71.556c0.008-3.977,3.242-7.211,7.215-7.219h263.645c8.82,0.008,16.638,3.52,22.434,9.287
+							c5.767,5.8,9.283,13.619,9.292,22.434v132.194l34.583-34.583V96.058c-0.013-36.627-29.682-66.296-66.309-66.304H64.628
+							c-23.096,0.017-41.785,18.71-41.798,41.802v50.507h34.583V71.556z"/>
+						<path class="st0" d="M359.998,415.943c-0.009,8.814-3.525,16.633-9.292,22.424c-5.796,5.775-13.614,9.288-22.434,9.296H64.628
+							c-3.973-0.008-7.206-3.242-7.215-7.218v-50.507H22.83v50.507c0.013,23.092,18.702,41.785,41.798,41.801h263.645
+							c36.627-0.008,66.296-29.677,66.309-66.303v-58.274l-34.583,34.583V415.943z"/>
+						<polygon class="st0" points="281.81,333.344 281.81,388.443 336.911,388.443 472.997,252.357 417.897,197.257 	"/>
+					</g>
+				</svg>
+			</a>
+		</div>
+	</div>
+	<div class="modal">
+	</div>
 	<div class="modal-content">
 		<form class="modal-form" method="POST">
 			<div class="modal-title">
@@ -171,31 +268,9 @@
 				<textarea class="message-area" id="textarea" name="post_message" title="今何してる？"　aria-label="今何してる？"　placeholder="今何してる？"></textarea>
 			</div>
 			<div class="modal-icon-area">
-				<button type='button'><img class="control-icon" src="public/img/comment.svg"></button>
-				<button type='button'><img class="control-icon" src="public/img/爆発.svg"></button>
-				<button type='button'>
-					<svg class="control-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"  style="enable-background:new 0 0 512 512;" xml:space="preserve">
-						<g>
-							<path class="st0" d="M494.951,81.411c-8.782-19.97-22.202-37.857-40.19-52.147l-7.81,9.818l7.806-9.818
-								C429.524,9.162,400.535-0.027,372.48,0c-29.128,0.008-57.267,9.731-80.169,26.77c-14.65,10.904-27.137,24.888-36.317,41.262
-								c-9.18-16.374-21.668-30.358-36.318-41.262C196.779,9.731,168.64,0.008,139.517,0c-28.06-0.027-57.044,9.162-82.277,29.264
-								c-17.992,14.29-31.408,32.178-40.194,52.147c-8.794,19.979-13.004,41.996-13,64.82c0.04,49.014,19.226,101.802,55.124,148.402
-								c31.464,40.788,71.147,80.169,105.976,115.916c17.41,17.861,33.6,34.794,46.853,50.336c13.262,15.515,23.544,29.728,29.185,41.41
-								l-0.017-0.035c1.987,4.113,5.12,6.484,7.43,7.718c1.19,0.639,2.24,1.041,3.181,1.339l1.409,0.367l0.853,0.158
-								c0.407,0.053,0.669,0.132,1.956,0.158c1.238-0.018,1.518-0.105,1.925-0.149c1.204-0.193,1.847-0.385,2.822-0.709
-								c1.375-0.481,3.032-1.208,4.87-2.573c1.816-1.339,3.833-3.422,5.211-6.274c5.64-11.683,15.918-25.903,29.176-41.41
-								c19.883-23.321,46.351-49.732,73.676-77.789c27.334-28.09,55.547-57.862,79.153-88.464c35.897-46.6,55.088-99.378,55.127-148.393
-								C507.955,123.416,503.746,101.39,494.951,81.411z M432.954,279.317c-29.998,38.924-69.059,77.806-104.076,113.72
-								c-17.516,17.975-34.024,35.214-47.97,51.561c-9.757,11.464-18.171,22.421-24.91,33.105c-6.738-10.684-15.152-21.641-24.909-33.105
-								c-20.92-24.503-47.624-51.089-74.791-79.005c-27.16-27.898-54.765-57.092-77.255-86.277
-								c-32.979-42.732-49.948-90.696-49.908-133.087c0-19.751,3.636-38.268,10.878-54.712c7.25-16.442,18.062-30.847,32.842-42.617
-								c20.885-16.574,43.988-23.776,66.662-23.803c23.497-0.008,46.525,7.903,65.178,21.8c18.658,13.905,32.869,33.63,39.174,57.328
-								c1.462,5.496,6.441,9.328,12.125,9.328c5.683,0,10.663-3.833,12.124-9.328c6.305-23.698,20.516-43.423,39.179-57.328
-								C325.95,33,348.979,25.09,372.48,25.098c22.674,0.027,45.777,7.229,66.661,23.803l0,0c14.782,11.77,25.593,26.175,32.848,42.626
-								c7.237,16.435,10.877,34.952,10.877,54.712C482.905,188.621,465.937,236.585,432.954,279.317z"/>
-						</g>
-					</svg>
-				</button>
+				<button type='button'><img class="control-icon" src="/_tributor/public/img/comment.svg"></button>
+				<button type='button'><img class="control-icon" src="/_tributor/public/img/爆発.svg"></button>
+				<button type='button'><img class="control-icon" src="/_tributor/public/img/heart.svg"></button>
 			</div>
 		</form>
 	</div>
@@ -210,7 +285,7 @@
 			</div>
 			<div class="modal-list-area">
 				<div class="modal-list">
-					<a href="#"><img class="modal-list-icon" src="public/img/2.jpg"></a>
+					<a href="#"><img class="modal-list-icon" src="/_tributor/public/img/2.jpg"></a>
 					<span>にゅーめりっくろっく</span>
 					<div class="checkbox">
 							<div>
@@ -222,7 +297,7 @@
 					</div>
 				</div>
 								<div class="modal-list">
-					<a href="#"><img class="modal-list-icon" src="public/img/2.jpg"></a>
+					<a href="#"><img class="modal-list-icon" src="/_tributor/public/img/2.jpg"></a>
 					<span>にゅーめりっくろっく</span>
 					<div class="checkbox">
 							<div>
@@ -234,7 +309,7 @@
 					</div>
 				</div>
 								<div class="modal-list">
-					<a href="#"><img class="modal-list-icon" src="public/img/2.jpg"></a>
+					<a href="#"><img class="modal-list-icon" src="/_tributor/public/img/2.jpg"></a>
 					<span>にゅーめりっくろっく</span>
 					<div class="checkbox">
 							<div>
@@ -367,7 +442,37 @@
 				$('#disclose_change').stop(true, true).fadeIn('500');
 			}
 		});
+	/*	$('#reply_button').on('click',function(){
+			$('.reply-wrapper').show().stop(true, true).animate({
+				display: "block",
+				opacity:1
+			}, 300);
+			$('.reaction-wrapper').show().stop(true, true).animate({
+				display: "none",
+				opacity:0
+			}, 200);
+		});	
+		$('#reaction_button').on('click',function(){
+			$('.reaction-wrapper').show().stop(true, true).animate({
+				display: "block",
+				opacity:1
+			}, 300);
+			$('.reply-wrapper').show().stop(true, true).animate({
+				display: "none",
+				opacity:0
+			}, 200);
+		});	
+		*/
+		$('#reply_button').on('click',function(){
+			$('.reply-wrapper').fadeIn(500);
+			$('.reaction-wrapper').hide();
+			$("html, body").animate({scrollTop:0}, 250, "swing");
+		});	
+		$('#reaction_button').on('click',function(){
+			$('.reaction-wrapper').fadeIn(500);
+			$('.reply-wrapper').hide();
+			$("html, body").animate({scrollTop:0}, 250, "swing");
+		});	
 	</script>
-
 </body>
 </html>

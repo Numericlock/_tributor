@@ -33,8 +33,10 @@
 				$list_id=$row['id'];
 			}
 			for($i=0;$i < count($list_users_id_array.length);$i++){
-				$stmt = $bdd->prepare("INSERT INTO disclosure_lists_users (list_id, id) VALUES (?, ?)");
-				$stmt->execute(array($list_id, $list_users_id_array.length[i] ));  	
+				if(is_have($list_users_id_array.length[i]) = false){
+					$stmt = $bdd->prepare("INSERT INTO disclosure_lists_users (list_id, id) VALUES (?, ?)");
+					$stmt->execute(array($list_id, $list_users_id_array.length[i] ));  	
+				}
 			} 
         } catch (PDOException $e) {
             echo 'データベースエラー';
