@@ -3,14 +3,14 @@
 <head>
 	<meta charset="utf-8">
 	<title>ホーム/</title>
-	<script src="public/js/jquery-2.1.3.js"></script>
-    <link rel="icon" href="public/favicon.ico">
+	<script src="javascripts/jquery-2.1.3.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="public/css/common.css">
-	<link rel="stylesheet" href="public/css/home.css">
-	<link rel="stylesheet" href="public/css/plus.css">
-	<link rel="stylesheet" href="public/css/checkbox.css">
-	<link rel="stylesheet" href="public/css/profile.css">
+	<link rel="stylesheet" href="stylesheets/discord.css">
+	<link rel="stylesheet" href="stylesheets/common.css">
+	<link rel="stylesheet" href="stylesheets/home.css">
+	<link rel="stylesheet" href="stylesheets/plus.css">
+	<link rel="stylesheet" href="stylesheets/checkbox.css">
+	<link rel="stylesheet" href="stylesheets/profile.css">
 	<script src="http://cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
 
 </head>
@@ -21,9 +21,9 @@
 				<svg class="nav-icon home-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 						 viewBox="0 0 512 512" xml:space="preserve">
 					<g>
-						<polygon class="st0" points="442.531,218 344.828,120.297 256,31.469 167.172,120.297 69.438,218.047 0,287.469 39.984,327.453
+						<polygon class="st0" points="442.531,218 344.828,120.297 256,31.469 167.172,120.297 69.438,218.047 0,287.469 39.984,327.453 
 							109.406,258.031 207.156,160.281 256,111.438 304.844,160.281 402.531,257.984 472.016,327.453 512,287.469 	"/>
-						<polygon class="st0" points="85.719,330.375 85.719,480.531 274.75,480.531 274.75,361.547 343.578,361.547 343.578,480.531
+						<polygon class="st0" points="85.719,330.375 85.719,480.531 274.75,480.531 274.75,361.547 343.578,361.547 343.578,480.531 
 							426.281,480.531 426.281,330.328 256.016,160.063 	"/>
 					</g>
 				</svg>
@@ -106,22 +106,19 @@
 			<div>
 				<button type="button" id="dotRadius" data-toggle="modal" data-target="#ModalAddCalendar"><span id="plus"></span></button>
 			</div>
-
-
-
+			
+			
+			
 		</div>
-
-		<div id="timeLine">
+		
+		<div id="timeLine">	
 			<div class="content-title">
 				　<span>プロフィール</span>
 			</div>
-			<div id="setting">
-				<button type="button" id="dotRadius2" data-toggle="modal2" data-target="#ModalAddCalendar">プロフィール編集</button>
 
-			</div>
 			<div id="profile">
 					<div class="profile-icon">
-						<img src="public/img/2.jpg">
+						<img src="images/2.jpg">
 			        </div>
 
 		 		<h1>へぉー</h1>
@@ -131,7 +128,7 @@
 					<span>フォロワー -514</span>
 				</div>
 			</div>
-
+		
 			<div class="tab-wrapper">
 				<button type='button' id="reaction_button">投稿</button>
 				<button type='button' id="reply_button">返信</button>
@@ -141,23 +138,23 @@
 
 			<div class="users-content">
 				<div class="users-information-wrapper">
-				<!--	<img src="public/img/1.jpg"></img>
+				<!--	<img src="images/1.jpg"></img>
 				-->
 					<div class="users-icon">
-						<img src="public/img/2.jpg">
+						<img src="images/2.jpg">
 					</div>
 					<div class="users-information">
 						<div class="users-name">
 							<span>にゅーめりっくろっく</span>
 						</div>
 						<div class="information">
-							<span><img class="information-icon" src="public/img/comment.svg">文章-20分前-<img class="information-icon" src="public/img/list2.svg"></span>
+							<span><img class="information-icon" src="images/comment.svg">文章-20分前-<img class="information-icon" src="images/list2.svg"></span>
 						</div>
 					</div>
 				</div>
 				<div class="content">
 					<span>くそねむい</span>
-				</div>
+				</div>				
 				<div class="control">
 					<button type='button'>
 						<svg class="control-icon comment" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -199,7 +196,7 @@
 								<polygon class="st0" points="166.417,115.48 229.664,216.934 235.198,213.742 179.072,108.182 177.56,107.753 166.8,113.978 	"/>
 								<path class="st0" d="M155.918,97.02l12.431-7.205l-8.754-15.118l-1.474-0.411l-10.565,6.094c-0.541,0.327-0.709,0.962-0.411,1.466
 									L155.918,97.02z"/>
-								<polygon class="st0" points="345.489,396.426 282.262,295.206 276.708,298.407 333.506,404.247 333.805,404.274 334.346,404.153
+								<polygon class="st0" points="345.489,396.426 282.262,295.206 276.708,298.407 333.506,404.247 333.805,404.274 334.346,404.153 
 									345.116,397.947 	"/>
 								<path class="st0" d="M356.025,414.904l-12.449,7.186l8.754,15.118c0.243,0.419,0.634,0.579,0.934,0.579l0.541-0.16l10.546-6.093
 									c0.505-0.308,0.7-0.99,0.411-1.474L356.025,414.904z"/>
@@ -207,7 +204,7 @@
 									L88.761,262.952z"/>
 								<path class="st0" d="M49.714,249.841v12.206c0,0.607,0.476,1.083,1.092,1.083h17.47v-14.362H50.788
 									C50.19,248.768,49.714,249.244,49.714,249.841z"/>
-								<polygon class="st0" points="423.463,249.728 422.37,248.655 302.989,252.864 302.989,259.266 422.352,263.252 423.463,262.178
+								<polygon class="st0" points="423.463,249.728 422.37,248.655 302.989,252.864 302.989,259.266 422.352,263.252 423.463,262.178 	
 									"/>
 								<path class="st0" d="M462.211,262.047v-12.206c0-0.495-0.589-1.055-1.083-1.055l-17.507-0.018v14.362h17.507
 									C461.716,263.13,462.211,262.654,462.211,262.047z"/>
@@ -215,7 +212,7 @@
 									l56.144-105.317L229.664,295.206z"/>
 								<path class="st0" d="M147.146,430.061l0.429,1.474l10.546,6.093c0.158,0.094,0.326,0.16,0.504,0.16l0.971-0.579l8.754-15.118
 									l-12.431-7.186L147.146,430.061z"/>
-								<polygon class="st0" points="282.262,216.934 345.489,115.499 345.116,113.978 334.346,107.753 332.844,108.182 276.708,213.742
+								<polygon class="st0" points="282.262,216.934 345.489,115.499 345.116,113.978 334.346,107.753 332.844,108.182 276.708,213.742 	
 									"/>
 								<polygon class="st0" points="364.761,81.865 364.369,80.38 353.804,74.286 352.32,74.697 343.576,89.816 356.025,97.02 	"/>
 								<path class="st0" d="M271.333,300.992l-6.187,1.661l38.86,154.482c0.065,0.028,0.14,0.046,0.233,0.046l10.835-3.508
@@ -267,63 +264,63 @@
 			</div>
 			<div class="users-content">
 				<div class="users-information-wrapper">
-				<!--	<img src="public/img/1.jpg"></img>
+				<!--	<img src="images/1.jpg"></img>
 				-->
 					<div class="users-icon">
-						<img src="public/img/2.jpg">
+						<img src="images/2.jpg">
 					</div>
 					<div class="users-information">
 						<div class="users-name">
 							<span>にゅーめりっくろっく</span>
 						</div>
 						<div class="information">
-							<span><img class="information-icon" src="public/img/comment.svg">文章-20分前-<img class="information-icon" src="public/img/list2.svg"></span>
+							<span><img class="information-icon" src="images/comment.svg">文章-20分前-<img class="information-icon" src="images/list2.svg"></span>
 						</div>
 					</div>
 				</div>
 				<div class="content">
 					<span>くそねむい</span>
-					<img src="public/img/3.jpg">
-				</div>
+					<img src="images/3.jpg">
+				</div>				
 				<div class="control">
-					<button type='button'><img class="control-icon" src="public/img/comment.svg"></button>
-					<button type='button'><img class="control-icon" src="public/img/爆発.svg"></button>
-					<button type='button'><img class="control-icon" src="public/img/heart.svg"></button>
+					<button type='button'><img class="control-icon" src="images/comment.svg"></button>
+					<button type='button'><img class="control-icon" src="images/爆発.svg"></button>
+					<button type='button'><img class="control-icon" src="images/heart.svg"></button>
 				</div>
 			</div>
 			<div class="users-content">
 				<div class="users-information-wrapper">
-				<!--	<img src="public/img/1.jpg"></img>
+				<!--	<img src="images/1.jpg"></img>
 				-->
 					<div class="users-icon">
-						<img src="public/img/2.jpg">
+						<img src="images/2.jpg">
 					</div>
 					<div class="users-information">
 						<div class="users-name">
 							<span>にゅーめりっくろっく</span>
 						</div>
 						<div class="information">
-							<span><img class="information-icon" src="public/img/comment.svg">文章-20分前-<img class="information-icon" src="public/img/list2.svg"></span>
+							<span><img class="information-icon" src="images/comment.svg">文章-20分前-<img class="information-icon" src="images/list2.svg"></span>
 						</div>
 					</div>
 				</div>
 				<div class="content">
 					<span>くそねむい</span>
-					<img src="public/img/1.jpg">
-				</div>
+					<img src="images/1.jpg">
+				</div>				
 				<div class="control">
-					<button type='button'><img class="control-icon" src="public/img/comment.svg"></button>
-					<button type='button'><img class="control-icon" src="public/img/爆発.svg"></button>
-					<button type='button'><img class="control-icon" src="public/img/heart.svg"></button>
+					<button type='button'><img class="control-icon" src="images/comment.svg"></button>
+					<button type='button'><img class="control-icon" src="images/爆発.svg"></button>
+					<button type='button'><img class="control-icon" src="images/heart.svg"></button>
 				</div>
 			</div>
 		</div>
 		<div class="list">
-			<a href="#"><img class="common-list-icon" src="public/img/2.jpg"></a>
-			<a href="#"><img class="common-list-icon" src="public/img/2.jpg"></a>
-			<a href="#"><img class="common-list-icon" src="public/img/2.jpg"></a>
-			<a href="#"><img class="common-list-icon" src="public/img/2.jpg"></a>
-			<a href="#"><img class="common-list-icon" src="public/img/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="images/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="images/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="images/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="images/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="images/2.jpg"></a>
 			<a href="#">
 				<svg class="edit-list-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 					 viewBox="0 0 512 512" xml:space="preserve">
@@ -352,8 +349,7 @@
 	</div>
 	<div class="modal">
 	</div>
-
-
+	
 	<div class="modal-content">
 		<form class="modal-form" method="POST">
 			<div class="modal-title">
@@ -367,8 +363,8 @@
 				<textarea class="message-area" id="textarea" name="post_message" title="今何してる？"　aria-label="今何してる？"　placeholder="今何してる？"></textarea>
 			</div>
 			<div class="modal-icon-area">
-				<button type='button'><img class="control-icon" src="public/img/comment.svg"></button>
-				<button type='button'><img class="control-icon" src="public/img/爆発.svg"></button>
+				<button type='button'><img class="control-icon" src="images/comment.svg"></button>
+				<button type='button'><img class="control-icon" src="images/爆発.svg"></button>
 				<button type='button'>
 					<svg class="control-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"  style="enable-background:new 0 0 512 512;" xml:space="preserve">
 						<g>
@@ -395,7 +391,7 @@
 			</div>
 		</form>
 	</div>
-
+	
 	<div class="modal-content2">
 		<form class="modal-form" method="POST">
 			<div class="modal-title">
@@ -407,7 +403,7 @@
 			</div>
 			<div class="modal-list-area">
 				<div class="modal-list">
-					<a href="#"><img class="modal-list-icon" src="public/img/2.jpg"></a>
+					<a href="#"><img class="modal-list-icon" src="images/2.jpg"></a>
 					<span>にゅーめりっくろっく</span>
 					<div class="checkbox">
 							<div>
@@ -419,7 +415,7 @@
 					</div>
 				</div>
 								<div class="modal-list">
-					<a href="#"><img class="modal-list-icon" src="public/img/2.jpg"></a>
+					<a href="#"><img class="modal-list-icon" src="images/2.jpg"></a>
 					<span>にゅーめりっくろっく</span>
 					<div class="checkbox">
 							<div>
@@ -431,7 +427,7 @@
 					</div>
 				</div>
 								<div class="modal-list">
-					<a href="#"><img class="modal-list-icon" src="public/img/2.jpg"></a>
+					<a href="#"><img class="modal-list-icon" src="images/2.jpg"></a>
 					<span>にゅーめりっくろっく</span>
 					<div class="checkbox">
 							<div>
@@ -450,8 +446,7 @@
 			</div>
 		</form>
 	</div>
-	<div class="modal2">
-	</div>
+	
 	<div class="modal-content3">
 		<form class="modal-form" method="POST">
 			<div class="modal-title">
@@ -465,8 +460,8 @@
 				<textarea class="message-area" id="textarea" name="post_message" title="今何してる？"　aria-label="今何してる？"　placeholder="今何してる？"></textarea>
 			</div>
 			<div class="modal-icon-area">
-				<button type='button'><img class="control-icon" src="public/img/comment.svg"></button>
-				<button type='button'><img class="control-icon" src="public/img/爆発.svg"></button>
+				<button type='button'><img class="control-icon" src="images/comment.svg"></button>
+				<button type='button'><img class="control-icon" src="images/爆発.svg"></button>
 				<button type='button'>
 					<svg class="control-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"  style="enable-background:new 0 0 512 512;" xml:space="preserve">
 						<g>
@@ -493,14 +488,6 @@
 			</div>
 		</form>
 	</div>
-	<div class="modal-content4">
-			<input id='scal' type='range' value='' min='10' max='400' oninput="scaling(value)" style='width: 300px;'><br>
-			<canvas id='cvs' width='300' height='400'></canvas><br>
-			<button onclick='crop_img()'>CROP</button><br>
-			<canvas id='out' width='200' height='200' style="display:none"></canvas>
-
-	</div>
-
 
 	<script>
 		$('#dotRadius').on('click',function(){
@@ -510,17 +497,17 @@
 				display: "fixed",
 				opacity: 1.0
 			}, 500);
+			
 
-
-
+			
 			$('.modal-content2').show().stop(true, true).animate({
 				top:"50%",
 				left: "120%",
 				display: "fixed",
 				opacity: 0
 			}, 500);
-		});
-
+		});	
+		
 		$('.modal').on('click',function(){
 			$('.modal').stop(true, true).fadeOut('500');
 			$('.modal-content').stop(true, true).animate({
@@ -530,7 +517,7 @@
 			}, 500, function(){
 				$('.modal-content').hide();
 			});
-		});
+		});			
 		$('.modal').on('click',function(){
 			$('.modal').stop(true, true).fadeOut('500');
 			$('.modal-content2').stop(true, true).animate({
@@ -539,8 +526,8 @@
 			}, 500, function(){
 				$('.modal-content2').hide();
 			});
-		});
-
+		});	
+		
 		$('.modal').on('click',function(){
 			$('.modal').stop(true, true).fadeOut('500');
 			$('.modal-content3').stop(true, true).animate({
@@ -549,7 +536,7 @@
 			}, 500, function(){
 				$('.modal-content3').hide();
 			});
-		});
+		});	
 
 		$('#modal_cancel').on('click',function(){
 			$('.modal').stop(true, true).fadeOut('500');
@@ -559,7 +546,7 @@
 			}, 500, function(){
 				$('.modal-content').hide();
 			});
-		});
+		});	
 		$('#modal_next').on('click',function(){
 			$('.modal-content2').show().stop(true, true).animate({
 				left: "50%",
@@ -572,7 +559,7 @@
 			}, 500, function(){
 				$('.modal-content').hide();
 			});
-		});
+		});	
 		$('#modal_back').on('click',function(){
 			$('.modal-content').show().stop(true, true).animate({
 				left: "50%",
@@ -585,65 +572,91 @@
 			}, 500, function(){
 				$('.modal-content2').hide();
 			});
-		});
-
-			$('#dotRadius2').on('click',function(){
+		});	
+		
+				$('#dotRadius2').on('click',function(){
 			$('.modal2').stop(true, true).fadeIn('500');
-			$('.modal-content3').show().stop(true, true).animate({
+			$('.modal-content-2').show().stop(true, true).animate({
 				top: "50%",
 				display: "fixed",
 				opacity: 1.0
 			}, 500);
+			
 
-		});
+			
+			$('.modal-content2-2').show().stop(true, true).animate({
+				top:"50%",
+				left: "120%",
+				display: "fixed",
+				opacity: 0
+			}, 500);
+		});	
+		
 		$('.modal2').on('click',function(){
 			$('.modal2').stop(true, true).fadeOut('500');
-			$('.modal-content3').stop(true, true).animate({
+			$('.modal-content-2').stop(true, true).animate({
 				top: "-100px",
 				left:"50%",
 				opacity: 0
 			}, 500, function(){
-				$('.modal-content3').hide();
+				$('.modal-content').hide();
 			});
-		});
-
-		$('#modal_cancel2').on('click',function(){
-			$('.modal2').stop(true, true).fadeOut('500');
+		});			
+		$('.modal').on('click',function(){
+			$('.modal').stop(true, true).fadeOut('500');
+			$('.modal-content2').stop(true, true).animate({
+				top: "-100px",
+				opacity: 0
+			}, 500, function(){
+				$('.modal-content2').hide();
+			});
+		});	
+		
+		$('.modal').on('click',function(){
+			$('.modal').stop(true, true).fadeOut('500');
 			$('.modal-content3').stop(true, true).animate({
 				top: "-100px",
 				opacity: 0
 			}, 500, function(){
 				$('.modal-content3').hide();
 			});
-		});
-		$('#modal_next2').on('change',function(){
-			$('.modal-content4').show().stop(true, true).animate({
+		});	
+
+		$('#modal_cancel').on('click',function(){
+			$('.modal').stop(true, true).fadeOut('500');
+			$('.modal-content').stop(true, true).animate({
+				top: "-100px",
+				opacity: 0
+			}, 500, function(){
+				$('.modal-content').hide();
+			});
+		});	
+		$('#modal_next').on('click',function(){
+			$('.modal-content2').show().stop(true, true).animate({
 				left: "50%",
 				display: "fixed",
 				opacity: 1.0
 			}, 500);
-			$('.modal-content3').stop(true, true).animate({
+			$('.modal-content').stop(true, true).animate({
 				left: "-100px",
 				opacity: 0
 			}, 500, function(){
-				$('.modal-content3').hide();
+				$('.modal-content').hide();
 			});
-		});
-		function modal_back2(result){
-			console.log("pk");
-			$('.modal-content3').show().stop(true, true).animate({
+		});	
+		$('#modal_back').on('click',function(){
+			$('.modal-content').show().stop(true, true).animate({
 				left: "50%",
 				display: "fixed",
 				opacity: 1.0
 			}, 500);
-			$('.modal-content3').stop(true, true).animate({
+			$('.modal-content2').stop(true, true).animate({
 				left: "120%",
 				opacity: 0
 			}, 500, function(){
-				$('.modal-content4').hide();
+				$('.modal-content2').hide();
 			});
-		};
-
+		});	
 
 		/*$(function() {
 		  var $textarea = $('#textarea');
@@ -658,7 +671,7 @@
 			var elements = document.getElementsByName('disclose') ;
 			var radioval = $(this).val();
 			var str = document.getElementById("introduction").innerHTML;
-			var strReplace = str.replace(/\r?\n/g, "<br>");
+			var strReplace = str.replace(/\r?\n/g, "<br>");	
 			console.log(strReplace);
 			document.getElementById("introduction").innerHTML=strReplace;
 			if(elements[0].checked == true){
@@ -666,7 +679,7 @@
 				$("#disclose").prop("checked", true);
 				console.log(elements[0].checked);
 				document.getElementById("disclose_status").innerHTML="非公開";
-
+				
 				$('#disclose_status').css('color','#a61a37');
 			}else{
 				$('#discloseSettingArea').slideDown();
@@ -690,135 +703,6 @@
 				$('#disclose_change').stop(true, true).fadeIn('500');
 			}
 		});
-
-		    const cvs = document.getElementById( 'cvs' )
-    const cw = cvs.width
-    const ch = cvs.height
-    const out = document.getElementById( 'out' )
-    const oh = out.height
-    const ow = out.width
-
-
-    let ix = 0    // 中心座標
-    let iy = 0
-    let v = 1.0   // 拡大縮小率
-    const img  = new Image()
-    img.onload = function( _ev ){   // 画像が読み込まれた
-        ix = img.width  / 2
-        iy = img.height / 2
-        let scl = parseInt( cw / img.width * 100 )
-        document.getElementById( 'scal' ).value = scl
-        scaling( scl )
-    }
-    function load_img( _url ){  // 画像の読み込み
-        img.src = ( _url ? _url : 'images/1.jpg' )
-    }
-    load_img()
-    function scaling( _v ) {        // スライダーが変った
-        v = parseInt( _v ) * 0.01
-        console.log(v);
-        draw_canvas( ix, iy )       // 画像更新
-    }
-
-    function draw_canvas( _x, _y ){     // 画像更新
-    	console.log(_x);
-    	console.log(_y);
-        const ctx = cvs.getContext( '2d' )
-        ctx.fillStyle = 'rgb(200, 200, 200)'
-        ctx.fillRect( 0, 0, cw, ch )    // 背景を塗る
-        if(_x<=1){
-       	  if( _x <= 100-(100-100*v )){
-				_x=101-(100-100*v );
-       	 }
-      	  if(_x >= img.width+(100-100*v )){
-				_x = img.width+(100-100*v );
-      	  }
-        }else{
-         if( _x <= 100+(100-100*v )){
-			_x=101+(100-100*v );
-       	 }
-      	  if(_x >= img.width-(100-100*v )){
-				_x = img.width-(100-100*v );
-      	  }
-        }
-
-       if(_y<=1){
-        if( _y <= 100-(100-100*v ) ){
-			_y=101-(100-100*v );
-        }
-        if( _y >= img.height+(100-100*v )){
-			_y=img.height+(100-100*v );
-        }
-
-       }else{
-       if( _y <= 100+(100-100*v ) ){
-			_y=101+(100-100*v );
-        }
-        if( _y >= img.height-(100-100*v )){
-			_y=img.height-(100-100*v );
-        }
-       }
-        ctx.drawImage( img,
-      	      0, 0, img.width, img.height,
-     	       (cw/2)-_x*v, (ch/2)-_y*v, img.width*v, img.height*v,
-        )
-        ctx.strokeStyle = 'rgba(200, 0, 0, 0.8)'
-        ctx.beginPath();
-        ctx.arc( 150,200,100, 0*Math.PI/180,360*Math.PI/180);
-        ctx.stroke();
-        ctx.closePath();
-    }
-    function crop_img(){                // 画像切り取り
-        const ctx = out.getContext( '2d' )
-        ctx.fillStyle = 'rgb(200, 200, 200)'
-        ctx.fillRect( 0, 0, ow, oh )    // 背景を塗る
-        ctx.drawImage( img, 0, 0, img.width, img.height,(ow/2)-ix*v, (oh/2)-iy*v, img.width*v, img.height*v,)
-
-
-     var base64 = out.toDataURL("image/png").replace("image/png", "image/octet-stream");
-      console.log(base64);
-      modal_back(base64);
-    }
-
-    let mouse_down = false      // canvas ドラッグ中フラグ
-    let sx = 0                  // canvas ドラッグ開始位置
-    let sy = 0
-    cvs.ontouchstart =
-    cvs.onmousedown = function ( _ev ){     // canvas ドラッグ開始位置
-        mouse_down = true
-        sx = _ev.pageX
-        sy = _ev.pageY
-        return false // イベントを伝搬しない
-    }
-    cvs.ontouchend =
-    cvs.onmouseout =
-    cvs.onmouseup = function ( _ev ){       // canvas ドラッグ終了位置
-        if ( mouse_down == false ) return
- 		ix += (sx-_ev.pageX)/v;
- 		iy += (sy-_ev.pageY)/v;
-
-
-        mouse_down = false
-        draw_canvas(ix ,iy )
-        return false // イベントを伝搬しない
-
-    }
-
-    cvs.ontouchmove =
-    cvs.onmousemove = function ( _ev ){     // canvas ドラッグ中
-        if ( mouse_down == false ) return
-        draw_canvas( ix + (sx-_ev.pageX)/v, iy + (sy-_ev.pageY)/v )
-        return false // イベントを伝搬しない
-    }
-    cvs.onmousewheel = function ( _ev ){    // canvas ホイールで拡大縮小
-        let scl = parseInt( parseInt( document.getElementById( 'scal' ).value ) + _ev.wheelDelta * 0.05 )
-        if ( scl < 10  ) scl = 10
-        if ( scl > 400 ) scl = 400
-        document.getElementById( 'scal' ).value = scl
-        scaling( scl )
-        return false // イベントを伝搬しない
-    }
-
 	</script>
 </body>
 </html>
