@@ -4,15 +4,13 @@
 	<meta charset="utf-8">
 	<title>ホーム/</title>
 	<script src="javascripts/jquery-2.1.3.js"></script>
-    <link rel="icon" href="favicon/favicon.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="stylesheets/discord.css">
 	<link rel="stylesheet" href="stylesheets/common.css">
 	<link rel="stylesheet" href="stylesheets/home.css">
 	<link rel="stylesheet" href="stylesheets/plus.css">
 	<link rel="stylesheet" href="stylesheets/checkbox.css">
-	<link rel="stylesheet" href="stylesheets/proedit.css">
 	<link rel="stylesheet" href="stylesheets/profile.css">
-	
 	<script src="http://cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
 
 </head>
@@ -117,10 +115,7 @@
 			<div class="content-title">
 				　<span>プロフィール</span>
 			</div>
-			<div id="setting">							
-				<button type="button" id="dotRadius2" data-toggle="modal2" data-target="#ModalAddCalendar">プロフィール編集</button>
 
-			</div>
 			<div id="profile">
 					<div class="profile-icon">
 						<img src="images/2.jpg">
@@ -354,7 +349,6 @@
 	</div>
 	<div class="modal">
 	</div>
-
 	
 	<div class="modal-content">
 		<form class="modal-form" method="POST">
@@ -432,7 +426,7 @@
 							</div>
 					</div>
 				</div>
-				<div class="modal-list">
+								<div class="modal-list">
 					<a href="#"><img class="modal-list-icon" src="images/2.jpg"></a>
 					<span>にゅーめりっくろっく</span>
 					<div class="checkbox">
@@ -452,36 +446,48 @@
 			</div>
 		</form>
 	</div>
-	<div class="modal2">
-	</div>
+	
 	<div class="modal-content3">
-		<div class="modal-title">
-			<h1>プロフィール編集</h1>
-		</div>
-		<label>
-		<div id="c">
-			<h3>プロフィール画像変更</h3>
-			<label>
-			<input type="file" id="modal_next2" accept="image/*" style="display:none;">
-				<div class="c-icon">
-						<img src="images/2.jpg">			        			
-				</div>		
-			</label>		
-		</div>
-		
-				
-
+		<form class="modal-form" method="POST">
+			<div class="modal-title">
+				<h1>プロフィール編集</h1>
+			</div>
+			<div class="modal-control">
+				<button class="modal-negative-button" id="modal_cancel" type='button'>キャンセル</button>
+				<button class="modal-positive-button" id="modal_next" type='button'>次へ</button>
+			</div>
+			<div class="modal-text-area">
+				<textarea class="message-area" id="textarea" name="post_message" title="今何してる？"　aria-label="今何してる？"　placeholder="今何してる？"></textarea>
+			</div>
+			<div class="modal-icon-area">
+				<button type='button'><img class="control-icon" src="images/comment.svg"></button>
+				<button type='button'><img class="control-icon" src="images/爆発.svg"></button>
+				<button type='button'>
+					<svg class="control-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"  style="enable-background:new 0 0 512 512;" xml:space="preserve">
+						<g>
+							<path class="st0" d="M494.951,81.411c-8.782-19.97-22.202-37.857-40.19-52.147l-7.81,9.818l7.806-9.818
+								C429.524,9.162,400.535-0.027,372.48,0c-29.128,0.008-57.267,9.731-80.169,26.77c-14.65,10.904-27.137,24.888-36.317,41.262
+								c-9.18-16.374-21.668-30.358-36.318-41.262C196.779,9.731,168.64,0.008,139.517,0c-28.06-0.027-57.044,9.162-82.277,29.264
+								c-17.992,14.29-31.408,32.178-40.194,52.147c-8.794,19.979-13.004,41.996-13,64.82c0.04,49.014,19.226,101.802,55.124,148.402
+								c31.464,40.788,71.147,80.169,105.976,115.916c17.41,17.861,33.6,34.794,46.853,50.336c13.262,15.515,23.544,29.728,29.185,41.41
+								l-0.017-0.035c1.987,4.113,5.12,6.484,7.43,7.718c1.19,0.639,2.24,1.041,3.181,1.339l1.409,0.367l0.853,0.158
+								c0.407,0.053,0.669,0.132,1.956,0.158c1.238-0.018,1.518-0.105,1.925-0.149c1.204-0.193,1.847-0.385,2.822-0.709
+								c1.375-0.481,3.032-1.208,4.87-2.573c1.816-1.339,3.833-3.422,5.211-6.274c5.64-11.683,15.918-25.903,29.176-41.41
+								c19.883-23.321,46.351-49.732,73.676-77.789c27.334-28.09,55.547-57.862,79.153-88.464c35.897-46.6,55.088-99.378,55.127-148.393
+								C507.955,123.416,503.746,101.39,494.951,81.411z M432.954,279.317c-29.998,38.924-69.059,77.806-104.076,113.72
+								c-17.516,17.975-34.024,35.214-47.97,51.561c-9.757,11.464-18.171,22.421-24.91,33.105c-6.738-10.684-15.152-21.641-24.909-33.105
+								c-20.92-24.503-47.624-51.089-74.791-79.005c-27.16-27.898-54.765-57.092-77.255-86.277
+								c-32.979-42.732-49.948-90.696-49.908-133.087c0-19.751,3.636-38.268,10.878-54.712c7.25-16.442,18.062-30.847,32.842-42.617
+								c20.885-16.574,43.988-23.776,66.662-23.803c23.497-0.008,46.525,7.903,65.178,21.8c18.658,13.905,32.869,33.63,39.174,57.328
+								c1.462,5.496,6.441,9.328,12.125,9.328c5.683,0,10.663-3.833,12.124-9.328c6.305-23.698,20.516-43.423,39.179-57.328
+								C325.95,33,348.979,25.09,372.48,25.098c22.674,0.027,45.777,7.229,66.661,23.803l0,0c14.782,11.77,25.593,26.175,32.848,42.626
+								c7.237,16.435,10.877,34.952,10.877,54.712C482.905,188.621,465.937,236.585,432.954,279.317z"/>
+						</g>
+					</svg>
+				</button>
 			</div>
 		</form>
 	</div>
-	<div class="modal-content4">
-			<input id='scal' type='range' value='' min='10' max='400' oninput="scaling(value)" style='width: 300px;'><br>
-			<canvas id='cvs' width='300' height='400'></canvas><br>
-			<button onclick='crop_img()'>CROP</button><br>
-			<canvas id='out' width='200' height='200' style="display:none"></canvas>
-
-	</div>
-
 
 	<script>
 		$('#dotRadius').on('click',function(){
@@ -568,28 +574,46 @@
 			});
 		});	
 		
-			$('#dotRadius2').on('click',function(){
+				$('#dotRadius2').on('click',function(){
 			$('.modal2').stop(true, true).fadeIn('500');
-			$('.modal-content3').show().stop(true, true).animate({
+			$('.modal-content-2').show().stop(true, true).animate({
 				top: "50%",
 				display: "fixed",
 				opacity: 1.0
 			}, 500);
+			
 
+			
+			$('.modal-content2-2').show().stop(true, true).animate({
+				top:"50%",
+				left: "120%",
+				display: "fixed",
+				opacity: 0
+			}, 500);
 		});	
+		
 		$('.modal2').on('click',function(){
 			$('.modal2').stop(true, true).fadeOut('500');
-			$('.modal-content3').stop(true, true).animate({
+			$('.modal-content-2').stop(true, true).animate({
 				top: "-100px",
 				left:"50%",
 				opacity: 0
 			}, 500, function(){
-				$('.modal-content3').hide();
+				$('.modal-content').hide();
 			});
 		});			
-
-		$('#modal_cancel2').on('click',function(){
-			$('.modal2').stop(true, true).fadeOut('500');
+		$('.modal').on('click',function(){
+			$('.modal').stop(true, true).fadeOut('500');
+			$('.modal-content2').stop(true, true).animate({
+				top: "-100px",
+				opacity: 0
+			}, 500, function(){
+				$('.modal-content2').hide();
+			});
+		});	
+		
+		$('.modal').on('click',function(){
+			$('.modal').stop(true, true).fadeOut('500');
 			$('.modal-content3').stop(true, true).animate({
 				top: "-100px",
 				opacity: 0
@@ -597,34 +621,42 @@
 				$('.modal-content3').hide();
 			});
 		});	
-		$('#modal_next2').on('change',function(){
-			$('.modal-content4').show().stop(true, true).animate({
+
+		$('#modal_cancel').on('click',function(){
+			$('.modal').stop(true, true).fadeOut('500');
+			$('.modal-content').stop(true, true).animate({
+				top: "-100px",
+				opacity: 0
+			}, 500, function(){
+				$('.modal-content').hide();
+			});
+		});	
+		$('#modal_next').on('click',function(){
+			$('.modal-content2').show().stop(true, true).animate({
 				left: "50%",
 				display: "fixed",
 				opacity: 1.0
 			}, 500);
-			$('.modal-content3').stop(true, true).animate({
+			$('.modal-content').stop(true, true).animate({
 				left: "-100px",
 				opacity: 0
 			}, 500, function(){
-				$('.modal-content3').hide();
+				$('.modal-content').hide();
 			});
 		});	
-		function modal_back2(result){
-			console.log("pk");
-			$('.modal-content3').show().stop(true, true).animate({
+		$('#modal_back').on('click',function(){
+			$('.modal-content').show().stop(true, true).animate({
 				left: "50%",
 				display: "fixed",
 				opacity: 1.0
 			}, 500);
-			$('.modal-content3').stop(true, true).animate({
+			$('.modal-content2').stop(true, true).animate({
 				left: "120%",
 				opacity: 0
 			}, 500, function(){
-				$('.modal-content4').hide();
+				$('.modal-content2').hide();
 			});
-		};	
-
+		});	
 
 		/*$(function() {
 		  var $textarea = $('#textarea');
@@ -671,135 +703,6 @@
 				$('#disclose_change').stop(true, true).fadeIn('500');
 			}
 		});
-		
-		    const cvs = document.getElementById( 'cvs' )
-    const cw = cvs.width
-    const ch = cvs.height
-    const out = document.getElementById( 'out' )
-    const oh = out.height
-    const ow = out.width
-    
-
-    let ix = 0    // 中心座標
-    let iy = 0
-    let v = 1.0   // 拡大縮小率
-    const img  = new Image()
-    img.onload = function( _ev ){   // 画像が読み込まれた
-        ix = img.width  / 2
-        iy = img.height / 2
-        let scl = parseInt( cw / img.width * 100 )
-        document.getElementById( 'scal' ).value = scl
-        scaling( scl )
-    }
-    function load_img( _url ){  // 画像の読み込み
-        img.src = ( _url ? _url : 'images/1.jpg' )
-    }
-    load_img()
-    function scaling( _v ) {        // スライダーが変った
-        v = parseInt( _v ) * 0.01
-        console.log(v);
-        draw_canvas( ix, iy )       // 画像更新
-    }
-
-    function draw_canvas( _x, _y ){     // 画像更新
-    	console.log(_x);
-    	console.log(_y);
-        const ctx = cvs.getContext( '2d' )
-        ctx.fillStyle = 'rgb(200, 200, 200)'
-        ctx.fillRect( 0, 0, cw, ch )    // 背景を塗る
-        if(_x<=1){
-       	  if( _x <= 100-(100-100*v )){
-				_x=101-(100-100*v );
-       	 }
-      	  if(_x >= img.width+(100-100*v )){
-				_x = img.width+(100-100*v );
-      	  }
-        }else{
-         if( _x <= 100+(100-100*v )){
-			_x=101+(100-100*v );
-       	 }
-      	  if(_x >= img.width-(100-100*v )){
-				_x = img.width-(100-100*v );
-      	  }
-        }
-        	
-       if(_y<=1){ 
-        if( _y <= 100-(100-100*v ) ){
-			_y=101-(100-100*v );
-        }
-        if( _y >= img.height+(100-100*v )){
-			_y=img.height+(100-100*v );
-        }
-        
-       }else{
-       if( _y <= 100+(100-100*v ) ){
-			_y=101+(100-100*v );
-        }
-        if( _y >= img.height-(100-100*v )){
-			_y=img.height-(100-100*v );
-        }       	       
-       }
-        ctx.drawImage( img,
-      	      0, 0, img.width, img.height,
-     	       (cw/2)-_x*v, (ch/2)-_y*v, img.width*v, img.height*v,
-        )
-        ctx.strokeStyle = 'rgba(200, 0, 0, 0.8)'
-        ctx.beginPath();
-        ctx.arc( 150,200,100, 0*Math.PI/180,360*Math.PI/180);
-        ctx.stroke();
-        ctx.closePath();
-    }
-    function crop_img(){                // 画像切り取り
-        const ctx = out.getContext( '2d' )
-        ctx.fillStyle = 'rgb(200, 200, 200)'
-        ctx.fillRect( 0, 0, ow, oh )    // 背景を塗る
-        ctx.drawImage( img, 0, 0, img.width, img.height,(ow/2)-ix*v, (oh/2)-iy*v, img.width*v, img.height*v,)
-        
-        
-     var base64 = out.toDataURL("image/png").replace("image/png", "image/octet-stream");
-      console.log(base64);
-      modal_back(base64);
-    }
-
-    let mouse_down = false      // canvas ドラッグ中フラグ
-    let sx = 0                  // canvas ドラッグ開始位置
-    let sy = 0
-    cvs.ontouchstart =
-    cvs.onmousedown = function ( _ev ){     // canvas ドラッグ開始位置
-        mouse_down = true
-        sx = _ev.pageX
-        sy = _ev.pageY
-        return false // イベントを伝搬しない
-    }
-    cvs.ontouchend =
-    cvs.onmouseout =
-    cvs.onmouseup = function ( _ev ){       // canvas ドラッグ終了位置
-        if ( mouse_down == false ) return
- 		ix += (sx-_ev.pageX)/v;
- 		iy += (sy-_ev.pageY)/v;
- 		
- 	       
-        mouse_down = false
-        draw_canvas(ix ,iy )
-        return false // イベントを伝搬しない
-    	
-    }
-    
-    cvs.ontouchmove =
-    cvs.onmousemove = function ( _ev ){     // canvas ドラッグ中
-        if ( mouse_down == false ) return
-        draw_canvas( ix + (sx-_ev.pageX)/v, iy + (sy-_ev.pageY)/v )
-        return false // イベントを伝搬しない
-    }
-    cvs.onmousewheel = function ( _ev ){    // canvas ホイールで拡大縮小
-        let scl = parseInt( parseInt( document.getElementById( 'scal' ).value ) + _ev.wheelDelta * 0.05 )
-        if ( scl < 10  ) scl = 10
-        if ( scl > 400 ) scl = 400
-        document.getElementById( 'scal' ).value = scl
-        scaling( scl )
-        return false // イベントを伝搬しない
-    }
-
 	</script>
 </body>
 </html>

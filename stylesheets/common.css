@@ -212,9 +212,60 @@ button {
     border-radius: 100%;
 }
 
+<<<<<<< HEAD
+.modal-content3{
+	display:none;
+	text-align:center;
+	opacity:1;
+	position:fixed;
+	top:-100px;
+	left:50%;
+	transform:translate(-50%, -50%);
+	padding:30px;
+	height:500px;
+	width:400px;
+	border-radius:5px;
+	background-color:blue;
+	z-index:1200;
+}
+.modal-content3 h1{
+	margin:0;
+}
+
+.modal-content4 {
+	display: none;
+	text-align: center;
+	opacity: 1;
+	position: fixed;
+	top: 50%;
+	left: 120%;
+	transform: translate(-50%, -50%);
+	padding: 30px;
+	height: 500px;
+	width: 400px;
+	border-radius: 5px;
+	background-color: white;
+	z-index: 1200;
+}
+
+.modal-content4 h1 {
+	margin: 0;
+}
+
+.modal-form {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+}
+
+.message-area {
+	padding: 10px;
+=======
 .modal-textarea textarea {
     padding: 10px;
     padding-top:20px;
+>>>>>>> 9ce6fc3ed00d11808b9032d81d6bcf3a189bd50d
 	line-height: 1.5;
 	border: 1px solid #ccc;
 	box-shadow: 1px 1px 1px #999;

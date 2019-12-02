@@ -1,3 +1,10 @@
+#c{
+	text-align:left;
+	height:auto;
+	margin: 0px;
+    padding: 0px;
+	color:black;
+}
 .c-icon{
 	display: inline-block;
 	width:30%;
