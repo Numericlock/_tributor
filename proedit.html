@@ -3,17 +3,17 @@
 <head>
 	<meta charset="utf-8">
 	<title>ホーム/</title>
-	<script src="javascripts/jquery-2.1.3.js"></script>
+	<script src="public/js/jquery-2.1.3.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="icon" href="favicon/favicon.ico">
-	<link rel="stylesheet" href="stylesheets/discord.css">
-	<link rel="stylesheet" href="stylesheets/common.css">
-	<link rel="stylesheet" href="stylesheets/home.css">
-	<link rel="stylesheet" href="stylesheets/plus.css">
-	<link rel="stylesheet" href="stylesheets/proedit.css">
-	<link rel="stylesheet" href="stylesheets/checkbox.css">
+    <link rel="icon" href="public/favicon.ico">
+	<link rel="stylesheet" href="public/css/discord.css">
+	<link rel="stylesheet" href="public/css/common.css">
+	<link rel="stylesheet" href="public/css/home.css">
+	<link rel="stylesheet" href="public/css/plus.css">
+	<link rel="stylesheet" href="public/css/proedit.css">
+	<link rel="stylesheet" href="public/css/checkbox.css">
 	<script src="http://cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
-	<script src="javascripts/imgedit.js"></script>
+	<script src="public/js/imgedit.js"></script>
 </head>
 <body>
 	<div class="wrapper">
@@ -114,16 +114,16 @@
 		<label>
 			<input type="file" id="dotRadius2" accept="image/*" style="display:none;">
 				<div class="c-icon">
-						<img src="images/2.jpg">			        			
+						<img src="public/img/2.jpg">			        			
 				</div>	
 		</label>
 		</div>
 		<div class="list">
-			<a href="#"><img class="list-icon" src="images/2.jpg"></a>
-			<a href="#"><img class="list-icon" src="images/2.jpg"></a>
-			<a href="#"><img class="list-icon" src="images/2.jpg"></a>
-			<a href="#"><img class="list-icon" src="images/2.jpg"></a>
-			<a href="#"><img class="list-icon" src="images/2.jpg"></a>
+			<a href="#"><img class="list-icon" src="public/img/2.jpg"></a>
+			<a href="#"><img class="list-icon" src="public/img/2.jpg"></a>
+			<a href="#"><img class="list-icon" src="public/img/2.jpg"></a>
+			<a href="#"><img class="list-icon" src="public/img/2.jpg"></a>
+			<a href="#"><img class="list-icon" src="public/img/2.jpg"></a>
 			<a href="#">
 				<svg class="edit-list-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 					 viewBox="0 0 512 512" xml:space="preserve">
@@ -165,8 +165,8 @@
 				<textarea class="message-area" id="textarea" name="post_message" title="今何してる？"　aria-label="今何してる？"　placeholder="今何してる？"></textarea>
 			</div>
 			<div class="modal-icon-area">
-				<button type='button'><img class="control-icon" src="images/comment.svg"></button>
-				<button type='button'><img class="control-icon" src="images/爆発.svg"></button>
+				<button type='button'><img class="control-icon" src="public/img/comment.svg"></button>
+				<button type='button'><img class="control-icon" src="public/img/爆発.svg"></button>
 				<button type='button'>
 					<svg class="control-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"  style="enable-background:new 0 0 512 512;" xml:space="preserve">
 						<g>
@@ -204,7 +204,7 @@
 			</div>
 			<div class="modal-list-area">
 				<div class="modal-list">
-					<a href="#"><img class="modal-list-icon" src="images/2.jpg"></a>
+					<a href="#"><img class="modal-list-icon" src="public/img/2.jpg"></a>
 					<span>にゅーめりっくろっく</span>
 					<div class="checkbox">
 							<div>
@@ -216,7 +216,7 @@
 					</div>
 				</div>
 								<div class="modal-list">
-					<a href="#"><img class="modal-list-icon" src="images/2.jpg"></a>
+					<a href="#"><img class="modal-list-icon" src="public/img/2.jpg"></a>
 					<span>にゅーめりっくろっく</span>
 					<div class="checkbox">
 							<div>
@@ -228,7 +228,7 @@
 					</div>
 				</div>
 								<div class="modal-list">
-					<a href="#"><img class="modal-list-icon" src="images/2.jpg"></a>
+					<a href="#"><img class="modal-list-icon" src="public/img/2.jpg"></a>
 					<span>にゅーめりっくろっく</span>
 					<div class="checkbox">
 							<div>
@@ -327,7 +327,7 @@
 			});
 		});	
 		
-				$('#dotRadius2').on('change',function(){
+			$('#dotRadius2').on('change',function(){
 			$('.modal2').stop(true, true).fadeIn('500');
 			$('.modal-content3').show().stop(true, true).animate({
 				top: "50%",
@@ -475,7 +475,7 @@
         scaling( scl )
     }
     function load_img( _url ){  // 画像の読み込み
-        img.src = ( _url ? _url : 'images/1.jpg' )
+        img.src = ( _url ? _url : 'public/img/1.jpg' )
     }
     load_img()
     function scaling( _v ) {        // スライダーが変った

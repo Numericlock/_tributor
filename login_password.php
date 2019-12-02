@@ -46,15 +46,15 @@
 	</script>
 	<meta charset="utf-8">
 	<title>ログイン</title>
-	<script src="javascripts/jquery-2.1.3.js"></script>
-	<script src="javascripts/jquery.pjax.js"></script>
-	<script src="javascripts/barba.js"></script>
-	<script src="javascripts/sha256.js"></script>
-    <link rel="icon" href="favicon/favicon.ico">
-	<link rel="stylesheet" href="stylesheets/fonts.css">
-	<link rel="stylesheet" href="stylesheets/opening-common.css">
-	<link rel="stylesheet" href="stylesheets/login.css">
-	<link rel="stylesheet" href="stylesheets/wave.css">
+	<script src="public/js/jquery-2.1.3.js"></script>
+	<script src="public/js/jquery.pjax.js"></script>
+	<script src="public/js/barba.js"></script>
+	<script src="public/js/sha256.js"></script>
+    <link rel="icon" href="public/favicon.ico">
+	<link rel="stylesheet" href="public/css/fonts.css">
+	<link rel="stylesheet" href="public/css/opening-common.css">
+	<link rel="stylesheet" href="public/css/login.css">
+	<link rel="stylesheet" href="public/css/wave.css">
 </head>
 <body>
     <div id="barba-wrapper">

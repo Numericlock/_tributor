@@ -1,0 +1,366 @@
+.content-wrapper {
+	display: flex;
+	flex-direction: row;
+    align-items: center;
+	border-top:solid 1px gray;
+}
+
+.list-create-btn{
+    position: fixed;
+    bottom:0;
+	left:50%;
+	transform:translate(-50%, -50%);
+}
+
+.btn-square {
+	width: 180px;
+	height: 50px;
+	margin: auto;
+	display: inline-block;
+	padding: 0.5em 1em;
+	font-size: 1.2em;
+	text-decoration: none;
+	background: white;
+	color: #212226;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+	border-bottom: solid 3px gray;
+	border-radius: 3px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.list-update-btn{
+	
+}
+.btn-square-small{
+	width: 130px;
+	height: 50px;
+	margin: auto;
+	display: inline-block;
+	padding: 0.4em 0.5em;
+	font-size: 1em;
+	text-decoration: none;
+	background: white;
+	color: #212226;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+	border-bottom: solid 3px gray;
+	border-radius: 3px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.btn-square:active, .btn-square-small:active {
+	/*ボタンを押したとき*/
+	-webkit-transform: translateY(3px);
+	transform: translateY(3px);
+	/*下に動く*/
+	border-bottom: none;
+	/*線を消す*/
+}
+.lists-wrapper {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+    width:60%;
+	min-height:100vh;
+	border-right:solid 1px gray;
+}
+
+.list-content {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	background: none;
+	width: 100%;
+	height: 80px;
+	border-bottom:solid 1px gray;
+}
+
+.list-icon {
+	width: 20%;
+	min-width:80px;
+    height:100%;
+	line-height: 80px;
+    padding:0 5px;
+}
+
+.list-icon img {
+	width:60px;
+	border-radius: 100%;
+}
+
+.list-title {
+	width: 65%;
+    height:100%;
+	color:white;
+}
+
+.list-title-p{
+	overflow: hidden;
+	height:80px;
+    font-size: 16px;
+	color: white;
+	text-align: center;
+	line-height: 80px;
+}
+
+.list-angle{
+	width: 10%;
+	min-width:30px;
+	fill: #4B4B4B;
+	transition: fill 0.2s;
+}
+.list-angle:hover{
+	fill: white;
+	transition: fill 0.3s;
+}
+
+
+.lists-users {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	width:40%;
+	min-width:130px;
+	min-height:100vh;
+}
+.lists-control-wrapper{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	justify-content: center;
+/*	background-color:#212226; */
+	border-bottom:solid 1px gray; 
+}
+.lists-setting-icon{
+	width:32px;
+	height:32px;
+	fill: #4B4B4B;
+	transition: fill 0.2s;
+}
+
+.lists-setting-icon:hover {
+	fill: white;
+	transition: fill 0.3s;
+}
+
+.lists-users-wrapper{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	width:100%;
+	height:70px;
+	border-bottom:solid 1px gray;
+}
+
+.lists-users-icon{
+	width:20%;
+	min-width:50px;
+	padding-left: 3px;
+	line-height: 65px;
+}
+
+.lists-users-icon img{
+	width:100%;
+	border-radius: 100%;
+	
+}
+
+.lists-users-nameId{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	width:80%;
+	padding:10px 5px;
+}
+
+.lists-users-nameId span{
+	color:white;
+}
+
+.lists-users-nameId-name{
+	width:100%;
+}
+
+.lists-users-nameId-name{
+	font-size:14px;
+}
+
+.lists-users-nameId-id{
+	width:100%;
+}
+
+.lists-users-nameId-id span{
+	font-size:12px;
+	color:gray;
+}
+
+
+/*モーダル部分*/
+.modal-content {
+	height:700px;
+}
+.list-modal-minimumInputs{
+    display: flex;
+	flex-direction: row;
+    padding:15px;
+}
+.list-modal-profileImageInput{
+    width:20%;
+}
+.list-modal-profileImageInput img{
+    width:100%;
+    border-radius:100%;
+}
+.list-modal-listNameInput{
+    width:70%;
+    padding:30px 20px;
+}
+.text{
+    color:black;
+    width:100%;
+}
+.listName_string{
+    width: 150px; /*文字列分の長さ*/
+}
+/*アニメーション*/
+#text:focus + .listName_string, .keepfocus {
+    font-size: 14px;
+    line-height: 10px;
+    width: 115px;
+    height: 10px;
+    padding: 0 2px;
+    background-color: #36393E;
+    transform:translate3d(5px, -6px, 0);
+}
+/*アニメーション*/
+#search_text:focus + .listName_string, .keepfocus {
+    font-size: 14px;
+    line-height: 10px;
+    width: 115px;
+    height: 10px;
+    padding: 0 2px;
+    background-color: #36393E;
+    transform:translate3d(5px, -6px, 0);
+}
+
+.list-modal-isPublish{
+    width:10%;
+    padding:30px 0;
+}
+
+.list-modal-isPublish span{
+    color:white;
+    padding-bottom:3px;
+    padding-right:12px;
+}
+
+.list-modal-addUsers{
+    display: flex;
+	flex-direction: row;
+    width:100%;
+    height:65%;
+}
+
+.list-modal-addUsers-searchArea{
+    width:55%;
+    border-top:groove 0.5px gray;
+    border-bottom:groove 0.5px gray;
+    border-right:groove 0.5px gray;
+    height:100%;
+}
+.list-modal-addUsers-searchArea-searchBox{
+    width:100%;
+    padding:8px 5px;
+    border-bottom:groove 0.5px gray;
+}
+.list-modal-addUsers-searchArea-result{
+    display: flex;
+	flex-direction: column;
+}
+.list-modal-addUsers-searchArea-result-user{
+    display: flex;
+	flex-direction: row;
+    padding:8px 5px;
+    border-bottom:groove 0.5px gray;
+}
+.list-modal-addUsers-searchArea-result-user-icon{
+    width: 20%;
+}
+.list-modal-addUsers-searchArea-result-user-icon img{
+    border-radius: 100%;
+    width: 100%;
+}
+.list-modal-addUsers-searchArea-result-user-name{
+    width: 60%;
+    line-height: 60px;
+    text-align: left;
+    padding-left:10px;
+}
+.list-modal-addUsers-searchArea-result-user-name span{
+    color: white;
+    font-size: 20px;
+}
+.list-modal-addUsers-searchArea-result-user-checkbox{
+    width:20%;
+    line-height: 60px;
+}
+.list-modal-addUsers-IntendAdd{
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    height:100%;
+    width:45%;
+    padding:5px 5px;
+    border-top:groove 0.5px gray;
+    border-bottom:groove 0.5px gray;
+}
+
+
+.list-modal-addUsers-IntendAdd-box{
+    display: flex;
+	flex-direction: row;
+    background:#212226;
+	padding:3px 5px;
+	margin:2px;
+	border-radius:3px;
+}
+
+.list-modal-addUsers-IntendAdd-box svg{
+	margin:auto;
+	padding-right:3px;
+}
+
+.list-modal-addUsers-IntendAdd-users{
+    display: flex;
+	flex-direction: column;
+}
+
+.list-modal-addUsers-IntendAdd-box-close{
+    fill:#4B4B4B;
+    height:10px;
+	transition: fill 0.2s;
+}
+
+.list-modal-addUsers-IntendAdd-box-close:hover{
+    fill:white;
+	transition: fill 0.3s;
+}
+
+.list-modal-addUsers-IntendAdd-users-name{
+    color:white;
+	font-size: 14px;
+}
+.list-modal-addUsers-IntendAdd-users-id{
+    color:gray;
+	font-size: 12px;
+}
+

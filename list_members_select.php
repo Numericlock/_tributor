@@ -11,7 +11,7 @@
 		foreach($stmt as $row){
 			print '<div class="list-modal-addUsers-searchArea-result-user">
 						<div class="list-modal-addUsers-searchArea-result-user-icon">
-							<img src="images/2.jpg">
+							<img src="public/img/2.jpg">
 						</div>
 						<div class="list-modal-addUsers-searchArea-result-user-name">
 							<span>'.$row['nickname'].'</span>
@@ -28,7 +28,7 @@
 						</div>
 					</div> ';
 		}
-		print '<script src="javascripts/list_users_checkbox.js"></script>';
+		print '<script src="public/js/list_users_checkbox.js"></script>';
 	}else{
 		
 	}
