@@ -472,6 +472,11 @@
         iy = img.height / 2
         let scl = parseInt( cw / img.width * 100 )
         document.getElementById( 'scal' ).value = scl
+         if(img.width>=img.height){
+       	    document.getElementById( 'scal' ).min = (100/iy)*100
+        }else{
+        	document.getElementById( 'scal' ).min = (100/ix)*100
+        }
         scaling( scl )
     }
     function load_img( _url ){  // 画像の読み込み
@@ -479,8 +484,13 @@
     }
     load_img()
     function scaling( _v ) {        // スライダーが変った
-        v = parseInt( _v ) * 0.01
-        draw_canvas( ix, iy )       // 画像更新
+
+        	  v = parseInt( _v ) * 0.01        	  
+
+ 			  draw_canvas( ix, iy ) 
+ 			 
+        console.log(v);
+             
     }
 
     function draw_canvas( _x, _y ){     // 画像更新
@@ -489,19 +499,24 @@
         const ctx = cvs.getContext( '2d' )
         ctx.fillStyle = 'rgb(200, 200, 200)'
         ctx.fillRect( 0, 0, cw, ch )    // 背景を塗る
-         if( _x <= 100*v ){
-			_x=101*v;
+
+       	  if( _x <= 100/v){
+				_x=100/v+1;
+       	 }
+      	  if(_x >= img.width-(100/v)){
+				_x = img.width-(100/v+1 );
+      	  }
+
+        if( _y <= 100/v){
+			_y=(100/v+1);
         }
-        if(_x >= img.width-100*v){
-			_x = img.width-101*v;
+        if( _y >= img.height-(100/v )){
+			_y=img.height-(100/v+1);
         }
-        if( _y <= 100*v ){
-			_y=101*v;
-        }
-        if( _y >= img.height-101*v){
-			_y=img.height-101*v;
-        }
-        ctx.drawImage( img,
+
+
+
+              ctx.drawImage( img,
       	      0, 0, img.width, img.height,
      	       (cw/2)-_x*v, (ch/2)-_y*v, img.width*v, img.height*v,
         )
@@ -537,21 +552,24 @@
         if ( mouse_down == false ) return
  		ix += (sx-_ev.pageX)/v;
  		iy += (sy-_ev.pageY)/v
-         if( ix <= 100 ){
-			ix=101;
+       
+		if( ix <= 100/v ){
+			ix=(100/v+1);
+   
+        if(ix >= img.width-(100/v)){
+			ix = img.width-(100*v+1);
         }
-        if(ix >= img.width-100*v){
-			ix = img.width-101*v;
+        if( iy <= 100/v ){
+			iy=(100/v+1);
         }
-        if( iy <= 100*v ){
-			iy=101*v;
+        if( iy >= img.height-(101/v)){
+			iy=img.height-(100/v+1);
         }
-        if( iy >= img.height-101*v){
-			iy=img.height-101*v;
         }
         mouse_down = false
         draw_canvas(ix ,iy )
         return false // イベントを伝搬しない
+    
     }
     cvs.ontouchmove =
     cvs.onmousemove = function ( _ev ){     // canvas ドラッグ中
@@ -564,7 +582,8 @@
         if ( scl < 10  ) scl = 10
         if ( scl > 400 ) scl = 400
         document.getElementById( 'scal' ).value = scl
-        scaling( scl )
+
+        scaling( scl)
         return false // イベントを伝搬しない
     }
 
