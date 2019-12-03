@@ -114,10 +114,10 @@
 		<div id="timeLine">
 			<div class="content-title">
 				　<span>プロフィール</span>
-			</div>
+
+		</div>
 			<div id="setting">
 				<button type="button" id="dotRadius2" data-toggle="modal2" data-target="#ModalAddCalendar">プロフィール編集</button>
-
 			</div>
 			<div id="profile">
 					<div class="profile-icon">
@@ -585,7 +585,9 @@
 			}, 500, function(){
 				$('.modal-content2').hide();
 			});
-		});
+
+		});	
+		
 
 			$('#dotRadius2').on('click',function(){
 			$('.modal2').stop(true, true).fadeIn('500');
