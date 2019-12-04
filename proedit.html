@@ -531,8 +531,9 @@
         ctx.fillStyle = 'rgb(200, 200, 200)'
         ctx.fillRect( 0, 0, ow, oh )    // 背景を塗る
         ctx.drawImage( img, 0, 0, img.width, img.height,(ow/2)-ix*v, (oh/2)-iy*v, img.width*v, img.height*v,)
-     
-     var base64 = out.toDataURL("image/png").replace("image/png", "image/octet-stream");
+               
+     var base64 = out.toDataURL("public/img/png").replace("public/img/png", "public/img/octet-stream");
+
       console.log(base64);
     }
 
