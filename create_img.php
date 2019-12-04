@@ -12,6 +12,27 @@ $canvas = base64_decode($canvas);
 $image = imagecreatefromstring($canvas);
  
 //画像として保存（ディレクトリは任意）
+$img_path = unique_filename('public/img/proimg');
 imagesavealpha($image, TRUE); // 透明色の有効
-imagepng($image ,'public/img/aaaaaaaa.png');
+imagepng($image ,$img_path);
+
+
+function unique_filename($org_path, $num=0){
+     
+    if( $num > 0){
+        $info = pathinfo($org_path);
+        $path = $info['dirname'] . "/" . $info['filename'] . "_" . $num;
+        if(isset($info['extension'])) $path .= "." . $info['extension'];
+    } else {
+        $path = $org_path;
+    }
+     
+    if(file_exists($path)){
+        $num++;
+        return unique_filename($org_path, $num);
+    } else {
+        return $path;
+    }
+}
 ?>
+
