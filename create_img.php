@@ -1,6 +1,6 @@
 <?php
 //canvasデータがPOSTで送信されてきた場合
-$canvas = $_POST["acceptImage"];
+$canvas = $_POST["base64"];
  
 //ヘッダに「data:image/png;base64,」が付いているので、それは外す
 $canvas = preg_replace("/data:[^,]+,/i","",$canvas);
@@ -13,5 +13,5 @@ $image = imagecreatefromstring($canvas);
  
 //画像として保存（ディレクトリは任意）
 imagesavealpha($image, TRUE); // 透明色の有効
-imagepng($image ,'./test.png');
+imagepng($image ,'public/img/aaaaaaaa.png');
 ?>
