@@ -1,20 +1,4 @@
-<?php
-    require '../bdd.php';
-    session_start();
-    //セッション開始
-    // ログイン状態チェック
-/*    if (!isset($_SESSION["user_id"])) {
-        header("Location: index.php");
-        exit;
-    }
-  */  
-    //データベースに挿入
-    $stmt = $bdd->prepare('SELECT * FROM  WHERE id = ?');
-    $stmt->execute(array(session_id()));
 
-    $cntent =$stmt->rowCount();
-
-?>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -22,13 +6,13 @@
 	<meta charset="utf-8">
 	<title>リスト/-tributor</title>
 	<script src="public/js/jquery-2.1.3.js"></script>
-    <link rel="icon" href="../public/favicon.ico">
+    <link rel="icon" href="public/favicon.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../public/css/opening-common.css">
-	<link rel="stylesheet" href="../public/css/common.css">
-	<link rel="stylesheet" href="../public/css/plus.css">
-	<link rel="stylesheet" href="../public/css/checkbox.css">
-	<link rel="stylesheet" href="../public/css/list.css">
+	<link rel="stylesheet" href="public/css/opening-common.css">
+	<link rel="stylesheet" href="public/css/common.css">
+	<link rel="stylesheet" href="public/css/plus.css">
+	<link rel="stylesheet" href="public/css/checkbox.css">
+	<link rel="stylesheet" href="public/css/list.css">
 </head>
 
 <body>
@@ -129,39 +113,9 @@
 					<button type="button" class="btn-square">リストを作成する</button>
 				</div>
 				<div class="lists-wrapper">
-					<?php 
-						$stmt = $bdd->prepare('SELECT * FROM disclosure_lists WHERE owner_user_id = ?');
-						$stmt->execute(array($_SESSION["user_id"]));
-						foreach($stmt as $row){
-							print '	
-								<div class="list-content">
-									<div class="list-icon">
-										<img src="public/img/2.jpg">
-									</div>
-									<div class="list-title">
-										<p class="list-title-p" data-value="'.$row['name'].'">'.$row['name'].'</p>
-									</div>
-									<svg class = "list-angle" id= '.$row['id'].' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g><path d="M13.25 10L6.109 2.58a.697.697 0 0 1 0-.979.68.68 0 0 1 .969 0l7.83 7.908a.697.697 0 0 1 0 .979l-7.83 7.908a.68.68 0 0 1-.969 0 .697.697 0 0 1 0-.979L13.25 10z"/></g>
-									</svg>
-								</div>
-							';
-						}
-					?>
-		<!--	
 					<div class="list-content">
 						<div class="list-icon">
 							<img src="public/img/2.jpg">
-						</div>
-						<div class="list-title">
-							<p class="list-title-p">おっぱいまんこまんこちんこ</p>
-						</div>
-						<svg class = "list-angle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g><path d="M13.25 10L6.109 2.58a.697.697 0 0 1 0-.979.68.68 0 0 1 .969 0l7.83 7.908a.697.697 0 0 1 0 .979l-7.83 7.908a.68.68 0 0 1-.969 0 .697.697 0 0 1 0-.979L13.25 10z"/></g>
-						</svg>
-					</div>
-		-->
-					<div class="list-content">
-						<div class="list-icon">
-							<img src="../public/img/2.jpg">
 						</div>
 						<div class="list-title">
 							<p class="list-title-p" data-value="おっぱいまんこまんこちんこ">おっぱいまんこまんこちんこ</p>
@@ -180,7 +134,7 @@
 					</div>
 					<div class="lists-users-wrapper">
 						<div class="lists-users-icon">
-							<img src="../public/img/2.jpg">
+							<img src="public/img/2.jpg">
 						</div>
 						<div class="lists-users-nameId">
 							<div class="lists-users-nameId-name">
@@ -195,11 +149,11 @@
 			</div>
 		</div>
 		<div class="list">
-			<a href="#"><img class="common-list-icon" src="../public/img/2.jpg"></a>
-			<a href="#"><img class="common-list-icon" src="../public/img/2.jpg"></a>
-			<a href="#"><img class="common-list-icon" src="../public/img/2.jpg"></a>
-			<a href="#"><img class="common-list-icon" src="../public/img/2.jpg"></a>
-			<a href="#"><img class="common-list-icon" src="../public/img/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="public/img/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="public/img/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="public/img/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="public/img/2.jpg"></a>
+			<a href="#"><img class="common-list-icon" src="public/img/2.jpg"></a>
 			<a href="#">
 				<svg class="edit-list-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
@@ -401,25 +355,6 @@
             <button class="modal-positive-button" id="modal_submit" type='button'>作成</button>
         </div>
     </div>
-
-	<?php
-		$stmt = $bdd->prepare('SELECT * FROM disclosure_lists LEFT OUTER JOIN disclosure_lists_users ON disclosure_lists.id = disclosure_lists_users.list_id WHERE disclosure_lists_users.list_id = (SELECT id FROM disclosure_lists WHERE owner_user_id = ?)');
-		$stmt->execute(array($_SESSION["user_id"]));
-		foreach($stmt as $row){
-			print '	
-				<div class="list-content">
-					<div class="list-icon">
-						<img src="public/img/2.jpg">
-					</div>
-					<div class="list-title">
-						<p class="list-title-p" data-value="'.$row['name'].'">'.$row['name'].'</p>
-					</div>
-					<svg class = "list-angle" id= '.$row['id'].' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g><path d="M13.25 10L6.109 2.58a.697.697 0 0 1 0-.979.68.68 0 0 1 .969 0l7.83 7.908a.697.697 0 0 1 0 .979l-7.83 7.908a.68.68 0 0 1-.969 0 .697.697 0 0 1 0-.979L13.25 10z"/></g>
-					</svg>
-				</div>
-			';
-		}
-	?>
     <script>
 /*\
 |*|
