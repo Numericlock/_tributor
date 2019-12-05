@@ -254,7 +254,7 @@
 					</div>
 				</div>
 				<div class="users-content-sentence">
-					<span>二年坂行ってきました</span>
+					<span>二年坂k行ってきました</span>
 					<img src="/_tributor/public/img/3.jpg">
 				</div>				
 				<div class="control">
