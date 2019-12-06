@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="public/css/checkbox.css">
 	<link rel="stylesheet" href="public/css/profile.css">
 	<link rel="stylesheet" href="public/css/proedit.css">
+	<link rel="stylesheet" href="public/css/modal.css">
 	<script src="http://cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
 
 </head>
@@ -419,7 +420,7 @@
 							</div>
 					</div>
 				</div>
-								<div class="modal-list">
+				<div class="modal-list">
 					<a href="#"><img class="modal-list-icon" src="public/img/2.jpg"></a>
 					<span>にゅーめりっくろっく</span>
 					<div class="checkbox">
@@ -459,9 +460,17 @@
 				<h1>プロフィール編集</h1>
 			</div>
 			<div class="modal-control">
-				<button class="modal-negative-button" id="modal_cancel" type='button'>キャンセル</button>
-				<button class="modal-positive-button" id="modal_next" type='button'>次へ</button>
+				<button class="modal-negative-button" id="modal_cancel2" type='button'>キャンセル</button>
+				<button class="modal-positive-button" id="modal_next2" type='button'>次へ</button>				
 			</div>
+			<h4>プロフィール画像変更</h4>
+			<label>
+			<input type="file" id="dotRadius2" accept="image/*" style="display:none;">
+				<div class="c-icon">
+					<img src="public/img/2.jpg">			        			
+				</div>	
+			</label>
+	
 			<div class="modal-text-area">
 				<textarea class="message-area" id="textarea" name="post_message" title="今何してる？"　aria-label="今何してる？"　placeholder="今何してる？"></textarea>
 			</div>

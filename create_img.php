@@ -31,7 +31,8 @@ function unique_filename($org_path, $num=0){
         $num++;
         return unique_filename($org_path, $num);
     } else {
-        return $path;
+    	$path.=".png";
+        return $path ;
     }
 }
 ?>
