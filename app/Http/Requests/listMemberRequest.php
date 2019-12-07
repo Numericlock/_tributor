@@ -24,7 +24,7 @@ class listMemberRequest extends FormRequest
     public function rules()
     {
         return [
-			'name' => 'bail|required|string|max:32',		// 必須
+			'list_id' => 'required',		// 必須
         ];
     }
 }
