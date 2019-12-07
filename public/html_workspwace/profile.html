@@ -578,7 +578,7 @@
 		
 				$('#dotRadius2').on('click',function(){
 			$('.modal2').stop(true, true).fadeIn('500');
-			$('.modal-content-2').show().stop(true, true).animate({
+			$('.modal-content3').show().stop(true, true).animate({
 				top: "50%",
 				display: "fixed",
 				opacity: 1.0
@@ -586,7 +586,7 @@
 			
 
 			
-			$('.modal-content2-2').show().stop(true, true).animate({
+			$('.modal-content3').show().stop(true, true).animate({
 				top:"50%",
 				left: "120%",
 				display: "fixed",
@@ -596,7 +596,7 @@
 		
 		$('.modal2').on('click',function(){
 			$('.modal2').stop(true, true).fadeOut('500');
-			$('.modal-content-2').stop(true, true).animate({
+			$('.modal-content3').stop(true, true).animate({
 				top: "-100px",
 				left:"50%",
 				opacity: 0
@@ -604,9 +604,9 @@
 				$('.modal-content').hide();
 			});
 		});			
-		$('.modal').on('click',function(){
-			$('.modal').stop(true, true).fadeOut('500');
-			$('.modal-content2').stop(true, true).animate({
+		$('.modal2').on('click',function(){
+			$('.modal2').stop(true, true).fadeOut('500');
+			$('.modal-content4').stop(true, true).animate({
 				top: "-100px",
 				opacity: 0
 			}, 500, function(){
@@ -614,8 +614,8 @@
 			});
 		});	
 		
-		$('.modal').on('click',function(){
-			$('.modal').stop(true, true).fadeOut('500');
+		$('.modal2').on('click',function(){
+			$('.modal2').stop(true, true).fadeOut('500');
 			$('.modal-content3').stop(true, true).animate({
 				top: "-100px",
 				opacity: 0
@@ -624,39 +624,39 @@
 			});
 		});	
 
-		$('#modal_cancel').on('click',function(){
-			$('.modal').stop(true, true).fadeOut('500');
-			$('.modal-content').stop(true, true).animate({
+		$('#modal_cancel2').on('click',function(){
+			$('.modal2').stop(true, true).fadeOut('500');
+			$('.modal-content3').stop(true, true).animate({
 				top: "-100px",
 				opacity: 0
 			}, 500, function(){
-				$('.modal-content').hide();
+				$('.modal-content3').hide();
 			});
 		});	
-		$('#modal_next').on('click',function(){
-			$('.modal-content2').show().stop(true, true).animate({
+		$('#modal_next2').on('click',function(){
+			$('.modal-content4').show().stop(true, true).animate({
 				left: "50%",
 				display: "fixed",
 				opacity: 1.0
 			}, 500);
-			$('.modal-content').stop(true, true).animate({
+			$('.modal-content'3).stop(true, true).animate({
 				left: "-100px",
 				opacity: 0
 			}, 500, function(){
-				$('.modal-content').hide();
+				$('.modal-content3').hide();
 			});
 		});	
-		$('#modal_back').on('click',function(){
-			$('.modal-content').show().stop(true, true).animate({
+		$('#modal_back2').on('click',function(){
+			$('.modal-content3').show().stop(true, true).animate({
 				left: "50%",
 				display: "fixed",
 				opacity: 1.0
 			}, 500);
-			$('.modal-content2').stop(true, true).animate({
+			$('.modal-content4').stop(true, true).animate({
 				left: "120%",
 				opacity: 0
 			}, 500, function(){
-				$('.modal-content2').hide();
+				$('.modal-content4').hide();
 			});
 		});	
 

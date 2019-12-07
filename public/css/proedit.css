@@ -1,6 +1,7 @@
 .c-icon{
 	display: inline-block;
 	width:30%;
+	
 }
 h4{
 	text-align:left;
@@ -13,4 +14,7 @@ h4{
 .c-icon img{
 	width:100%;
 	border-radius:100%;
+	
 }
+
+
