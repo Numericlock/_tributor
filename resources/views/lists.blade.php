@@ -422,43 +422,43 @@
 			$clone.remove();
 		  });
 		}
-	$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-	});
-    function postForm(nameVal,iconVal,list_userVal,isPublishVal) {
-        var form = document.postForm;
-        var name_request = document.createElement('input');
-        var icon_request = document.createElement('input');
-        var list_user_request = document.createElement('input');
-        var isPublish_request = document.createElement('input');
-		console.log(list_userVal);
+		$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+		});
+		function postForm(nameVal,iconVal,list_userVal,isPublishVal) {
+			var form = document.postForm;
+			var name_request = document.createElement('input');
+			var icon_request = document.createElement('input');
+			var list_user_request = document.createElement('input');
+			var isPublish_request = document.createElement('input');
+			console.log(list_userVal);
 
-        name_request.type = 'hidden'; //入力フォームが表示されないように
-        name_request.name = 'name';
-        name_request.value = nameVal;
-        
-        icon_request.type = 'hidden'; //入力フォームが表示されないように
-        icon_request.name = 'icon';
-        icon_request.value = iconVal;
-        
-        list_user_request.type = 'hidden'; //入力フォームが表示されないように
-        list_user_request.name = 'list_user';
-        list_user_request.value = list_userVal;
-		
-        isPublish_request.type = 'hidden'; //入力フォームが表示されないように
-        isPublish_request.name = 'isPublish';
-        isPublish_request.value = isPublishVal;
+			name_request.type = 'hidden'; //入力フォームが表示されないように
+			name_request.name = 'name';
+			name_request.value = nameVal;
 
-        form.appendChild(name_request);
-        form.appendChild(icon_request);
-        form.appendChild(list_user_request);
-        form.appendChild(isPublish_request);
+			icon_request.type = 'hidden'; //入力フォームが表示されないように
+			icon_request.name = 'icon';
+			icon_request.value = iconVal;
 
-        form.submit();
+			list_user_request.type = 'hidden'; //入力フォームが表示されないように
+			list_user_request.name = 'list_user';
+			list_user_request.value = list_userVal;
 
-    }
+			isPublish_request.type = 'hidden'; //入力フォームが表示されないように
+			isPublish_request.name = 'isPublish';
+			isPublish_request.value = isPublishVal;
+
+			form.appendChild(name_request);
+			form.appendChild(icon_request);
+			form.appendChild(list_user_request);
+			form.appendChild(isPublish_request);
+
+			form.submit();
+
+		}
 
 		
         function show_list_member(list_id) {
@@ -505,6 +505,8 @@
 			list_user_id_array.some(function(v, i){
 				if (v==target) list_user_id_array.splice(i,1);    
 			});
+			console.log(list_user_id_array);
+
         }
 		
 		function remove_check(id){
@@ -531,27 +533,55 @@
 					}
 					$('.list-modal-addUsers-searchArea-result').empty();
 					json_data.forEach(function( value ) {
+						
+						if(list_user_id_array.indexOf(value.users_id) == -1){
+							$('.list-modal-addUsers-searchArea-result').append(
+								 '<div class="list-modal-addUsers-searchArea-result-user">'
+								+			'<div class="list-modal-addUsers-searchArea-result-user-icon">'
+								+				'<img src="/img/2.jpg">'
+								+			'</div>'
+								+			'<div class="list-modal-addUsers-searchArea-result-user-name">'
+								+				'<span>'+ value.users_id +'</span>'
+								+			'</div>'
+								+			'<div class="list-modal-addUsers-searchArea-result-user-checkbox">'
+								+				'<div class="checkbox">'
+								+					'<div>'
+								+						'<input type="checkbox" class="list-modal-addUsers-searchArea-result-user-checkbox-input" id='+ value.users_id +' name = '+value.users_id+' value="'+ value.users_name +'" />'
+								+						'<label class="checkbox-label" for='+value.users_id+'>'
+								+							'<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>'
+								+						'</label>'
+								+					'</div>'
+								+				'</div>'
+								+			'</div>'
+								+		'</div>'
+							);
+							
+						}else{
+							$('.list-modal-addUsers-searchArea-result').append(
+								 '<div class="list-modal-addUsers-searchArea-result-user">'
+								+			'<div class="list-modal-addUsers-searchArea-result-user-icon">'
+								+				'<img src="/img/2.jpg">'
+								+			'</div>'
+								+			'<div class="list-modal-addUsers-searchArea-result-user-name">'
+								+				'<span>'+ value.users_id +'</span>'
+								+			'</div>'
+								+			'<div class="list-modal-addUsers-searchArea-result-user-checkbox">'
+								+				'<div class="checkbox">'
+								+					'<div>'
+								+						'<input type="checkbox" class="list-modal-addUsers-searchArea-result-user-checkbox-input" id='+ value.users_id +' name = '+value.users_id+' value="'+ value.users_name +'" checked/>'
+								+						'<label class="checkbox-label" for='+value.users_id+'>'
+								+							'<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>'
+								+						'</label>'
+								+					'</div>'
+								+				'</div>'
+								+			'</div>'
+								+		'</div>'
+							);
+							
+							
+						}
+						
 						 console.log( value.users_id );
-						$('.list-modal-addUsers-searchArea-result').append(
-							 '<div class="list-modal-addUsers-searchArea-result-user">'
-							+			'<div class="list-modal-addUsers-searchArea-result-user-icon">'
-							+				'<img src="/img/2.jpg">'
-							+			'</div>'
-							+			'<div class="list-modal-addUsers-searchArea-result-user-name">'
-							+				'<span>'+ value.users_id +'</span>'
-							+			'</div>'
-							+			'<div class="list-modal-addUsers-searchArea-result-user-checkbox">'
-							+				'<div class="checkbox">'
-							+					'<div>'
-							+						'<input type="checkbox" class="list-modal-addUsers-searchArea-result-user-checkbox-input" id='+ value.users_id +' name = '+value.users_id+' value="'+ value.users_name +'" />'
-							+						'<label class="checkbox-label" for='+value.users_id+'>'
-							+							'<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>'
-							+						'</label>'
-							+					'</div>'
-							+				'</div>'
-							+			'</div>'
-							+		'</div>'
-						);
 					});
 					$('.list-modal-addUsers-searchArea-result').append('<sc'+'ript src="/js/list_users_checkbox.js"></scr'+'ipt>');
 				},

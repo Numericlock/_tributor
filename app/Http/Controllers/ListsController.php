@@ -30,31 +30,16 @@ class ListsController extends Controller
 	}
 	
 	public function lists_insert(listFormRequest $request){
-		if(isset($_COOKIE['session'])===true){
-			$count = UserSession::where([
-				['id', $_COOKIE['session']],
-				['logout_at', null],
-			])->count();
-			if ($count = 1) {
-				$user = UserSession::join('users', 'users.id', '=', 'users_sessions.user_id')
-					->where('users_sessions.id', $_COOKIE['session'])
-					->whereNull('users_sessions.logout_at')
-					->first();
-			}else{
-				setcookie('session','',time()-1);
-				return view('login');
-			}
-		}else{
-			return view('login');
-		}
 		$list = new Disclosure_list;
 		$list->name = $request->input('name');
-		$list->owner_user_id = $user->user_id;
+		$list->owner_user_id = $request->base_user->user_id;
 		$list->is_published = 1;
 		$list->is_hidden = 0;
 		$list->save();
 		$id = $list->id;
 		Log::debug($id."LISTあいでー");
+		Log::debug($request->input('list_user')."LISTあいでーaaaaaaaaaaaaa");
+		//予定:$idを用いてlists_usersにlist_userをインサート
 	}
 	
 	public function lists_member(){

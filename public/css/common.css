@@ -142,7 +142,7 @@ button {
 	transition: width 0.3s, max-width 0.3s, fill 0.3s, padding-left 0.3s, padding-top 0.3s, padding-bottom 0.3s;
 }
 
-/*
+
 .modal {
 	display: none;
 	position: fixed;
@@ -309,7 +309,7 @@ button {
 	height: 50px;
 	width: 50px;
 }
-*/
+
 
 
 .switch {
