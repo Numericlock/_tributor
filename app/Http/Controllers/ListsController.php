@@ -24,6 +24,7 @@ class ListsController extends Controller
 		$user = $request->base_user;
 		$lists = Disclosure_list::where('owner_user_id', $user->user_id)->get();
 		Log::debug($lists."ユーザーズリスツ");
+		
 
 		return view('lists',compact('user','lists'));
 	}
@@ -60,9 +61,20 @@ class ListsController extends Controller
 		
 	}	
 	public function lists_member_post(listMemberRequest $request){
-		$user = Disclosure_list::join('disclosure_lists_users', 'disclosure_lists.id', '=', 'disclosure_lists_users.list_id')
+		
+		
+		/*$lists = Disclosure_list::join('disclosure_lists_users', 'disclosure_lists.id', '=', 'disclosure_lists_users.list_id')
+		->join('users', 'users.id', '=', 'disclosure_lists_users.user_id')
+		->where('disclosure_lists.id', $request->input('list_id'))
+		->get();*/
+		$lists = Disclosure_list::select('disclosure_lists.name as lists_name','disclosure_lists_users.user_id as users_id', 'users.name as users_name')
+		->join('disclosure_lists_users', 'disclosure_lists.id', '=', 'disclosure_lists_users.list_id')
+		->join('users', 'users.id', '=', 'disclosure_lists_users.user_id')
 		->where('disclosure_lists.id', $request->input('list_id'))
 		->get();
-		return view('lists_members');
+		
+		
+		Log::debug($lists."LISTMEMBERあいでー");
+		return view('lists_members',compact('lists'));
 	}
 }

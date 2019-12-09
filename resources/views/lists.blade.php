@@ -3,6 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>リスト/-tributor</title>
 	<script src="/js/jquery-2.1.3.js"></script>
     <link rel="icon" href="/favicon.ico">
@@ -372,7 +373,7 @@
 \*/
         var searchTimer;
         var searchStr;
-		var list_user_id_array = ["hishida2","hishida3"];
+		var list_user_id_array = [];
 		var list_icon_value ="";
 		$(window).resize(is_no_wrap);
 		jQuery(function($) {
@@ -421,6 +422,11 @@
 			$clone.remove();
 		  });
 		}
+	$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+	});
     function postForm(nameVal,iconVal,list_userVal,isPublishVal) {
         var form = document.postForm;
         var name_request = document.createElement('input');
@@ -453,6 +459,7 @@
         form.submit();
 
     }
+
 		
         function show_list_member(list_id) {
 				var form = document.showListMember;
@@ -505,13 +512,57 @@
 		}
 		
         function search_for(){
-            console.log(searchStr);
-            $(".list-modal-addUsers-searchArea-result").empty();
-            $.get("/lists/search",{'list-users' : searchStr},function(data){
-                console.log(data);
-                $('.list-modal-addUsers-searchArea-result').append(data);
-            });
+			// 各フィールドから値を取得してJSONデータを作成
+			var data = {
+				str: searchStr
+			};
+			// 通信実行
+			$.ajax({
+				type:"post",                // method = "POST"
+				url:"/lists/search",        // POST送信先のURL
+				data:JSON.stringify(data),  // JSONデータ本体
+				contentType: 'application/json', // リクエストの Content-Type
+				dataType: "json",           // レスポンスをJSONとしてパースする
+				success: function(json_data) {   // 200 OK時
+					// JSON Arrayの先頭が成功フラグ、失敗の場合2番目がエラーメッセージ
+					if (!json_data[0]) {    // サーバが失敗を返した場合
+						alert("Transaction error. " + json_data[1]);
+						return;
+					}
+					$('.list-modal-addUsers-searchArea-result').empty();
+					json_data.forEach(function( value ) {
+						 console.log( value.users_id );
+						$('.list-modal-addUsers-searchArea-result').append(
+							 '<div class="list-modal-addUsers-searchArea-result-user">'
+							+			'<div class="list-modal-addUsers-searchArea-result-user-icon">'
+							+				'<img src="/img/2.jpg">'
+							+			'</div>'
+							+			'<div class="list-modal-addUsers-searchArea-result-user-name">'
+							+				'<span>'+ value.users_id +'</span>'
+							+			'</div>'
+							+			'<div class="list-modal-addUsers-searchArea-result-user-checkbox">'
+							+				'<div class="checkbox">'
+							+					'<div>'
+							+						'<input type="checkbox" class="list-modal-addUsers-searchArea-result-user-checkbox-input" id='+ value.users_id +' name = '+value.users_id+' value="'+ value.users_name +'" />'
+							+						'<label class="checkbox-label" for='+value.users_id+'>'
+							+							'<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>'
+							+						'</label>'
+							+					'</div>'
+							+				'</div>'
+							+			'</div>'
+							+		'</div>'
+						);
+					});
+					$('.list-modal-addUsers-searchArea-result').append('<sc'+'ript src="/js/list_users_checkbox.js"></scr'+'ipt>');
+				},
+				error: function() {         // HTTPエラー時
+					alert("Server Error. Pleasy try again later.");
+				},
+				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
+				}
+			});
         }
+		
 		function list_content_get(id){
             $.get("list_select.php",{'list-id' : id},function(data){
             });
