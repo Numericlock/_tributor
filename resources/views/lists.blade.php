@@ -448,12 +448,11 @@
             icon_request.name = 'icon';
             icon_request.value = iconVal;
 
-            console.log(list_userVal[1]);
-          /*  for(var i=0;i<list_user_id_array.length;i++){
+            for(var i=0;i<list_user_id_array.length;i++){
                 list_user_request.type = 'hidden'; //入力フォームが表示されないように
                 list_user_request.name = 'list_user[]';
                 list_user_request.value = list_userVal[i];
-            }*/
+            }
 
             isPublish_request.type = 'hidden'; //入力フォームが表示されないように
             isPublish_request.name = 'isPublish';
@@ -464,8 +463,39 @@
             form.appendChild(list_user_request);
             form.appendChild(isPublish_request);
 
-          //  form.submit();
+            form.submit();
 
+            
+			/*var data = {
+				name: nameVal,
+				icon: iconVal,
+				users: list_user_id_array,
+				publish: isPublishVal 
+			}; 
+			// 通信実行
+			$.ajax({
+				type:"post",                // method = "POST"
+				url:"/lists",        // POST送信先のURL
+				data:JSON.stringify(data),  // JSONデータ本体
+				contentType: 'application/json', // リクエストの Content-Type
+                processData: false,         // レスポンスをJSONとしてパースする
+                async : false,   // ← asyncをfalseに設定する
+				success: function(json_data) {   // 200 OK時
+					// JSON Arrayの先頭が成功フラグ、失敗の場合2番目がエラーメッセージ
+					if (!json_data[0]) {    // サーバが失敗を返した場合
+						console.log("Transaction error. " + json_data[1]);
+						return;
+					}
+                    
+				},
+				error: function() {       // HTTPエラー時
+					console.log("Server Error. Pleasy try again later.");
+                    console.log(data);
+				},
+				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
+				}
+			});*/
+            
         }
 
         function show_list_member(list_id) {

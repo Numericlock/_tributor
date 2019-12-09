@@ -31,23 +31,28 @@ class ListsController extends Controller
 	}
 	
 	public function lists_insert(listFormRequest $request){
+        Log::debug($request->name);
 		$list = new Disclosure_list;
-		$list->name = $request->input('name');
+		$list->name = "hishida1";
 		$list->owner_user_id = $request->base_user->user_id;
 		$list->is_published = 1;
 		$list->is_hidden = 0;
 		$list->save();
 		$id = $list->id;
-      /*  Disclosure_list_user::create([
-            'list_id'=> $id,
-            'user_id'=> $request->input('name'),
+         Disclosure_list_user::create([
+            'list_id'=> 25,
+            'user_id'=> "hishida2",
+            'is_deleted'=> 0,
         ]);
-    */
-		Log::debug($id."LISTあいでー?");
-		Log::debug($request->input('list_user')."LISTあいでー");
-		Log::debug($request->input('list_user[]')."LISTあいでー");
-		Log::debug(collect($request->input('list_user[]'))->first()."LISTあいでーjjj");
-        echo collect($request->input('list_user[]'));
+      //  foreach($request->users as $user){
+      //      Disclosure_list_user::create([
+      //          'list_id'=> $id,
+      //          'user_id'=> $user,
+      //          'is_deleted'=> 0
+      //      ]);
+       // }
+    
+
 	}
 	
 	public function lists_member(){
