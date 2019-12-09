@@ -38,9 +38,6 @@ Route::group(['middleware' => 'auth.login.before', 'prefix' => ''], function() {
 
 Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 	Route::get('/lists', 'ListsController@lists');
-	Route::get('/home', function () {
-		return view('home');
-	});
 	Route::post('/lists', 'ListsController@lists_insert');
 	Route::post('/lists/search', 'SearchController@users_search');
 
@@ -51,4 +48,5 @@ Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 	});
 });
 
+ Route::get('/home', 'homeController@home');
 Route::get('/logout', 'AuthController@logout');

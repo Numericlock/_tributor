@@ -21,9 +21,9 @@
 			<a href="/home">
 				<svg class="nav-icon home-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
-						<polygon class="st0" points="442.531,218 344.828,120.297 256,31.469 167.172,120.297 69.438,218.047 0,287.469 39.984,327.453 
+						<polygon class="st0" points="442.531,218 344.828,120.297 256,31.469 167.172,120.297 69.438,218.047 0,287.469 39.984,327.453
 							109.406,258.031 207.156,160.281 256,111.438 304.844,160.281 402.531,257.984 472.016,327.453 512,287.469 	" />
-						<polygon class="st0" points="85.719,330.375 85.719,480.531 274.75,480.531 274.75,361.547 343.578,361.547 343.578,480.531 
+						<polygon class="st0" points="85.719,330.375 85.719,480.531 274.75,480.531 274.75,361.547 343.578,361.547 343.578,480.531
 							426.281,480.531 426.281,330.328 256.016,160.063 " />
 					</g>
 				</svg>
@@ -181,15 +181,15 @@
                 <svg class="modal-closeButton" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                      viewBox="0 0 512 512" xml:space="preserve">
                     <g>
-                        <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
+                        <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
                             52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
                     </g>
                 </svg>
-            </div>  
+            </div>
             <div class="list-modal-minimumInputs">
                 <div class="list-modal-profileImageInput">
-					<img src="/img/2.jpg">			        			
-                </div>            
+					<img src="/img/2.jpg">
+                </div>
                 <div class="list-modal-listNameInput">
                     <div class="id_box box">
                         <div class="id_inner inner">
@@ -204,7 +204,7 @@
                     <input type="checkbox" id="isPublish" value="" />
                     <label class="checkbox-label" for="isPublish">
                         <span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
-                    </label> 
+                    </label>
                 </div>
             </div>
             <div class="list-modal-addUsers">
@@ -217,7 +217,7 @@
                             </div>
                             <i class="fas fa-eye-slash"></i>
                         </div>
-                    </div>                
+                    </div>
                     <div class="list-modal-addUsers-searchArea-result">
                         <div class="list-modal-addUsers-searchArea-result-user">
                             <div class="list-modal-addUsers-searchArea-result-user-icon">
@@ -236,7 +236,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                         <div class="list-modal-addUsers-searchArea-result-user">
                             <div class="list-modal-addUsers-searchArea-result-user-icon">
                                 <img src="/img/2.jpg">
@@ -254,7 +254,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                         <div class="list-modal-addUsers-searchArea-result-user">
                             <div class="list-modal-addUsers-searchArea-result-user-icon">
                                 <img src="/img/2.jpg">
@@ -272,7 +272,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
                 <div class="list-modal-addUsers-IntendAdd">
@@ -280,7 +280,7 @@
 						<svg class="list-modal-addUsers-IntendAdd-box-close" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 							 viewBox="0 0 512 512" xml:space="preserve">
 							<g>
-								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
+								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
 									52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
 							</g>
 						</svg>
@@ -293,7 +293,7 @@
 						<svg class="list-modal-addUsers-IntendAdd-box-close" id="modal_cancel" version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 							 viewBox="0 0 512 512" xml:space="preserve">
 							<g>
-								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
+								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
 									52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
 							</g>
 						</svg>
@@ -306,7 +306,7 @@
 						<svg class="list-modal-addUsers-IntendAdd-box-close" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 							 viewBox="0 0 512 512" xml:space="preserve">
 							<g>
-								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
+								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
 									52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
 							</g>
 						</svg>
@@ -319,7 +319,7 @@
 						<svg class="list-modal-addUsers-IntendAdd-box-close" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 							 viewBox="0 0 512 512" xml:space="preserve">
 							<g>
-								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
+								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
 									52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
 							</g>
 						</svg>
@@ -332,7 +332,7 @@
 						<svg class="list-modal-addUsers-IntendAdd-box-close" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 							 viewBox="0 0 512 512" xml:space="preserve">
 							<g>
-								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
+								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
 									52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
 							</g>
 						</svg>
@@ -375,10 +375,12 @@
         var searchStr;
 		var list_user_id_array = [];
 		var list_icon_value ="";
+
 		$(window).resize(is_no_wrap);
 		jQuery(function($) {
 			is_no_wrap();
 		});
+
 		function root(rootDir){
 			$.ajax({
 			url: rootDir + "index.php",
@@ -389,6 +391,7 @@
 			}
 			});
 		}
+
 		function is_no_wrap(){
 		  $('.list-title-p').each(function() {
 			var $target = $(this);
@@ -422,45 +425,79 @@
 			$clone.remove();
 		  });
 		}
-		$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+        });
+
+        function postForm(nameVal,iconVal,list_userVal,isPublishVal) {
+            var form = document.postForm;
+            var name_request = document.createElement('input');
+            var icon_request = document.createElement('input');
+            var list_user_request = document.createElement('input');
+            var isPublish_request = document.createElement('input');
+            console.log(list_userVal);
+
+            name_request.type = 'hidden'; //入力フォームが表示されないように
+            name_request.name = 'name';
+            name_request.value = nameVal;
+
+            icon_request.type = 'hidden'; //入力フォームが表示されないように
+            icon_request.name = 'icon';
+            icon_request.value = iconVal;
+
+            for(var i=0;i<list_user_id_array.length;i++){
+                list_user_request.type = 'hidden'; //入力フォームが表示されないように
+                list_user_request.name = 'list_user[]';
+                list_user_request.value = list_userVal[i];
+            }
+
+            isPublish_request.type = 'hidden'; //入力フォームが表示されないように
+            isPublish_request.name = 'isPublish';
+            isPublish_request.value = isPublishVal;
+
+            form.appendChild(name_request);
+            form.appendChild(icon_request);
+            form.appendChild(list_user_request);
+            form.appendChild(isPublish_request);
+
+            form.submit();
+
+
+			/*var data = {
+				name: nameVal,
+				icon: iconVal,
+				users: list_user_id_array,
+				publish: isPublishVal
+			};
+			// 通信実行
+			$.ajax({
+				type:"post",                // method = "POST"
+				url:"/lists",        // POST送信先のURL
+				data:JSON.stringify(data),  // JSONデータ本体
+				contentType: 'application/json', // リクエストの Content-Type
+                processData: false,         // レスポンスをJSONとしてパースする
+                async : false,   // ← asyncをfalseに設定する
+				success: function(json_data) {   // 200 OK時
+					// JSON Arrayの先頭が成功フラグ、失敗の場合2番目がエラーメッセージ
+					if (!json_data[0]) {    // サーバが失敗を返した場合
+						console.log("Transaction error. " + json_data[1]);
+						return;
+					}
+
+				},
+				error: function() {       // HTTPエラー時
+					console.log("Server Error. Pleasy try again later.");
+                    console.log(data);
+				},
+				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
 				}
-		});
-		function postForm(nameVal,iconVal,list_userVal,isPublishVal) {
-			var form = document.postForm;
-			var name_request = document.createElement('input');
-			var icon_request = document.createElement('input');
-			var list_user_request = document.createElement('input');
-			var isPublish_request = document.createElement('input');
-			console.log(list_userVal);
+			});*/
 
-			name_request.type = 'hidden'; //入力フォームが表示されないように
-			name_request.name = 'name';
-			name_request.value = nameVal;
+        }
 
-			icon_request.type = 'hidden'; //入力フォームが表示されないように
-			icon_request.name = 'icon';
-			icon_request.value = iconVal;
-
-			list_user_request.type = 'hidden'; //入力フォームが表示されないように
-			list_user_request.name = 'list_user';
-			list_user_request.value = list_userVal;
-
-			isPublish_request.type = 'hidden'; //入力フォームが表示されないように
-			isPublish_request.name = 'isPublish';
-			isPublish_request.value = isPublishVal;
-
-			form.appendChild(name_request);
-			form.appendChild(icon_request);
-			form.appendChild(list_user_request);
-			form.appendChild(isPublish_request);
-
-			form.submit();
-
-		}
-
-		
         function show_list_member(list_id) {
 				var form = document.showListMember;
 				var list_id_request = document.createElement('input');
@@ -487,7 +524,7 @@
 				<svg class="list-modal-addUsers-IntendAdd-box-close" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 					 viewBox="0 0 512 512" xml:space="preserve">
 					<g>
-						<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
+						<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
 							52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
 					</g>
 				</svg>
@@ -503,16 +540,16 @@
 			//要素を削除する
 			var target = id;
 			list_user_id_array.some(function(v, i){
-				if (v==target) list_user_id_array.splice(i,1);    
+				if (v==target) list_user_id_array.splice(i,1);
 			});
 			console.log(list_user_id_array);
 
         }
-		
+
 		function remove_check(id){
 			$('#'+id).prop('checked', false);
 		}
-		
+
         function search_for(){
 			// 各フィールドから値を取得してJSONデータを作成
 			var data = {
@@ -524,16 +561,16 @@
 				url:"/lists/search",        // POST送信先のURL
 				data:JSON.stringify(data),  // JSONデータ本体
 				contentType: 'application/json', // リクエストの Content-Type
-				dataType: "json",           // レスポンスをJSONとしてパースする
+                processData: false,         // レスポンスをJSONとしてパースする
 				success: function(json_data) {   // 200 OK時
 					// JSON Arrayの先頭が成功フラグ、失敗の場合2番目がエラーメッセージ
 					if (!json_data[0]) {    // サーバが失敗を返した場合
-						alert("Transaction error. " + json_data[1]);
+						console.log("Transaction error. " + json_data[1]);
 						return;
 					}
 					$('.list-modal-addUsers-searchArea-result').empty();
 					json_data.forEach(function( value ) {
-						
+
 						if(list_user_id_array.indexOf(value.users_id) == -1){
 							$('.list-modal-addUsers-searchArea-result').append(
 								 '<div class="list-modal-addUsers-searchArea-result-user">'
@@ -555,7 +592,7 @@
 								+			'</div>'
 								+		'</div>'
 							);
-							
+
 						}else{
 							$('.list-modal-addUsers-searchArea-result').append(
 								 '<div class="list-modal-addUsers-searchArea-result-user">'
@@ -577,10 +614,10 @@
 								+			'</div>'
 								+		'</div>'
 							);
-							
-							
+
+
 						}
-						
+
 						 console.log( value.users_id );
 					});
 					$('.list-modal-addUsers-searchArea-result').append('<sc'+'ript src="/js/list_users_checkbox.js"></scr'+'ipt>');
@@ -592,17 +629,17 @@
 				}
 			});
         }
-		
+
 		function list_content_get(id){
             $.get("list_select.php",{'list-id' : id},function(data){
             });
 		}
-		
+
 		$('.list-content').on('click',function(){
 			show_list_member($(this).data('list'));
             console.log($(this).data('list'));
-		});	
-		
+		});
+
         $("#search_text").on("input", function() {
       //      document.getElementById("id_count").innerText = idStr.length+"/24";
             searchStr = $(this).val();
@@ -611,10 +648,10 @@
         });
 		$('#modal_submit').on('click',function(){
             console.log($("#isPublish").prop("checked"));
-            
+
             postForm($('#text').val(), list_icon_value, list_user_id_array, $("#isPublish").prop("checked"));
-		});	
-        
+		});
+
         $('.btn-square').on('click', function() {
             $('.modal').stop(true, true).fadeIn('500');
             $('#list-modal-content').show().stop(true, true).animate({
@@ -622,10 +659,10 @@
                 display: "fixed",
                 opacity: 1.0
             }, 500);
-        });        
-		
+        });
+
 		$('.btn-square-small').on('click', function() {
-			
+
             $('.modal').stop(true, true).fadeIn('500');
             $('#list-modal-content').show().stop(true, true).animate({
                 top: "50%",
@@ -633,7 +670,7 @@
                 opacity: 1.0
             }, 500);
         });
-        
+
         $('.modal').on('click', function() {
             $('.modal').stop(true, true).fadeOut('500');
             $('#list-modal-content').stop(true, true).animate({
@@ -644,7 +681,7 @@
 				$('#list-modal-content').hide();
 			});
         });
-        
+
 		$('#modal_cancel').on('click',function(){
 			$('.modal').stop(true, true).fadeOut('500');
 			$('#list-modal-content').stop(true, true).animate({
@@ -653,8 +690,8 @@
 			}, 500, function(){
 				$('#list-modal-content').hide();
 			});
-		});	
-        
+		});
+
         $('#text').focus(function(){
             $('.id_box').animate({borderTopColor: '#3be5ae', borderLeftColor: '#3be5ae', borderRightColor: '#3be5ae', borderBottomColor: '#3be5ae'}, 200);
         }).blur(function(){
@@ -665,7 +702,7 @@
             const str = $('#text').val();
             if(str===""){
                 const result = $('.listName_string').removeClass('keepfocus');
-            }else{ 
+            }else{
                 const result = $('.listName_string').addClass('keepfocus')
             }
         });
