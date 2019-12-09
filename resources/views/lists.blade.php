@@ -125,16 +125,6 @@
 							</svg>
 						</div>
 					@endforeach
-					<div class="list-content">
-						<div class="list-icon">
-							<img src="/img/2.jpg">
-						</div>
-						<div class="list-title">
-							<p class="list-title-p" data-value="おっぱいまんこまんこちんこ">おっぱいまんこまんこちんこ</p>
-						</div>
-						<svg class = "list-angle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g><path d="M13.25 10L6.109 2.58a.697.697 0 0 1 0-.979.68.68 0 0 1 .969 0l7.83 7.908a.697.697 0 0 1 0 .979l-7.83 7.908a.68.68 0 0 1-.969 0 .697.697 0 0 1 0-.979L13.25 10z"/></g>
-						</svg>
-					</div>
 				</div>
 				<div class="list-create-btn">
 					<button type="button" class="btn-square">リストを作成する</button>
@@ -210,10 +200,10 @@
             <div class="list-modal-addUsers">
                 <div class="list-modal-addUsers-searchArea">
                     <div class="list-modal-addUsers-searchArea-searchBox">
-                        <div class="id_box box">
-                            <div class="id_inner inner">
+                        <div class="search_box box">
+                            <div class="search_inner inner">
                                 <input id="search_text" class="text" maxlength="24" type="text">
-                                <div class="listName_string string">ユーザーを検索</div>
+                                <div class="search_string string">ユーザーを検索</div>
                             </div>
                             <i class="fas fa-eye-slash"></i>
                         </div>
@@ -276,71 +266,6 @@
                     </div>
                 </div>
                 <div class="list-modal-addUsers-IntendAdd">
-					<div class="list-modal-addUsers-IntendAdd-box">
-						<svg class="list-modal-addUsers-IntendAdd-box-close" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-							 viewBox="0 0 512 512" xml:space="preserve">
-							<g>
-								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
-									52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
-							</g>
-						</svg>
-						<div class="list-modal-addUsers-IntendAdd-users">
-							<span class="list-modal-addUsers-IntendAdd-users-name">M</span>
-							<span class="list-modal-addUsers-IntendAdd-users-id">@m</span>
-						</div>
-					</div>
-					<div class="list-modal-addUsers-IntendAdd-box">
-						<svg class="list-modal-addUsers-IntendAdd-box-close" id="modal_cancel" version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-							 viewBox="0 0 512 512" xml:space="preserve">
-							<g>
-								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
-									52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
-							</g>
-						</svg>
-						<div class="list-modal-addUsers-IntendAdd-users">
-							<span class="list-modal-addUsers-IntendAdd-users-name">柔道部</span>
-							<span class="list-modal-addUsers-IntendAdd-users-id">@yamamoto_nyan</span>
-						</div>
-					</div>
-					<div class="list-modal-addUsers-IntendAdd-box">
-						<svg class="list-modal-addUsers-IntendAdd-box-close" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-							 viewBox="0 0 512 512" xml:space="preserve">
-							<g>
-								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
-									52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
-							</g>
-						</svg>
-						<div class="list-modal-addUsers-IntendAdd-users">
-							<span class="list-modal-addUsers-IntendAdd-users-name">ブラック</span>
-							<span class="list-modal-addUsers-IntendAdd-users-id">@dorachu123</span>
-						</div>
-					</div>
-					<div class="list-modal-addUsers-IntendAdd-box">
-						<svg class="list-modal-addUsers-IntendAdd-box-close" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-							 viewBox="0 0 512 512" xml:space="preserve">
-							<g>
-								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
-									52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
-							</g>
-						</svg>
-						<div class="list-modal-addUsers-IntendAdd-users">
-							<span class="list-modal-addUsers-IntendAdd-users-name">なっちゃん</span>
-							<span class="list-modal-addUsers-IntendAdd-users-id">@natsuki114514</span>
-						</div>
-					</div>
-					<div class="list-modal-addUsers-IntendAdd-box">
-						<svg class="list-modal-addUsers-IntendAdd-box-close" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-							 viewBox="0 0 512 512" xml:space="preserve">
-							<g>
-								<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
-									52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
-							</g>
-						</svg>
-						<div class="list-modal-addUsers-IntendAdd-users">
-							<span class="list-modal-addUsers-IntendAdd-users-name">Numericlock</span>
-							<span class="list-modal-addUsers-IntendAdd-users-id">@numericlock</span>
-						</div>
-					</div>
 					<div id="uncode_area"></div>
                 </div>
             </div>
@@ -348,11 +273,7 @@
             <button class="modal-positive-button" id="modal_submit" type='button'>作成</button>
         </div>
     </div>
-	<form method="post" id="showListMember" name="showListMember" action="/lists/member">
-		<!-- CSRF保護 -->
-       @csrf
-	</form>
-	<form method="post" id="postForm" name="postForm" action="/lists">
+	<form method="post" id="postForm" name="showListMember" action="/lists/member">
 		<!-- CSRF保護 -->
        @csrf
 	</form>
@@ -432,8 +353,27 @@
                 }
         });
 
+		function modal_reset(){
+            $('.modal').stop(true, true).fadeOut('500');
+            $('#list-modal-content').stop(true, true).animate({
+                top: "-1000px",
+                left: "50%",
+                opacity: 0
+            }, 500, function(){
+				$('#list-modal-content').hide();
+			});
+			$('#text').val('');
+			$('#search_text').val('');
+			searchStr = null;
+			list_user_id_array = [];
+			list_icon_value = null;
+			$("#isPublish").prop('checked', false);
+			var target = document.getElementById("modal_submit");
+			target.disabled = false;
+		}
+		
         function postForm(nameVal,iconVal,list_userVal,isPublishVal) {
-            var form = document.postForm;
+        /*    var form = document.postForm;
             var name_request = document.createElement('input');
             var icon_request = document.createElement('input');
             var list_user_request = document.createElement('input');
@@ -464,14 +404,24 @@
             form.appendChild(isPublish_request);
 
             form.submit();
-
-
-			/*var data = {
+				
+*/			console.log("ごみ");
+			var publish='0';
+			var hidden='0';
+			if(isPublishVal === true){
+				publish='1';
+			}else{
+				hidden='1';
+			}
+			
+			var data = {
 				name: nameVal,
-				icon: iconVal,
+				//icon: iconVal,
 				users: list_user_id_array,
-				publish: isPublishVal
+				publish: publish,
+				hidden: hidden
 			};
+			
 			// 通信実行
 			$.ajax({
 				type:"post",                // method = "POST"
@@ -481,20 +431,33 @@
                 processData: false,         // レスポンスをJSONとしてパースする
                 async : false,   // ← asyncをfalseに設定する
 				success: function(json_data) {   // 200 OK時
-					// JSON Arrayの先頭が成功フラグ、失敗の場合2番目がエラーメッセージ
-					if (!json_data[0]) {    // サーバが失敗を返した場合
-						console.log("Transaction error. " + json_data[1]);
-						return;
-					}
-
+				$('.lists-wrapper').prepend(
+					'<div class="list-content" data-list='+ json_data.id +'>'
+				+		'<div class="list-icon">'
+				+			'<img src="/img/2.jpg">'
+				+		'</div>'
+				+		'<div class="list-title">'
+				+			'<p class="list-title-p" data-value="'+ json_data.name +'">'+ json_data.name +'</p>'
+				+		'</div>'
+				+		'<svg class = "list-angle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g><path d="M13.25 10L6.109 2.58a.697.697 0 0 1 0-.979.68.68 0 0 1 .969 0l7.83 7.908a.697.697 0 0 1 0 .979l-7.83 7.908a.68.68 0 0 1-.969 0 .697.697 0 0 1 0-.979L13.25 10z"/></g>'
+				+		'</svg>'
+				+	'</div>'
+					
+				);
+					modal_reset();
+					
 				},
-				error: function() {       // HTTPエラー時
+				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
 					console.log("Server Error. Pleasy try again later.");
-                    console.log(data);
+					console.log(data);
+					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+					console.log("textStatus     : " + textStatus);
+					console.log("errorThrown    : " + errorThrown.message);
+					//error原因不明　要改善　内容:JSON.parse Error
 				},
 				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
 				}
-			});*/
+			});
 
         }
 
@@ -508,7 +471,6 @@
 
 				form.appendChild(list_id_request);
 				document.body.appendChild(form);
-				console.log("うんち");
 				form.submit();
         }
         function append_box(name, id){
@@ -561,16 +523,21 @@
 				url:"/lists/search",        // POST送信先のURL
 				data:JSON.stringify(data),  // JSONデータ本体
 				contentType: 'application/json', // リクエストの Content-Type
-                processData: false,         // レスポンスをJSONとしてパースする
+                processData: false,    
+				async : false,   // ← asyncをfalseに設定する// レスポンスをJSONとしてパースする
 				success: function(json_data) {   // 200 OK時
 					// JSON Arrayの先頭が成功フラグ、失敗の場合2番目がエラーメッセージ
 					if (!json_data[0]) {    // サーバが失敗を返した場合
 						console.log("Transaction error. " + json_data[1]);
+						$('.list-modal-addUsers-searchArea-result').empty();
+						$('.list-modal-addUsers-searchArea-result').append(
+							"<span class='list-modal-addUsers-searchArea-result-empty'>結果が見つかりませんでした。</span>"
+							);						
 						return;
+
 					}
 					$('.list-modal-addUsers-searchArea-result').empty();
 					json_data.forEach(function( value ) {
-
 						if(list_user_id_array.indexOf(value.users_id) == -1){
 							$('.list-modal-addUsers-searchArea-result').append(
 								 '<div class="list-modal-addUsers-searchArea-result-user">'
@@ -622,8 +589,11 @@
 					});
 					$('.list-modal-addUsers-searchArea-result').append('<sc'+'ript src="/js/list_users_checkbox.js"></scr'+'ipt>');
 				},
-				error: function() {         // HTTPエラー時
-					alert("Server Error. Pleasy try again later.");
+				error: function(XMLHttpRequest, textStatus, errorThrown) {         // HTTPエラー時
+    alert('error!!!');
+　　console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+　　console.log("textStatus     : " + textStatus);
+　　console.log("errorThrown    : " + errorThrown.message);
 				},
 				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
 				}
@@ -648,7 +618,8 @@
         });
 		$('#modal_submit').on('click',function(){
             console.log($("#isPublish").prop("checked"));
-
+			var target = document.getElementById("modal_submit");
+			target.disabled = true;
             postForm($('#text').val(), list_icon_value, list_user_id_array, $("#isPublish").prop("checked"));
 		});
 
@@ -704,6 +675,20 @@
                 const result = $('.listName_string').removeClass('keepfocus');
             }else{
                 const result = $('.listName_string').addClass('keepfocus')
+            }
+        });
+        $('#search_text').focus(function(){
+            $('.search_box').animate({borderTopColor: '#3be5ae', borderLeftColor: '#3be5ae', borderRightColor: '#3be5ae', borderBottomColor: '#3be5ae'}, 200);
+        }).blur(function(){
+            $('.search_box').animate({borderTopColor: '#d3d3d3', borderLeftColor: '#d3d3d3', borderRightColor: '#d3d3d3', borderBottomColor: '#d3d3d3'}, 200);
+        });
+
+        $('#search_text').change(function() {
+            const str = $('#search_text').val();
+            if(str===""){
+                const result = $('.search_string').removeClass('keepfocus2');
+            }else{
+                const result = $('.search_string').addClass('keepfocus2')
             }
         });
     </script>

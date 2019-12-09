@@ -24,7 +24,7 @@ class listFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'bail|required|string|max:32',  // 必須・文字列・２５５文字以内	
+            'name' => 'bail|required|filled|string|max:32',  // 必須・文字列・２５５文字以内	
         ];
     }
 }

@@ -1,3 +1,6 @@
+body{
+	overflow: visible;
+}
 .content-wrapper {
 	display: flex;
 	flex-direction: row;
@@ -29,9 +32,6 @@
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
 }
 
-.list-update-btn{
-	
-}
 .btn-square-small{
 	width: 130px;
 	height: 50px;
@@ -64,6 +64,7 @@
 	flex-direction: column;
     width:100%;
 	min-height:100vh;
+	padding-bottom:100px;
 }
 
 .list-content {
@@ -144,6 +145,9 @@
 .listName_string{
     width: 150px; /*文字列分の長さ*/
 }
+.search_string{
+	width:140px;
+}
 /*アニメーション*/
 #text:focus + .listName_string, .keepfocus {
     font-size: 14px;
@@ -155,7 +159,7 @@
     transform:translate3d(5px, -6px, 0);
 }
 /*アニメーション*/
-#search_text:focus + .listName_string, .keepfocus {
+#search_text:focus + .search_string, .keepfocus2 {
     font-size: 14px;
     line-height: 10px;
     width: 115px;
@@ -198,6 +202,10 @@
 .list-modal-addUsers-searchArea-result{
     display: flex;
 	flex-direction: column;
+}
+.list-modal-addUsers-searchArea-result-empty{
+	color:white;
+	line-height: 300px;
 }
 .list-modal-addUsers-searchArea-result-user{
     display: flex;

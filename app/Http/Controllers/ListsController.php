@@ -21,38 +21,27 @@ class ListsController extends Controller
     }
 
 	public function lists (Request $request){
-		Log::debug($request->base_user->user_id."ユーザーアイデー");
 		$user = $request->base_user;
 		$lists = Disclosure_list::where('owner_user_id', $user->user_id)->get();
-		Log::debug($lists."ユーザーズリスツ");
-
-
 		return view('lists',compact('user','lists'));
 	}
 
 	public function lists_insert(listFormRequest $request){
-        Log::debug($request->name);
 		$list = new Disclosure_list;
-		$list->name = "hishida1";
+		$list->name = $request->name;
 		$list->owner_user_id = $request->base_user->user_id;
-		$list->is_published = 1;
-		$list->is_hidden = 0;
+		$list->is_published = $request->publish;
+		$list->is_hidden = $request->hidden;
 		$list->save();
 		$id = $list->id;
-         Disclosure_list_user::create([
-            'list_id'=> 25,
-            'user_id'=> "hishida2",
-            'is_deleted'=> 0,
-        ]);
-      //  foreach($request->users as $user){
-      //      Disclosure_list_user::create([
-      //          'list_id'=> $id,
-      //          'user_id'=> $user,
-      //          'is_deleted'=> 0
-      //      ]);
-       // }
-
-
+        foreach($request->users as $user){
+            Disclosure_list_user::create([
+                'list_id'=> $id,
+                'user_id'=> $user,
+                'is_deleted'=> 0
+            ]);
+        }
+		return $list;
 	}
 
 	public function lists_member(){
@@ -65,14 +54,17 @@ class ListsController extends Controller
 		->join('users', 'users.id', '=', 'disclosure_lists_users.user_id')
 		->where('disclosure_lists.id', $request->input('list_id'))
 		->get();*/
-		$lists = Disclosure_list::select('disclosure_lists.name as lists_name','disclosure_lists_users.user_id as users_id', 'users.name as users_name')
-		->join('disclosure_lists_users', 'disclosure_lists.id', '=', 'disclosure_lists_users.list_id')
+		Log::debug($request->input('list_id')."LISTMEMBERあいでー");
+		$lists = Disclosure_list::select('id as list_id','name')
+		->where('id', $request->input('list_id'))
+		->first();
+		$lists_users = Disclosure_list_user::select('disclosure_lists_users.user_id as users_id', 'users.name as users_name')
 		->join('users', 'users.id', '=', 'disclosure_lists_users.user_id')
-		->where('disclosure_lists.id', $request->input('list_id'))
+		->where('disclosure_lists_users.list_id', $request->input('list_id'))
 		->get();
 
 
 		Log::debug($lists."LISTMEMBERあいでー");
-		return view('lists_members',compact('lists'));
+		return view('lists_members',compact('lists','lists_users'));
 	}
 }
