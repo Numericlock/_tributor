@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class HomeModel extends Model
+class User_post extends Model
 {
-    protected $table = 'disclosure_lists';
-	protected $fillable = ['name', 'owner_user_id', 'is_published', 'is_hidden'];
+    protected $table = 'users_posts';
+	protected $fillable = ['post_user_id', 'content_text', 'parent_post_id', 'is_deleted', 'longitude', 'latitude'];
 }

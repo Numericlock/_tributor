@@ -331,44 +331,27 @@
 		});
 		var textarea;
 		var lists_array=[];
-        $("#search_text").on("input", function() {
-            searchStr = $(this).val();
-            clearTimeout(searchTimer);
-            searchTimer = window.setTimeout(search_for, 700);
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
         });
-		$('.post-modal_post').on('click',function(){
-			tribute_postForm();
-		});	
-		$(function tribute_postForm(){
+		function tribute_postForm(){
+			console.log("はいってはいる");
 			var data = {
 				content_text: $('#textarea').val(),
 				lists:lists_array
 			};
-			
 			// 通信実行
 			$.ajax({
 				type:"post",                // method = "POST"
-				url:"/lists",        // POST送信先のURL
+				url:"/post",        // POST送信先のURL
 				data:JSON.stringify(data),  // JSONデータ本体
 				contentType: 'application/json', // リクエストの Content-Type
                 processData: false,         // レスポンスをJSONとしてパースする
                 async : false,   // ← asyncをfalseに設定する
 				success: function(json_data) {   // 200 OK時
-				$('.lists-wrapper').prepend(
-					'<div class="list-content" data-list='+ json_data.id +'>'
-				+		'<div class="list-icon">'
-				+			'<img src="/img/2.jpg">'
-				+		'</div>'
-				+		'<div class="list-title">'
-				+			'<p class="list-title-p" data-value="'+ json_data.name +'">'+ json_data.name +'</p>'
-				+		'</div>'
-				+		'<svg class = "list-angle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g><path d="M13.25 10L6.109 2.58a.697.697 0 0 1 0-.979.68.68 0 0 1 .969 0l7.83 7.908a.697.697 0 0 1 0 .979l-7.83 7.908a.68.68 0 0 1-.969 0 .697.697 0 0 1 0-.979L13.25 10z"/></g>'
-				+		'</svg>'
-				+	'</div>'
-					
-				);
-					modal_reset();
-					
+					alert("くりあ");
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
 					console.log("Server Error. Pleasy try again later.");
@@ -381,7 +364,15 @@
 				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
 				}
 			});
-		});
+		};
+        $("#search_text").on("input", function() {
+            searchStr = $(this).val();
+            clearTimeout(searchTimer);
+            searchTimer = window.setTimeout(search_for, 700);
+        });
+		$('#post-modal_post').on('click',function(){
+			tribute_postForm();
+		});	
 	</script>
 </body>
 </html>

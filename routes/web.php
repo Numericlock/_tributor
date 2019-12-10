@@ -40,13 +40,12 @@ Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 	Route::get('/lists', 'ListsController@lists');
 	Route::post('/lists', 'ListsController@lists_insert');
 	Route::post('/lists/search', 'SearchController@users_search');
-
+	Route::get('/home', 'HomeController@home');
+	Route::post('/post', 'PostController@post');
 	Route::get('/lists/member', 'ListsController@lists_member');
 	Route::post('/lists/member', 'ListsController@lists_member_post');	
 	Route::get('/notice', function () {
 		return view('notice');
 	});
 });
-
- Route::get('/home', 'homeController@home');
 Route::get('/logout', 'AuthController@logout');

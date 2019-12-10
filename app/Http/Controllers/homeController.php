@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Log;
 
 
-class homeController extends Controller
+class HomeController extends Controller
 {
 	    public function __construct()
     {
