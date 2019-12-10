@@ -8,6 +8,9 @@
 	<script src="/js/jquery-2.1.3.js"></script>
     <link rel="icon" href="/favicon.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/common.css">
+	<link rel="stylesheet" href="/css/plus.css">
+	<link rel="stylesheet" href="/css/checkbox.css">
 	@yield('cssJs')
 </head>
 
@@ -105,9 +108,7 @@
 			</a>
 
 		</div>
-		<div class="content">
-			@yield('content')
-		</div>
+		@yield('content')
 		<div class="list">
 			<a href="#"><img class="common-list-icon" src="/img/2.jpg"></a>
 			<a href="#"><img class="common-list-icon" src="/img/2.jpg"></a>
@@ -148,7 +149,7 @@
 	<div id="post-modal_content" class="post-modal-content">
         <div class="post-modal-title">
             <span>投稿</span>
-            <svg class="post-modal-closeButton" id="post-modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            <svg class="post-modal-closeButton post-modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 512 512" xml:space="preserve">
                 <g>
                     <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
@@ -194,7 +195,7 @@
 	<div id="post-modal_content_next" class="post-modal-content">
         <div class="post-modal-title">
             <span>リストを選択する</span>
-            <svg class="post-modal-closeButton" id="post-modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            <svg class="post-modal-closeButton post-modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 512 512" xml:space="preserve">
                 <g>
                     <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
@@ -202,53 +203,31 @@
                 </g>
             </svg>
         </div>  
-			<div class="post-modal-list-area">
+		<div class="post-modal-list-area">
+			@foreach($lists as $list)
 				<div class="post-modal-list">
 					<a href="#"><img class="post-modal-list-icon" src="/img/2.jpg"></a>
-					<span>にゅーめりっくろっく</span>
+					<span>{{ $list->name }}</span>
 					<div class="checkbox">
-							<div>
-								<input type="checkbox" id="check" name="check" value="" />
-								<label class="checkbox-label" for="check">
-									<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
-								</label>
-							</div>
+						<div>
+							<input type="checkbox" id="{{ $list->id }}" name="{{ $list->id }}" value="{{ $list->name }}" />
+							<label class="checkbox-label" for="{{ $list->id }}">
+								<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
+							</label>
+						</div>
 					</div>
 				</div>
-								<div class="post-modal-list">
-					<a href="#"><img class="post-modal-list-icon" src="/img/2.jpg"></a>
-					<span>にゅーめりっくろっく</span>
-					<div class="checkbox">
-							<div>
-								<input type="checkbox" id="check" name="check" value="" />
-								<label class="checkbox-label" for="check">
-									<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
-								</label>
-							</div>
-					</div>
-				</div>
-								<div class="post-modal-list">
-					<a href="#"><img class="post-modal-list-icon" src="/img/2.jpg"></a>
-					<span>にゅーめりっくろっく</span>
-					<div class="checkbox">
-                        <div>
-                            <input type="checkbox" id="check2" name="check2" value="" />
-                            <label class="checkbox-label" for="check2">
-                                <span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
-                            </label>
-                        </div>
-					</div>
-				</div>
-			</div>
-			<div class="switch">
-				<span id="disclose_status" class="sushiki">非公開</span>
-				<input id="cmn-toggle-4" name="disclose" id="disclose" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked>
-				<label for="cmn-toggle-4"></label>
-			</div>
-			<div class="post-modal-control">
-				<button class="post-modal-negative-button" id="post-modal_back" type='button'>戻る</button>
-				<button class="post-modal-positive-button" id="post-modal_post" type='button'>投稿</button>
-			</div>
+			@endforeach
+		</div>
+		<div class="switch">
+			<span id="disclose_status" class="sushiki">非公開</span>
+			<input id="cmn-toggle-4" name="disclose" id="disclose" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked>
+			<label for="cmn-toggle-4"></label>
+		</div>
+		<div class="post-modal-control">
+			<button class="post-modal-negative-button" id="post-modal_back" type='button'>戻る</button>
+			<button class="post-modal-positive-button" id="post-modal_post" type='button'>投稿</button>
+		</div>
 	</div>
 	<script>
 		$('#dotRadius').on('click',function(){
@@ -274,8 +253,6 @@
 			}, 500, function(){
 				$('#post-modal_content').hide();
 			});
-		});	
-		$('.post-modal').on('click',function(){
 			$('.post-modal').stop(true, true).fadeOut('500');
 			$('#post-modal_content_next').stop(true, true).animate({
 				top: "-100px",
@@ -284,13 +261,24 @@
 				$('#post-modal_content_next').hide();
 			});
 		});	
-		$('#post-modal_cancel').on('click',function(){
+		$('.post-modal').on('click',function(){
+
+		});	
+		$('.post-modal_cancel').on('click',function(){
 			$('.post-modal').stop(true, true).fadeOut('500');
 			$('#post-modal_content').stop(true, true).animate({
 				top: "-100px",
+				left:"50%",
 				opacity: 0
 			}, 500, function(){
 				$('#post-modal_content').hide();
+			});
+			$('.post-modal').stop(true, true).fadeOut('500');
+			$('#post-modal_content_next').stop(true, true).animate({
+				top: "-100px",
+				opacity: 0
+			}, 500, function(){
+				$('#post-modal_content_next').hide();
 			});
 		});	
 		$('#post-modal_next').on('click',function(){
@@ -327,41 +315,72 @@
 			$(this).height(lineHeight * lines);
 		  });
 		});
-		$(function(){
-			var elements = document.getElementsByName('disclose') ;
-			var radioval = $(this).val();
-			var str = document.getElementById("introduction").innerHTML;
-			var strReplace = str.replace(/\r?\n/g, "<br>");	
-			console.log(strReplace);
-			document.getElementById("introduction").innerHTML=strReplace;
-			if(elements[0].checked == true){
-				$('#discloseSettingArea').slideUp();
-				$("#disclose").prop("checked", true);
-				console.log(elements[0].checked);
-				document.getElementById("disclose_status").innerHTML="非公開";
-				
-				$('#disclose_status').css('color','#a61a37');
-			}else{
-				$('#discloseSettingArea').slideDown();
-				document.getElementById("disclose_status").innerHTML="公開";
-				$('#disclose_status').css('color','#8ce196');
-			}
-		});
 		$( 'input[name="disclose"]:checkbox' ).change( function() {
 			var elements = document.getElementsByName('disclose') ;
 			var radioval = $(this).val();
 			if(elements[0].checked == false){
-				$('#discloseSettingArea').slideDown();
+				$('.post-modal-list-area').slideUp();
 				document.getElementById("disclose_status").innerHTML="公開";
 				$('#disclose_status').css('color','#8ce196');
-				$('#disclose_change').stop(true, true).fadeIn('500');
 			}else{
 				//$(".cmn-toggle-small").prop("checked", true);
-				$('#discloseSettingArea').slideUp();
+				$('.post-modal-list-area').slideDown();
 				document.getElementById("disclose_status").innerHTML="非公開";
 				$('#disclose_status').css('color','#a61a37');
-				$('#disclose_change').stop(true, true).fadeIn('500');
 			}
+		});
+		var textarea;
+		var lists_array=[];
+        $("#search_text").on("input", function() {
+            searchStr = $(this).val();
+            clearTimeout(searchTimer);
+            searchTimer = window.setTimeout(search_for, 700);
+        });
+		$('.post-modal_post').on('click',function(){
+			tribute_postForm();
+		});	
+		$(function tribute_postForm(){
+			var data = {
+				content_text: $('#textarea').val(),
+				lists:lists_array
+			};
+			
+			// 通信実行
+			$.ajax({
+				type:"post",                // method = "POST"
+				url:"/lists",        // POST送信先のURL
+				data:JSON.stringify(data),  // JSONデータ本体
+				contentType: 'application/json', // リクエストの Content-Type
+                processData: false,         // レスポンスをJSONとしてパースする
+                async : false,   // ← asyncをfalseに設定する
+				success: function(json_data) {   // 200 OK時
+				$('.lists-wrapper').prepend(
+					'<div class="list-content" data-list='+ json_data.id +'>'
+				+		'<div class="list-icon">'
+				+			'<img src="/img/2.jpg">'
+				+		'</div>'
+				+		'<div class="list-title">'
+				+			'<p class="list-title-p" data-value="'+ json_data.name +'">'+ json_data.name +'</p>'
+				+		'</div>'
+				+		'<svg class = "list-angle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g><path d="M13.25 10L6.109 2.58a.697.697 0 0 1 0-.979.68.68 0 0 1 .969 0l7.83 7.908a.697.697 0 0 1 0 .979l-7.83 7.908a.68.68 0 0 1-.969 0 .697.697 0 0 1 0-.979L13.25 10z"/></g>'
+				+		'</svg>'
+				+	'</div>'
+					
+				);
+					modal_reset();
+					
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
+					console.log("Server Error. Pleasy try again later.");
+					console.log(data);
+					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+					console.log("textStatus     : " + textStatus);
+					console.log("errorThrown    : " + errorThrown.message);
+					//error原因不明　要改善　内容:JSON.parse Error
+				},
+				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
+				}
+			});
 		});
 	</script>
 </body>

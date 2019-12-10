@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Models\UserSession;
+use App\Models\Disclosure_list;
 
 class AuthencationBefore
 {
@@ -26,7 +27,8 @@ class AuthencationBefore
 					->where('users_sessions.id', $_COOKIE['session'])
 					->whereNull('users_sessions.logout_at')
 					->first();
-				$request->merge(['base_user' => $user]);
+				$lists = Disclosure_list::where('owner_user_id', $user->user_id)->get();
+				$request->merge(['base_user' => $user,'base_user_lists' => $lists]);
 				return $next($request);
 			}else{
 				setcookie('session','',time()-1);

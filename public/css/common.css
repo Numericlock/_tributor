@@ -292,6 +292,7 @@ button {
 	background:　none;
 	height: 300px;
 	color:white;
+	overflow-y: scroll;
 }
 
 .post-modal-list {
@@ -560,11 +561,14 @@ button {
 	width: 100%;
 	margin-bottom: 15px;
 }
-
+#disclose_status{
+	color:#a61a37;
+}
 .cmn-toggle {
 	position: absolute;
 	margin-left: -9999px;
 	visibility: hidden;
+	
 }
 
 .cmn-toggle + label {
@@ -597,7 +601,7 @@ input.cmn-toggle-round-flat + label:before {
 	left: 2px;
 	bottom: 2px;
 	right: 2px;
-	background-color: #fff;
+	background-color:#36393E;
 	border-radius: 60px;
 	transition: background 0.4s;
 }

@@ -2,9 +2,7 @@
 @section('title', 'リスト')
 @section('cssJs')
 	<link rel="stylesheet" href="/css/opening-common.css">
-	<link rel="stylesheet" href="/css/common.css">
 	<link rel="stylesheet" href="/css/list.css">
-	<link rel="stylesheet" href="/css/plus.css">
 	<link rel="stylesheet" href="/css/checkbox.css">
 @endsection
 @section('content')
