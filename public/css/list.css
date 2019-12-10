@@ -1,6 +1,14 @@
 body{
 	overflow: visible;
 }
+.list-nav-icon{
+	max-width:115%;
+	width:115%;
+	padding-left:5px;
+	padding-top:0;
+	padding-bottom:0;
+	fill:white;
+}
 .content-wrapper {
 	display: flex;
 	flex-direction: row;
