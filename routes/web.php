@@ -47,6 +47,5 @@ Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 		return view('notice');
 	});
 });
-
- Route::get('/home', 'homeController@home');
+Route::get('/home','homeController@home');
 Route::get('/logout', 'AuthController@logout');
