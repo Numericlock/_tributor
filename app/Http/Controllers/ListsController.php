@@ -62,9 +62,10 @@ class ListsController extends Controller
 		->join('users', 'users.id', '=', 'disclosure_lists_users.user_id')
 		->where('disclosure_lists_users.list_id', $request->input('list_id'))
 		->get();
+		$count = $lists_users->count();
 
 
 		Log::debug($lists."LISTMEMBERあいでー");
-		return view('lists_members',compact('lists','lists_users'));
+		return view('lists_members',compact('lists','lists_users', 'count'));
 	}
 }

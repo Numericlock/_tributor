@@ -117,7 +117,7 @@
 							{{$lists->name }}
 					</div>
 					<div class="list-members-num">
-						5メンバー
+						メンバー{{$count }}人
 					</div>
 					<div class="list-update-btn">
 						<button type="button" id="list_update_button" class="btn-square-small">リストを編集する</button>

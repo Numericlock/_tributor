@@ -214,7 +214,7 @@
                                 <img src="/img/2.jpg">
                             </div>
                             <div class="list-modal-addUsers-searchArea-result-user-name">
-                                <span>柔道部</span>
+                                <span title="にゅーめりっくｒっく">柔道部柔道部柔道部柔道部</span>
                             </div>
                             <div class="list-modal-addUsers-searchArea-result-user-checkbox">
                                 <div class="checkbox">
@@ -251,6 +251,9 @@
                             </div>
                             <div class="list-modal-addUsers-searchArea-result-user-name">
                                 <span>ブラック</span>
+								<div class="list-modal-addUsers-searchArea-result-user-id">
+									<span>@dorachu</span>
+								</div>
                             </div>
                             <div class="list-modal-addUsers-searchArea-result-user-checkbox">
                                 <div class="checkbox">
@@ -475,7 +478,13 @@
         }
         function append_box(name, id){
             $(".list-modal-addUsers-IntendAdd").append(
-                '<div id="'+id+'_box" class="list-modal-addUsers-IntendAdd-box"><svg class="list-modal-addUsers-IntendAdd-box-close" id="'+id+'_box_remove_button" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/></g></svg><div class="list-modal-addUsers-IntendAdd-users"><span class="list-modal-addUsers-IntendAdd-users-name">'+name+'</span><span class="list-modal-addUsers-IntendAdd-users-id">'+id+'</span></div></div>'
+                '<div id="'+id+'_box" class="list-modal-addUsers-IntendAdd-box">'
+			+		'<svg class="list-modal-addUsers-IntendAdd-box-close" id="'+id+'_box_remove_button" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/></g></svg>'
+			+		'<div class="list-modal-addUsers-IntendAdd-users">'
+			+			'<span class="list-modal-addUsers-IntendAdd-users-name">'+name+'</span>'
+			+			'<span class="list-modal-addUsers-IntendAdd-users-id">@'+id+'</span>'
+			+		'</div>'
+			+	'</div>'
             );
 			$("#uncode_area").empty();
 			$("#uncode_area").append(
@@ -545,7 +554,10 @@
 								+				'<img src="/img/2.jpg">'
 								+			'</div>'
 								+			'<div class="list-modal-addUsers-searchArea-result-user-name">'
-								+				'<span>'+ value.users_id +'</span>'
+								+				'<span title='+value.users_name+'>'+ value.users_name +'</span>'
+								+				'<div class="list-modal-addUsers-searchArea-result-user-id">'
+								+					'<span title=@'+value.users_id+'>@'+ value.users_id +'</span>'
+								+				'</div>'
 								+			'</div>'
 								+			'<div class="list-modal-addUsers-searchArea-result-user-checkbox">'
 								+				'<div class="checkbox">'
@@ -567,7 +579,10 @@
 								+				'<img src="/img/2.jpg">'
 								+			'</div>'
 								+			'<div class="list-modal-addUsers-searchArea-result-user-name">'
-								+				'<span>'+ value.users_id +'</span>'
+								+				'<span title='+value.users_name+'>'+ value.users_name +'</span>'
+								+				'<div class="list-modal-addUsers-searchArea-result-user-id">'
+								+					'<span title@='+value.users_id+'>@'+ value.users_id +'</span>'
+								+				'</div>'
 								+			'</div>'
 								+			'<div class="list-modal-addUsers-searchArea-result-user-checkbox">'
 								+				'<div class="checkbox">'
@@ -590,10 +605,9 @@
 					$('.list-modal-addUsers-searchArea-result').append('<sc'+'ript src="/js/list_users_checkbox.js"></scr'+'ipt>');
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {         // HTTPエラー時
-    alert('error!!!');
-　　console.log("XMLHttpRequest : " + XMLHttpRequest.status);
-　　console.log("textStatus     : " + textStatus);
-　　console.log("errorThrown    : " + errorThrown.message);
+					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+					console.log("textStatus     : " + textStatus);
+					console.log("errorThrown    : " + errorThrown.message);
 				},
 				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
 				}
