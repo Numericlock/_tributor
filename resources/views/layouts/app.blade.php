@@ -203,22 +203,7 @@
                 </g>
             </svg>
         </div>  
-		<div class="post-modal-list-area">
-			@foreach($lists as $list)
-				<div class="post-modal-list">
-					<a href="#"><img class="post-modal-list-icon" src="/img/2.jpg"></a>
-					<span>{{ $list->name }}</span>
-					<div class="checkbox">
-						<div>
-							<input type="checkbox" id="{{ $list->id }}" name="{{ $list->id }}" value="{{ $list->name }}" />
-							<label class="checkbox-label" for="{{ $list->id }}">
-								<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
-							</label>
-						</div>
-					</div>
-				</div>
-			@endforeach
-		</div>
+
 		<div class="switch">
 			<span id="disclose_status" class="sushiki">非公開</span>
 			<input id="cmn-toggle-4" name="disclose" id="disclose" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked>
