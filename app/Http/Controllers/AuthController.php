@@ -117,7 +117,9 @@ class AuthController extends Controller{
             'password' => $request->input('password'),
             'e_mail'=>$request->input('email'),
             'birth_on' => "2019-10-28",
+            'is_deleted' => 0
         ]);
+		return view('login');
 	}
 	
 	public function is_diplication (Request $request){
