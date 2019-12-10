@@ -22,7 +22,7 @@ class ListsController extends Controller
 
 	public function lists (Request $request){
 		$user = $request->base_user;
-		$lists = Disclosure_list::where('owner_user_id', $user->user_id)->get();
+		$lists = $request->base_user_lists;
 		return view('lists',compact('user','lists'));
 	}
 
