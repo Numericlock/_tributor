@@ -8,11 +8,13 @@ use Log;
 
 class homeController extends Controller
 {
+    
 public function __construct()
     {
         // 作成したMiddlewareを呼び出し
         $this->middleware('auth.before');
     }
+    
 	
     public function home (Request $request){
 		$user = $request->base_user;
