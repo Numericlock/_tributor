@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class User_post extends Model
 {
-    protected $table = 'User_post';
-	protected $fillable = ['name', 'owner_user_id', 'is_published', 'is_hidden'];
+    protected $table = 'users_posts';
+	protected $fillable = ['post_user_id', 'content_text', 'parent_post_id', 'is_deleted', 'longitude', 'latitude'];
 }
