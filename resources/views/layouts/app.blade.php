@@ -206,7 +206,7 @@
             </svg>
         </div>  
 		<div class="post-modal-list-area">
-			@foreach($posts as $list)
+			@foreach($lists as $list)
 				<div class="post-modal-list">
 					<a href="#"><img class="post-modal-list-icon" src="/img/2.jpg"></a>
 					<span>{{ $list->name }}</span>
