@@ -21,7 +21,7 @@
 							<span>{{ $post->name }}</span>
 						</div>
 						<div class="information">
-							<span><img class="information-icon" src="/img/comment.svg">{{$post->update_at}}-<img class="information-icon" src="/img/list2.svg"></span>
+							<span><img class="information-icon" src="/img/comment.svg">{{$post->updated_at}}-<img class="information-icon" src="/img/list2.svg"></span>
 						</div>
 					</div>
 				</div>
