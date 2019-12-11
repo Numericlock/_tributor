@@ -14,14 +14,14 @@ use Log;
 
 class HomeController extends Controller
 {
-    
+
 public function __construct()
     {
         // 作成したMiddlewareを呼び出し
         $this->middleware('auth.before');
     }
-    
-	
+
+
     public function home (Request $request){
 		$posts = User_post::select('users_posts.*','users.id as users_id', 'users.name as users_name')
 		->join('users_follows', 'users_follows.followed_user_id', '=', 'users_posts.post_user_id')
