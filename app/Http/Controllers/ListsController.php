@@ -28,11 +28,11 @@ class ListsController extends Controller
 
 	public function lists_insert(listFormRequest $request){
 		$list = new Disclosure_list;
-		$list->name = $request->name;
-		$list->owner_user_id = $request->base_user->user_id;
-		$list->is_published = $request->publish;
-		$list->is_hidden = $request->hidden;
-		$list->save();
+		$list -> name = $request->name;
+		$list -> owner_user_id = $request->base_user->user_id;
+		$list -> is_published = $request->publish;
+		$list -> is_hidden = $request->hidden;
+		$list -> save();
 		$id = $list->id;
         foreach($request->users as $user){
             Disclosure_list_user::create([
