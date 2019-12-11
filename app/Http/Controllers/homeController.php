@@ -23,7 +23,7 @@ public function __construct()
     
 	
     public function home (Request $request){
-		$posts = User_post::select('users_posts.*')
+		$posts = User_post::select('users_posts.*','users.id','users.name')
 		->join('users_follows', 'users_follows.followed_user_id', '=', 'users_posts.post_user_id')
         ->join('users_posts', 'users_posts.post_user_id', '=', 'users.id')
 		->join('posts_vaild_disclosure_lists', 'users_posts.id', '=', 'posts_vaild_disclosure_lists.post_id')
