@@ -62,7 +62,7 @@
 					</g>
 				</svg>
 			</a>
-			<a href="list.html">
+			<a href="/lists">
 				<svg class="nav-icon list-nav-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
 						<path class="st0" d="M392.197,26.581h-4.77v-9.699c0-9.316-7.55-16.882-16.881-16.882c-9.332,0-16.898,7.566-16.898,16.882v9.699
