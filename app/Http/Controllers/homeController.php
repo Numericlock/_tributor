@@ -31,13 +31,8 @@ public function __construct()
 		->distinct()
 		->get();
 		Log::debug($posts."foloowwwdｗｗｗｗｗｗだああｗｗｗ2");
-		
-		
-		
-		
-		$user = $request->base_user;
-		$lists = $request->base_user_lists;
-		return view('home',compact('user','lists'));
+
+		return view('home',compact('posts'));
 
 	}
 }
