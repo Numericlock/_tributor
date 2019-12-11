@@ -146,6 +146,9 @@
 	</div>
 	<div class="post-modal">
 	</div>
+    
+    <form action="{{ url('/post)}}" method="POST" >
+        {{ csrf_field() }}
 	<div id="post-modal_content" class="post-modal-content">
         <div class="post-modal-title">
             <span>投稿</span>
