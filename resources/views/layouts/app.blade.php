@@ -147,7 +147,7 @@
 	<div class="post-modal">
 	</div>
     
-    
+
 	<div id="post-modal_content" class="post-modal-content">
         <div class="post-modal-title">
             <span>投稿</span>
@@ -231,7 +231,6 @@
 			<button class="post-modal-positive-button" id="post-modal_post" type='button'>投稿</button>
 		</div>
 	</div>
-    
     
 	<script>
 		$('#dotRadius').on('click',function(){
