@@ -376,8 +376,23 @@
 					console.log("errorThrown    : " + errorThrown.message);
 				},
 				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
-				}
-			});
+                    $('.post-modal').stop(true, true).fadeOut('500');
+			     　　$('#post-modal_content').stop(true, true).animate({
+				        top: "-100px",
+				        left:"50%",
+                        opacity: 0
+			         }, 500, function(){
+				    $('#post-modal_content').hide();
+			             });
+			         $('.post-modal').stop(true, true).fadeOut('500');
+			         $('#post-modal_content_next').stop(true, true).animate({
+                         top: "-100px",
+				        　opacity: 0
+                     }, 500, function(){
+                    　$('#post-modal_content_next').hide();
+                     });
+                    }
+			     });
 		};
         $("#search_text").on("input", function() {
             searchStr = $(this).val();
