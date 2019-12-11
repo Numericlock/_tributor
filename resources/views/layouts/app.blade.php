@@ -365,17 +365,8 @@
 				contentType: 'application/json', // リクエストの Content-Type
                 processData: false,         // レスポンスをJSONとしてパースする
                 async : false,   // ← asyncをfalseに設定する
-				success: function(json_data) {   // 200 OK時
+				success: function(json_data) { // 200 OK時
 					alert("くりあ");
-				},
-				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
-					console.log("Server Error. Pleasy try again later.");
-					console.log(data);
-					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
-					console.log("textStatus     : " + textStatus);
-					console.log("errorThrown    : " + errorThrown.message);
-				},
-				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
                     $('.post-modal').stop(true, true).fadeOut('500');
 			     　　$('#post-modal_content').stop(true, true).animate({
 				        top: "-100px",
@@ -391,8 +382,18 @@
                      }, 500, function(){
                     　$('#post-modal_content_next').hide();
                      });
-                    }
-			     });
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
+					console.log("Server Error. Pleasy try again later.");
+					console.log(data);
+					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+					console.log("textStatus     : " + textStatus);
+					console.log("errorThrown    : " + errorThrown.message);
+				},
+				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
+                
+				}
+			});
 		};
         $("#search_text").on("input", function() {
             searchStr = $(this).val();
