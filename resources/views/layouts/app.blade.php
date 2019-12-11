@@ -229,9 +229,11 @@
 		</div>
 		<div class="post-modal-control">
 			<button class="post-modal-negative-button" id="post-modal_back" type='button'>戻る</button>
-			<button class="post-modal-positive-button" id="post-modal_post" type='button'>投稿</button>
+			<button class="post-modal-positive-button" id="post-modal_post" type='submit'>投稿</button>
 		</div>
 	</div>
+    </form>
+    
 	<script>
 		$('#dotRadius').on('click',function(){
 			$('.post-modal').stop(true, true).fadeIn('500');
