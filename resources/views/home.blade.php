@@ -18,7 +18,7 @@
 					</div>
 					<div class="users-information">
 						<div class="users-name">
-							<span>{{ $post->post_user_id }}</span>
+							<span>{{ $post->name }}</span>
 						</div>
 						<div class="information">
 							<span><img class="information-icon" src="/img/comment.svg">{{$post->update_at}}-<img class="information-icon" src="/img/list2.svg"></span>
