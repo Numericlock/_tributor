@@ -161,7 +161,7 @@
             <div class="post-modal-textarea-userImage">
                 <img src="/img/2.jpg">			        			
             </div> 
-            <textarea  id="textarea" name="post_message" title="今何してる？"　aria-label="今何してる？"　placeholder="今何してる？"></textarea>
+            <textarea  id="textarea" name="post_message" title="今何してる？"　aria-label="今何してる？"　placeholder="今何してる？" maxlength="256"></textarea>
         </div>
         <div class="post-modal-control">
             <button type='button'><img class="post-modal-control-icon" src="/img/comment.svg"></button>
@@ -203,7 +203,22 @@
                 </g>
             </svg>
         </div>  
-
+		<div class="post-modal-list-area">
+			@foreach($lists as $list)
+				<div class="post-modal-list">
+					<a href="#"><img class="post-modal-list-icon" src="/img/2.jpg"></a>
+					<span>{{ $list->name }}</span>
+					<div class="checkbox">
+						<div>
+							<input class="post-modal-list-checkbox" type="checkbox" id="{{ $list->id }}" name="{{ $list->id }}" value="{{ $list->name }}" />
+							<label class="checkbox-label" for="{{ $list->id }}">
+								<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
+							</label>
+						</div>
+					</div>
+				</div>
+			@endforeach
+		</div>
 		<div class="switch">
 			<span id="disclose_status" class="sushiki">非公開</span>
 			<input id="cmn-toggle-4" name="disclose" id="disclose" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked>
@@ -316,13 +331,25 @@
 		});
 		var textarea;
 		var lists_array=[];
+		
+		
+		$(".post-modal-list-checkbox").change(function() {
+				if($(this).prop("checked")==true){
+					lists_array.push($(this).attr("id"));
+				}else{
+					var target = $(this).attr("id");
+					lists_array.some(function(v, i){
+						if (v==target) lists_array.splice(i,1);
+					});
+				}
+			console.log(lists_array);
+		});
         $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
         });
 		function tribute_postForm(){
-			console.log("はいってはいる");
 			var data = {
 				content_text: $('#textarea').val(),
 				lists:lists_array
@@ -344,7 +371,6 @@
 					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
 					console.log("textStatus     : " + textStatus);
 					console.log("errorThrown    : " + errorThrown.message);
-					//error原因不明　要改善　内容:JSON.parse Error
 				},
 				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
 				}
