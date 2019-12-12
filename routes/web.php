@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 	Route::post('/lists/search', 'SearchController@users_search');
 	Route::get('/home', 'HomeController@home');
 	Route::post('/post', 'PostController@post');
+	Route::post('//get_posts', 'PostController@get_posts');
 	Route::get('/lists/member', 'ListsController@lists_member');
 	Route::post('/lists/member', 'ListsController@lists_member_post');
 	Route::get('/notice', function () {

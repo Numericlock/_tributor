@@ -33,6 +33,9 @@ public function __construct()
 		->orWhere('users_follows.subject_user_id',$request->base_user->user_id)
 		->whereNull('disclosure_lists_users.user_id')
 		->distinct()
+		->latest()
+		->offset(0)
+		->limit(25)
 		->get();
 		Log::debug($posts."foloowwwdｗｗｗｗｗｗだああｗｗｗ2");
         $user = $request->base_user;

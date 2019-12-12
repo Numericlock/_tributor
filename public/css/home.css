@@ -10,7 +10,7 @@
 	fill:white;
 }
 .users-content{
-	border-bottom:solid 1px lightgray;
+	border-bottom:solid 1px transparent;
 	padding:10px;
 	display: -webkit-flex;
 	display: flex;
