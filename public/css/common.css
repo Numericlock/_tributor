@@ -86,7 +86,7 @@ button {
 	width: 100%;
 	padding: 15px 20px;
 	fill: #4B4B4B;
-	transition: width 0.4s, max-width 0.4s, fill 0.4s, padding-left 0.4s, padding-top 0.4s, padding-bottom 0.4s;
+	transition: width 0.4s, max-width 0.4s, fill 0.4s, padding-left 0.4s, padding-top 0.4s, padding-bottom 0.4s, filter 0.3s;
 }
 
 .nav-icon:hover {
@@ -96,9 +96,12 @@ button {
 	padding-top: 0;
 	padding-bottom: 0;
 	fill: white;
-	transition: width 0.3s, max-width 0.3s, fill 0.3s, padding-left 0.3s, padding-top 0.3s, padding-bottom 0.3s;
+	filter: drop-shadow(0 0 0.5rem white);
+	transition: width 0.3s, max-width 0.3s, fill 0.3s, padding-left 0.3s, padding-top 0.3s, padding-bottom 0.3s, filter -0.3s;
 }
-
+.common-user-icon{
+	border-radius: 100%;
+}
 
 .list {
 	z-index: 1;

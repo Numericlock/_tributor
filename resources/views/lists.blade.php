@@ -8,7 +8,7 @@
 @section('content')
 		<div class="content">
 			<div class="content-title">
-				　<span>リスト{{ $user->user_id }}</span>
+				　<span>リスト</span>
 			</div>
 			<div class="content-wrapper">
 				<div class="lists-wrapper">

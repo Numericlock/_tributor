@@ -17,6 +17,7 @@
 <body>
 	<div class="wrapper">
 		<div class="nav">
+			<a href="/profile"><img class="nav-icon common-user-icon" src="/img/2.jpg"></a>
 			<a href="/home">
 				<svg class="nav-icon home-nav-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
@@ -62,7 +63,7 @@
 					</g>
 				</svg>
 			</a>
-			<a href="list.html">
+			<a href="/lists">
 				<svg class="nav-icon list-nav-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
 						<path class="st0" d="M392.197,26.581h-4.77v-9.699c0-9.316-7.55-16.882-16.881-16.882c-9.332,0-16.898,7.566-16.898,16.882v9.699
@@ -146,7 +147,7 @@
 	</div>
 	<div class="post-modal">
 	</div>
-    
+
 
 	<div id="post-modal_content" class="post-modal-content">
         <div class="post-modal-title">
@@ -154,15 +155,15 @@
             <svg class="post-modal-closeButton post-modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 512 512" xml:space="preserve">
                 <g>
-                    <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
+                    <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
                         52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
                 </g>
             </svg>
-        </div>  
+        </div>
         <div class="post-modal-textarea">
             <div class="post-modal-textarea-userImage">
-                <img src="/img/2.jpg">			        			
-            </div> 
+                <img src="/img/2.jpg">
+            </div>
             <textarea  id="textarea" name="post_message" title="今何してる？"　aria-label="今何してる？"　placeholder="今何してる？" maxlength="256"></textarea>
 
         </div>
@@ -204,11 +205,11 @@
             <svg class="post-modal-closeButton post-modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 512 512" xml:space="preserve">
                 <g>
-                    <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
+                    <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
                         52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
                 </g>
             </svg>
-        </div>  
+        </div>
 		<div class="post-modal-list-area">
 			@foreach($lists as $list)
 				<div class="post-modal-list">
@@ -235,7 +236,10 @@
 			<button class="post-modal-positive-button" id="post-modal_post" type='button'>投稿</button>
 		</div>
 	</div>
-    
+	<div id="script-reload">
+
+	</div>
+
 	<script>
 		$('#dotRadius').on('click',function(){
 			$('.post-modal').stop(true, true).fadeIn('500');
@@ -250,7 +254,7 @@
 				display: "fixed",
 				opacity: 0
 			}, 500);
-		});	
+		});
 		$('.post-modal').on('click',function(){
 			$('.post-modal').stop(true, true).fadeOut('500');
 			$('#post-modal_content').stop(true, true).animate({
@@ -267,10 +271,10 @@
 			}, 500, function(){
 				$('#post-modal_content_next').hide();
 			});
-		});	
+		});
 		$('.post-modal').on('click',function(){
 
-		});	
+		});
 		$('.post-modal_cancel').on('click',function(){
 			$('.post-modal').stop(true, true).fadeOut('500');
 			$('#post-modal_content').stop(true, true).animate({
@@ -287,7 +291,7 @@
 			}, 500, function(){
 				$('#post-modal_content_next').hide();
 			});
-		});	
+		});
 		$('#post-modal_next').on('click',function(){
             var count = $('#textarea').val().length;
             if(count != 0){
@@ -303,7 +307,7 @@
 				$('#post-modal_content').hide();
 			});
             }
-		});	
+		});
 		$('#post-modal_back').on('click',function(){
 			$('#post-modal_content').show().stop(true, true).animate({
 				left: "50%",
@@ -316,7 +320,7 @@
 			}, 500, function(){
 				$('#post-modal_content_next').hide();
 			});
-		});	
+		});
 		$(function() {
 		  var $textarea = $('#textarea');
 		  var lineHeight = parseInt($textarea.css('lineHeight'));
@@ -341,8 +345,8 @@
 		});
 		var textarea;
 		var lists_array=[];
-		
-		
+
+
 		$(".post-modal-list-checkbox").change(function() {
 				if($(this).prop("checked")==true){
 					lists_array.push($(this).attr("id"));
@@ -374,7 +378,7 @@
                 async : false,   // ← asyncをfalseに設定する
 				success: function(json_data) { // 200 OK時
                     $('.show-count').text("0");
-                    
+
 					alert("くりあ");
                     $('#textarea').val("");
                     $('.post-modal').stop(true, true).fadeOut('500');
@@ -401,7 +405,7 @@
 					console.log("errorThrown    : " + errorThrown.message);
 				},
 				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
-                
+
 				}
 			});
 		};
@@ -411,10 +415,10 @@
             searchTimer = window.setTimeout(search_for, 700);
         });
 		$('#post-modal_post').on('click',function(){
-            
+
 			tribute_postForm();
-		});	
-        
+		});
+
         $(function(){
 
   $('#textarea').keyup(function(){
