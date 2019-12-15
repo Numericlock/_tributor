@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="/css/profile.css">
 	<link rel="stylesheet" href="/css/proedit.css">
 	<link rel="stylesheet" href="/css/modal.css">
+	<script src="js/icon_editor.js"></script>
 @endsection
 @section('content')
 		
@@ -12,8 +13,8 @@
 			<div class="content-title">
 				　<span>プロフィール</span>
 			</div>
-			<div id="setting">							
-				<button type="button" class="dotRadius2" data-toggle="modal" data-target="#ModalAddCalendar"><span id="plus"></span></button>
+			<div id="setting" class="dotRadius2">							
+				<button type="button" class="dotRadius2 dotRadius" data-toggle="modal" ><span id="plus"></span></button>
 			</div>
 			<div class="profile">
 				<div class="profile-icon">
@@ -214,7 +215,7 @@
 				</div>
 			</div>
 		</div>
-	<div class="modal">
+	<div class="modal2">
 	</div>
 	
 	<div class="modal-content3">
@@ -270,7 +271,7 @@
 	<script>
 		
 		$('.modal').on('click',function(){
-			$('.modal').stop(true, true).fadeOut('500');
+			$('.modal2').stop(true, true).fadeOut('500');
 			$('.modal-content3').stop(true, true).animate({
 				top: "-100px",
 				opacity: 0
@@ -279,9 +280,10 @@
 			});
 		});	
 		
-				$('#dotRadius2').on('click',function(){
+			$('.dotRadius2').on('click',function(){
+				console.log("ごみ");
 			$('.modal2').stop(true, true).fadeIn('500');
-			$('.modal-content-2').show().stop(true, true).animate({
+			$('.modal-content3').show().stop(true, true).animate({
 				top: "50%",
 				display: "fixed",
 				opacity: 1.0
@@ -299,7 +301,7 @@
 		
 		$('.modal2').on('click',function(){
 			$('.modal2').stop(true, true).fadeOut('500');
-			$('.modal-content-2').stop(true, true).animate({
+			$('.modal-content3').stop(true, true).animate({
 				top: "-100px",
 				left:"50%",
 				opacity: 0
@@ -372,42 +374,7 @@
 		  });
 		});
 		*/
-		$(function(){
-			var elements = document.getElementsByName('disclose') ;
-			var radioval = $(this).val();
-			var str = document.getElementById("introduction").innerHTML;
-			var strReplace = str.replace(/\r?\n/g, "<br>");	
-			console.log(strReplace);
-			document.getElementById("introduction").innerHTML=strReplace;
-			if(elements[0].checked == true){
-				$('#discloseSettingArea').slideUp();
-				$("#disclose").prop("checked", true);
-				console.log(elements[0].checked);
-				document.getElementById("disclose_status").innerHTML="非公開";
-				
-				$('#disclose_status').css('color','#a61a37');
-			}else{
-				$('#discloseSettingArea').slideDown();
-				document.getElementById("disclose_status").innerHTML="公開";
-				$('#disclose_status').css('color','#8ce196');
-			}
-		});
-		$( 'input[name="disclose"]:checkbox' ).change( function() {
-			var elements = document.getElementsByName('disclose') ;
-			var radioval = $(this).val();
-			if(elements[0].checked == false){
-				$('#discloseSettingArea').slideDown();
-				document.getElementById("disclose_status").innerHTML="公開";
-				$('#disclose_status').css('color','#8ce196');
-				$('#disclose_change').stop(true, true).fadeIn('500');
-			}else{
-				//$(".cmn-toggle-small").prop("checked", true);
-				$('#discloseSettingArea').slideUp();
-				document.getElementById("disclose_status").innerHTML="非公開";
-				$('#disclose_status').css('color','#a61a37');
-				$('#disclose_change').stop(true, true).fadeIn('500');
-			}
-		});
+
 	</script>
 @endsection
 

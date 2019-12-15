@@ -379,7 +379,7 @@
 				success: function(json_data) { // 200 OK時
                     $('.show-count').text("0");
 
-					alert("くりあ");
+					//alert("くりあ");
                     $('#textarea').val("");
                     $('.post-modal').stop(true, true).fadeOut('500');
 			     　　$('#post-modal_content').stop(true, true).animate({

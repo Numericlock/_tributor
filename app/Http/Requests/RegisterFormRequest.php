@@ -27,6 +27,7 @@ class RegisterFormRequest extends FormRequest
 			'id' => 'bail|required|alpha_num|max:32|unique:users,id',  // 必須・文字列・２５５文字以内
 			'email' => 'bail|required|email|max:256|unique:users,e_mail',		// 必須
 			'password' => 'bail|required|max:256',          // 必須・整数		
+			'name' => 'bail|required|string|max:32',          // 必須・整数		
         ];
     }
 }

@@ -110,10 +110,16 @@ class AuthController extends Controller{
 		
 	}
 	
+	public function register_profile (){
+		
+		return view('register_profile');
+		
+	}
+	
 	public function register_insert (RegisterFormRequest $request){
         User::create([
             'id'=> $request->input('id'),
-            'name' => "",
+            'name' => $request->input('name'),
             'password' => $request->input('password'),
             'e_mail'=>$request->input('email'),
             'birth_on' => "2019-10-28",

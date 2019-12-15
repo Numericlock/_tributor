@@ -27,7 +27,7 @@
 				<div class="id_box box">
 					<div class="id_inner inner">
 						<input id="text" class="text" maxlength="24" type="text">
-						<div class="id_string string">ユーザー名</div>
+						<div class="id_string string">ユーザーID</div>
 						<div class="id-line"></div>
 					</div>
 					<i class="fas fa-eye-slash"></i>
@@ -80,19 +80,23 @@
     var mailTimer;
     var passwordTimer;
     var rePasswordTimer;
+    var nameTimer;
     //入力時のテキスト保持（setTimeOutの関数呼び出しで引数送ると変な挙動するため）
     var idStr="";
     var mailStr="";
     var passwordStr="";
     var rePasswordStr="";
+    var nameStr="";
     //POST用テキスト保持
     var user_id;
     var user_email;
     var user_password;
+    var user_name;
     var next_flag = false;
 	var id_flag = false;
 	var mail_flag = false;
 	var password_flag = false;
+	var name_flag = false;
     
     
     window.onload = function () {
@@ -101,12 +105,15 @@
 		$('#text3').val("");
 		$('#text4').val("");
 		$('#text5').val("");
+		$('#text6').val("");
+		$('#text7').val("");
     };
-    function postForm(idVal,emailVal,passwordVal) {
+    function postForm(idVal,emailVal,passwordVal, nameVal) {
         var form = document.postForm;
         var id_request = document.createElement('input');
         var email_request = document.createElement('input');
         var password_request = document.createElement('input');
+        var name_request = document.createElement('input');
 
         id_request.type = 'hidden'; //入力フォームが表示されないように
         id_request.name = 'id';
@@ -119,10 +126,15 @@
         password_request.type = 'hidden'; //入力フォームが表示されないように
         password_request.name = 'password';
         password_request.value = hashHex(passwordVal);
+		
+        name_request.type = 'hidden'; //入力フォームが表示されないように
+        name_request.name = 'name';
+        name_request.value = nameVal;
 
         form.appendChild(id_request);
         form.appendChild(email_request);
         form.appendChild(password_request);
+        form.appendChild(name_request);
 
         form.submit();
 
@@ -402,6 +414,12 @@ var PageTransition = Barba.BaseTransition.extend({
 
     // 遷移後の処理
 	//passwordのチェック
+	next_flag = false;
+    $('a.no-link').click(function(){
+		console.log(next_flag);
+		return next_flag;
+	})
+	  console.log(next_flag+"は？");
 	$("#text4").on("input", function() {
         passwordStr=$(this).val();
         clearTimeout(passwordTimer);
@@ -412,6 +430,12 @@ var PageTransition = Barba.BaseTransition.extend({
         rePasswordStr=$(this).val();
         clearTimeout(rePasswordTimer);
         rePasswordTimer = window.setTimeout(rePasswordCheck, 700);
+	});
+
+	$("#text7").on("input", function() {
+       	nameStr=$(this).val();
+        clearTimeout(nameTimer);
+        nameTimer = window.setTimeout(nameCheck, 700);
 	});
     function passwordCheck(){
         var str=passwordStr;
@@ -457,6 +481,7 @@ var PageTransition = Barba.BaseTransition.extend({
 			}, 300);
         }else{
             password_flag = true;
+			next_flag = true;
             user_password = str;
 			document.getElementById("rePassword_error").innerText = "　";
 			$('.rePassword-line').animate({
@@ -464,6 +489,24 @@ var PageTransition = Barba.BaseTransition.extend({
 			}, 300);
 		}
     }
+	  
+	function nameCheck(){
+		var str = nameStr;
+		if(is_blank(str) == true){
+            name_flag = false;
+			document.getElementById("name_error").innerText = "入力してクレメンス";	
+			$('.name-line').animate({
+				width:"100%"
+			}, 300);
+		}else{
+			name_flag = true;
+			user_name = str;
+			document.getElementById("name_error").innerText = "　";
+			$('.name-line').animate({
+				width:"0%"
+			}, 300);
+		}
+	}
 	$('#text3').focus(function(){
 		$('.authentication_box').animate({borderTopColor: '#3be5ae', borderLeftColor: '#3be5ae', borderRightColor: '#3be5ae', borderBottomColor: '#3be5ae'}, 200);
 	}).blur(function(){
@@ -506,8 +549,46 @@ var PageTransition = Barba.BaseTransition.extend({
 			const result = $('.password2_string').addClass('keepfocus2')
 		}
 	});
+
+	$('#text6').focus(function(){
+		$('.password_box').animate({borderTopColor: '#3be5ae', borderLeftColor: '#3be5ae', borderRightColor: '#3be5ae', borderBottomColor: '#3be5ae'}, 200);
+	}).blur(function(){
+		$('.password_box').animate({borderTopColor: '#d3d3d3', borderLeftColor: '#d3d3d3', borderRightColor: '#d3d3d3', borderBottomColor: '#d3d3d3'}, 200);
+	});
+	
+	$('#text6').change(function() {
+		const str = $('#text6').val();
+		if(str===""){
+			const result = $('.password_string').removeClass('keepfocus');
+		}else{ 
+			const result = $('.password_string').addClass('keepfocus')
+		}
+	});	
+	$('#text7').focus(function(){
+		$('.name_box').animate({borderTopColor: '#3be5ae', borderLeftColor: '#3be5ae', borderRightColor: '#3be5ae', borderBottomColor: '#3be5ae'}, 200);
+	}).blur(function(){
+		$('.name_box').animate({borderTopColor: '#d3d3d3', borderLeftColor: '#d3d3d3', borderRightColor: '#d3d3d3', borderBottomColor: '#d3d3d3'}, 200);
+	});
+	
+	$('#text7').change(function() {
+		const str = $('#text7').val();
+		if(str===""){
+			const result = $('.name_string').removeClass('keepfocus2');
+		}else{ 
+			const result = $('.name_string').addClass('keepfocus2')
+		}
+	});
+	  
+	  
 	$('#homehtml').on('click',function(){
-		postForm(user_id, user_email, user_password);
+		console.log("フラッグ");
+		console.log(id_flag);
+		console.log(mail_flag);
+		console.log(password_flag);
+		console.log(name_flag);
+		if(id_flag,mail_flag,password_flag,name_flag===true){
+			postForm(user_id, user_email, user_password, user_name);
+		}
 	});
     window.scrollTo( 0, 0 );
       
