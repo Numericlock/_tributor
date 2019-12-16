@@ -160,13 +160,30 @@
             <div class="post-modal-textarea-userImage">
                 <img src="/img/2.jpg">
             </div>
-            <textarea  id="textarea" name="post_message" title="今何してる？"　aria-label="今何してる？"　placeholder="今何してる？" maxlength="256"></textarea>
+			<div class="post-modal-textarea-input">
+				<textarea id="textarea" name="post_message" title="今何してる？" aria-label="今何してる？" placeholder="何をトリビュートする？" maxlength="256" wrap="soft"></textarea>
+				<div class="post-modal-inputFiles">
+					<div class="post-modal-inputFiles-left">
+						<img class="input-images" id="preview-0">
+						<img class="input-images" id="preview-3">
+						
+					</div>
+					<div class="post-modal-inputFiles-right">
+						<img class="input-images" id="preview-1">
+						<img class="input-images" id="preview-2">
+						
+					</div>
 
+					
+				</div>
+			</div>
+			
         </div>
         <div class="counter">
             <span class="show-count">0</span>/256
          </div>
         <div class="post-modal-control">
+            <button><input type="file" name="imgFiles[]" id="users_image_file" accept="image/*" onchange="previewFiles()" multiple><img class="post-modal-control-icon" src="/img/comment.svg">画像</button>
             <button type='button'><img class="post-modal-control-icon" src="/img/comment.svg"></button>
             <button type='button'><img class="post-modal-control-icon" src="/img/爆発.svg"></button>
             <button type='button'>
@@ -252,10 +269,189 @@
 
 
 	<script>
+		// Check for the various File API support.
+		if (window.File && window.FileReader && window.FileList && window.Blob) {
+		  // Great success! All the File APIs are supported.
+		} else {
+		  alert('The File APIs are not fully supported in this browser.');
+		}
+		
+		var file_array = [];
+		var reader_array  = [];
+		var preview_array = [];
+		for(var i=0; i<4; i++){
+			preview_array.push(document.querySelector('img[id="preview-' + i + '"]'));
+		}
+		function previewFiles() {
+			if(file_array.length<4){
+				var input_file_length = document.querySelector('input[type=file]').files.length;
+				var file_length = document.querySelector('input[type=file]').files.length + file_array.length;
+				for(var i=0; i<input_file_length; i++){
+					file_array.push(document.querySelector('input[type=file]').files[i]);
+					reader_array.push(new FileReader());
+				}
+				create_imgArea(file_length);
+			}
+		}
+		$('.input-images').on('click',function(){
+			var id=$(this).attr("id").substr(8,1)
+			file_array.splice(id,1);
+			console.log(file_array);
+			preview_array.splice(id,1);
+			create_imgArea(file_array.length);
+		});
+		function create_imgArea(length){
+				//なぜかfor文回せない。
+				reader_array  = [];
+				preview_array = [];
+				for(var i=0; i<length; i++){
+					preview_array.push(document.querySelector('img[id="preview-' + i + '"]'));
+				}
+				for(var i=0; i<length; i++){
+					reader_array.push(new FileReader());
+					reader_array[i].readAsDataURL(file_array[i]);
+				}
+				if(length>0){
+					console.log("0");
+					reader_array[0].addEventListener("load", function () {
+						preview_array[0].src = reader_array[0].result;
+					}, false);
+				}
+
+				if(length>1){
+					console.log("1");
+					reader_array[1].addEventListener("load", function () {
+						preview_array[1].src = reader_array[1].result;
+					}, false);
+				}
+
+				if(length>2){
+					console.log("2");
+					console.log(reader_array[2]);
+					reader_array[2].addEventListener("load", function () {
+						preview_array[2].src = reader_array[2].result;
+					}, false);
+				}
+
+				if(length>3){
+					console.log("3");
+					reader_array[3].addEventListener("load", function () {
+						preview_array[3].src = reader_array[3].result;
+					}, false);
+				}
+			switch(length){
+				case 1:
+					$(".post-modal-inputFiles-left").css({
+						'display':'block',
+						'width':'100%'
+					});
+					$(".post-modal-inputFiles-right").css({
+						'display':'none'
+					});
+					$("#preview-0").css({
+						'display':'block',
+						'width':'100%',
+						'height':'300px',
+						'object-fit':'cover'
+					});
+					$("#preview-1, #preview-2, #preview-3").css({
+						'display':'none'
+					});
+					break;
+				case 2:
+					$(".post-modal-inputFiles-left,.post-modal-inputFiles-right").css({
+						'display':'block',
+						'width':'50%',
+					});
+					$("#preview-0,#preview-1").css({
+						'display':'block',
+						'width':'100%',
+						'height':'300px',
+						'object-fit':'cover'
+					});
+					$("#preview-2, #preview-3").css({
+						'display':'none'
+					});
+					break;
+				case 3:
+					$(".post-modal-inputFiles-left,.post-modal-inputFiles-right").css({
+						'display':'block',
+						'width':'50%',
+					});
+					$("#preview-0").css({
+						'display':'block',
+						'width':'100%',
+						'height':'300px',
+						'object-fit':'cover'
+					});
+					$("#preview-1,#preview-2").css({
+						'display':'block',
+						'width':'100%',
+						'height':'150px',
+						'object-fit':'cover'
+					});
+					$("#preview-3").css({
+						'display':'none'
+					});
+
+					break;
+				case 4:
+					$(".post-modal-inputFiles-left,.post-modal-inputFiles-right").css({
+						'display':'block',
+						'width':'50%',
+					});
+					$("#preview-0,#preview-1,#preview-2,#preview-3").css({
+						'display':'block',
+						'width':'100%',
+						'height':'150px',
+						'object-fit':'cover'
+					});
+					break;
+			}
+		}
+		
+		
+		
+		
+		
+  function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+        continue;
+      }
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+			$("#preview-0").attr('src', e.target.result);
+			$("#preview-0").attr('title', escape(theFile.name));
+          var span = document.createElement('span');
+          span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                            '" title="', escape(theFile.name), '"/>'].join('');
+          document.getElementById('list').insertBefore(span, null);
+        };
+      })(f);
+	
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    }
+  }
+
+//  document.getElementById('users_image_file').addEventListener('change', handleFileSelect, false);
+		
 		$('#dotRadius').on('click',function(){
 			$('.post-modal').stop(true, true).fadeIn('500');
 			$('#post-modal_content').show().stop(true, true).animate({
 				top: "50%",
+				
 				display: "fixed",
 				opacity: 1.0
 			}, 500);
@@ -268,6 +464,7 @@
 				$('#post-modal_content_next').hide();
 			});
 		});
+		
 		$('.post-modal, .post-modal_cancel').on('click',function(){
 			console.log(lists_array);
 			if(is_blank($('#textarea').val()) && lists_array!=[]){
@@ -287,9 +484,6 @@
 		});	
 		
 		$('.attention-modal-button-destruction').on('click',function(){
-			$('#textarea').val("");
-			$('.show-count').text("0");
-			lists_array=[];
 			attention_modal_close();
 			post_modal_close();
 		});
@@ -323,6 +517,12 @@
 				opacity: 0
 			}, 500, function(){
 				$('#post-modal_content').hide();
+			
+				$('#textarea').val("");
+				$('.show-count').text("0");
+				lists_array=[];
+				$('#textarea').height('50px');
+				
 			});
 			$('.post-modal').stop(true, true).fadeOut('500');
 			$('#post-modal_content_next').stop(true, true).animate({
@@ -364,12 +564,12 @@
 			});
 		});
 		$(function() {
-			var $textarea = $('#textarea');
-			var lineHeight = parseInt($textarea.css('lineHeight'));
-			$textarea.on('input', function(e) {
-				var lines = ($(this).val() + '\n').match(/\n/g).length;
-				$(this).height(lineHeight * lines);
-			});
+
+			const sampleTextarea = document.querySelector('#textarea');
+			sampleTextarea.addEventListener('input', () => {
+			  sampleTextarea.style.height = "20px";
+			  sampleTextarea.style.height = sampleTextarea.scrollHeight + 5 +"px";
+			})
 
 			$('#textarea').on('input',function(){
 				var count = $(this).val().length;
