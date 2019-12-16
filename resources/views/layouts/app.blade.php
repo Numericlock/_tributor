@@ -141,10 +141,6 @@
 			</a>
 		</div>
 	</div>
-	<div class="attention-modal-content">
-	</div>
-	<div class="attention-modal">
-	</div>
 	<div class="post-modal">
 	</div>
 
@@ -239,6 +235,21 @@
 	<div id="script-reload">
 
 	</div>
+	
+	<div class="attention-modal">
+	</div>
+	
+	<div class="attention-modal-content">
+		<div class="attention-modal-text">
+			<span class = "attention-modal-title">破棄しますか？</span>
+			<span class = "attention-modal-sentence">書き込み中の内容は完全に失われます。</span>
+		</div>
+		<div class="attention-modal-button">
+			<button class="attention-modal-button-cancel">キャンセル</button>
+			<button class="attention-modal-button-destruction">破棄</button>
+		</div>
+	</div>
+
 
 	<script>
 		$('#dotRadius').on('click',function(){
@@ -249,13 +260,62 @@
 				opacity: 1.0
 			}, 500);
 			$('#post-modal_content_next').show().stop(true, true).animate({
-				top:"50%",
 				left: "120%",
+				top:"50%",
 				display: "fixed",
 				opacity: 0
-			}, 500);
+			}, 500, function(){
+				$('#post-modal_content_next').hide();
+			});
 		});
-		$('.post-modal').on('click',function(){
+		$('.post-modal, .post-modal_cancel').on('click',function(){
+			console.log(lists_array);
+			if(is_blank($('#textarea').val()) && lists_array!=[]){
+				post_modal_close();
+			}else{
+				$('.attention-modal').stop(true, true).fadeIn('500');
+				$('.attention-modal-content').show().stop(true, true).animate({
+					display: "flex",
+					opacity: 1.0
+				}, 200);
+			}
+		});
+		
+		
+		$('.attention-modal, .attention-modal-button-cancel').on('click',function(){
+			attention_modal_close();
+		});	
+		
+		$('.attention-modal-button-destruction').on('click',function(){
+			$('#textarea').val("");
+			$('.show-count').text("0");
+			lists_array=[];
+			attention_modal_close();
+			post_modal_close();
+		});
+		
+		function attention_modal_close(){
+			$('.attention-modal').stop(true, true).fadeOut('500');
+			$('.attention-modal-content').stop(true, true).animate({
+				opacity: 0,
+				display: "none"
+			}, 200, function(){
+				$('.attention-modal-content').hide();
+			});
+		}
+		
+		function is_blank(str){
+			// チェックのために、タブ(\t)、スペース(\s)、全角スペース（ ）を削除
+			var check_str = str.replace(/[\t\s ]/g, '');
+			if(str == ""){
+				return true;
+				// 名前未入力
+			}else if(check_str.length == 0){
+				// チェックの文字が長さ0なので、スペース系のみだったと判断。
+				return true;
+			}
+		}
+		function post_modal_close(){
 			$('.post-modal').stop(true, true).fadeOut('500');
 			$('#post-modal_content').stop(true, true).animate({
 				top: "-100px",
@@ -266,32 +326,14 @@
 			});
 			$('.post-modal').stop(true, true).fadeOut('500');
 			$('#post-modal_content_next').stop(true, true).animate({
-				top: "-100px",
+				right: "-100px",
+				top:"50%",
 				opacity: 0
 			}, 500, function(){
 				$('#post-modal_content_next').hide();
 			});
-		});
-		$('.post-modal').on('click',function(){
+		}
 
-		});
-		$('.post-modal_cancel').on('click',function(){
-			$('.post-modal').stop(true, true).fadeOut('500');
-			$('#post-modal_content').stop(true, true).animate({
-				top: "-100px",
-				left:"50%",
-				opacity: 0
-			}, 500, function(){
-				$('#post-modal_content').hide();
-			});
-			$('.post-modal').stop(true, true).fadeOut('500');
-			$('#post-modal_content_next').stop(true, true).animate({
-				top: "-100px",
-				opacity: 0
-			}, 500, function(){
-				$('#post-modal_content_next').hide();
-			});
-		});
 		$('#post-modal_next').on('click',function(){
             var count = $('#textarea').val().length;
             if(count != 0){
@@ -322,12 +364,18 @@
 			});
 		});
 		$(function() {
-		  var $textarea = $('#textarea');
-		  var lineHeight = parseInt($textarea.css('lineHeight'));
-		  $textarea.on('input', function(e) {
-			var lines = ($(this).val() + '\n').match(/\n/g).length;
-			$(this).height(lineHeight * lines);
-		  });
+			var $textarea = $('#textarea');
+			var lineHeight = parseInt($textarea.css('lineHeight'));
+			$textarea.on('input', function(e) {
+				var lines = ($(this).val() + '\n').match(/\n/g).length;
+				$(this).height(lineHeight * lines);
+			});
+
+			$('#textarea').on('input',function(){
+				var count = $(this).val().length;
+				$('.show-count').text(count);
+			});
+		
 		});
 		$( 'input[name="disclose"]:checkbox' ).change( function() {
 			var elements = document.getElementsByName('disclose') ;
@@ -378,8 +426,6 @@
                 async : false,   // ← asyncをfalseに設定する
 				success: function(json_data) { // 200 OK時
                     $('.show-count').text("0");
-
-					//alert("くりあ");
                     $('#textarea').val("");
                     $('.post-modal').stop(true, true).fadeOut('500');
 			     　　$('#post-modal_content').stop(true, true).animate({
@@ -418,14 +464,6 @@
 
 			tribute_postForm();
 		});
-
-        $(function(){
-
-  $('#textarea').keyup(function(){
-    var count = $(this).val().length;
-    $('.show-count').text(count);
-  });
-});
 	</script>
 </body>
 </html>
