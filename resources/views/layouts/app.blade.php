@@ -326,8 +326,8 @@
 			});
 			$('.post-modal').stop(true, true).fadeOut('500');
 			$('#post-modal_content_next').stop(true, true).animate({
-				right: "-100px",
-				top:"50%",
+				top: "-100px",
+				left:"50%",
 				opacity: 0
 			}, 500, function(){
 				$('#post-modal_content_next').hide();
