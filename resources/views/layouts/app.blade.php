@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="/css/common.css">
 	<link rel="stylesheet" href="/css/plus.css">
 	<link rel="stylesheet" href="/css/checkbox.css">
+	<link rel="stylesheet" href="/css/textbox.css">
 	@yield('cssJs')
 </head>
 
@@ -49,7 +50,7 @@
 					</g>
 				</svg>
 			</a>
-			<a href="#">
+			<a href="/search">
 				<svg class="nav-icon search-nav-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
 						<path class="st0" d="M449.803,62.197C408.443,20.807,353.85-0.037,299.646-0.006C245.428-0.037,190.85,20.807,149.49,62.197
@@ -183,7 +184,19 @@
             <span class="show-count">0</span>/256
          </div>
         <div class="post-modal-control">
-            <button><input type="file" name="imgFiles[]" id="users_image_file" accept="image/*" onchange="previewFiles()" multiple><img class="post-modal-control-icon" src="/img/comment.svg">画像</button>
+            <label>
+				<input type="file" name="imgFiles[]" id="users_image_file" accept="image/*" onchange="previewFiles()" multiple>
+				<svg version="1.1" class="post-modal-control-icon" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+				<g>
+					<path class="st0" d="M0,45.178v421.644h512V45.178H0z M471.841,426.662H40.159V85.329h431.682V426.662z" style="fill: rgb(75, 75, 75);"></path>
+					<path class="st0" d="M326.128,207.728c-4.148-6.289-11.183-10.077-18.72-10.069c-7.544,0.007-14.57,3.803-18.71,10.1
+						l-72.226,109.914l-39.862-45.178c-4.619-5.238-11.426-8.022-18.397-7.52c-6.971,0.486-13.308,4.211-17.142,10.053L74.17,376.96
+						h363.659L326.128,207.728z" style="fill: rgb(75, 75, 75);"></path>
+					<path class="st0" d="M174.972,230.713c25.102,0,45.453-20.35,45.453-45.461c0-25.102-20.35-45.452-45.453-45.452
+						c-25.11,0-45.46,20.35-45.46,45.452C129.511,210.363,149.862,230.713,174.972,230.713z" style="fill: rgb(75, 75, 75);"></path>
+				</g>
+				</svg>			
+			</label>
             <button type='button'><img class="post-modal-control-icon" src="/img/comment.svg"></button>
             <button type='button'><img class="post-modal-control-icon" src="/img/爆発.svg"></button>
             <button type='button'>
@@ -279,9 +292,6 @@
 		var file_array = [];
 		var reader_array  = [];
 		var preview_array = [];
-		for(var i=0; i<4; i++){
-			preview_array.push(document.querySelector('img[id="preview-' + i + '"]'));
-		}
 		function previewFiles() {
 			if(file_array.length<4){
 				var input_file_length = document.querySelector('input[type=file]').files.length;
@@ -296,50 +306,49 @@
 		$('.input-images').on('click',function(){
 			var id=$(this).attr("id").substr(8,1)
 			file_array.splice(id,1);
-			console.log(file_array);
 			preview_array.splice(id,1);
 			create_imgArea(file_array.length);
 		});
 		function create_imgArea(length){
-				//なぜかfor文回せない。
-				reader_array  = [];
-				preview_array = [];
-				for(var i=0; i<length; i++){
-					preview_array.push(document.querySelector('img[id="preview-' + i + '"]'));
-				}
-				for(var i=0; i<length; i++){
-					reader_array.push(new FileReader());
-					reader_array[i].readAsDataURL(file_array[i]);
-				}
-				if(length>0){
-					console.log("0");
-					reader_array[0].addEventListener("load", function () {
-						preview_array[0].src = reader_array[0].result;
-					}, false);
-				}
+			//なぜかfor文回せない。
+			reader_array  = [];
+			preview_array = [];
+			for(var i=0; i<length; i++){
+				preview_array.push(document.querySelector('img[id="preview-' + i + '"]'));
+			}
+			for(var i=0; i<length; i++){
+				reader_array.push(new FileReader());
+				reader_array[i].readAsDataURL(file_array[i]);
+			}
+			if(length>0){
+				reader_array[0].addEventListener("load", function () {
+					preview_array[0].src = reader_array[0].result;
+				}, false);
+			}
 
-				if(length>1){
-					console.log("1");
-					reader_array[1].addEventListener("load", function () {
-						preview_array[1].src = reader_array[1].result;
-					}, false);
-				}
+			if(length>1){
+				reader_array[1].addEventListener("load", function () {
+					preview_array[1].src = reader_array[1].result;
+				}, false);
+			}
 
-				if(length>2){
-					console.log("2");
-					console.log(reader_array[2]);
-					reader_array[2].addEventListener("load", function () {
-						preview_array[2].src = reader_array[2].result;
-					}, false);
-				}
+			if(length>2){
+				reader_array[2].addEventListener("load", function () {
+					preview_array[2].src = reader_array[2].result;
+				}, false);
+			}
 
-				if(length>3){
-					console.log("3");
-					reader_array[3].addEventListener("load", function () {
-						preview_array[3].src = reader_array[3].result;
-					}, false);
-				}
+			if(length>3){
+				reader_array[3].addEventListener("load", function () {
+					preview_array[3].src = reader_array[3].result;
+				}, false);
+			}
 			switch(length){
+				case 0:
+					$("#preview-0, #preview-1, #preview-2, #preview-3").css({
+						'display':'none'
+					});
+					break;
 				case 1:
 					$(".post-modal-inputFiles-left").css({
 						'display':'block',
@@ -410,43 +419,7 @@
 			}
 		}
 		
-		
-		
-		
-		
-  function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
 
-    // Loop through the FileList and render image files as thumbnails.
-    for (var i = 0, f; f = files[i]; i++) {
-
-      // Only process image files.
-      if (!f.type.match('image.*')) {
-        continue;
-      }
-
-      var reader = new FileReader();
-
-      // Closure to capture the file information.
-      reader.onload = (function(theFile) {
-        return function(e) {
-          // Render thumbnail.
-			$("#preview-0").attr('src', e.target.result);
-			$("#preview-0").attr('title', escape(theFile.name));
-          var span = document.createElement('span');
-          span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                            '" title="', escape(theFile.name), '"/>'].join('');
-          document.getElementById('list').insertBefore(span, null);
-        };
-      })(f);
-	
-      // Read in the image file as a data URL.
-      reader.readAsDataURL(f);
-    }
-  }
-
-//  document.getElementById('users_image_file').addEventListener('change', handleFileSelect, false);
-		
 		$('#dotRadius').on('click',function(){
 			$('.post-modal').stop(true, true).fadeIn('500');
 			$('#post-modal_content').show().stop(true, true).animate({
@@ -466,8 +439,10 @@
 		});
 		
 		$('.post-modal, .post-modal_cancel').on('click',function(){
-			console.log(lists_array);
-			if(is_blank($('#textarea').val()) && lists_array!=[]){
+			if(is_blank($('#textarea').val()) && !Object.keys(file_array).length &&  !Object.keys(lists_array).length){
+				console.log(!Object.keys(file_array).length);
+				console.log(!Object.keys(lists_array).length);
+				console.log(is_blank($('#textarea').val()));
 				post_modal_close();
 			}else{
 				$('.attention-modal').stop(true, true).fadeIn('500');
@@ -489,6 +464,8 @@
 		});
 		
 		function attention_modal_close(){
+			console.log( $("input[type='file']").val());
+			console.log(file_array);
 			$('.attention-modal').stop(true, true).fadeOut('500');
 			$('.attention-modal-content').stop(true, true).animate({
 				opacity: 0,
@@ -521,6 +498,13 @@
 				$('#textarea').val("");
 				$('.show-count').text("0");
 				lists_array=[];
+				file_array=[];
+				reader_array  = [];
+				preview_array = [];
+				imgFiles=[];
+				$("#preview-0, #preview-1, #preview-2, #preview-3").css({
+					'display':'none'
+				});
 				$('#textarea').height('50px');
 				
 			});
@@ -536,7 +520,7 @@
 
 		$('#post-modal_next').on('click',function(){
             var count = $('#textarea').val().length;
-            if(count != 0){
+            if(count != 0 || Object.keys(file_array).length){
 			$('#post-modal_content_next').show().stop(true, true).animate({
 				left: "50%",
 				display: "fixed",
@@ -604,7 +588,6 @@
 						if (v==target) lists_array.splice(i,1);
 					});
 				}
-			console.log(lists_array);
 		});
         $.ajaxSetup({
                 headers: {
@@ -612,9 +595,16 @@
                 }
         });
 		function tribute_postForm(){
+			var files = [];
+			for(var i=0;i<preview_array.length;i++){
+				files.push(preview_array[i].src);
+			}
+			console.log(files);
+			console.log(lists_array);
 			var data = {
 				content_text: $('#textarea').val(),
-				lists:lists_array
+				lists:lists_array,
+				files:file_array
 			};
 			// 通信実行
 			$.ajax({

@@ -12,16 +12,7 @@
 */
 
 Route::get('/', function () {
-    try {
-		DB::connection()->getPdo();
-		if(DB::connection()->getDatabaseName())
-		{
-			echo "conncted sucessfully to database ".DB::connection()->getDatabaseName();
-			echo "conncted sucessfully to database ".DB::table('users')->where('e_mail', 'tatsuki1@live.jp')->count();
-		}
-	} catch (\Exception $e) {
-		die("Could not connect to the database.  Please check your configuration. error:" . $e );
-	}
+	return view('homepage');
 });
 
 
@@ -43,6 +34,8 @@ Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 	Route::post('/lists/search', 'SearchController@users_search');
 	Route::get('/home', 'HomeController@home');
 	Route::post('/post', 'PostController@post');
+	Route::get('/search', 'searchController@search');
+	Route::post('/search', 'searchController@post_search');
 	Route::post('/get_posts', 'PostController@get_posts');
 	Route::post('/favorite', 'PostController@users_favorite');
 	Route::get('/profile', 'ProfileController@profile');
