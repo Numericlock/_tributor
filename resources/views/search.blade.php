@@ -11,18 +11,15 @@
 			</div>
 			<div class="content-search-box">
 				<form name="search" action="/search" method="post">
-				
-				<div class="search_box box">
-					<div class="search_inner inner">
-						
-							<input id="search_text" class="text" maxlength="256" type="text" name="str" onkeypress="enter();">
-						
-						<div class="search_string string">ユーザーを検索</div>
+					<div class="search_box box">
+						<div class="search_inner inner">
+								<input id="search_text" class="text" maxlength="256" type="text" name="str" onkeypress="enter();">
+							<div class="search_string string">ユーザーを検索</div>
+						</div>
+						<i class="fas fa-eye-slash"></i>
 					</div>
-					<i class="fas fa-eye-slash"></i>
-				</div>
 					@csrf
-					</form>
+				</form>
 			</div>
 			@if ($posts)
 				@foreach ($posts as $post)
@@ -293,19 +290,22 @@
 		</div>
 	<script>
 		var posts_num =25;
+		var str = "{{$str}}";
 		function enter(){
 			if( window.event.keyCode == 13 ){
 				document.search.submit();
 			}
 		}
 		function get_posts(){
+			console.log(str);
 			var data = {
+				str: str,
 				num: posts_num
 			};
 			
 			$.ajax({
 				type:"post",                // method = "POST"
-				url:"/get_posts",        // POST送信先のURL
+				url:"/get_search_posts",        // POST送信先のURL
 				data:JSON.stringify(data),  // JSONデータ本体
 				contentType: 'application/json', // リクエストの Content-Type
                 processData: false,         // レスポンスをJSONとしてパースする

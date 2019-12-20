@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 	Route::post('/post', 'PostController@post');
 	Route::get('/search', 'searchController@search');
 	Route::post('/search', 'searchController@post_search');
+	Route::post('/get_search_posts', 'searchController@get_search_posts');
 	Route::post('/get_posts', 'PostController@get_posts');
 	Route::post('/favorite', 'PostController@users_favorite');
 	Route::get('/profile', 'ProfileController@profile');
