@@ -24,7 +24,7 @@ class searchRequest extends FormRequest
     public function rules()
     {
         return [
-			'str' => 'required|filled',		// 必須
+			'str' => 'required',		// 必須
         ];
     }
 }
