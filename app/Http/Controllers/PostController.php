@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User_post;
 use App\Models\Post_valid_disclosure_list;
+use App\Models\Attached_content;
 use App\Models\User_favorite;
 use App\Http\Requests\PostFormRequest;
 use Log;
@@ -24,12 +25,16 @@ class PostController extends Controller
 		$post -> is_deleted = 0;
 		$post -> save();
 		$id = $post->id;
-        foreach($request->lists as $list){
+        foreach($request->lists as $list){	
             Post_valid_disclosure_list::create([
                 'list_id'=> $list,
                 'post_id'=> $id,
                 'is_hidden'=> 0
             ]);
+        }
+		$files = $request->files;
+        foreach($files as $file){
+			Log::debug("_________");
         }
 		return User_post::where('post_user_id', $request->base_user->user_id)->get();
 	}

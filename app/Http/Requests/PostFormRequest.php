@@ -24,7 +24,7 @@ class PostFormRequest extends FormRequest
     public function rules()
     {
         return [
-           // 'content_text' => 'bail|required|string|max:256',
+            'content_text' => 'max:256',
         ];
     }
 }

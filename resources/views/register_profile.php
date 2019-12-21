@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
 <script>
-  //  window.location.href = 'signUp.php'; 
+    window.location.href = '/register'; 
 </script>
 <head>
 	<meta charset="utf-8">
 	<title>新規登録</title>
-	<script src="public/js/jquery-2.1.3.js"></script>
-	<script src="public/js/jquery.pjax.js"></script>
-	<script src="public/js/barba.js"></script>
-    <link rel="shortcut icon" href="public/favicon.ico">
+	<script src="/js/jquery-2.1.3.js"></script>
+	<script src="/js/jquery.pjax.js"></script>
+	<script src="/js/barba.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico">
 	<link rel="stylesheet" href="/css/fonts.css">
 	<link rel="stylesheet" href="/css/opening-common.css">
 	<link rel="stylesheet" href="/css/wave.css">
@@ -37,12 +37,12 @@
 					<span id="password_error">　</span>
 				</div>
 -->
-                <img class="profile-image" src="public/img/show.jpg">
+                <img class="profile-image" src="/img/show.jpg">
 			</div>		
 			<div>
 				<div class="name_box box">
 					<div class="name_inner inner">
-						<input id="text7" class="text" type="password">
+						<input id="text7" class="text" type="text">
 						<div class="name_string string">名前</div>
                         <div class="name-line"></div>
 					</div>

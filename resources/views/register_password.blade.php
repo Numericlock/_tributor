@@ -51,7 +51,7 @@
 				</div>
 			</div>
 			<div class="control-button">
-				<button type="button" id="homehtml">次へ</button>
+				<a class="no-link" href="/register/profile"><button type="button">次へ</button></a>
 			</div>
 			<link rel="stylesheet" href="/css/signUp_password.css">
 		</div>

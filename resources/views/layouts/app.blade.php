@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="/css/common.css">
 	<link rel="stylesheet" href="/css/plus.css">
 	<link rel="stylesheet" href="/css/checkbox.css">
+	<link rel="stylesheet" href="/css/textbox.css">
 	@yield('cssJs')
 </head>
 
@@ -49,7 +50,7 @@
 					</g>
 				</svg>
 			</a>
-			<a href="#">
+			<a href="/search">
 				<svg class="nav-icon search-nav-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
 						<path class="st0" d="M449.803,62.197C408.443,20.807,353.85-0.037,299.646-0.006C245.428-0.037,190.85,20.807,149.49,62.197
@@ -141,10 +142,6 @@
 			</a>
 		</div>
 	</div>
-	<div class="attention-modal-content">
-	</div>
-	<div class="attention-modal">
-	</div>
 	<div class="post-modal">
 	</div>
 
@@ -164,13 +161,42 @@
             <div class="post-modal-textarea-userImage">
                 <img src="/img/2.jpg">
             </div>
-            <textarea  id="textarea" name="post_message" title="今何してる？"　aria-label="今何してる？"　placeholder="今何してる？" maxlength="256"></textarea>
+			<div class="post-modal-textarea-input">
+				<textarea id="textarea" name="post_message" title="今何してる？" aria-label="今何してる？" placeholder="何をトリビュートする？" maxlength="256" wrap="soft"></textarea>
+				<div class="post-modal-inputFiles">
+					<div class="post-modal-inputFiles-left">
+						<img class="input-images" id="preview-0">
+						<img class="input-images" id="preview-3">
+						
+					</div>
+					<div class="post-modal-inputFiles-right">
+						<img class="input-images" id="preview-1">
+						<img class="input-images" id="preview-2">
+						
+					</div>
 
+					
+				</div>
+			</div>
+			
         </div>
         <div class="counter">
             <span class="show-count">0</span>/256
          </div>
         <div class="post-modal-control">
+            <label>
+				<input type="file" name="imgFiles[]" id="users_image_file" accept="image/*" onchange="previewFiles()" multiple>
+				<svg version="1.1" class="post-modal-control-icon" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+				<g>
+					<path class="st0" d="M0,45.178v421.644h512V45.178H0z M471.841,426.662H40.159V85.329h431.682V426.662z" style="fill: rgb(75, 75, 75);"></path>
+					<path class="st0" d="M326.128,207.728c-4.148-6.289-11.183-10.077-18.72-10.069c-7.544,0.007-14.57,3.803-18.71,10.1
+						l-72.226,109.914l-39.862-45.178c-4.619-5.238-11.426-8.022-18.397-7.52c-6.971,0.486-13.308,4.211-17.142,10.053L74.17,376.96
+						h363.659L326.128,207.728z" style="fill: rgb(75, 75, 75);"></path>
+					<path class="st0" d="M174.972,230.713c25.102,0,45.453-20.35,45.453-45.461c0-25.102-20.35-45.452-45.453-45.452
+						c-25.11,0-45.46,20.35-45.46,45.452C129.511,210.363,149.862,230.713,174.972,230.713z" style="fill: rgb(75, 75, 75);"></path>
+				</g>
+				</svg>			
+			</label>
             <button type='button'><img class="post-modal-control-icon" src="/img/comment.svg"></button>
             <button type='button'><img class="post-modal-control-icon" src="/img/爆発.svg"></button>
             <button type='button'>
@@ -269,44 +295,229 @@
 	<div id="script-reload">
 
 	</div>
+	
+	<div class="attention-modal">
+	</div>
+	
+	<div class="attention-modal-content">
+		<div class="attention-modal-text">
+			<span class = "attention-modal-title">破棄しますか？</span>
+			<span class = "attention-modal-sentence">書き込み中の内容は完全に失われます。</span>
+		</div>
+		<div class="attention-modal-button">
+			<button class="attention-modal-button-cancel">キャンセル</button>
+			<button class="attention-modal-button-destruction">破棄</button>
+		</div>
+	</div>
+
 
 	<script>
+		// Check for the various File API support.
+		if (window.File && window.FileReader && window.FileList && window.Blob) {
+		  // Great success! All the File APIs are supported.
+		} else {
+		  alert('The File APIs are not fully supported in this browser.');
+		}
+		
+		var file_array = [];
+		var reader_array  = [];
+		var preview_array = [];
+		function previewFiles() {
+			if(file_array.length<4){
+				var input_file_length = document.querySelector('input[type=file]').files.length;
+				var file_length = document.querySelector('input[type=file]').files.length + file_array.length;
+				for(var i=0; i<input_file_length; i++){
+					file_array.push(document.querySelector('input[type=file]').files[i]);
+					reader_array.push(new FileReader());
+				}
+				create_imgArea(file_length);
+			}
+		}
+		$('.input-images').on('click',function(){
+			var id=$(this).attr("id").substr(8,1)
+			file_array.splice(id,1);
+			preview_array.splice(id,1);
+			create_imgArea(file_array.length);
+		});
+		function create_imgArea(length){
+			//なぜかfor文回せない。
+			reader_array  = [];
+			preview_array = [];
+			for(var i=0; i<length; i++){
+				preview_array.push(document.querySelector('img[id="preview-' + i + '"]'));
+			}
+			for(var i=0; i<length; i++){
+				reader_array.push(new FileReader());
+				reader_array[i].readAsDataURL(file_array[i]);
+			}
+			if(length>0){
+				reader_array[0].addEventListener("load", function () {
+					preview_array[0].src = reader_array[0].result;
+				}, false);
+			}
+
+			if(length>1){
+				reader_array[1].addEventListener("load", function () {
+					preview_array[1].src = reader_array[1].result;
+				}, false);
+			}
+
+			if(length>2){
+				reader_array[2].addEventListener("load", function () {
+					preview_array[2].src = reader_array[2].result;
+				}, false);
+			}
+
+			if(length>3){
+				reader_array[3].addEventListener("load", function () {
+					preview_array[3].src = reader_array[3].result;
+				}, false);
+			}
+			switch(length){
+				case 0:
+					$("#preview-0, #preview-1, #preview-2, #preview-3").css({
+						'display':'none'
+					});
+					break;
+				case 1:
+					$(".post-modal-inputFiles-left").css({
+						'display':'block',
+						'width':'100%'
+					});
+					$(".post-modal-inputFiles-right").css({
+						'display':'none'
+					});
+					$("#preview-0").css({
+						'display':'block',
+						'width':'100%',
+						'height':'300px',
+						'object-fit':'cover'
+					});
+					$("#preview-1, #preview-2, #preview-3").css({
+						'display':'none'
+					});
+					break;
+				case 2:
+					$(".post-modal-inputFiles-left,.post-modal-inputFiles-right").css({
+						'display':'block',
+						'width':'50%',
+					});
+					$("#preview-0,#preview-1").css({
+						'display':'block',
+						'width':'100%',
+						'height':'300px',
+						'object-fit':'cover'
+					});
+					$("#preview-2, #preview-3").css({
+						'display':'none'
+					});
+					break;
+				case 3:
+					$(".post-modal-inputFiles-left,.post-modal-inputFiles-right").css({
+						'display':'block',
+						'width':'50%',
+					});
+					$("#preview-0").css({
+						'display':'block',
+						'width':'100%',
+						'height':'300px',
+						'object-fit':'cover'
+					});
+					$("#preview-1,#preview-2").css({
+						'display':'block',
+						'width':'100%',
+						'height':'150px',
+						'object-fit':'cover'
+					});
+					$("#preview-3").css({
+						'display':'none'
+					});
+
+					break;
+				case 4:
+					$(".post-modal-inputFiles-left,.post-modal-inputFiles-right").css({
+						'display':'block',
+						'width':'50%',
+					});
+					$("#preview-0,#preview-1,#preview-2,#preview-3").css({
+						'display':'block',
+						'width':'100%',
+						'height':'150px',
+						'object-fit':'cover'
+					});
+					break;
+			}
+		}
+		
+
 		$('#dotRadius').on('click',function(){
 			$('.post-modal').stop(true, true).fadeIn('500');
 			$('#post-modal_content').show().stop(true, true).animate({
 				top: "50%",
+				
 				display: "fixed",
 				opacity: 1.0
 			}, 500);
 			$('#post-modal_content_next').show().stop(true, true).animate({
-				top:"50%",
 				left: "120%",
+				top:"50%",
 				display: "fixed",
 				opacity: 0
-			}, 500);
-		});
-		$('.post-modal').on('click',function(){
-			$('.post-modal').stop(true, true).fadeOut('500');
-			$('#post-modal_content').stop(true, true).animate({
-				top: "-100px",
-				left:"50%",
-				opacity: 0
-			}, 500, function(){
-				$('#post-modal_content').hide();
-			});
-			$('.post-modal').stop(true, true).fadeOut('500');
-			$('#post-modal_content_next').stop(true, true).animate({
-				top: "-100px",
-				opacity: 0
 			}, 500, function(){
 				$('#post-modal_content_next').hide();
 			});
 		});
-		$('.post-modal').on('click',function(){
+		
+		$('.post-modal, .post-modal_cancel').on('click',function(){
+			if(is_blank($('#textarea').val()) && !Object.keys(file_array).length &&  !Object.keys(lists_array).length){
+				console.log(!Object.keys(file_array).length);
+				console.log(!Object.keys(lists_array).length);
+				console.log(is_blank($('#textarea').val()));
+				post_modal_close();
+			}else{
+				$('.attention-modal').stop(true, true).fadeIn('500');
+				$('.attention-modal-content').show().stop(true, true).animate({
+					display: "flex",
+					opacity: 1.0
+				}, 200);
+			}
+		});
+		
+		
+		$('.attention-modal, .attention-modal-button-cancel').on('click',function(){
+			attention_modal_close();
+		});	
+		
+		$('.attention-modal-button-destruction').on('click',function(){
+			attention_modal_close();
+			post_modal_close();
+		});
 
-		});
-		$('.post-modal_cancel').on('click',function(){
-            
+		
+		function attention_modal_close(){
+			console.log( $("input[type='file']").val());
+			console.log(file_array);
+			$('.attention-modal').stop(true, true).fadeOut('500');
+			$('.attention-modal-content').stop(true, true).animate({
+				opacity: 0,
+				display: "none"
+			}, 200, function(){
+				$('.attention-modal-content').hide();
+			});
+		}
+		
+		function is_blank(str){
+			// チェックのために、タブ(\t)、スペース(\s)、全角スペース（ ）を削除
+			var check_str = str.replace(/[\t\s ]/g, '');
+			if(str == ""){
+				return true;
+				// 名前未入力
+			}else if(check_str.length == 0){
+				// チェックの文字が長さ0なので、スペース系のみだったと判断。
+				return true;
+			}
+		}
+		function post_modal_close(){
 			$('.post-modal').stop(true, true).fadeOut('500');
 			$('#post-modal_content').stop(true, true).animate({
 				top: "-100px",
@@ -314,18 +525,33 @@
 				opacity: 0
 			}, 500, function(){
 				$('#post-modal_content').hide();
+			
+				$('#textarea').val("");
+				$('.show-count').text("0");
+				lists_array=[];
+				file_array=[];
+				reader_array  = [];
+				preview_array = [];
+				imgFiles=[];
+				$("#preview-0, #preview-1, #preview-2, #preview-3").css({
+					'display':'none'
+				});
+				$('#textarea').height('50px');
+				
 			});
 			$('.post-modal').stop(true, true).fadeOut('500');
 			$('#post-modal_content_next').stop(true, true).animate({
 				top: "-100px",
+				left:"50%",
 				opacity: 0
 			}, 500, function(){
 				$('#post-modal_content_next').hide();
 			});
-		});
+		}
+
 		$('#post-modal_next').on('click',function(){
             var count = $('#textarea').val().length;
-            if(count != 0){
+            if(count != 0 || Object.keys(file_array).length){
 			$('#post-modal_content_next').show().stop(true, true).animate({
 				left: "50%",
 				display: "fixed",
@@ -353,12 +579,18 @@
 			});
 		});
 		$(function() {
-		  var $textarea = $('#textarea');
-		  var lineHeight = parseInt($textarea.css('lineHeight'));
-		  $textarea.on('input', function(e) {
-			var lines = ($(this).val() + '\n').match(/\n/g).length;
-			$(this).height(lineHeight * lines);
-		  });
+
+			const sampleTextarea = document.querySelector('#textarea');
+			sampleTextarea.addEventListener('input', () => {
+			  sampleTextarea.style.height = "20px";
+			  sampleTextarea.style.height = sampleTextarea.scrollHeight + 5 +"px";
+			})
+
+			$('#textarea').on('input',function(){
+				var count = $(this).val().length;
+				$('.show-count').text(count);
+			});
+		
 		});
 		$( 'input[name="disclose"]:checkbox' ).change( function() {
 			var elements = document.getElementsByName('disclose') ;
@@ -387,7 +619,6 @@
 						if (v==target) lists_array.splice(i,1);
 					});
 				}
-			console.log(lists_array);
 		});
         $.ajaxSetup({
                 headers: {
@@ -395,9 +626,16 @@
                 }
         });
 		function tribute_postForm(){
+			var files = [];
+			for(var i=0;i<preview_array.length;i++){
+				files.push(preview_array[i].src);
+			}
+			console.log(files);
+			console.log(lists_array);
 			var data = {
 				content_text: $('#textarea').val(),
-				lists:lists_array
+				lists:lists_array,
+				files:file_array
 			};
 			// 通信実行
 			$.ajax({
@@ -409,8 +647,6 @@
                 async : false,   // ← asyncをfalseに設定する
 				success: function(json_data) { // 200 OK時
                     $('.show-count').text("0");
-
-					alert("くりあ");
                     $('#textarea').val("");
                     $('.post-modal').stop(true, true).fadeOut('500');
 			     　　$('#post-modal_content').stop(true, true).animate({
@@ -452,14 +688,6 @@
                 alert("リストが選択されていません")
             }
 		});
-
-        $(function(){
-
-  $('#textarea').keyup(function(){
-    var count = $(this).val().length;
-    $('.show-count').text(count);
-  });
-});
 	</script>
 </body>
 </html>
