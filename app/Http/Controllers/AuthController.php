@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Attached_content;
 use App\Models\UserSession;
 use App\Http\Requests\RegisterFormRequest;
 use App\Http\Requests\LoginFormRequest;
@@ -116,8 +117,35 @@ class AuthController extends Controller{
 		return view('register_profile');
 		
 	}
+    
+    	public function register_img (){
+		
+		return view('register_profile');
+		
+	}
 	
 	public function register_insert (RegisterFormRequest $request){
+               //ヘッダに「data:image/png;base64,」が付いているので、それは外す
+        $canvas = $request->input('base64');
+        $canvas = preg_replace("/data:[^,]+,/i","",$canvas);
+ 
+//残りのデータはbase64エンコードされているので、デコードする
+        $canvas = base64_decode($canvas);
+ 
+//まだ文字列の状態なので、画像リソース化
+        $image = imagecreatefromstring($canvas);
+ 
+//画像として保存（ディレクトリは任意）
+        $img_path =  self::unique_filename('img/iconimg');
+        imagesavealpha($image, TRUE); // 透明色の有効
+        imagepng($image ,$img_path);
+        
+         Attached_content::create([
+            'post_id'=>$request->input('id'),
+            'content_type'=>'png',
+            'content_file_path'=>$img_path,     
+        ]);
+        
         User::create([
             'id'=> $request->input('id'),
             'name' => $request->input('name'),
@@ -126,8 +154,29 @@ class AuthController extends Controller{
             'birth_on' => "2019-10-28",
             'is_deleted' => 0
         ]);
+        
+ 
+        
 		return view('login');
 	}
+    private static function unique_filename($org_path, $num=0){
+     
+            if( $num > 0){
+                $info = pathinfo($org_path);
+                $path = $info['dirname'] . "/" . $info['filename'] . "_" . $num;
+                if(isset($info['extension'])) $path .= "." . $info['extension'];
+            } else {
+                $path = $org_path;
+            }
+     
+            if(file_exists($path)){
+                $num++;
+                return unique_filename($org_path, $num);
+            } else {
+                $path.=".png";
+                return $path ;
+            }
+        }
 	
 	public function is_diplication (Request $request){
 		

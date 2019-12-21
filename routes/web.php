@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth.login.before', 'prefix' => ''], function() {
 	Route::get('/register', 'AuthController@register');
 	Route::get('/register/password', 'AuthController@register_password');
 	Route::get('/register/profile', 'AuthController@register_profile');
+    Route::post('/register_img', 'AuthController@register_img');
 	Route::get('/is_diplication', 'AuthController@is_diplication');
 	Route::post('/register_insert', 'AuthController@register_insert');
 });
