@@ -236,6 +236,36 @@
 			<button class="post-modal-positive-button" id="post-modal_post" type='button'>投稿</button>
 		</div>
 	</div>
+    
+    <div id="post-modal_content" class="post-modal-content">
+        <div class="post-modal-title">
+            <span>投稿</span>
+            <svg class="post-modal-closeButton post-modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 512 512" xml:space="preserve">
+                <g>
+                    <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
+                        52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
+                </g>
+            </svg>
+        </div>
+        <div class="post-modal-textarea">
+            <div class="post-modal-textarea-userImage">
+                <img src="/img/2.jpg">
+            </div>
+            <textarea  id="textarea" name="post_message" title="今何してる？"　aria-label="今何してる？"　placeholder="今何してる？" maxlength="256"></textarea>
+
+        </div>
+        <div class="counter">
+            <span class="show-count">0</span>/256
+         </div>
+        <div class="post-modal-control">
+
+            <span>内容が消えてしまいますがよろしいでしょうか？</span>
+			<button class="post-modal-negative-button" id="post-modal_back" type='button'>いいえ</button>
+			<button class="post-modal-positive-button" id="post-modal_post" type='button'>はい</button>
+            
+        </div>
+	</div>
 	<div id="script-reload">
 
 	</div>
@@ -276,6 +306,7 @@
 
 		});
 		$('.post-modal_cancel').on('click',function(){
+            
 			$('.post-modal').stop(true, true).fadeOut('500');
 			$('#post-modal_content').stop(true, true).animate({
 				top: "-100px",
@@ -415,8 +446,11 @@
             searchTimer = window.setTimeout(search_for, 700);
         });
 		$('#post-modal_post').on('click',function(){
-
+            if(lists_array != ""){
 			tribute_postForm();
+            }else{
+                alert("リストが選択されていません")
+            }
 		});
 
         $(function(){

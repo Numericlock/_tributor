@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="/css/fonts.css">
 	<link rel="stylesheet" href="/css/opening-common.css">
 	<link rel="stylesheet" href="/css/wave.css">
+    <link rel="stylesheet" href="/css/proedit.css">
+    <link rel="stylesheet" href="/css/modal.css">
 </head>
 <body>
 	<div id="barba-wrapper">
@@ -49,7 +51,7 @@
 					<span id="mail_error">　</span>
 				</div>
 			</div>
-			<div class="control-button">
+           	<div class="control-button">
 				<a class="no-link" href="/register/password"><button type="button">次へ</button></a>
 			</div>
 		</div>

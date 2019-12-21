@@ -12,8 +12,9 @@
 			<div class="content-title">
 				　<span>プロフィール</span>
 			</div>
+            				<button type="button" id="dotRadius2" data-toggle="modal" data-target="#ModalAddCalendar"><span id="plus">プロフィール</span></button>
 			<div id="setting">							
-				<button type="button" class="dotRadius2" data-toggle="modal" data-target="#ModalAddCalendar"><span id="plus"></span></button>
+				<button type="button" id="dotRadius2" data-toggle="modal" data-target="#ModalAddCalendar"><span id="plus">プロフィール</span></button>
 			</div>
 			<div class="profile">
 				<div class="profile-icon">
@@ -214,21 +215,18 @@
 				</div>
 			</div>
 		</div>
-	<div class="modal">
+	<div class="modal2">
 	</div>
 	
-	<div class="modal-content3">
+	<div class="modal-content">
 		<form class="modal-form" method="POST">
 			<div class="modal-title">
 				<h1>プロフィール編集</h1>
 			</div>
-			<div class="modal-control">
-				<button class="modal-negative-button" id="modal_cancel2" type='button'>キャンセル</button>
-				<button class="modal-positive-button" id="modal_next2" type='button'>次へ</button>				
-			</div>
+s
 			<h4>プロフィール画像変更</h4>
 			<label>
-			<input type="file" id="dotRadius2" accept="image/*" style="display:none;">
+			<input type="file" id="modal_next" accept="image/*" style="display:none;">
 				<div class="c-icon">
 					<img src="/img/2.jpg">			        			
 				</div>	
@@ -266,40 +264,32 @@
 			</div>
 		</form>
 	</div>
+    
+    <div class="modal-content2">
+        <input id='scal' type='range' value='' min='10' max='400' oninput="scaling(value)" style='width: 300px;'><br>
+        <canvas id='cvs' width='300' height='400'></canvas><br>
+        <button id="modal_back" onclick='crop_img()'>CROP</button><br>
+        <canvas id='out' width='200' height='200' style="display:none"></canvas>
+	</div>
+			
+	
 
 	<script>
+        
+        
 		
-		$('.modal').on('click',function(){
-			$('.modal').stop(true, true).fadeOut('500');
-			$('.modal-content3').stop(true, true).animate({
-				top: "-100px",
-				opacity: 0
-			}, 500, function(){
-				$('.modal-content3').hide();
-			});
-		});	
-		
-				$('#dotRadius2').on('click',function(){
+        $('#dotRadius2').on('click',function(){
 			$('.modal2').stop(true, true).fadeIn('500');
-			$('.modal-content-2').show().stop(true, true).animate({
+			$('.modal-content').show().stop(true, true).animate({
 				top: "50%",
 				display: "fixed",
 				opacity: 1.0
 			}, 500);
-			
 
-			
-			$('.modal-content2-2').show().stop(true, true).animate({
-				top:"50%",
-				left: "120%",
-				display: "fixed",
-				opacity: 0
-			}, 500);
 		});	
-		
 		$('.modal2').on('click',function(){
 			$('.modal2').stop(true, true).fadeOut('500');
-			$('.modal-content-2').stop(true, true).animate({
+			$('.modal-content').stop(true, true).animate({
 				top: "-100px",
 				left:"50%",
 				opacity: 0
@@ -307,28 +297,9 @@
 				$('.modal-content').hide();
 			});
 		});			
-		$('.modal').on('click',function(){
-			$('.modal').stop(true, true).fadeOut('500');
-			$('.modal-content2').stop(true, true).animate({
-				top: "-100px",
-				opacity: 0
-			}, 500, function(){
-				$('.modal-content2').hide();
-			});
-		});	
-		
-		$('.modal').on('click',function(){
-			$('.modal').stop(true, true).fadeOut('500');
-			$('.modal-content3').stop(true, true).animate({
-				top: "-100px",
-				opacity: 0
-			}, 500, function(){
-				$('.modal-content3').hide();
-			});
-		});	
 
 		$('#modal_cancel').on('click',function(){
-			$('.modal').stop(true, true).fadeOut('500');
+			$('.modal2').stop(true, true).fadeOut('500');
 			$('.modal-content').stop(true, true).animate({
 				top: "-100px",
 				opacity: 0
@@ -336,7 +307,7 @@
 				$('.modal-content').hide();
 			});
 		});	
-		$('#modal_next').on('click',function(){
+		$('#modal_next').on('change',function(){
 			$('.modal-content2').show().stop(true, true).animate({
 				left: "50%",
 				display: "fixed",
@@ -408,6 +379,121 @@
 				$('#disclose_change').stop(true, true).fadeIn('500');
 			}
 		});
+        
+    const cvs = document.getElementById( 'cvs' )
+    const cw = cvs.width
+    const ch = cvs.height
+    const out = document.getElementById( 'out' )
+    const oh = out.height
+    const ow = out.width
+    
+
+    let ix = 0    // 中心座標
+    let iy = 0
+    let v = 1.0   // 拡大縮小率
+    const img  = new Image()
+    img.onload = function( _ev ){   // 画像が読み込まれた
+        ix = img.width  / 2
+        iy = img.height / 2
+        let scl = parseInt( cw / img.width * 100 )
+        document.getElementById( 'scal' ).value = scl
+        scaling( scl )
+    }
+    function load_img( _url ){  // 画像の読み込み
+        img.src = ( _url ? _url : '/img/1.jpg' )
+    }
+    load_img()
+    function scaling( _v ) {        // スライダーが変った
+        v = parseInt( _v ) * 0.01
+        draw_canvas( ix, iy )       // 画像更新
+    }
+
+    function draw_canvas( _x, _y ){     // 画像更新
+    	console.log(_x);
+    	console.log(_y);
+        const ctx = cvs.getContext( '2d' )
+        ctx.fillStyle = 'rgb(200, 200, 200)'
+        ctx.fillRect( 0, 0, cw, ch )    // 背景を塗る
+         if( _x <= 100*v ){
+			_x=101*v;
+        }
+        if(_x >= img.width-100*v){
+			_x = img.width-101*v;
+        }
+        if( _y <= 100*v ){
+			_y=101*v;
+        }
+        if( _y >= img.height-101*v){
+			_y=img.height-101*v;
+        }
+        ctx.drawImage( img,
+      	      0, 0, img.width, img.height,
+     	       (cw/2)-_x*v, (ch/2)-_y*v, img.width*v, img.height*v,
+        )
+        ctx.strokeStyle = 'rgba(200, 0, 0, 0.8)'
+        ctx.beginPath();
+        ctx.arc( 150,200,100, 0*Math.PI/180,360*Math.PI/180);
+        ctx.stroke();
+        ctx.closePath();
+    }
+    function crop_img(){                // 画像切り取り
+        const ctx = out.getContext( '2d' )
+        ctx.fillStyle = 'rgb(200, 200, 200)'
+        ctx.fillRect( 0, 0, ow, oh )    // 背景を塗る
+        ctx.drawImage( img, 0, 0, img.width, img.height,(ow/2)-ix*v, (oh/2)-iy*v, img.width*v, img.height*v,)
+        
+     var base64 = out.toDataURL("image/png").replace("image/png", "image/octet-stream");
+      console.log(base64);
+        
+    }
+
+    let mouse_down = false      // canvas ドラッグ中フラグ
+    let sx = 0                  // canvas ドラッグ開始位置
+    let sy = 0
+    cvs.ontouchstart =
+    cvs.onmousedown = function ( _ev ){     // canvas ドラッグ開始位置
+        mouse_down = true
+        sx = _ev.pageX
+        sy = _ev.pageY
+        return false // イベントを伝搬しない
+    }
+    cvs.ontouchend =
+    cvs.onmouseout =
+    cvs.onmouseup = function ( _ev ){       // canvas ドラッグ終了位置
+        if ( mouse_down == false ) return
+ 		ix += (sx-_ev.pageX)/v;
+ 		iy += (sy-_ev.pageY)/v
+         if( ix <= 100 ){
+			ix=101;
+        }
+        if(ix >= img.width-100*v){
+			ix = img.width-101*v;
+        }
+        if( iy <= 100*v ){
+			iy=101*v;
+        }
+        if( iy >= img.height-101*v){
+			iy=img.height-101*v;
+        }
+        mouse_down = false
+        draw_canvas(ix ,iy )
+        return false // イベントを伝搬しない
+    }
+    cvs.ontouchmove =
+    cvs.onmousemove = function ( _ev ){     // canvas ドラッグ中
+        if ( mouse_down == false ) return
+        draw_canvas( ix + (sx-_ev.pageX)/v, iy + (sy-_ev.pageY)/v )
+        return false // イベントを伝搬しない
+    }
+    cvs.onmousewheel = function ( _ev ){    // canvas ホイールで拡大縮小
+        let scl = parseInt( parseInt( document.getElementById( 'scal' ).value ) + _ev.wheelDelta * 0.05 )
+        if ( scl < 10  ) scl = 10
+        if ( scl > 400 ) scl = 400
+        document.getElementById( 'scal' ).value = scl
+        scaling( scl )
+        return false // イベントを伝搬しない
+    }
+
 	</script>
 @endsection
 

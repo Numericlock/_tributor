@@ -97,7 +97,7 @@ class AuthController extends Controller{
 		    header('Location: /login');  
 		    exit();  // 処理終了
 		}
-	}
+	} 
 	
 	public function register (){
 		return view('register');
@@ -109,6 +109,7 @@ class AuthController extends Controller{
 		return view('register_password');
 		
 	}
+    
 	
 	public function register_insert (RegisterFormRequest $request){
         User::create([
