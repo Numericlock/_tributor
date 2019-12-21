@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="/css/fonts.css">
 	<link rel="stylesheet" href="/css/opening-common.css">
 	<link rel="stylesheet" href="/css/wave.css">
+	<link rel="stylesheet" href="/css/textbox.css">
 </head>
 <body>
 	<div id="barba-wrapper">

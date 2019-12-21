@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="/css/wave.css">
     <link rel="stylesheet" href="/css/proedit.css">
     <link rel="stylesheet" href="/css/modal.css">
+	<link rel="stylesheet" href="/css/textbox.css">
 </head>
 <body>
 	<div id="barba-wrapper">
