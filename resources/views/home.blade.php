@@ -13,7 +13,7 @@
 				<div class="users-information-wrapper">
 				<!--	<img src="/img/1.jpg"></img>
 				-->
-					<div class="users-icon">
+					<div class="users-icon open_users_modal">
 						<img src="/img/2.jpg">
 					</div>
 					<div class="users-information">
