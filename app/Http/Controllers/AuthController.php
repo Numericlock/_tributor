@@ -136,7 +136,10 @@ class AuthController extends Controller{
         $image = imagecreatefromstring($canvas);
  
 //画像として保存（ディレクトリは任意）
-        $img_path =  self::unique_filename('img/iconimg');
+        $savepath=$request->input('id');
+        $path2 ='img/icon_img/';
+        $path2 .=$savepath;
+        $img_path =  self::unique_filename($path2);
         imagesavealpha($image, TRUE); // 透明色の有効
         imagepng($image ,$img_path);
         

@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="/css/wave.css">
     <link rel="stylesheet" href="/css/proedit.css">
     <link rel="stylesheet" href="/css/modal.css">
+	<link rel="stylesheet" href="/css/textbox.css">
 </head>
 <body>
 	<div id="barba-wrapper">
@@ -135,9 +136,9 @@
         name_request.name = 'name';
         name_request.value = nameVal;
         
-      img_request.type = 'hidden'; //入力フォームが表示されないように
-      img_request.name = 'base64';
-      img_request.value = base64;
+        img_request.type = 'hidden'; //入力フォームが表示されないように
+        img_request.name = 'base64';
+        img_request.value = base64;
 
         form.appendChild(id_request);
         form.appendChild(email_request);
@@ -729,6 +730,15 @@ var PageTransition = Barba.BaseTransition.extend({
         console.log(v);
              
     }
+      
+      $("input[type=range]").on("input",function(){
+          var val = $(this).val();
+          $(this).attr("value",val);
+        v = parseInt(val) * 0.01        	  
+        draw_canvas( ix, iy )  
+        console.log(v);
+          
+          });
 
     function draw_canvas( _x, _y ){     // 画像更新
     	console.log(_x);
@@ -738,7 +748,7 @@ var PageTransition = Barba.BaseTransition.extend({
         ctx.fillRect( 0, 0, cw, ch )    // 背景を塗る
 
        	  if( _x <= 100/v){
-				_x=100/v+1;
+              _x=100/v+1;
        	 }
       	  if(_x >= img.width-(100/v)){
 				_x = img.width-(100/v+1 );
@@ -764,7 +774,16 @@ var PageTransition = Barba.BaseTransition.extend({
         ctx.closePath();
     }
      
-    $('#crop_img').on('click',function(){                // 画像切り取り
+    $('#crop_img').on('click',function(){
+        $('.modal2').stop(true, true).fadeOut('500');
+        $('.modal-content3').stop(true, true).animate({
+				top: "-100px",
+				opacity: 0
+			}, 500, function(){
+				$('.modal-content3').hide();
+			});
+        
+        // 画像切り取り
         const ctx = out.getContext( '2d' )
         ctx.fillStyle = 'rgb(200, 200, 200)'
         ctx.fillRect( 0, 0, ow, oh )    // 背景を塗る
@@ -791,7 +810,7 @@ var PageTransition = Barba.BaseTransition.extend({
     cvs.onmouseup = function ( _ev ){       // canvas ドラッグ終了位置
         if ( mouse_down == false ) return
  		ix += (sx-_ev.pageX)/v;
- 		iy += (sy-_ev.pageY)/v
+ 		iy += (sy-_ev.pageY)/v;
        
 		if( ix <= 100/v ){
 			ix=(100/v+1);

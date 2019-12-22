@@ -15,6 +15,9 @@
 	<link rel="stylesheet" href="/css/wave.css">
     <link rel="stylesheet" href="/css/proedit.css">
 	<link rel="stylesheet" href="/css/modal.css">
+
+	<link rel="stylesheet" href="/css/textbox.css">
+
 </head>
 <body>
 	<div id="barba-wrapper">
@@ -39,8 +42,10 @@
 					<span id="password_error">　</span>
 				</div>
 -->
-                <img class="profile-image" id="preview"><br>
-                <input type="file" id="dotRadius2" accept="image/*">
+                <label>
+                <img class="profile-image" id="preview" src="../img/icon_img/default.png" class="nav-icon common-user-icon"><br>
+                <input type="file" id="dotRadius2" accept="image/*" stylesheet="display:none"hidden>
+                </label>
                 
 			</div>		
 			<div>
@@ -64,7 +69,7 @@
 	
 	</div>
 	<div class="modal-content3">
-	<input id='scal' type='range' value='' min='10' max='400' oninput="scaling(value)" style='width: 300px;'><br>
+	<input id='scal' type='range' value='' min='10' max='400'  style='width: 300px;'><br>
 <canvas id='cvs' width='300' height='400'></canvas><br>
 <button id="crop_img">CROP</button><br>
 <canvas id='out' width='200' height='200' style="display:none"></canvas>
