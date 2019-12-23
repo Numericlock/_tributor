@@ -18,9 +18,10 @@ class SearchController extends Controller
     }
 	public function search (Request $request){
 		$posts = "";
+        $str ="";
         $user = $request->base_user;
 		$lists = $request->base_user_lists;
-		return view('search',compact('posts','user','lists'));
+		return view('search',compact('posts','str','user','lists'));
 	}
 	
 	public function post_search (searchRequest $request){

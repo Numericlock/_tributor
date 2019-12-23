@@ -38,10 +38,11 @@ public function __construct()
 		->offset(0)
 		->limit(25)
 		->get();
-		Log::debug($posts."foloowwwdｗｗｗｗｗｗだああｗｗｗ2");
+        $userIds = $posts->unique('users_id'); 
+        Log::debug($userIds."ごみごみごみごみごみごみ");
         $user = $request->base_user;
 		$lists = $request->base_user_lists;
-		return view('home',compact('posts','user','lists'));
+		return view('home',compact('posts', 'userIds', 'user','lists'));
 
 	}
 }

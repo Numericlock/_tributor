@@ -2,22 +2,53 @@
 @section('title', 'ホーム')
 @section('cssJs')
 	<link rel="stylesheet" href="/css/home.css">
+	<link rel="stylesheet" href="/css/users_modal.css">
 @endsection
 @section('content')
 		<div class="content">
 			<div class="content-title">
 				　<span>ホーム</span>
 			</div>
+            @foreach($userIds as $userId)
+            <div id="{{ $userId->users_id }}" class="users-modal-wrapper">
+                <div class="users-modal">
+                    <div class="users-modal-top-wrapper">
+                        <div class="users-modal-icon">
+                            <img src="/img/2.jpg">
+                        </div>
+                        <div class="users-modal-button">
+                            <button>フォロー</button>
+                        </div>
+                    </div>
+                    <div class="users-modal-middle-wrapper">
+                        <span class="users-modal-name">{{ $userId->users_name }}</span>
+                        <span class="users-modal-id">{{ "@".$userId->users_id }}</span>
+                    </div>
+                    <div class="users-modal-bottom-wrapper">
+                        <div class="users-modal-introduction">
+                        </div>
+                    </div>
+                    <div class="users-modal-end-wrapper">
+                        <div class="users-modal-follow">
+                            <span>フォロー数/33</span>
+                        </div>
+                        <div class="users-modal-follower">
+                            <span>フォロワー数/22</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
             @foreach ($posts as $post)
 			<div class="users-content">
 				<div class="users-information-wrapper">
 				<!--	<img src="/img/1.jpg"></img>
 				-->
-					<div class="users-icon open_users_modal">
+					<div class="users-icon users-content-modal-open" data-modalId="{{ $post->users_id }}">
 						<img src="/img/2.jpg">
 					</div>
 					<div class="users-information">
-						<div class="users-name">
+						<div class="users-name users-content-modal-open" data-modalId="{{ $post->users_id }}">
 							<span>{{ $post->users_name }}</span>
 						</div>
 						<div class="information">
@@ -136,7 +167,6 @@
 				</div>
 			</div>
             @endforeach
-			
 			
 			
 			<div class="users-content" style="background-image:url(/img/3.jpg);">
@@ -273,6 +303,20 @@
 		</div>
 	<script>
 		var posts_num =25;
+        var post_users = @json($userIds);
+        console.log(post_users);
+        $('.users-content-modal-open').hover( () => {
+
+            console.log($('.users-content-modal-open').data("modalid"));
+            var id=$('.users-content-modal-open').data("modalid");
+            $(id).css('display','block');
+            $(id).show();
+
+        }, function() {
+             var id=$('.users-content-modal-open').data("modalid");
+             $(id).hide();
+
+        });
 		function get_posts(){
 			var data = {
 				num: posts_num

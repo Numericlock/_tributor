@@ -1,0 +1,47 @@
+.users-modal-wrapper{
+    z-index:20;
+   position: absolute;
+    display:none;
+}
+.users-modal-top-wrapper{
+    display:flex;
+    flex-direction: row; 
+    justify-content:space-between;
+    padding-bottom:5px;
+}
+.users-modal-middle-wrapper{
+    display:flex;
+    flex-direction: column; 
+    padding-bottom:5px;
+}
+.users-modal-name{
+    font-size: 20px;
+}
+.users-modal-id{
+    font-size: 16px;
+    color:gray;
+}
+.users-modal-bottom-wrapper{
+   padding-bottom:5px;
+}
+.users-modal-end-wrapper{
+    display:flex;
+    flex-direction: row;
+    padding-bottom:5px;
+}
+.users-modal{
+    background: #212226;
+    filter: drop-shadow(0 0 0.2rem white);
+    border-radius:15px;
+    display:flex;
+    flex-direction: column;
+    padding:10px;
+}
+.users-modal-icon{
+    
+}
+.users-modal-icon img{
+    width:100px;
+    height:100px;
+    border-radius: 100%;
+}
