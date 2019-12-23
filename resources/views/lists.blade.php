@@ -4,6 +4,8 @@
 	<link rel="stylesheet" href="/css/opening-common.css">
 	<link rel="stylesheet" href="/css/list.css">
 	<link rel="stylesheet" href="/css/checkbox.css">
+    <link rel="stylesheet" href="/css/proedit.css">
+    <link rel="stylesheet" href="/css/modal.css">
 @endsection
 @section('content')
 		<div class="content">
@@ -46,7 +48,10 @@
             </div>
             <div class="list-modal-minimumInputs">
                 <div class="list-modal-profileImageInput">
-					<img src="/img/2.jpg">
+					<label>
+                        <img class="profile-image" id="preview" src="../img/icon_img/default.png"><br>
+                        <input type="file" id="dotRadius2" accept="image/*"　 stylesheet="display:none"hidden>
+                    </label>
                 </div>
                 <div class="list-modal-listNameInput">
                     <div class="id_box box">
@@ -94,6 +99,15 @@
 	<div class="attention-modal-content">
 	</div>
 	<div class="attention-modal">
+	</div>
+
+    <div class="modal2">
+	</div>
+	<div class="modal-content3">
+	<input id='scal' type='range' value='' min='10' max='400'  style='width: 300px;'><br>
+<canvas id='cvs' width='300' height='400'></canvas><br>
+<button id="crop_img">CROP</button><br>
+<canvas id='out' width='200' height='200' style="display:none"></canvas>
 	</div>
     <script>
 /*\
@@ -521,6 +535,225 @@
                 const result = $('.search_string').addClass('keepfocus2')
             }
         });
+        
+            $('#dotRadius2').on('change',function(e){
+            
+             var reader = new FileReader();
+             var file = e.target.files[0];
+
+                reader.onload = function(e){
+                console.log(e.target.result);
+                load_img(e.target.result);
+                };
+                reader.readAsDataURL(file);
+
+                
+			$('.modal2').stop(true, true).fadeIn('500');
+			$('.modal-content3').show().stop(true, true).animate({
+				top: "50%",
+				display: "fixed",
+				opacity: 1.0
+			}, 500);
+
+		});	
+		$('.modal2').on('click',function(){
+			$('.modal2').stop(true, true).fadeOut('500');
+			$('.modal-content3').stop(true, true).animate({
+				top: "-100px",
+				left:"50%",
+				opacity: 0
+			}, 500, function(){
+				$('.modal-content3').hide();
+			});
+		});			
+
+		$('#modal_cancel').on('click',function(){
+			$('.modal2').stop(true, true).fadeOut('500');
+			$('.modal-content3').stop(true, true).animate({
+				top: "-100px",
+				opacity: 0
+			}, 500, function(){
+				$('.modal-content3').hide();
+			});
+		});	
+		$('#modal_next').on('click',function(){
+			$('.modal-content2').show().stop(true, true).animate({
+				left: "50%",
+				display: "fixed",
+				opacity: 1.0
+			}, 500);
+			$('.modal-content').stop(true, true).animate({
+				left: "-100px",
+				opacity: 0
+			}, 500, function(){
+				$('.modal-content').hide();
+			});
+		});	
+		$('#modal_back').on('click',function(){
+			$('.modal-content').show().stop(true, true).animate({
+				left: "50%",
+				display: "fixed",
+				opacity: 1.0
+			}, 500);
+			$('.modal-content2').stop(true, true).animate({
+				left: "120%",
+				opacity: 0
+			}, 500, function(){
+				$('.modal-content2').hide();
+			});
+		});
+        
+            const cvs = document.getElementById( 'cvs' )
+    const cw = cvs.width
+    const ch = cvs.height
+    const out = document.getElementById( 'out' )
+    const oh = out.height
+    const ow = out.width
+    
+
+    let ix = 0    // 中心座標
+    let iy = 0
+    let v = 1.0   // 拡大縮小率
+    const img  = new Image()
+    img.onload = function( _ev ){   // 画像が読み込まれた
+        ix = img.width  / 2
+        iy = img.height / 2
+        let scl = parseInt( cw / img.width * 100 )
+        document.getElementById( 'scal' ).value = scl
+         if(img.width>=img.height){
+       	    document.getElementById( 'scal' ).min = (100/iy)*100
+        }else{
+        	document.getElementById( 'scal' ).min = (100/ix)*100
+        }
+        scaling( scl )
+    }
+    function load_img( _url ){  // 画像の読み込み
+        img.src = (_url);
+    }
+    
+    function scaling( _v ) {        // スライダーが変った
+
+        v = parseInt( _v ) * 0.01        	  
+        draw_canvas( ix, iy )  
+        console.log(v);
+             
+    }
+      
+      $("input[type=range]").on("input",function(){
+          var val = $(this).val();
+          $(this).attr("value",val);
+        v = parseInt(val) * 0.01        	  
+        draw_canvas( ix, iy )  
+        console.log(v);
+          
+          });
+
+    function draw_canvas( _x, _y ){     // 画像更新
+    	console.log(_x);
+    	console.log(_y);
+        const ctx = cvs.getContext( '2d' )
+        ctx.fillStyle = 'rgb(200, 200, 200)'
+        ctx.fillRect( 0, 0, cw, ch )    // 背景を塗る
+
+       	  if( _x <= 100/v){
+              _x=100/v+1;
+       	 }
+      	  if(_x >= img.width-(100/v)){
+				_x = img.width-(100/v+1 );
+      	  }
+
+        if( _y <= 100/v){
+			_y=(100/v+1);
+        }
+        if( _y >= img.height-(100/v )){
+			_y=img.height-(100/v+1);
+        }
+
+
+
+              ctx.drawImage( img,
+      	      0, 0, img.width, img.height,
+     	       (cw/2)-_x*v, (ch/2)-_y*v, img.width*v, img.height*v,
+        )
+        ctx.strokeStyle = 'rgba(200, 0, 0, 0.8)'
+        ctx.beginPath();
+        ctx.arc( 150,200,100, 0*Math.PI/180,360*Math.PI/180);
+        ctx.stroke();
+        ctx.closePath();
+    }
+     
+    $('#crop_img').on('click',function(){
+        $('.modal2').stop(true, true).fadeOut('500');
+        $('.modal-content3').stop(true, true).animate({
+				top: "-100px",
+				opacity: 0
+			}, 500, function(){
+				$('.modal-content3').hide();
+			});
+        
+        // 画像切り取り
+        const ctx = out.getContext( '2d' )
+        ctx.fillStyle = 'rgb(200, 200, 200)'
+        ctx.fillRect( 0, 0, ow, oh )    // 背景を塗る
+        ctx.drawImage( img, 0, 0, img.width, img.height,(ow/2)-ix*v, (oh/2)-iy*v, img.width*v, img.height*v,)
+               
+      base64 = out.toDataURL("public/img/png").replace("public/img/png", "public/img/octet-stream");
+    document.getElementById("preview").src = base64;
+    $('#dotRadius2').val('');
+ 
+   
+    });
+
+    let mouse_down = false      // canvas ドラッグ中フラグ
+    let sx = 0                  // canvas ドラッグ開始位置
+    let sy = 0
+    cvs.ontouchstart =
+    cvs.onmousedown = function ( _ev ){     // canvas ドラッグ開始位置
+        mouse_down = true
+        sx = _ev.pageX
+        sy = _ev.pageY
+        return false // イベントを伝搬しない
+    }
+    cvs.ontouchend =
+    cvs.onmouseout =
+    cvs.onmouseup = function ( _ev ){       // canvas ドラッグ終了位置
+        if ( mouse_down == false ) return
+ 		ix += (sx-_ev.pageX)/v;
+ 		iy += (sy-_ev.pageY)/v;
+       
+		if( ix <= 100/v ){
+			ix=(100/v+1);
+   
+        if(ix >= img.width-(100/v)){
+			ix = img.width-(100*v+1);
+        }
+        if( iy <= 100/v ){
+			iy=(100/v+1);
+        }
+        if( iy >= img.height-(101/v)){
+			iy=img.height-(100/v+1);
+        }
+        }
+        mouse_down = false
+        draw_canvas(ix ,iy )
+        return false // イベントを伝搬しない
+    
+    }
+    cvs.ontouchmove =
+    cvs.onmousemove = function ( _ev ){     // canvas ドラッグ中
+        if ( mouse_down == false ) return
+        draw_canvas( ix + (sx-_ev.pageX)/v, iy + (sy-_ev.pageY)/v )
+        return false // イベントを伝搬しない
+    }
+    cvs.onmousewheel = function ( _ev ){    // canvas ホイールで拡大縮小
+        let scl = parseInt( parseInt( document.getElementById( 'scal' ).value ) + _ev.wheelDelta * 0.05 )
+        if ( scl < 10  ) scl = 10
+        if ( scl > 400 ) scl = 400
+        document.getElementById( 'scal' ).value = scl
+
+        scaling( scl)
+        return false // イベントを伝搬しない
+    }
     </script>
 @endsection
 
