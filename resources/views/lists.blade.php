@@ -1,11 +1,9 @@
 @extends('layouts.app')
 @section('title', 'リスト')
 @section('cssJs')
-	<link rel="stylesheet" href="/css/opening-common.css">
 	<link rel="stylesheet" href="/css/list.css">
-	<link rel="stylesheet" href="/css/checkbox.css">
-    <link rel="stylesheet" href="/css/proedit.css">
-    <link rel="stylesheet" href="/css/modal.css">
+
+
 @endsection
 @section('content')
 		<div class="content">
