@@ -1,7 +1,17 @@
 .users-modal-wrapper{
-    z-index:20;
+    z-index:1000;
    position: absolute;
     display:none;
+	top:0;
+	left:0;
+}
+.users-modal{
+    background: #212226;
+    filter: drop-shadow(0 0 0.2rem white);
+    border-radius:15px;
+    display:flex;
+    flex-direction: column;
+    padding:10px;
 }
 .users-modal-top-wrapper{
     display:flex;
@@ -29,14 +39,7 @@
     flex-direction: row;
     padding-bottom:5px;
 }
-.users-modal{
-    background: #212226;
-    filter: drop-shadow(0 0 0.2rem white);
-    border-radius:15px;
-    display:flex;
-    flex-direction: column;
-    padding:10px;
-}
+
 .users-modal-icon{
     
 }

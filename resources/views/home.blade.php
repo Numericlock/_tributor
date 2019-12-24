@@ -10,14 +10,23 @@
 				　<span>ホーム</span>
 			</div>
             @foreach($userIds as $userId)
-            <div id="{{ $userId->users_id }}" class="users-modal-wrapper">
+            <div id="{{ $userId->users_id }}" class="users-modal-wrapper" data-modalid="{{ $userId->users_id }}">
                 <div class="users-modal">
                     <div class="users-modal-top-wrapper">
                         <div class="users-modal-icon">
                             <img src="/img/2.jpg">
                         </div>
                         <div class="users-modal-button">
-                            <button>フォロー</button>
+							@if($userId->users_id === $user->user_id )
+							
+							@elseif ($userId->subject_user_id === $user->user_id)
+								<button>フォロー中</button>
+							@else
+								<button>フォロー</button>
+							@endif
+							@if($userId->users_followed_count === 1)
+							<span>フォローされています</span>
+							@endif
                         </div>
                     </div>
                     <div class="users-modal-middle-wrapper">
@@ -30,10 +39,10 @@
                     </div>
                     <div class="users-modal-end-wrapper">
                         <div class="users-modal-follow">
-                            <span>フォロー数/33</span>
+                            <span>フォロー数/{{ $userId->subject_count }}</span>
                         </div>
                         <div class="users-modal-follower">
-                            <span>フォロワー数/22</span>
+                            <span>フォロワー数/{{ $userId->followed_count }}</span>
                         </div>
                     </div>
                 </div>
@@ -44,11 +53,11 @@
 				<div class="users-information-wrapper">
 				<!--	<img src="/img/1.jpg"></img>
 				-->
-					<div class="users-icon users-content-modal-open" data-modalId="{{ $post->users_id }}">
+					<div class="users-icon users-content-modal-open" data-modalid="{{ $post->users_id }}">
 						<img src="/img/2.jpg">
 					</div>
 					<div class="users-information">
-						<div class="users-name users-content-modal-open" data-modalId="{{ $post->users_id }}">
+						<div class="users-name users-content-modal-open" data-modalid="{{ $post->users_id }}">
 							<span>{{ $post->users_name }}</span>
 						</div>
 						<div class="information">
@@ -303,20 +312,46 @@
 		</div>
 	<script>
 		var posts_num =25;
+		var users_modal_timer;
+		var users_modal_timer_close;
+		var users_modal_timer_close_comp;
         var post_users = @json($userIds);
         console.log(post_users);
-        $('.users-content-modal-open').hover( () => {
+		$('.users-content-modal-open').mouseenter(function(){
+			clearInterval(users_modal_timer);
+			clearInterval(users_modal_timer_close);
+			var id="#"+$(this).data("modalid");
+			var off = $(this).offset();	
+			users_modal_timer = setTimeout(function(){
+				$(id).css('display','none');
+				$(id).css('top',off.top+65);
+				$(id).css('left',off.left);
+				$(id).fadeIn('fast');	
+			},600);
+			console.log($(this).data("modalid"));
+		});
+		
+		$('.users-modal-wrapper , .users-content-modal-open').mouseenter(function(){
+			clearInterval(users_modal_timer_close);
+		});
+		
+		$('.users-content-modal-open').mouseleave(function(){
+			clearInterval(users_modal_timer);
+			var id="#"+$(this).data("modalid");
+			users_modal_timer_close = setTimeout(function(){
+				$(id).fadeOut('fast');
+			},300);
 
-            console.log($('.users-content-modal-open').data("modalid"));
-            var id=$('.users-content-modal-open').data("modalid");
-            $(id).css('display','block');
-            $(id).show();
+		});
+		$('.users-modal-wrapper').mouseleave(function(){
+			clearInterval(users_modal_timer);
+			var id="#"+$(this).data("modalid");
+			users_modal_timer_close_comp = setTimeout(function(){
+				$(id).fadeOut('fast');
+			},300);
 
-        }, function() {
-             var id=$('.users-content-modal-open').data("modalid");
-             $(id).hide();
-
-        });
+		});
+		
 		function get_posts(){
 			var data = {
 				num: posts_num
