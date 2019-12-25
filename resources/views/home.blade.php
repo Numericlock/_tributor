@@ -10,7 +10,7 @@
 				　<span>ホーム</span>
 			</div>
             @foreach($userIds as $userId)
-            <div id="{{ $userId->users_id }}" class="users-modal-wrapper" data-modalid="{{ $userId->users_id }}">
+            <div id="{{ $userId->users_id }}" class="users-modal-wrapper" onmouseover="users_content_modal_close_reset()" onmouseout="users_content_modal_close_comp(this)" data-modalid="{{ $userId->users_id }}">
                 <div class="users-modal">
                     <div class="users-modal-top-wrapper">
                         <div class="users-modal-icon">
@@ -18,20 +18,23 @@
                         </div>
                         <div class="users-modal-button">
 							@if($userId->users_id === $user->user_id )
-							
-							@elseif ($userId->subject_user_id === $user->user_id)
-								<button>フォロー中</button>
+							@elseif($userId->is_canceled === 1)
+								<button class="follow-button" onclick="follow(this)" data-followid="{{ $userId->users_id }}">フォロー</button>
+							@elseif ($userId->subject_user_id === $user->user_id )
+								<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="{{ $userId->users_id }}">フォロー中</button>
 							@else
-								<button>フォロー</button>
-							@endif
-							@if($userId->users_followed_count === 1)
-							<span>フォローされています</span>
+								<button class="follow-button" onclick="follow(this)" data-followid="{{ $userId->users_id }}">フォロー</button>
 							@endif
                         </div>
                     </div>
                     <div class="users-modal-middle-wrapper">
                         <span class="users-modal-name">{{ $userId->users_name }}</span>
+						<div>
                         <span class="users-modal-id">{{ "@".$userId->users_id }}</span>
+							@if($userId->users_followed_count === 1)
+								<span class="followed-span">フォローされています</span>
+							@endif
+						</div>
                     </div>
                     <div class="users-modal-bottom-wrapper">
                         <div class="users-modal-introduction">
@@ -53,11 +56,11 @@
 				<div class="users-information-wrapper">
 				<!--	<img src="/img/1.jpg"></img>
 				-->
-					<div class="users-icon users-content-modal-open" data-modalid="{{ $post->users_id }}">
+					<div class="users-icon users-content-modal-open" onmouseover="users_content_modal_open(this); users_content_modal_close_reset()" onmouseout="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
 						<img src="/img/2.jpg">
 					</div>
 					<div class="users-information">
-						<div class="users-name users-content-modal-open" data-modalid="{{ $post->users_id }}">
+						<div class="users-name users-content-modal-open" onmouseover="users_content_modal_open(this); users_content_modal_close_reset()" onmouseout="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
 							<span>{{ $post->users_name }}</span>
 						</div>
 						<div class="information">
@@ -316,41 +319,78 @@
 		var users_modal_timer_close;
 		var users_modal_timer_close_comp;
         var post_users = @json($userIds);
-        console.log(post_users);
-		$('.users-content-modal-open').mouseenter(function(){
+		var post_users_ids =[];
+		@foreach($userIds as $userId)
+			post_users_ids.push("{{ $userId->users_id }}");
+		@endforeach
+		console.log(post_users_ids);
+		
+		function users_content_modal_open(over){
 			clearInterval(users_modal_timer);
 			clearInterval(users_modal_timer_close);
-			var id="#"+$(this).data("modalid");
-			var off = $(this).offset();	
+			var id="#"+$(over).data("modalid");
+			var off = $(over).offset();	
 			users_modal_timer = setTimeout(function(){
 				$(id).css('display','none');
 				$(id).css('top',off.top+65);
 				$(id).css('left',off.left);
 				$(id).fadeIn('fast');	
 			},600);
-			console.log($(this).data("modalid"));
-		});
-		
-		$('.users-modal-wrapper , .users-content-modal-open').mouseenter(function(){
-			clearInterval(users_modal_timer_close);
-		});
-		
-		$('.users-content-modal-open').mouseleave(function(){
+			console.log($(over).data("modalid"));
+		}
+		function users_content_modal_close(over){
 			clearInterval(users_modal_timer);
-			var id="#"+$(this).data("modalid");
+			var id="#"+$(over).data("modalid");
 			users_modal_timer_close = setTimeout(function(){
 				$(id).fadeOut('fast');
 			},300);
-
-		});
-		$('.users-modal-wrapper').mouseleave(function(){
+		}
+		
+		function users_content_modal_close_reset(){
+			clearInterval(users_modal_timer_close);
+		}
+		
+		function users_content_modal_close_comp(over){
 			clearInterval(users_modal_timer);
-			var id="#"+$(this).data("modalid");
+			var id="#"+$(over).data("modalid");
 			users_modal_timer_close_comp = setTimeout(function(){
 				$(id).fadeOut('fast');
 			},300);
-
-		});
+		}
+	//	$('.users-content-modal-open').mouseenter(function(){
+	//		clearInterval(users_modal_timer);
+	//		clearInterval(users_modal_timer_close);
+	//		var id="#"+$(this).data("modalid");
+	//		var off = $(this).offset();	
+	//		users_modal_timer = setTimeout(function(){
+	//			$(id).css('display','none');
+	//			$(id).css('top',off.top+65);
+	//			$(id).css('left',off.left);
+	//			$(id).fadeIn('fast');	
+	//		},600);
+	//		console.log($(this).data("modalid"));
+	//	});
+	//	
+	//	$('.users-modal-wrapper , .users-content-modal-open').mouseenter(function(){
+	//		clearInterval(users_modal_timer_close);
+	//	});
+	//	
+	//	$('.users-content-modal-open').mouseleave(function(){
+	//		clearInterval(users_modal_timer);
+	//		var id="#"+$(this).data("modalid");
+	//		users_modal_timer_close = setTimeout(function(){
+	//			$(id).fadeOut('fast');
+	//		},300);
+//
+//		});
+//		$('.users-modal-wrapper').mouseleave(function(){
+//			clearInterval(users_modal_timer);
+//			var id="#"+$(this).data("modalid");
+//			users_modal_timer_close_comp = setTimeout(function(){
+//				$(id).fadeOut('fast');
+//			},300);
+//
+//		});
 		
 		function get_posts(){
 			var data = {
@@ -367,15 +407,50 @@
 				success: function(json_data) { // 200 OK時
 					posts_num = posts_num+25;
 					json_data.forEach(function( value ) {
+						if(post_users_ids.indexOf(value.users_id)==-1){
+							post_users_ids.push(value.users_id);
+							console.log(post_users_ids);
+							$('.content').append(
+								'<div id="'+ value.users_id +'" class="users-modal-wrapper" onmouseover="users_content_modal_close_reset()" onmouseout="users_content_modal_close_comp(this)" data-modalid="'+ value.users_id +'">'
+								+	'<div class="users-modal">'
+								+		'<div class="users-modal-top-wrapper">'
+								+			'<div class="users-modal-icon">'
+								+				'<img src="/img/2.jpg">'
+								+			'</div>'
+								+			'<div class="users-modal-button">'
+								+			'</div>'
+								+		'</div>'
+								+		'<div class="users-modal-middle-wrapper">'
+								+			'<span class="users-modal-name">'+ value.users_name +'</span>'
+								+			'<div>'
+								+			'<span class="users-modal-id">@'+ value.users_id +'</span>'
+								+			'</div>'
+								+		'</div>'
+								+		'<div class="users-modal-bottom-wrapper">'
+								+			'<div class="users-modal-introduction">'
+								+			'</div>'
+								+		'</div>'
+								+		'<div class="users-modal-end-wrapper">'
+								+			'<div class="users-modal-follow">'
+								+				'<span>フォロー数/'+ value.subject_count +'</span>'
+								+			'</div>'
+								+			'<div class="users-modal-follower">'
+								+				'<span>フォロワー数/'+ value.followed_count +'</span>'
+								+			'</div>'
+								+		'</div>'
+								+	'</div>'
+								+'</div>'
+							)
+						}
 						$('.content').append(
 									'<div class="users-content">'
 									+	'<div class="users-information-wrapper">'
 									+'	<!--	<img src="/img/1.jpg"></img>'
 									+'	-->'
-									+		'<div class="users-icon">'
+									+		'<div class="users-icon users-content-modal-open" onmouseover="users_content_modal_open(this); users_content_modal_close_reset()" onmouseout="users_content_modal_close(this)" data-modalid="'+ value.users_id +'">'
 									+			'<img src="/img/2.jpg">'
 									+		'</div>'
-									+		'<div class="users-information">'
+									+		'<div class="users-information users-content-modal-open" onmouseover="users_content_modal_open(this); users_content_modal_close_reset()" onmouseout="users_content_modal_close(this)" data-modalid="'+ value.users_id +'">'
 									+			'<div class="users-name">'
 									+				'<span>'+ value.users_name +'</span>'
 									+			'</div>'
@@ -521,7 +596,10 @@
 		};
 		var get_flag = true;
 		var favorite_flag =true;
+		var follow_flag =true;
+		var follow_remove_flag =true;
 		var bottomPos = $(document).height() - $(window).height() - 1;    //画面下位置を取得
+		
 		$(window).scroll(function () {
 			if ($(this).scrollTop() >= bottomPos && get_flag ==true ) {
 				console.log("bottomPos");
@@ -529,12 +607,72 @@
 				get_posts();
 			}
 		});
+		
+		function follow(button){
+			console.log($(button).data('followid')+"wwwwwwwww");
+			console.log(follow_flag);
+			if(follow_flag ==true){
+				follow_flag = false;
+				var id = $(button).data('followid');
+				$.ajax({
+					type:"post",                // method = "POST"
+					url:"/follow",        // POST送信先のURL
+					dataType: 'json',
+					data : {user_id: id},
+					async : false,   // ← asyncをfalseに設定する
+					timeout:3000,
+				}).done(function(data) {
+					console.log("follow");
+					$('.users-modal-button').empty();
+					$('.users-modal-button').append(
+					'<button class="follow-remove-button" onclick="follow_remove(this)" data-followid='+id+'>フォロー中</button>'
+					);
+				}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log("Server Error. Pleasy try again later.");
+					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+					console.log("textStatus     : " + textStatus);
+					console.log("errorThrown    : " + errorThrown.message);
+				})
+				follow_flag = true;
+			}
+		}
+		
+		function follow_remove(button){
+			console.log($(button).data('followid')+"wwwwwwwww");
+			console.log(follow_remove_flag);
+			if(follow_remove_flag ==true){
+				follow_remove_flag = false;
+				var id = $(button).data('followid');
+				$.ajax({
+					type:"post",                // method = "POST"
+					url:"/follow/remove",        // POST送信先のURL
+					dataType: 'json',
+					data : {user_id: id},
+					async : false,   // ← asyncをfalseに設定する
+					timeout:3000,
+				}).done(function(data) {
+					console.log("follow_remove");
+					$('.users-modal-button').empty();
+					$('.users-modal-button').append(
+					'<button class="follow-button" onclick="follow(this)" data-followid='+id+'>フォロー</button>'
+					);
+				}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log("Server Error. Pleasy try again later.");
+					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+					console.log("textStatus     : " + textStatus);
+					console.log("errorThrown    : " + errorThrown.message);
+				})
+				follow_remove_flag = true;
+			}
+		}
+		
 		$('.heart').on('click',function(){
 			console.log(favorite_flag);
 			if(favorite_flag ==true){
+				favorite_flag = false;
 				console.log($(this).data('id'));
 				favorite_postForm($(this).data('id'));   
-				favorite_flag = false;
+				favorite_flag = true;
 			}
 		});	
 		function favorite_postForm(id){

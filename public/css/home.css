@@ -108,3 +108,32 @@
 .information-icon{
 	width:12px;
 }
+
+.follow-button{
+	border-radius: 10px;
+	border:solid 2px white;
+	color:white;
+	font-weight: bold;
+}
+
+.follow-remove-button{
+	border-radius: 10px;
+	border:solid 2px white;
+	color:black;
+	font-weight:bold;
+	background-color:white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

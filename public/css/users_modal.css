@@ -26,6 +26,7 @@
 }
 .users-modal-name{
     font-size: 20px;
+	font-weight: bolder;
 }
 .users-modal-id{
     font-size: 16px;
@@ -47,4 +48,9 @@
     width:100px;
     height:100px;
     border-radius: 100%;
+}
+.followed-span{
+	background-color: dimgray;
+	border-radius: 10px;
+	padding:3px;
 }
