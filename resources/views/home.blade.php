@@ -10,11 +10,11 @@
 				　<span>ホーム</span>
 			</div>
             @foreach($userIds as $userId)
-            <div id="{{ $userId->users_id }}" class="users-modal-wrapper" onmouseover="users_content_modal_close_reset()" onmouseout="users_content_modal_close_comp(this)" data-modalid="{{ $userId->users_id }}">
-                <div class="users-modal">
-                    <div class="users-modal-top-wrapper">
+            <div id="{{ $userId->users_id }}" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="{{ $userId->users_id }}">
+                <div class="users-modal" onmouseenter="users_content_modal_close_reset()">
+                    <div class="users-modal-top-wrapper" onmouseenter="users_content_modal_close_reset()">
                         <div class="users-modal-icon">
-                            <img src="/img/2.jpg">
+                            <img src="/img/2.jpg" onmouseenter="users_content_modal_close_reset()">
                         </div>
                         <div class="users-modal-button">
 							@if($userId->users_id === $user->user_id )
@@ -56,11 +56,11 @@
 				<div class="users-information-wrapper">
 				<!--	<img src="/img/1.jpg"></img>
 				-->
-					<div class="users-icon users-content-modal-open" onmouseover="users_content_modal_open(this); users_content_modal_close_reset()" onmouseout="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
+					<div class="users-icon users-content-modal-open" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
 						<img src="/img/2.jpg">
 					</div>
 					<div class="users-information">
-						<div class="users-name users-content-modal-open" onmouseover="users_content_modal_open(this); users_content_modal_close_reset()" onmouseout="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
+						<div class="users-name users-content-modal-open" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
 							<span>{{ $post->users_name }}</span>
 						</div>
 						<div class="information">
@@ -326,20 +326,31 @@
 		console.log(post_users_ids);
 		
 		function users_content_modal_open(over){
-			clearInterval(users_modal_timer);
-			clearInterval(users_modal_timer_close);
-			var id="#"+$(over).data("modalid");
+			clearTimeout(users_modal_timer);
+			clearTimeout(users_modal_timer_close);
+			var id = "#"+$(over).data("modalid");
+			var height =  $(id).height();
 			var off = $(over).offset();	
 			users_modal_timer = setTimeout(function(){
 				$(id).css('display','none');
-				$(id).css('top',off.top+65);
+				if($(window).height()-$(over).get(0).getBoundingClientRect().top > height+65){
+					$(id).css('top',off.top+65);	
+				}else if($(over).get(0).getBoundingClientRect().top < height){
+					$(id).css('top',off.top+65);
+				}else{
+					$(id).css('top',off.top-(height+10));
+				}
 				$(id).css('left',off.left);
 				$(id).fadeIn('fast');	
+				
 			},600);
-			console.log($(over).data("modalid"));
+			console.log(height);
+			console.log(off.top);
+			console.log($(window).height());
+			console.log($(over).get(0).getBoundingClientRect().top);
 		}
 		function users_content_modal_close(over){
-			clearInterval(users_modal_timer);
+			clearTimeout(users_modal_timer);
 			var id="#"+$(over).data("modalid");
 			users_modal_timer_close = setTimeout(function(){
 				$(id).fadeOut('fast');
@@ -347,11 +358,11 @@
 		}
 		
 		function users_content_modal_close_reset(){
-			clearInterval(users_modal_timer_close);
+			clearTimeout(users_modal_timer_close);
 		}
 		
 		function users_content_modal_close_comp(over){
-			clearInterval(users_modal_timer);
+			clearTimeout(users_modal_timer);
 			var id="#"+$(over).data("modalid");
 			users_modal_timer_close_comp = setTimeout(function(){
 				$(id).fadeOut('fast');
@@ -411,7 +422,7 @@
 							post_users_ids.push(value.users_id);
 							console.log(post_users_ids);
 							$('.content').append(
-								'<div id="'+ value.users_id +'" class="users-modal-wrapper" onmouseover="users_content_modal_close_reset()" onmouseout="users_content_modal_close_comp(this)" data-modalid="'+ value.users_id +'">'
+								'<div id="'+ value.users_id +'" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="'+ value.users_id +'">'
 								+	'<div class="users-modal">'
 								+		'<div class="users-modal-top-wrapper">'
 								+			'<div class="users-modal-icon">'
@@ -447,10 +458,10 @@
 									+	'<div class="users-information-wrapper">'
 									+'	<!--	<img src="/img/1.jpg"></img>'
 									+'	-->'
-									+		'<div class="users-icon users-content-modal-open" onmouseover="users_content_modal_open(this); users_content_modal_close_reset()" onmouseout="users_content_modal_close(this)" data-modalid="'+ value.users_id +'">'
+									+		'<div class="users-icon users-content-modal-open" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="'+ value.users_id +'">'
 									+			'<img src="/img/2.jpg">'
 									+		'</div>'
-									+		'<div class="users-information users-content-modal-open" onmouseover="users_content_modal_open(this); users_content_modal_close_reset()" onmouseout="users_content_modal_close(this)" data-modalid="'+ value.users_id +'">'
+									+		'<div class="users-information users-content-modal-open" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="'+ value.users_id +'">'
 									+			'<div class="users-name">'
 									+				'<span>'+ value.users_name +'</span>'
 									+			'</div>'
