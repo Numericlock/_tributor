@@ -143,11 +143,6 @@ class AuthController extends Controller{
         imagesavealpha($image, TRUE); // 透明色の有効
         imagepng($image ,$img_path);
         
-         Attached_content::create([
-            'post_id'=>$request->input('id'),
-            'content_type'=>'png',
-            'content_file_path'=>$img_path,     
-        ]);
         
         User::create([
             'id'=> $request->input('id'),
