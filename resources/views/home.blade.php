@@ -33,8 +33,8 @@
 						</div>					
 						<div class="lists-add-modal-list-checkbox">
 							<div>
-								<input class="add-modal-list-checkbox" type="checkbox" id="add-list-id:{{ $list->id }}" name="add-list-id:{{ $list->id }}" value="add-list-id:{{ $list->id }}" checked/>
-								<label class="checkbox-label" for="add-list-id:{{ $list->id }}">
+								<input class="add-modal-list-checkbox" type="checkbox" id="add-list-id-{{ $list->id }}" name="add-list-id-{{ $list->id }}" value="add-list-id-{{ $list->id }}" checked/>
+								<label class="checkbox-label" for="add-list-id-{{ $list->id }}">
 									<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
 								</label>
 							</div>
@@ -416,13 +416,13 @@
 				dataType: 'json'
 			}).done(function(data) {
 				data.forEach(function(value ){
-					var id='#add-list-id:'+value.list_id;
+					var id='#add-list-id-'+value.list_id;
 					console.log(id);
 					$(id).prop("checked",true);
-					$('#add-list-id:1').prop("checked",true);
+					$('#add-list-id-1').prop("checked",true);
 					
-					console.log($('#add-list-id:1').height());
-					console.log($('#add-list-id:1').val());
+					console.log($('#add-list-id-1').height());
+					console.log($('#add-list-id-1').val());
 				});
 				$('#modal-title').text(user_name + "をリストに追加");
 				$('.modal').stop(true, true).fadeIn('500');
@@ -438,10 +438,10 @@
 		$(".add-modal-list-checkbox").change(function() {
 				if($(this).prop("checked")==true){
 					//lists_array.push($(this).attr("id"));
-					$('#add-list-id:1').prop("checked",false);
+					$('#add-list-id-1').prop("checked",false);
 					console.log("turueeeee");
-					console.log($('#add-list-id:1').attr('checked'));
-					console.log($('#add-list-id:1').prop("checked"));
+					console.log($('#add-list-id-1').attr('checked'));
+					console.log($('#add-list-id-1').prop("checked"));
 				}else{
 					//var target = $(this).attr("id");
 					//lists_array.some(function(v, i){
