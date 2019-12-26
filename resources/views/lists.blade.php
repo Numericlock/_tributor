@@ -3,8 +3,9 @@
 @section('cssJs')
 	<link rel="stylesheet" href="/css/list.css">
 
+    <link rel="stylesheet" href="/css/proedit.css">
+    <link rel="stylesheet" href="/css/modal.css">
 
-@endsection
 @section('content')
 		<div class="content">
 			<div class="content-title">
@@ -15,7 +16,7 @@
 					@foreach($lists as $list)
 						<div class="list-content" data-list="{{ $list->id }}">
 							<div class="list-icon">
-								<img src="/img/2.jpg">
+								<img src="/img/list_icon/{{ $list->id }}.png" onerror="this.src='img/list_icon/default.png'">
 							</div>
 							<div class="list-title">
 								<p class="list-title-p" data-value="{{ $list->name }}">{{ $list->name }}</p>
@@ -47,7 +48,7 @@
             <div class="list-modal-minimumInputs">
                 <div class="list-modal-profileImageInput">
 					<label>
-                        <img class="profile-image" id="preview" src="../img/icon_img/default.png"><br>
+                        <img class="profile-image" id="preview" src="../img/addimg.png"><br>
                         <input type="file" id="dotRadius2" accept="image/*"　 stylesheet="display:none"hidden>
                     </label>
                 </div>
@@ -246,7 +247,7 @@
 			
 			var data = {
 				name: nameVal,
-				//icon: iconVal,
+				icon: base64,
 				users: list_user_id_array,
 				publish: publish,
 				hidden: hidden
@@ -264,7 +265,7 @@
 				$('.lists-wrapper').prepend(
 					'<div class="list-content" data-list='+ json_data.id +'>'
 				+		'<div class="list-icon">'
-				+			'<img src="/img/2.jpg">'
+				+			'<img id="preview2" src="/img/2.jpg">'
 				+		'</div>'
 				+		'<div class="list-title">'
 				+			'<p class="list-title-p" data-value="'+ json_data.name +'">'+ json_data.name +'</p>'

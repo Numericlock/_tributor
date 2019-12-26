@@ -20,7 +20,7 @@
 			</div>
 			<div class="profile">
 				<div class="profile-icon">
-					<img src="/img/2.jpg">
+					<img src="img/icon_img/{{$user->user_id}}.png">
 				</div>
 				<span class="profile-userName">{{ $user->name }}</span>
 				<span class="profile-userId">{{ "@".$user->user_id }}</span>

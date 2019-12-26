@@ -1,13 +1,4 @@
-.modal{
-	display:none;
-	position:fixed;
-	top:0;
-	left:0;
-	width:100vw;
-	height:100vh;
-	background-color:rgba(0,0,0,0.7);
-	z-index:1000;
-}
+
 .modal2{
 	display:none;
 	position:fixed;
@@ -19,45 +10,7 @@
 	z-index:1000;
 }
 
-.modal-content{
-	display:none;
-	text-align:center;
-	opacity:1;
-	position:fixed;
-	top:-100px;
-	left:50%;
-	transform:translate(-50%, -50%);
-	padding:30px;
-	height:500px;
-	width:400px;
-	border-radius:5px;
-	background-color:white;
-	z-index:1200;
-}
 
-
-.modal-content h1{
-	margin:0;
-}
-
-.modal-content2{
-	display:none;
-	text-align:center;
-	opacity:1;
-	position:fixed;
-	top:50%;
-	left:120%;
-	transform:translate(-50%, -50%);
-	padding:30px;
-	height:500px;
-	width:400px;
-	border-radius:5px;
-	background-color:white;
-	z-index:1200;
-}
-.modal-content2 h1{
-	margin:0;
-}
 
 .modal-content3{
 	display:none;

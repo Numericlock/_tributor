@@ -110,7 +110,9 @@
 			<div class="content-wrapper">
 				<div class="list-member-header">
 					<div class="list-icon">
-						<img src="../img/2.jpg">
+				        <img src="../img/list_icon/{{ $lists->id }}.png" onerror="this.src='../img/list_icon/default.png'">
+
+                        
 					</div>
 					<div class="list-title">
 
@@ -131,7 +133,8 @@
 					@foreach($lists_users as $user)
 						<div class="lists-users-wrapper">
 							<div class="lists-users-icon">
-								<img src="../img/2.jpg">
+								<img src="../img/icon_img/{{ $user->users_id }}.png" onerror="this.src='../img/icon_img/default.png'">
+
 							</div>
 							<div class="lists-users-nameId">
 								<div class="lists-users-nameId-name">
