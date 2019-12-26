@@ -125,6 +125,59 @@
 }
 
 
+.lists-add-modal-list-wrapper{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	height:60vh;
+	overflow-y: scroll;
+}
+.lists-add-modal-list{
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	background: none;
+	width: 100%;
+	height: 80px;
+	border-bottom:solid 1px gray;
+}
+.lists-add-modal-list-icon{
+	width: 10%;
+	min-width:80px;
+    height:100%;
+	line-height: 60px;
+    padding:8px 5px;
+}
+.lists-add-modal-list-icon img {
+	width:60px;
+	border-radius: 100%;
+}
+
+.lists-add-modal-list-name span{
+	overflow: hidden;
+    font-size: 16px;
+	color: white;
+	padding-left:20px;
+	text-align: left;
+	line-height: 80px;
+}
+
+.lists-add-modal-list-name {
+	width: 73%;
+    height:100%;
+	color:white;
+}
+
+.lists-add-modal-list-checkbox {
+	width: 7%;
+	min-width:30px;
+	line-height: 80px;
+}
+
+
+
 
 
 

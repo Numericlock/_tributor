@@ -211,6 +211,8 @@
 .list-modal-addUsers-searchArea-result{
     display: flex;
 	flex-direction: column;
+	overflow-y: scroll;
+	height:52vh;
 }
 .list-modal-addUsers-searchArea-result-empty{
 	color:white;

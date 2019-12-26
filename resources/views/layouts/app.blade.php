@@ -252,13 +252,14 @@
 				</div>
 			@endforeach
 		</div>
-		<div class="switch">
-			<span id="disclose_status" class="sushiki">非公開</span>
-			<input id="cmn-toggle-4" name="disclose" id="disclose" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked>
-			<label for="cmn-toggle-4"></label>
-		</div>
+
 		<div class="post-modal-control">
 			<button class="post-modal-negative-button" id="post-modal_back" type='button'>戻る</button>
+			<div>
+				<span id="disclose_status" class="sushiki">非公開</span>
+				<input id="cmn-toggle-4" name="disclose" id="disclose" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked>
+				<label for="cmn-toggle-4"></label>
+			</div>
 			<button class="post-modal-positive-button" id="post-modal_post" type='button'>投稿</button>
 		</div>
 	</div>

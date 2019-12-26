@@ -33,59 +33,59 @@
 	<!--リスト作成のmodal部分-->
 	<div class="modal">
 	</div>
-        <div id="list-modal-content" class=modal-content>
-            <div class="modal-title">
-                <span>リストを作成</span>
-                <svg class="modal-closeButton" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                     viewBox="0 0 512 512" xml:space="preserve">
-                    <g>
-                        <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
-                            52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
-                    </g>
-                </svg>
-            </div>
-            <div class="list-modal-minimumInputs">
-                <div class="list-modal-profileImageInput">
-					<label>
-                        <img class="profile-image" id="preview" src="../img/icon_img/default.png"><br>
-                        <input type="file" id="dotRadius2" accept="image/*"　 stylesheet="display:none"hidden>
-                    </label>
-                </div>
-                <div class="list-modal-listNameInput">
-                    <div class="id_box box">
-                        <div class="id_inner inner">
-                            <input id="text" class="text" maxlength="24" type="text">
-                            <div class="listName_string string">Listの名前を入力</div>
-                        </div>
-                        <i class="fas fa-eye-slash"></i>
-                    </div>
-                </div>
-                <div class="list-modal-isPublish">
-                    <span>公開</span>
-                    <input type="checkbox" id="isPublish" value="" />
-                    <label class="checkbox-label" for="isPublish">
-                        <span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
-                    </label>
-                </div>
-            </div>
-            <div class="list-modal-addUsers">
-                <div class="list-modal-addUsers-searchArea">
-                    <div class="list-modal-addUsers-searchArea-searchBox">
-                        <div class="search_box box">
-                            <div class="search_inner inner">
-                                <input id="search_text" class="text" maxlength="24" type="text">
-                                <div class="search_string string">ユーザーを検索</div>
-                            </div>
-                            <i class="fas fa-eye-slash"></i>
-                        </div>
-                    </div>
-                    <div class="list-modal-addUsers-searchArea-result">
-                    </div>
-                </div>
-                <div class="list-modal-addUsers-IntendAdd">
-					<div id="uncode_area"></div>
-                </div>
-            </div>
+	<div id="list-modal-content" class=modal-content>
+		<div class="modal-title">
+			<span>リストを作成</span>
+			<svg class="modal-closeButton" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 512 512" xml:space="preserve">
+				<g>
+					<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
+						52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
+				</g>
+			</svg>
+		</div>
+		<div class="list-modal-minimumInputs">
+			<div class="list-modal-profileImageInput">
+				<label>
+					<img class="profile-image" id="preview" src="../img/icon_img/default.png"><br>
+					<input type="file" id="dotRadius2" accept="image/*"　 stylesheet="display:none"hidden>
+				</label>
+			</div>
+			<div class="list-modal-listNameInput">
+				<div class="id_box box">
+					<div class="id_inner inner">
+						<input id="text" class="text" maxlength="24" type="text">
+						<div class="listName_string string">Listの名前を入力</div>
+					</div>
+					<i class="fas fa-eye-slash"></i>
+				</div>
+			</div>
+			<div class="list-modal-isPublish">
+				<span>公開</span>
+				<input type="checkbox" id="isPublish" value="" />
+				<label class="checkbox-label" for="isPublish">
+					<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
+				</label>
+			</div>
+		</div>
+		<div class="list-modal-addUsers">
+			<div class="list-modal-addUsers-searchArea">
+				<div class="list-modal-addUsers-searchArea-searchBox">
+					<div class="search_box box">
+						<div class="search_inner inner">
+							<input id="search_text" class="text" maxlength="24" type="text">
+							<div class="search_string string">ユーザーを検索</div>
+						</div>
+						<i class="fas fa-eye-slash"></i>
+					</div>
+				</div>
+				<div class="list-modal-addUsers-searchArea-result">
+				</div>
+			</div>
+			<div class="list-modal-addUsers-IntendAdd">
+				<div id="uncode_area"></div>
+			</div>
+		</div>
         <div class="modal-control">
             <button class="modal-positive-button" id="modal_submit" type='button'>作成</button>
         </div>

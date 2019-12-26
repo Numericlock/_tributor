@@ -9,6 +9,43 @@
 			<div class="content-title">
 				　<span>ホーム</span>
 			</div>
+			<div class="modal">
+			</div>
+			<div id="lists-add-modal-content" class=modal-content>
+				<div class="modal-title">
+					<span id="modal-title">リストを作成</span>
+					<svg class="modal-closeButton" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						 viewBox="0 0 512 512" xml:space="preserve">
+						<g>
+							<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
+								52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
+						</g>
+					</svg>
+				</div>
+				<div class="lists-add-modal-list-wrapper">
+					@foreach($lists as $list)
+					<div class="lists-add-modal-list">
+						<div class="lists-add-modal-list-icon">
+							<img src="/img/2.jpg">
+						</div>					
+						<div class="lists-add-modal-list-name">
+							<span>{{ $list->name }}</span>
+						</div>					
+						<div class="lists-add-modal-list-checkbox">
+							<div>
+								<input class="add-modal-list-checkbox" type="checkbox" id="add-list-id:{{ $list->id }}" name="add-list-id:{{ $list->id }}" value="add-list-id:{{ $list->id }}" checked/>
+								<label class="checkbox-label" for="add-list-id:{{ $list->id }}">
+									<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
+								</label>
+							</div>
+						</div>
+					</div>
+					@endforeach
+				</div>
+				<div class="modal-control">
+					<button class="modal-positive-button" id="modal_submit" type='button'>作成</button>
+				</div>
+			</div>
             @foreach($userIds as $userId)
             <div id="{{ $userId->users_id }}" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="{{ $userId->users_id }}">
                 <div class="users-modal" onmouseenter="users_content_modal_close_reset()">
@@ -25,6 +62,7 @@
 							@else
 								<button class="follow-button" onclick="follow(this)" data-followid="{{ $userId->users_id }}">フォロー</button>
 							@endif
+								<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="{{ $userId->users_id }}" data-followname="{{ $userId->users_name }}">リストに追加</button>
                         </div>
                     </div>
                     <div class="users-modal-middle-wrapper">
@@ -318,6 +356,8 @@
 		var users_modal_timer;
 		var users_modal_timer_close;
 		var users_modal_timer_close_comp;
+        var user_id = @json($user->user_id);
+
         var post_users = @json($userIds);
 		var post_users_ids =[];
 		@foreach($userIds as $userId)
@@ -368,6 +408,68 @@
 				$(id).fadeOut('fast');
 			},300);
 		}
+		function show_list_add_modal(user){
+			var user_name = $(user).data("followname");
+			$.ajax('/lists/add_user',{
+				type: 'get',
+				data: { user_id: $(user).data("followid") },
+				dataType: 'json'
+			}).done(function(data) {
+				data.forEach(function(value ){
+					var id='#add-list-id:'+value.list_id;
+					console.log(id);
+					$(id).prop("checked",true);
+					$('#add-list-id:1').prop("checked",true);
+					
+					console.log($('#add-list-id:1').height());
+					console.log($('#add-list-id:1').val());
+				});
+				$('#modal-title').text(user_name + "をリストに追加");
+				$('.modal').stop(true, true).fadeIn('500');
+				$('#lists-add-modal-content').show().stop(true, true).animate({
+					top: "50%",
+					display: "fixed",
+					opacity: 1.0
+				}, 500);
+			}).fail(function() {
+				window.alert('正しい結果を得られませんでした。');
+			});
+		}
+		$(".add-modal-list-checkbox").change(function() {
+				if($(this).prop("checked")==true){
+					//lists_array.push($(this).attr("id"));
+					$('#add-list-id:1').prop("checked",false);
+					console.log("turueeeee");
+					console.log($('#add-list-id:1').attr('checked'));
+					console.log($('#add-list-id:1').prop("checked"));
+				}else{
+					//var target = $(this).attr("id");
+					//lists_array.some(function(v, i){
+					//	if (v==target) lists_array.splice(i,1);
+					//});
+					console.log("falseeeee");
+				}
+		});
+        $('.modal').on('click', function() {
+            $('.modal').stop(true, true).fadeOut('500');
+            $('#lists-add-modal-content').stop(true, true).animate({
+                top: "-1000px",
+                left: "50%",
+                opacity: 0
+            }, 500, function(){
+				$('#lists-add-modal-content').hide();
+			});
+        });
+
+		$('#modal_cancel').on('click',function(){
+			$('.modal').stop(true, true).fadeOut('500');
+			$('#lists-add-modal-content').stop(true, true).animate({
+				top: "-100px",
+				opacity: 0
+			}, 500, function(){
+				$('#lists-add-modal-content').hide();
+			});
+		});
 	//	$('.users-content-modal-open').mouseenter(function(){
 	//		clearInterval(users_modal_timer);
 	//		clearInterval(users_modal_timer_close);
@@ -421,14 +523,24 @@
 						if(post_users_ids.indexOf(value.users_id)==-1){
 							post_users_ids.push(value.users_id);
 							console.log(post_users_ids);
-							$('.content').append(
+							var append_text = 								
 								'<div id="'+ value.users_id +'" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="'+ value.users_id +'">'
 								+	'<div class="users-modal">'
 								+		'<div class="users-modal-top-wrapper">'
 								+			'<div class="users-modal-icon">'
 								+				'<img src="/img/2.jpg">'
 								+			'</div>'
-								+			'<div class="users-modal-button">'
+								+			'<div class="users-modal-button">';
+							if(value.users_id === user_id){
+							}else if(value.is_canceled === 1){
+								append_text = append_text + '<button class="follow-button" onclick="follow(this)" data-followid="'+ value.users_id +'">フォロー</button>';
+							}else if(value.subject_user_id === user_id){
+								append_text = append_text +	'<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="'+ value.users_id +'">フォロー中</button>' 
+							}else{
+								append_text = append_text +	'<button class="follow-button" onclick="follow(this)" data-followid="'+ value.users_id +'">フォロー</button>'
+							}
+							append_text = append_text +
+												'<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="'+ value.users_id +'" data-followname="'+ value.users_name +'">リストに追加</button>'
 								+			'</div>'
 								+		'</div>'
 								+		'<div class="users-modal-middle-wrapper">'
@@ -450,8 +562,10 @@
 								+			'</div>'
 								+		'</div>'
 								+	'</div>'
-								+'</div>'
-							)
+								+'</div>';
+							$('.content').append(
+								append_text
+							);
 						}
 						$('.content').append(
 									'<div class="users-content">'
