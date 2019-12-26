@@ -33,7 +33,7 @@
 						</div>					
 						<div class="lists-add-modal-list-checkbox">
 							<div>
-								<input class="add-modal-list-checkbox" type="checkbox" id="add-list-id-{{ $list->id }}" name="add-list-id-{{ $list->id }}" value="add-list-id-{{ $list->id }}" checked/>
+								<input class="add-modal-list-checkbox" type="checkbox" id="add-list-id-{{ $list->id }}" data-listid="{{ $list->id }}" name="add-list-id-{{ $list->id }}" value="add-list-id-{{ $list->id }}" />
 								<label class="checkbox-label" for="add-list-id-{{ $list->id }}">
 									<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
 								</label>
@@ -43,7 +43,7 @@
 					@endforeach
 				</div>
 				<div class="modal-control">
-					<button class="modal-positive-button" id="modal_submit" type='button'>作成</button>
+					<button class="modal-positive-button" id="add_modal_submit" type='button'>適応</button>
 				</div>
 			</div>
             @foreach($userIds as $userId)
@@ -360,6 +360,10 @@
 
         var post_users = @json($userIds);
 		var post_users_ids =[];
+		
+		var base_checked_array = [];
+		var checked_array = [];
+		var notchecked_array = [];
 		@foreach($userIds as $userId)
 			post_users_ids.push("{{ $userId->users_id }}");
 		@endforeach
@@ -384,10 +388,6 @@
 				$(id).fadeIn('fast');	
 				
 			},600);
-			console.log(height);
-			console.log(off.top);
-			console.log($(window).height());
-			console.log($(over).get(0).getBoundingClientRect().top);
 		}
 		function users_content_modal_close(over){
 			clearTimeout(users_modal_timer);
@@ -410,6 +410,7 @@
 		}
 		function show_list_add_modal(user){
 			var user_name = $(user).data("followname");
+			base_checked_array = [];
 			$.ajax('/lists/add_user',{
 				type: 'get',
 				data: { user_id: $(user).data("followid") },
@@ -417,12 +418,9 @@
 			}).done(function(data) {
 				data.forEach(function(value ){
 					var id='#add-list-id-'+value.list_id;
-					console.log(id);
+					base_checked_array.push(value.list_id);
+					checked_array.push(value.list_id);
 					$(id).prop("checked",true);
-					$('#add-list-id-1').prop("checked",true);
-					
-					console.log($('#add-list-id-1').height());
-					console.log($('#add-list-id-1').val());
 				});
 				$('#modal-title').text(user_name + "をリストに追加");
 				$('.modal').stop(true, true).fadeIn('500');
@@ -437,19 +435,16 @@
 		}
 		$(".add-modal-list-checkbox").change(function() {
 				if($(this).prop("checked")==true){
-					//lists_array.push($(this).attr("id"));
-					$('#add-list-id-1').prop("checked",false);
-					console.log("turueeeee");
-					console.log($('#add-list-id-1').attr('checked'));
-					console.log($('#add-list-id-1').prop("checked"));
+					checked_array.push($(this).data("listid"));
 				}else{
-					//var target = $(this).attr("id");
-					//lists_array.some(function(v, i){
-					//	if (v==target) lists_array.splice(i,1);
-					//});
-					console.log("falseeeee");
+					var target = $(this).data("listid");
+					checked_array.some(function(v, i){
+						if (v==target) checked_array.splice(i,1);
+					});
 				}
+				console.log(checked_array);
 		});
+		$('#add_modal_submit').on
         $('.modal').on('click', function() {
             $('.modal').stop(true, true).fadeOut('500');
             $('#lists-add-modal-content').stop(true, true).animate({
