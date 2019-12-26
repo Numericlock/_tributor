@@ -32,17 +32,29 @@ Route::group(['middleware' => 'auth.login.before', 'prefix' => ''], function() {
 Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 	Route::get('/lists', 'ListsController@lists');
 	Route::post('/lists', 'ListsController@lists_insert');
-	Route::post('/lists/search', 'SearchController@users_search');
+		Route::post('/lists/search', 'SearchController@users_search');
+		Route::get('/lists/add_user', 'ListsController@users_lists');
+		Route::get('/lists/member', 'ListsController@lists_member');
+		Route::post('/lists/member', 'ListsController@lists_member_post');
+	
 	Route::get('/home', 'HomeController@home');
+	
 	Route::post('/post', 'PostController@post');
+	
 	Route::get('/search', 'searchController@search');
 	Route::post('/search', 'searchController@post_search');
+	
 	Route::post('/get_search_posts', 'searchController@get_search_posts');
+	
 	Route::post('/get_posts', 'PostController@get_posts');
+	
 	Route::post('/favorite', 'PostController@users_favorite');
+	
+	Route::post('/follow', 'FollowController@follow');
+		Route::post('/follow/remove', 'FollowController@remove');
+	
 	Route::get('/profile', 'ProfileController@profile');
-	Route::get('/lists/member', 'ListsController@lists_member');
-	Route::post('/lists/member', 'ListsController@lists_member_post');
+	
 	Route::get('/notice', function () {
 		return view('notice');
 	});

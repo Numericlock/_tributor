@@ -66,9 +66,17 @@ class ListsController extends Controller
 		return $list;
 	}
 
-	public function lists_member(){
-
+	public function users_lists(Request $request){
+		$lists = Disclosure_list_user::select('list_id')
+		->join('disclosure_lists', 'disclosure_lists.id', '=', 'disclosure_lists_users.list_id' )
+		->where('disclosure_lists_users.user_id', $request->input('user_id'))
+		->where('disclosure_lists.owner_user_id', $request->base_user->user_id)
+		->get();
+		Log::debug($lists."LISTMEMBERあいでwwwwwwwwwwwー");
+		return $lists;
 	}
+	
+	
 	public function lists_member_post(listMemberRequest $request){
 
 

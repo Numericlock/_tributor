@@ -87,6 +87,7 @@
 					<div id="uncode_area"></div>
                 </div>
             </div>
+
         <div class="modal-control">
             <button class="modal-positive-button" id="modal_submit" type='button'>作成</button>
         </div>

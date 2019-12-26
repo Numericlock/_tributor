@@ -290,6 +290,7 @@
 		</div>
 	<script>
 		var posts_num =25;
+        
 		var str = "{{$str}}";
 		function enter(){
 			if( window.event.keyCode == 13 ){

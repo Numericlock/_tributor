@@ -174,7 +174,6 @@ button {
     border-radius: 6px;
     border-color: none;
 	z-index:1200;
-	overflow-y: scroll;
 }
 
 .post-modal-title{
@@ -280,8 +279,11 @@ input[type="file"] {
 .post-modal-control {
 	display: flex;
 	flex-direction: row;
-	justify-content: flex-end;
+	justify-content:space-between;
+	background-color:#212226;
 	padding: 5px 15px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 .post-modal-control-icon{
 	position:relative;
@@ -406,7 +408,7 @@ input[type="file"] {
     border-radius: 6px;
     border-color: none;
 	z-index:1200;
-	overflow-y: scroll;
+	
 }
 
 .modal-title{
@@ -470,6 +472,7 @@ input[type="file"] {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
+	background-color:#212226;
 	padding: 5px 15px;
 }
 .modal-control-icon{
