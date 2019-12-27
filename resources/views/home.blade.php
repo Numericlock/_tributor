@@ -48,21 +48,23 @@
 			</div>
             @foreach($userIds as $userId)
             <div id="{{ $userId->users_id }}" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="{{ $userId->users_id }}">
-                <div class="users-modal" onmouseenter="users_content_modal_close_reset()">
-                    <div class="users-modal-top-wrapper" onmouseenter="users_content_modal_close_reset()">
+                <div class="users-modal">
+                    <div class="users-modal-top-wrapper" >
                         <div class="users-modal-icon">
-                            <img src="/img/2.jpg" onmouseenter="users_content_modal_close_reset()">
+                            <img src="/img/2.jpg">
                         </div>
                         <div class="users-modal-button">
-							@if($userId->users_id === $user->user_id )
-							@elseif($userId->is_canceled === 1)
-								<button class="follow-button" onclick="follow(this)" data-followid="{{ $userId->users_id }}">フォロー</button>
-							@elseif ($userId->subject_user_id === $user->user_id )
-								<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="{{ $userId->users_id }}">フォロー中</button>
-							@else
-								<button class="follow-button" onclick="follow(this)" data-followid="{{ $userId->users_id }}">フォロー</button>
-							@endif
-								<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="{{ $userId->users_id }}" data-followname="{{ $userId->users_name }}">リストに追加</button>
+                        	<div class="users-modal-button-follow" id="followbutton_{{ $userId->users_id }}">
+								@if($userId->users_id === $user->user_id )
+								@elseif($userId->is_canceled === 1)
+									<button class="follow-button" onclick="follow(this)" data-followid="{{ $userId->users_id }}">フォロー</button>
+								@elseif ($userId->subject_user_id === $user->user_id )
+									<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="{{ $userId->users_id }}">フォロー中</button>
+								@else
+									<button class="follow-button" onclick="follow(this)" data-followid="{{ $userId->users_id }}">フォロー</button>
+								@endif
+							</div>
+							<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="{{ $userId->users_id }}" data-followname="{{ $userId->users_name }}">リストに追加</button>
                         </div>
                     </div>
                     <div class="users-modal-middle-wrapper">
@@ -518,14 +520,15 @@
 						if(post_users_ids.indexOf(value.users_id)==-1){
 							post_users_ids.push(value.users_id);
 							console.log(post_users_ids);
-							var append_text = 								
+							var append_text = 	
 								'<div id="'+ value.users_id +'" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="'+ value.users_id +'">'
 								+	'<div class="users-modal">'
 								+		'<div class="users-modal-top-wrapper">'
 								+			'<div class="users-modal-icon">'
 								+				'<img src="/img/2.jpg">'
 								+			'</div>'
-								+			'<div class="users-modal-button">';
+								+			'<div class="users-modal-button">'
+								+				'<div class="users-modal-button-follow" id="followbutton_'+ value.users_id +'">';
 							if(value.users_id === user_id){
 							}else if(value.is_canceled === 1){
 								append_text = append_text + '<button class="follow-button" onclick="follow(this)" data-followid="'+ value.users_id +'">フォロー</button>';
@@ -535,7 +538,8 @@
 								append_text = append_text +	'<button class="follow-button" onclick="follow(this)" data-followid="'+ value.users_id +'">フォロー</button>'
 							}
 							append_text = append_text +
-												'<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="'+ value.users_id +'" data-followname="'+ value.users_name +'">リストに追加</button>'
+												'</div>'				
+								+				'<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="'+ value.users_id +'" data-followname="'+ value.users_name +'">リストに追加</button>'
 								+			'</div>'
 								+		'</div>'
 								+		'<div class="users-modal-middle-wrapper">'
@@ -743,8 +747,8 @@
 					timeout:3000,
 				}).done(function(data) {
 					console.log("follow");
-					$('.users-modal-button').empty();
-					$('.users-modal-button').append(
+					$('#followbutton_'+id).empty();
+					$('#followbutton_'+id).append(
 					'<button class="follow-remove-button" onclick="follow_remove(this)" data-followid='+id+'>フォロー中</button>'
 					);
 				}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -772,8 +776,8 @@
 					timeout:3000,
 				}).done(function(data) {
 					console.log("follow_remove");
-					$('.users-modal-button').empty();
-					$('.users-modal-button').append(
+					$('#followbutton_'+id).empty();
+					$('#followbutton_'+id).append(
 					'<button class="follow-button" onclick="follow(this)" data-followid='+id+'>フォロー</button>'
 					);
 				}).fail(function(XMLHttpRequest, textStatus, errorThrown) {

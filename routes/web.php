@@ -36,7 +36,8 @@ Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 		Route::post('/lists/add_user', 'ListsController@user_add_lists');
 		Route::get('/lists/add_user', 'ListsController@users_lists');
 		Route::get('/lists/member', 'ListsController@lists_member');
-		Route::post('/lists/member', 'ListsController@lists_member_post');
+		Route::post('/lists/member/remove', 'ListsController@user_remove');
+		Route::get('/lists/{id}', 'ListsController@lists_member_post');
 	
 	Route::get('/home', 'HomeController@home');
 	

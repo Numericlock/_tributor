@@ -5,7 +5,7 @@
 
     <link rel="stylesheet" href="/css/proedit.css">
     <link rel="stylesheet" href="/css/modal.css">
-
+@endsection
 @section('content')
 		<div class="content">
 			<div class="content-title">
@@ -84,7 +84,6 @@
                     </div>
                 </div>
                 <div class="list-modal-addUsers-IntendAdd">
-					<div id="uncode_area"></div>
                 </div>
             </div>
 
@@ -92,14 +91,6 @@
             <button class="modal-positive-button" id="modal_submit" type='button'>作成</button>
         </div>
     </div>
-	<form method="post" id="postForm" name="showListMember" action="/lists/member">
-		<!-- CSRF保護 -->
-       @csrf
-	</form>
-	<div class="attention-modal-content">
-	</div>
-	<div class="attention-modal">
-	</div>
 
     <div class="modal2">
 	</div>
@@ -205,53 +196,17 @@
 		}
 		
         function postForm(nameVal,iconVal,list_userVal,isPublishVal) {
-        /*    var form = document.postForm;
-            var name_request = document.createElement('input');
-            var icon_request = document.createElement('input');
-            var list_user_request = document.createElement('input');
-            var isPublish_request = document.createElement('input');
-            console.log(list_userVal);
-
-            name_request.type = 'hidden'; //入力フォームが表示されないように
-            name_request.name = 'name';
-            name_request.value = nameVal;
-
-            icon_request.type = 'hidden'; //入力フォームが表示されないように
-            icon_request.name = 'icon';
-            icon_request.value = iconVal;
-
-            for(var i=0;i<list_user_id_array.length;i++){
-                list_user_request.type = 'hidden'; //入力フォームが表示されないように
-                list_user_request.name = 'list_user[]';
-                list_user_request.value = list_userVal[i];
-            }
-
-            isPublish_request.type = 'hidden'; //入力フォームが表示されないように
-            isPublish_request.name = 'isPublish';
-            isPublish_request.value = isPublishVal;
-
-            form.appendChild(name_request);
-            form.appendChild(icon_request);
-            form.appendChild(list_user_request);
-            form.appendChild(isPublish_request);
-
-            form.submit();
-				
-*/			console.log("ごみ");
+			console.log("wwwwwwwwww");
 			var publish='0';
-			var hidden='0';
 			if(isPublishVal === true){
 				publish='1';
-			}else{
-				hidden='1';
 			}
 			
 			var data = {
 				name: nameVal,
 				icon: base64,
 				users: list_user_id_array,
-				publish: publish,
-				hidden: hidden
+				publish: publish
 			};
 			
 			// 通信実行
@@ -292,49 +247,24 @@
 			});
 
         }
-
-        function show_list_member(list_id) {
-				var form = document.showListMember;
-				var list_id_request = document.createElement('input');
-
-				list_id_request.type = 'hidden'; //入力フォームが表示されないように
-				list_id_request.name = 'list_id';
-				list_id_request.value = list_id;
-
-				form.appendChild(list_id_request);
-				document.body.appendChild(form);
-				form.submit();
-        }
         function append_box(name, id){
             $(".list-modal-addUsers-IntendAdd").append(
                 '<div id="'+id+'_box" class="list-modal-addUsers-IntendAdd-box">'
-			+		'<svg class="list-modal-addUsers-IntendAdd-box-close" id="'+id+'_box_remove_button" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/></g></svg>'
+			+		'<svg class="list-modal-addUsers-IntendAdd-box-close" onclick=remove(this) id="'+id+'_box_remove_button" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/></g></svg>'
 			+		'<div class="list-modal-addUsers-IntendAdd-users">'
 			+			'<span class="list-modal-addUsers-IntendAdd-users-name">'+name+'</span>'
 			+			'<span class="list-modal-addUsers-IntendAdd-users-id">@'+id+'</span>'
 			+		'</div>'
 			+	'</div>'
             );
-			$("#uncode_area").empty();
-			$("#uncode_area").append(
-					'<script>$(".list-modal-addUsers-IntendAdd-box-close").on("click",function(){var str = $(this).attr("id");remove_check(str.slice( 0, -18));remove_box(str.slice( 0, -18));console.log(str.slice( 0, -18));});</sc'+'ript>'
-				);
-			/*
-			<div class="list-modal-addUsers-IntendAdd-box">
-				<svg class="list-modal-addUsers-IntendAdd-box-close" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-					 viewBox="0 0 512 512" xml:space="preserve">
-					<g>
-						<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
-							52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
-					</g>
-				</svg>
-				<div class="list-modal-addUsers-IntendAdd-users">
-					<span class="list-modal-addUsers-IntendAdd-users-name">Numericlock</span>
-					<span class="list-modal-addUsers-IntendAdd-users-id">@numericlock</span>
-				</div>
-			</div>
-			*/
+
         }
+		function remove(id){
+			var str = $(id).attr("id").slice( 0, -18);
+			remove_check(str);
+			remove_box(str);
+			console.log(str);
+		};
         function remove_box(id){
             $("#"+id+"_box").remove();
 			//要素を削除する
@@ -343,7 +273,6 @@
 				if (v==target) list_user_id_array.splice(i,1);
 			});
 			console.log(list_user_id_array);
-
         }
 
 		function remove_check(id){
@@ -449,7 +378,7 @@
 		}
 
 		$('.list-content').on('click',function(){
-			show_list_member($(this).data('list'));
+			window.location.href='lists/'+($(this).data('list'));
             console.log($(this).data('list'));
 		});
 

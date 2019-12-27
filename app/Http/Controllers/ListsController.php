@@ -32,7 +32,7 @@ class ListsController extends Controller
 		$list -> name = $request->name;
 		$list -> owner_user_id = $request->base_user->user_id;
 		$list -> is_published = $request->publish;
-		$list -> is_hidden = $request->hidden;
+		$list -> is_hidden = 0;
 		$list -> save();
 		$id = $list->id;
         
@@ -107,26 +107,33 @@ class ListsController extends Controller
 	}
 	
 	
-	public function lists_member_post(listMemberRequest $request){
-
-
-		/*$lists = Disclosure_list::join('disclosure_lists_users', 'disclosure_lists.id', '=', 'disclosure_lists_users.list_id')
-		->join('users', 'users.id', '=', 'disclosure_lists_users.user_id')
-		->where('disclosure_lists.id', $request->input('list_id'))
-		->get();*/
-		Log::debug($request->input('list_id')."LISTMEMBERあいでー");
-		$lists = Disclosure_list::select('id as list_id','name')
-		->where('id', $request->input('list_id'))
+	public function lists_member_post($id, Request $request){
+		$lists = $request->base_user_lists;
+		//$id=$request->id;
+		Log::debug($id."LISTMEMBERあいでーwadawdwdwww");
+		$current_list = Disclosure_list::select('id as list_id','name')
+		->where('id', $id)
 		->first();
-		$lists_users = Disclosure_list_user::select('disclosure_lists_users.user_id as users_id', 'users.name as users_name')
+		$list_users = Disclosure_list_user::select('disclosure_lists_users.user_id as users_id', 'users.name as users_name')
 		->join('users', 'users.id', '=', 'disclosure_lists_users.user_id')
-		->where('disclosure_lists_users.list_id', $request->input('list_id'))
+		->where('disclosure_lists_users.list_id', $id)
+		->where('disclosure_lists_users.is_deleted', 0)
 		->get();
-		$count = $lists_users->count();
-
+		$count = $list_users->count();
 
 		Log::debug($lists."LISTMEMBERあいでー");
-		return view('lists_members',compact('lists','lists_users', 'count'));
+		return view('lists_members',compact('lists', 'current_list', 'list_users', 'count'));
+	}
+	
+	public function user_remove(Request $request){
+		$user_id=$request->user_id;
+		$list_id=$request->list_id;
+		$count = Disclosure_list::where('id',$list_id)->where('owner_user_id', $request->base_user->user_id)->count();
+		Log::debug($count."LISTMEMBERあいでー");
+		if($count != 0){
+			Disclosure_list_user::isMember($list_id, $user_id)->update(['is_deleted'=> 1]);
+		}
+		return $request->base_user; 
 	}
 
 	private static function unique_filename($org_path, $num=0){
