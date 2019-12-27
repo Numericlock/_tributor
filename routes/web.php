@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 	Route::get('/lists', 'ListsController@lists');
 	Route::post('/lists', 'ListsController@lists_insert');
 		Route::post('/lists/search', 'SearchController@users_search');
+		Route::post('/lists/add_user', 'ListsController@user_add_lists');
 		Route::get('/lists/add_user', 'ListsController@users_lists');
 		Route::get('/lists/member', 'ListsController@lists_member');
 		Route::post('/lists/member', 'ListsController@lists_member_post');

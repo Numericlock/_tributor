@@ -27,9 +27,7 @@ class ListsController extends Controller
 	}
 
 	public function lists_insert(listFormRequest $request){
-        
 
-        
 		$list = new Disclosure_list;
 		$list -> name = $request->name;
 		$list -> owner_user_id = $request->base_user->user_id;
@@ -66,11 +64,43 @@ class ListsController extends Controller
 		return $list;
 	}
 
+	public function user_add_lists(Request $request){
+		$lists = $request->base_user_lists;
+		$user_id = $request->user_id;
+		$lists_ids=[];
+        foreach($lists as $list){
+			array_push($lists_ids, $list->id);
+        } 
+        foreach($request->checked as $list){
+			if(in_array($list, $lists_ids) == true){
+				$count = Disclosure_list_user::isMember($list, $user_id)->count();
+				if($count == 0){
+					Disclosure_list_user::create([
+						'list_id'=> $list,
+						'user_id'=> $user_id,
+						'is_deleted'=> 0
+					]);
+				}else{
+					Disclosure_list_user::isMember($list, $user_id)->update(['is_deleted'=> 0]);
+				}
+			}
+			//Log::debug(in_array($list, $lists)."あぢでええｗ");
+        }        
+		foreach($request->notchecked as $list){
+			if(in_array($list, $lists_ids) == true){
+				Disclosure_list_user::isMember($list, $user_id)->update(['is_deleted'=> 1]);
+			}
+        }
+
+		return $lists;
+	}
+	
 	public function users_lists(Request $request){
 		$lists = Disclosure_list_user::select('list_id')
 		->join('disclosure_lists', 'disclosure_lists.id', '=', 'disclosure_lists_users.list_id' )
 		->where('disclosure_lists_users.user_id', $request->input('user_id'))
 		->where('disclosure_lists.owner_user_id', $request->base_user->user_id)
+		->where('disclosure_lists_users.is_deleted', 0)
 		->get();
 		Log::debug($lists."LISTMEMBERあいでwwwwwwwwwwwー");
 		return $lists;
@@ -98,23 +128,23 @@ class ListsController extends Controller
 		Log::debug($lists."LISTMEMBERあいでー");
 		return view('lists_members',compact('lists','lists_users', 'count'));
 	}
-    
-        private static function unique_filename($org_path, $num=0){
-     
-            if( $num > 0){
-                $info = pathinfo($org_path);
-                $path = $info['dirname'] . "/" . $info['filename'] . "_" . $num;
-                if(isset($info['extension'])) $path .= "." . $info['extension'];
-            } else {
-                $path = $org_path;
-            }
-     
-            if(file_exists($path)){
-                $num++;
-                return unique_filename($org_path, $num);
-            } else {
-                $path.=".png";
-                return $path ;
-            }
-        }
+
+	private static function unique_filename($org_path, $num=0){
+
+		if( $num > 0){
+			$info = pathinfo($org_path);
+			$path = $info['dirname'] . "/" . $info['filename'] . "_" . $num;
+			if(isset($info['extension'])) $path .= "." . $info['extension'];
+		} else {
+			$path = $org_path;
+		}
+
+		if(file_exists($path)){
+			$num++;
+			return unique_filename($org_path, $num);
+		} else {
+			$path.=".png";
+			return $path ;
+		}
+	}
 }

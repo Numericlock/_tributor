@@ -410,10 +410,11 @@
 		}
 		function show_list_add_modal(user){
 			var user_name = $(user).data("followname");
+			var user_id = $(user).data("followid");
 			base_checked_array = [];
 			$.ajax('/lists/add_user',{
 				type: 'get',
-				data: { user_id: $(user).data("followid") },
+				data: { user_id:  user_id},
 				dataType: 'json'
 			}).done(function(data) {
 				data.forEach(function(value ){
@@ -423,6 +424,7 @@
 					$(id).prop("checked",true);
 				});
 				$('#modal-title').text(user_name + "をリストに追加");
+				$('#add_modal_submit').data('userid', user_id);
 				$('.modal').stop(true, true).fadeIn('500');
 				$('#lists-add-modal-content').show().stop(true, true).animate({
 					top: "50%",
@@ -444,61 +446,59 @@
 				}
 				console.log(checked_array);
 		});
-		$('#add_modal_submit').on
-        $('.modal').on('click', function() {
-            $('.modal').stop(true, true).fadeOut('500');
-            $('#lists-add-modal-content').stop(true, true).animate({
-                top: "-1000px",
-                left: "50%",
-                opacity: 0
-            }, 500, function(){
-				$('#lists-add-modal-content').hide();
-			});
+        $('#add_modal_submit').on('click', function() {
+			for(var i =0;base_checked_array.length>i; i++){
+				var id =base_checked_array[i];
+				if(checked_array.indexOf(id) == -1){
+					notchecked_array.push(id);
+				}else{
+					checked_array.some(function(v, i){
+						if (v == id) checked_array.splice(i,1);
+					});
+				}
+			}
+			// 通信実行
+			var data = {
+				checked: checked_array,
+				notchecked: notchecked_array,
+				user_id: $('#add_modal_submit').data('userid')
+			};
+			console.log(data);
+			$.ajax({
+				type:"post",                // method = "POST"
+				url:"/lists/add_user",        // POST送信先のURL
+				data:JSON.stringify(data),  // JSONデータ本体
+				contentType: 'application/json', // リクエストの Content-Type
+                processData: false,         // レスポンスをJSONとしてパースする
+                async : false,   // ← asyncをfalseに設定する
+				timeout:3000,
+			}).done(function(data) {
+				console.log("user_add_lists");
+				base_checked_array = [];
+				checked_array = [];
+				notchecked_array = [];
+				add_modal_close()
+			}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log("Server Error. Pleasy try again later.");
+				console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+				console.log("textStatus     : " + textStatus);
+				console.log("errorThrown    : " + errorThrown.message);
+			})
+		});
+		
+        $('.modal, #modal_cancel').on('click', function() {
+			add_modal_close();
         });
-
-		$('#modal_cancel').on('click',function(){
+		function add_modal_close(){
 			$('.modal').stop(true, true).fadeOut('500');
 			$('#lists-add-modal-content').stop(true, true).animate({
-				top: "-100px",
+				top: "-1000px",
+				left: "50%",
 				opacity: 0
 			}, 500, function(){
 				$('#lists-add-modal-content').hide();
 			});
-		});
-	//	$('.users-content-modal-open').mouseenter(function(){
-	//		clearInterval(users_modal_timer);
-	//		clearInterval(users_modal_timer_close);
-	//		var id="#"+$(this).data("modalid");
-	//		var off = $(this).offset();	
-	//		users_modal_timer = setTimeout(function(){
-	//			$(id).css('display','none');
-	//			$(id).css('top',off.top+65);
-	//			$(id).css('left',off.left);
-	//			$(id).fadeIn('fast');	
-	//		},600);
-	//		console.log($(this).data("modalid"));
-	//	});
-	//	
-	//	$('.users-modal-wrapper , .users-content-modal-open').mouseenter(function(){
-	//		clearInterval(users_modal_timer_close);
-	//	});
-	//	
-	//	$('.users-content-modal-open').mouseleave(function(){
-	//		clearInterval(users_modal_timer);
-	//		var id="#"+$(this).data("modalid");
-	//		users_modal_timer_close = setTimeout(function(){
-	//			$(id).fadeOut('fast');
-	//		},300);
-//
-//		});
-//		$('.users-modal-wrapper').mouseleave(function(){
-//			clearInterval(users_modal_timer);
-//			var id="#"+$(this).data("modalid");
-//			users_modal_timer_close_comp = setTimeout(function(){
-//				$(id).fadeOut('fast');
-//			},300);
-//
-//		});
+		}
 		
 		function get_posts(){
 			var data = {
