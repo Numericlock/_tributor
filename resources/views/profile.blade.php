@@ -24,10 +24,10 @@
 				</div>
 				<span class="profile-userName">{{ $user->name }}</span>
 				<span class="profile-userId">{{ "@".$user->user_id }}</span>
-		 		<h4>おっとっととっとってっていっとっとになんでとっとってくれんかったとに</h4>
+		 		<h4>{{ $user->introduction }}</h4>
 		 		 <div class="information">
-					<span>フォロー中 -114</span>
-					<span>フォロワー -514</span>
+					<span>フォロー中 - {{ $user->subject_count }}</span>
+					<span>フォロワー - {{ $user->followed_count }}</span>
 				</div>
 			</div>
 		
