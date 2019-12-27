@@ -110,19 +110,20 @@ class ListsController extends Controller
 	public function lists_member_post($id, Request $request){
 		$lists = $request->base_user_lists;
 		//$id=$request->id;
-		Log::debug($id."LISTMEMBERあいでーwadawdwdwww");
-		$current_list = Disclosure_list::select('id as list_id','name')
+		$current_list = Disclosure_list::select('id as list_id','name','owner_user_id')
 		->where('id', $id)
 		->first();
-		$list_users = Disclosure_list_user::select('disclosure_lists_users.user_id as users_id', 'users.name as users_name')
-		->join('users', 'users.id', '=', 'disclosure_lists_users.user_id')
-		->where('disclosure_lists_users.list_id', $id)
-		->where('disclosure_lists_users.is_deleted', 0)
-		->get();
-		$count = $list_users->count();
-
-		Log::debug($lists."LISTMEMBERあいでー");
-		return view('lists_members',compact('lists', 'current_list', 'list_users', 'count'));
+		if($current_list->owner_user_id == $request->base_user->user_id){
+			$list_users = Disclosure_list_user::select('disclosure_lists_users.user_id as users_id', 'users.name as users_name')
+			->join('users', 'users.id', '=', 'disclosure_lists_users.user_id')
+			->where('disclosure_lists_users.list_id', $id)
+			->where('disclosure_lists_users.is_deleted', 0)
+			->get();
+			$count = $list_users->count();
+			return view('lists_members',compact('lists', 'current_list', 'list_users', 'count'));
+		}else{
+			return redirect('/lists');
+		}
 	}
 	
 	public function user_remove(Request $request){
