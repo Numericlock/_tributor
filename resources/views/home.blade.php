@@ -96,7 +96,7 @@
 				<div class="users-information-wrapper">
 				<!--	<img src="/img/1.jpg"></img>
 				-->
-					<div class="users-icon users-content-modal-open" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
+					<div class="users-icon users-content-modal-open" onclick="users_href(this)" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
 						<img src="/img/2.jpg">
 					</div>
 					<div class="users-information">
@@ -371,6 +371,10 @@
 		@endforeach
 		console.log(post_users_ids);
 		
+		function users_href(id){
+			var user_id = $(id).data('modalid');
+			window.location.href = "/"+user_id;
+		}
 		function users_content_modal_open(over){
 			clearTimeout(users_modal_timer);
 			clearTimeout(users_modal_timer_close);
