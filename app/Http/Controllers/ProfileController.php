@@ -17,17 +17,27 @@ class ProfileController extends Controller
 	
 	public function profile ($user_id, Request $request){
 		$base_user = $request->base_user;
+		$base_user_id =$base_user->user_id;
 		$lists = $request->base_user_lists;
-		$user = User::select('id as user_id','name','introduction',
+		$user = User::select('users.id as user_id','users.name as name','users.introduction as introduction','users_follows.is_canceled as is_canceled', 'users_follows.subject_user_id as subject_user_id',
 		\DB::raw(//フォロー数
-			"(SELECT COUNT(subject_user_id = id  OR NULL) AS subject_count FROM users_follows) AS subject_count "
+			"(SELECT COUNT(subject_user_id = users.id  OR NULL) AS subject_count FROM users_follows) AS subject_count "
 		),
 		\DB::raw(//フォロワー数
-			"(SELECT COUNT(*) FROM users_follows WHERE followed_user_id = id) AS followed_count "
-		))
-		->where('id',$user_id)->first();
+			"(SELECT COUNT(*) FROM users_follows WHERE followed_user_id = users.id) AS followed_count "
+		),
+		\DB::raw(//フォローされているかどうか
+			"(SELECT COUNT(followed_user_id = '$base_user_id' OR NULL) FROM `users_follows` WHERE subject_user_id = '$user_id' AND is_canceled = 0) AS users_followed_count "
+		),
+		\DB::raw(//フォローしているかどうか
+			"(SELECT COUNT(subject_user_id = '$base_user_id' OR NULL) FROM `users_follows` WHERE followed_user_id = '$user_id' AND is_canceled = 0) AS users_subject_count "
+		)
+		)
+		->join('users_follows', 'users_follows.followed_user_id', '=', 'users.id')
+		->where('users.id',$user_id)
+		->first();
 
 		Log::debug($user."LISTMEMBERあいでwwwwwwwwwwwー");
-		return view('profile',compact('user','lists'));
+		return view('profile',compact('user', 'base_user', 'lists'));
 	}
 }
