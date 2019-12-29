@@ -27,14 +27,12 @@ class ListsController extends Controller
 	}
 
 	public function lists_insert(listFormRequest $request){
-        
 
-        
 		$list = new Disclosure_list;
 		$list -> name = $request->name;
 		$list -> owner_user_id = $request->base_user->user_id;
 		$list -> is_published = $request->publish;
-		$list -> is_hidden = $request->hidden;
+		$list -> is_hidden = 0;
 		$list -> save();
 		$id = $list->id;
         
@@ -66,55 +64,95 @@ class ListsController extends Controller
 		return $list;
 	}
 
+	public function user_add_lists(Request $request){
+		$lists = $request->base_user_lists;
+		$user_id = $request->user_id;
+		$lists_ids=[];
+        foreach($lists as $list){
+			array_push($lists_ids, $list->id);
+        } 
+        foreach($request->checked as $list){
+			if(in_array($list, $lists_ids) == true){
+				$count = Disclosure_list_user::isMember($list, $user_id)->count();
+				if($count == 0){
+					Disclosure_list_user::create([
+						'list_id'=> $list,
+						'user_id'=> $user_id,
+						'is_deleted'=> 0
+					]);
+				}else{
+					Disclosure_list_user::isMember($list, $user_id)->update(['is_deleted'=> 0]);
+				}
+			}
+			//Log::debug(in_array($list, $lists)."あぢでええｗ");
+        }        
+		foreach($request->notchecked as $list){
+			if(in_array($list, $lists_ids) == true){
+				Disclosure_list_user::isMember($list, $user_id)->update(['is_deleted'=> 1]);
+			}
+        }
+
+		return $lists;
+	}
+	
 	public function users_lists(Request $request){
 		$lists = Disclosure_list_user::select('list_id')
 		->join('disclosure_lists', 'disclosure_lists.id', '=', 'disclosure_lists_users.list_id' )
 		->where('disclosure_lists_users.user_id', $request->input('user_id'))
 		->where('disclosure_lists.owner_user_id', $request->base_user->user_id)
+		->where('disclosure_lists_users.is_deleted', 0)
 		->get();
 		Log::debug($lists."LISTMEMBERあいでwwwwwwwwwwwー");
 		return $lists;
 	}
 	
 	
-	public function lists_member_post(listMemberRequest $request){
-
-
-		/*$lists = Disclosure_list::join('disclosure_lists_users', 'disclosure_lists.id', '=', 'disclosure_lists_users.list_id')
-		->join('users', 'users.id', '=', 'disclosure_lists_users.user_id')
-		->where('disclosure_lists.id', $request->input('list_id'))
-		->get();*/
-		Log::debug($request->input('list_id')."LISTMEMBERあいでー");
-		$lists = Disclosure_list::select('id as list_id','name')
-		->where('id', $request->input('list_id'))
+	public function lists_member_post($id, Request $request){
+		$lists = $request->base_user_lists;
+		//$id=$request->id;
+		$current_list = Disclosure_list::select('id as list_id','name','owner_user_id')
+		->where('id', $id)
 		->first();
-		$lists_users = Disclosure_list_user::select('disclosure_lists_users.user_id as users_id', 'users.name as users_name')
-		->join('users', 'users.id', '=', 'disclosure_lists_users.user_id')
-		->where('disclosure_lists_users.list_id', $request->input('list_id'))
-		->get();
-		$count = $lists_users->count();
-
-
-		Log::debug($lists."LISTMEMBERあいでー");
-		return view('lists_members',compact('lists','lists_users', 'count'));
+		if($current_list->owner_user_id == $request->base_user->user_id){
+			$list_users = Disclosure_list_user::select('disclosure_lists_users.user_id as users_id', 'users.name as users_name')
+			->join('users', 'users.id', '=', 'disclosure_lists_users.user_id')
+			->where('disclosure_lists_users.list_id', $id)
+			->where('disclosure_lists_users.is_deleted', 0)
+			->get();
+			$count = $list_users->count();
+			return view('lists_members',compact('lists', 'current_list', 'list_users', 'count'));
+		}else{
+			return redirect('/lists');
+		}
 	}
-    
-        private static function unique_filename($org_path, $num=0){
-     
-            if( $num > 0){
-                $info = pathinfo($org_path);
-                $path = $info['dirname'] . "/" . $info['filename'] . "_" . $num;
-                if(isset($info['extension'])) $path .= "." . $info['extension'];
-            } else {
-                $path = $org_path;
-            }
-     
-            if(file_exists($path)){
-                $num++;
-                return unique_filename($org_path, $num);
-            } else {
-                $path.=".png";
-                return $path ;
-            }
-        }
+	
+	public function user_remove(Request $request){
+		$user_id=$request->user_id;
+		$list_id=$request->list_id;
+		$count = Disclosure_list::where('id',$list_id)->where('owner_user_id', $request->base_user->user_id)->count();
+		Log::debug($count."LISTMEMBERあいでー");
+		if($count != 0){
+			Disclosure_list_user::isMember($list_id, $user_id)->update(['is_deleted'=> 1]);
+		}
+		return $request->base_user; 
+	}
+
+	private static function unique_filename($org_path, $num=0){
+
+		if( $num > 0){
+			$info = pathinfo($org_path);
+			$path = $info['dirname'] . "/" . $info['filename'] . "_" . $num;
+			if(isset($info['extension'])) $path .= "." . $info['extension'];
+		} else {
+			$path = $org_path;
+		}
+
+		if(file_exists($path)){
+			$num++;
+			return unique_filename($org_path, $num);
+		} else {
+			$path.=".png";
+			return $path ;
+		}
+	}
 }

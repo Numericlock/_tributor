@@ -27,7 +27,10 @@ class AuthencationBefore
 					->where('users_sessions.id', $_COOKIE['session'])
 					->whereNull('users_sessions.logout_at')
 					->first();
-				$lists = Disclosure_list::where('owner_user_id', $user->user_id)->get();
+				$lists = Disclosure_list::where('owner_user_id', $user->user_id)
+				->where('is_hidden', 0)
+				->latest('updated_at')
+				->get();
 				$request->merge(['base_user' => $user,'base_user_lists' => $lists]);
 				return $next($request);
 			}else{

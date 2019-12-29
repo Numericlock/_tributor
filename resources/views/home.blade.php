@@ -33,7 +33,7 @@
 						</div>					
 						<div class="lists-add-modal-list-checkbox">
 							<div>
-								<input class="add-modal-list-checkbox" type="checkbox" id="add-list-id-{{ $list->id }}" name="add-list-id-{{ $list->id }}" value="add-list-id-{{ $list->id }}" checked/>
+								<input class="add-modal-list-checkbox" type="checkbox" id="add-list-id-{{ $list->id }}" data-listid="{{ $list->id }}" name="add-list-id-{{ $list->id }}" value="add-list-id-{{ $list->id }}" />
 								<label class="checkbox-label" for="add-list-id-{{ $list->id }}">
 									<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>
 								</label>
@@ -43,26 +43,28 @@
 					@endforeach
 				</div>
 				<div class="modal-control">
-					<button class="modal-positive-button" id="modal_submit" type='button'>作成</button>
+					<button class="modal-positive-button" id="add_modal_submit" type='button'>適応</button>
 				</div>
 			</div>
             @foreach($userIds as $userId)
             <div id="{{ $userId->users_id }}" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="{{ $userId->users_id }}">
-                <div class="users-modal" onmouseenter="users_content_modal_close_reset()">
-                    <div class="users-modal-top-wrapper" onmouseenter="users_content_modal_close_reset()">
+                <div class="users-modal">
+                    <div class="users-modal-top-wrapper" >
                         <div class="users-modal-icon">
-                            <img src="/img/2.jpg" onmouseenter="users_content_modal_close_reset()">
+                            <img src="/img/2.jpg">
                         </div>
                         <div class="users-modal-button">
-							@if($userId->users_id === $user->user_id )
-							@elseif($userId->is_canceled === 1)
-								<button class="follow-button" onclick="follow(this)" data-followid="{{ $userId->users_id }}">フォロー</button>
-							@elseif ($userId->subject_user_id === $user->user_id )
-								<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="{{ $userId->users_id }}">フォロー中</button>
-							@else
-								<button class="follow-button" onclick="follow(this)" data-followid="{{ $userId->users_id }}">フォロー</button>
-							@endif
-								<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="{{ $userId->users_id }}" data-followname="{{ $userId->users_name }}">リストに追加</button>
+                        	<div class="users-modal-button-follow" id="followbutton_{{ $userId->users_id }}">
+								@if($userId->users_id === $user->user_id )
+								@elseif($userId->is_canceled === 1)
+									<button class="follow-button" onclick="follow(this)" data-followid="{{ $userId->users_id }}">フォロー</button>
+								@elseif ($userId->subject_user_id === $user->user_id )
+									<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="{{ $userId->users_id }}">フォロー中</button>
+								@else
+									<button class="follow-button" onclick="follow(this)" data-followid="{{ $userId->users_id }}">フォロー</button>
+								@endif
+							</div>
+							<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="{{ $userId->users_id }}" data-followname="{{ $userId->users_name }}">リストに追加</button>
                         </div>
                     </div>
                     <div class="users-modal-middle-wrapper">
@@ -94,7 +96,7 @@
 				<div class="users-information-wrapper">
 				<!--	<img src="/img/1.jpg"></img>
 				-->
-					<div class="users-icon users-content-modal-open" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
+					<div class="users-icon users-content-modal-open" onclick="users_href(this)" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
 						<img src="/img/2.jpg">
 					</div>
 					<div class="users-information">
@@ -360,11 +362,19 @@
 
         var post_users = @json($userIds);
 		var post_users_ids =[];
+		
+		var base_checked_array = [];
+		var checked_array = [];
+		var notchecked_array = [];
 		@foreach($userIds as $userId)
 			post_users_ids.push("{{ $userId->users_id }}");
 		@endforeach
 		console.log(post_users_ids);
 		
+		function users_href(id){
+			var user_id = $(id).data('modalid');
+			window.location.href = "/"+user_id;
+		}
 		function users_content_modal_open(over){
 			clearTimeout(users_modal_timer);
 			clearTimeout(users_modal_timer_close);
@@ -384,10 +394,6 @@
 				$(id).fadeIn('fast');	
 				
 			},600);
-			console.log(height);
-			console.log(off.top);
-			console.log($(window).height());
-			console.log($(over).get(0).getBoundingClientRect().top);
 		}
 		function users_content_modal_close(over){
 			clearTimeout(users_modal_timer);
@@ -410,21 +416,21 @@
 		}
 		function show_list_add_modal(user){
 			var user_name = $(user).data("followname");
+			var user_id = $(user).data("followid");
+			base_checked_array = [];
 			$.ajax('/lists/add_user',{
 				type: 'get',
-				data: { user_id: $(user).data("followid") },
+				data: { user_id:  user_id},
 				dataType: 'json'
 			}).done(function(data) {
 				data.forEach(function(value ){
 					var id='#add-list-id-'+value.list_id;
-					console.log(id);
+					base_checked_array.push(value.list_id);
+					checked_array.push(value.list_id);
 					$(id).prop("checked",true);
-					$('#add-list-id-1').prop("checked",true);
-					
-					console.log($('#add-list-id-1').height());
-					console.log($('#add-list-id-1').val());
 				});
 				$('#modal-title').text(user_name + "をリストに追加");
+				$('#add_modal_submit').data('userid', user_id);
 				$('.modal').stop(true, true).fadeIn('500');
 				$('#lists-add-modal-content').show().stop(true, true).animate({
 					top: "50%",
@@ -437,73 +443,68 @@
 		}
 		$(".add-modal-list-checkbox").change(function() {
 				if($(this).prop("checked")==true){
-					//lists_array.push($(this).attr("id"));
-					$('#add-list-id-1').prop("checked",false);
-					console.log("turueeeee");
-					console.log($('#add-list-id-1').attr('checked'));
-					console.log($('#add-list-id-1').prop("checked"));
+					checked_array.push($(this).data("listid"));
 				}else{
-					//var target = $(this).attr("id");
-					//lists_array.some(function(v, i){
-					//	if (v==target) lists_array.splice(i,1);
-					//});
-					console.log("falseeeee");
+					var target = $(this).data("listid");
+					checked_array.some(function(v, i){
+						if (v==target) checked_array.splice(i,1);
+					});
 				}
+				console.log(checked_array);
 		});
-        $('.modal').on('click', function() {
-            $('.modal').stop(true, true).fadeOut('500');
-            $('#lists-add-modal-content').stop(true, true).animate({
-                top: "-1000px",
-                left: "50%",
-                opacity: 0
-            }, 500, function(){
-				$('#lists-add-modal-content').hide();
-			});
+        $('#add_modal_submit').on('click', function() {
+			for(var i =0;base_checked_array.length>i; i++){
+				var id =base_checked_array[i];
+				if(checked_array.indexOf(id) == -1){
+					notchecked_array.push(id);
+				}else{
+					checked_array.some(function(v, i){
+						if (v == id) checked_array.splice(i,1);
+					});
+				}
+			}
+			// 通信実行
+			var data = {
+				checked: checked_array,
+				notchecked: notchecked_array,
+				user_id: $('#add_modal_submit').data('userid')
+			};
+			console.log(data);
+			$.ajax({
+				type:"post",                // method = "POST"
+				url:"/lists/add_user",        // POST送信先のURL
+				data:JSON.stringify(data),  // JSONデータ本体
+				contentType: 'application/json', // リクエストの Content-Type
+                processData: false,         // レスポンスをJSONとしてパースする
+                async : false,   // ← asyncをfalseに設定する
+				timeout:3000,
+			}).done(function(data) {
+				console.log("user_add_lists");
+				base_checked_array = [];
+				checked_array = [];
+				notchecked_array = [];
+				add_modal_close()
+			}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log("Server Error. Pleasy try again later.");
+				console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+				console.log("textStatus     : " + textStatus);
+				console.log("errorThrown    : " + errorThrown.message);
+			})
+		});
+		
+        $('.modal, #modal_cancel').on('click', function() {
+			add_modal_close();
         });
-
-		$('#modal_cancel').on('click',function(){
+		function add_modal_close(){
 			$('.modal').stop(true, true).fadeOut('500');
 			$('#lists-add-modal-content').stop(true, true).animate({
-				top: "-100px",
+				top: "-1000px",
+				left: "50%",
 				opacity: 0
 			}, 500, function(){
 				$('#lists-add-modal-content').hide();
 			});
-		});
-	//	$('.users-content-modal-open').mouseenter(function(){
-	//		clearInterval(users_modal_timer);
-	//		clearInterval(users_modal_timer_close);
-	//		var id="#"+$(this).data("modalid");
-	//		var off = $(this).offset();	
-	//		users_modal_timer = setTimeout(function(){
-	//			$(id).css('display','none');
-	//			$(id).css('top',off.top+65);
-	//			$(id).css('left',off.left);
-	//			$(id).fadeIn('fast');	
-	//		},600);
-	//		console.log($(this).data("modalid"));
-	//	});
-	//	
-	//	$('.users-modal-wrapper , .users-content-modal-open').mouseenter(function(){
-	//		clearInterval(users_modal_timer_close);
-	//	});
-	//	
-	//	$('.users-content-modal-open').mouseleave(function(){
-	//		clearInterval(users_modal_timer);
-	//		var id="#"+$(this).data("modalid");
-	//		users_modal_timer_close = setTimeout(function(){
-	//			$(id).fadeOut('fast');
-	//		},300);
-//
-//		});
-//		$('.users-modal-wrapper').mouseleave(function(){
-//			clearInterval(users_modal_timer);
-//			var id="#"+$(this).data("modalid");
-//			users_modal_timer_close_comp = setTimeout(function(){
-//				$(id).fadeOut('fast');
-//			},300);
-//
-//		});
+		}
 		
 		function get_posts(){
 			var data = {
@@ -523,14 +524,15 @@
 						if(post_users_ids.indexOf(value.users_id)==-1){
 							post_users_ids.push(value.users_id);
 							console.log(post_users_ids);
-							var append_text = 								
+							var append_text = 	
 								'<div id="'+ value.users_id +'" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="'+ value.users_id +'">'
 								+	'<div class="users-modal">'
 								+		'<div class="users-modal-top-wrapper">'
 								+			'<div class="users-modal-icon">'
 								+				'<img src="/img/2.jpg">'
 								+			'</div>'
-								+			'<div class="users-modal-button">';
+								+			'<div class="users-modal-button">'
+								+				'<div class="users-modal-button-follow" id="followbutton_'+ value.users_id +'">';
 							if(value.users_id === user_id){
 							}else if(value.is_canceled === 1){
 								append_text = append_text + '<button class="follow-button" onclick="follow(this)" data-followid="'+ value.users_id +'">フォロー</button>';
@@ -540,7 +542,8 @@
 								append_text = append_text +	'<button class="follow-button" onclick="follow(this)" data-followid="'+ value.users_id +'">フォロー</button>'
 							}
 							append_text = append_text +
-												'<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="'+ value.users_id +'" data-followname="'+ value.users_name +'">リストに追加</button>'
+												'</div>'				
+								+				'<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="'+ value.users_id +'" data-followname="'+ value.users_name +'">リストに追加</button>'
 								+			'</div>'
 								+		'</div>'
 								+		'<div class="users-modal-middle-wrapper">'
@@ -748,8 +751,8 @@
 					timeout:3000,
 				}).done(function(data) {
 					console.log("follow");
-					$('.users-modal-button').empty();
-					$('.users-modal-button').append(
+					$('#followbutton_'+id).empty();
+					$('#followbutton_'+id).append(
 					'<button class="follow-remove-button" onclick="follow_remove(this)" data-followid='+id+'>フォロー中</button>'
 					);
 				}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -777,8 +780,8 @@
 					timeout:3000,
 				}).done(function(data) {
 					console.log("follow_remove");
-					$('.users-modal-button').empty();
-					$('.users-modal-button').append(
+					$('#followbutton_'+id).empty();
+					$('#followbutton_'+id).append(
 					'<button class="follow-button" onclick="follow(this)" data-followid='+id+'>フォロー</button>'
 					);
 				}).fail(function(XMLHttpRequest, textStatus, errorThrown) {

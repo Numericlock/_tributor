@@ -290,6 +290,7 @@
 		</div>
 	<script>
 		var posts_num =25;
+		var searchTimer;
         
 		var str = "{{$str}}";
 		function enter(){

@@ -19,15 +19,27 @@
 
 			</div>
 			<div class="profile">
-				<div class="profile-icon">
-					<img src="img/icon_img/{{$user->user_id}}.png">
+				<div class="profile-icon-wrapper" style="background-image:url(/img/3.jpg);">
+					<div class="profile-icon" >
+						<img src="img/icon_img/{{$user->user_id}}.png">
+					</div>
 				</div>
 				<span class="profile-userName">{{ $user->name }}</span>
 				<span class="profile-userId">{{ "@".$user->user_id }}</span>
-		 		<h4>おっとっととっとってっていっとっとになんでとっとってくれんかったとに</h4>
+		 		<h4>{{ $user->introduction }}</h4>
 		 		 <div class="information">
-					<span>フォロー中 -114</span>
-					<span>フォロワー -514</span>
+					<span>フォロー中 - {{ $user->subject_count }}</span>
+					<span>フォロワー - {{ $user->followed_count }}</span>
+				</div>
+				<div class="users-modal-button-follow" id="followbutton_{{ $user->users_id }}">
+					@if($base_user->user_id === $user->user_id )
+					@elseif($user->is_canceled === 1)
+						<button class="follow-button" onclick="follow(this)" data-followid="{{ $user->users_id }}">フォロー</button>
+					@elseif ($user->subject_user_id === $base_user->user_id )
+						<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="{{ $user->users_id }}">フォロー中</button>
+					@else
+						<button class="follow-button" onclick="follow(this)" data-followid="{{ $user->users_id }}">フォロー</button>
+					@endif
 				</div>
 			</div>
 		
@@ -278,9 +290,66 @@ s
 
 	<script>
         
-        
+		var follow_flag =true;
+		var follow_remove_flag =true;
 		
-
+		function follow(button){
+			console.log($(button).data('followid')+"wwwwwwwww");
+			console.log(follow_flag);
+			if(follow_flag ==true){
+				follow_flag = false;
+				var id = $(button).data('followid');
+				$.ajax({
+					type:"post",                // method = "POST"
+					url:"/follow",        // POST送信先のURL
+					dataType: 'json',
+					data : {user_id: id},
+					async : false,   // ← asyncをfalseに設定する
+					timeout:3000,
+				}).done(function(data) {
+					console.log("follow");
+					$('#followbutton_'+id).empty();
+					$('#followbutton_'+id).append(
+					'<button class="follow-remove-button" onclick="follow_remove(this)" data-followid='+id+'>フォロー中</button>'
+					);
+				}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log("Server Error. Pleasy try again later.");
+					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+					console.log("textStatus     : " + textStatus);
+					console.log("errorThrown    : " + errorThrown.message);
+				})
+				follow_flag = true;
+			}
+		}
+		
+		function follow_remove(button){
+			console.log($(button).data('followid')+"wwwwwwwww");
+			console.log(follow_remove_flag);
+			if(follow_remove_flag ==true){
+				follow_remove_flag = false;
+				var id = $(button).data('followid');
+				$.ajax({
+					type:"post",                // method = "POST"
+					url:"/follow/remove",        // POST送信先のURL
+					dataType: 'json',
+					data : {user_id: id},
+					async : false,   // ← asyncをfalseに設定する
+					timeout:3000,
+				}).done(function(data) {
+					console.log("follow_remove");
+					$('#followbutton_'+id).empty();
+					$('#followbutton_'+id).append(
+					'<button class="follow-button" onclick="follow(this)" data-followid='+id+'>フォロー</button>'
+					);
+				}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log("Server Error. Pleasy try again later.");
+					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+					console.log("textStatus     : " + textStatus);
+					console.log("errorThrown    : " + errorThrown.message);
+				})
+				follow_remove_flag = true;
+			}
+		}
 		$('.modal').on('click',function(){
 			$('.modal2').stop(true, true).fadeOut('500');
 			$('.modal-content3').stop(true, true).animate({
