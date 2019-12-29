@@ -12,13 +12,42 @@
 	padding:20px 0;
 }
 
-.list-icon img{
+.list-icon {
+
+     position:relative;
+     width: 150px;
+     height:150px;
+     margin:0 auto;
+}
+.list-icon .center_img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
 	border-radius:100%;
 	width:130px;
+    
 }
+.members-control{
+
+	padding:10px;
+}
+.members-positive-button{
+	background:red;
+	color:white;
+    width: 50px;
+	border-radius:15px;
+    
+}
+
+
 
 .list-title{
 	font-size:24px;
+    text-align:  center;
+    
 }
 
 .list-create-btn{

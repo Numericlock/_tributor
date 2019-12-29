@@ -15,9 +15,9 @@
 	<div class="content-wrapper">
 		<div class="list-member-header">
 			<div class="list-icon">
-				<img src="../img/list_icon/{{ $current_list->list_id }}.png" onerror="this.src='../img/list_icon/default.png'">
-
-
+                <div class="center_img">
+				    <img src="../img/list_icon/{{ $current_list->list_id }}.png" onerror="this.src='../img/list_icon/default.png'">
+                </div>
 			</div>
 			<div class="list-title">
 
@@ -49,13 +49,11 @@
 							<span>{{ "@".$user->users_id }}</span>
 						</div>
 					</div>
-					<svg class="lists-users-closeButton" onclick="remove_user(this)" version="1.1" data-userid="{{$user->users_id }}" data-username="{{$user->users_name }}" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-			 viewBox="0 0 512 512" xml:space="preserve">
-						<g>
-							<polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
-								52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
-						</g>
-					</svg>
+                    
+                    <div class="members-control">
+		                  <button class="members-positive-button"onclick="remove_user(this)" id="_x32_" type='button'data-userid="{{$user->users_id }}" data-username="{{$user->users_name }}">削除</button>
+	               </div>
+
 				</div>
 			@endforeach
 		</div>
