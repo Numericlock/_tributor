@@ -15,7 +15,7 @@
 	<div class="content-wrapper">
 		<div class="list-member-header">
 			<div class="list-icon">
-				<img src="../img/list_icon/{{ $current_list->id }}.png" onerror="this.src='../img/list_icon/default.png'">
+				<img src="../img/list_icon/{{ $current_list->list_id }}.png" onerror="this.src='../img/list_icon/default.png'">
 
 
 			</div>
