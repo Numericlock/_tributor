@@ -171,9 +171,9 @@
 		}
 
         $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
         });
 
 		function modal_reset(){
@@ -231,7 +231,6 @@
 				+	'</div>'
 					
 				);
-					modal_reset();
 					
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
@@ -320,7 +319,7 @@
 								+			'<div class="list-modal-addUsers-searchArea-result-user-checkbox">'
 								+				'<div class="checkbox">'
 								+					'<div>'
-								+						'<input type="checkbox" class="list-modal-addUsers-searchArea-result-user-checkbox-input" id='+ value.users_id +' name = '+value.users_id+' value="'+ value.users_name +'" />'
+								+						'<input type="checkbox" onchange="checkbox_change(this)"  class="list-modal-addUsers-searchArea-result-user-checkbox-input" id='+ value.users_id +' name = '+value.users_id+' value="'+ value.users_name +'" />'
 								+						'<label class="checkbox-label" for='+value.users_id+'>'
 								+							'<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>'
 								+						'</label>'
@@ -345,7 +344,7 @@
 								+			'<div class="list-modal-addUsers-searchArea-result-user-checkbox">'
 								+				'<div class="checkbox">'
 								+					'<div>'
-								+						'<input type="checkbox" class="list-modal-addUsers-searchArea-result-user-checkbox-input" id='+ value.users_id +' name = '+value.users_id+' value="'+ value.users_name +'" checked/>'
+								+						'<input type="checkbox" onchange="checkbox_change(this)" class="list-modal-addUsers-searchArea-result-user-checkbox-input" id='+ value.users_id +' name = '+value.users_id+' value="'+ value.users_name +'" checked/>'
 								+						'<label class="checkbox-label" for='+value.users_id+'>'
 								+							'<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>'
 								+						'</label>'
@@ -357,10 +356,7 @@
 
 
 						}
-
-						 console.log( value.users_id );
 					});
-					$('.list-modal-addUsers-searchArea-result').append('<sc'+'ript src="/js/list_users_checkbox.js"></scr'+'ipt>');
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {         // HTTPエラー時
 					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
@@ -376,7 +372,17 @@
             $.get("list_select.php",{'list-id' : id},function(data){
             });
 		}
-
+		
+		function checkbox_change(id){
+			if($(id).prop("checked")==true){
+				append_box($(id).val(), $(id).attr("id"));
+				list_user_id_array.push($(id).attr("id"));
+				console.log(list_user_id_array);
+			}else{
+				remove_box($(id).attr("id"));
+			}
+		}
+		
 		$('.list-content').on('click',function(){
 			window.location.href='lists/'+($(this).data('list'));
             console.log($(this).data('list'));
@@ -532,7 +538,7 @@
 			});
 		});
         
-            const cvs = document.getElementById( 'cvs' )
+    const cvs = document.getElementById( 'cvs' )
     const cw = cvs.width
     const ch = cvs.height
     const out = document.getElementById( 'out' )

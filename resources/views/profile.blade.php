@@ -21,24 +21,24 @@
 			<div class="profile">
 				<div class="profile-icon-wrapper" style="background-image:url(/img/3.jpg);">
 					<div class="profile-icon" >
-						<img src="img/icon_img/{{$user->user_id}}.png">
+						<img src="img/icon_img/{{$current_user->user_id}}.png">
 					</div>
 				</div>
-				<span class="profile-userName">{{ $user->name }}</span>
-				<span class="profile-userId">{{ "@".$user->user_id }}</span>
-		 		<h4>{{ $user->introduction }}</h4>
+				<span class="profile-userName">{{ $current_user->name }}</span>
+				<span class="profile-userId">{{ "@".$current_user->user_id }}</span>
+		 		<h4>{{ $current_user->introduction }}</h4>
 		 		 <div class="information">
-					<span>フォロー中 - {{ $user->subject_count }}</span>
-					<span>フォロワー - {{ $user->followed_count }}</span>
+					<span>フォロー中 - {{ $current_user->subject_count }}</span>
+					<span>フォロワー - {{ $current_user->followed_count }}</span>
 				</div>
-				<div class="users-modal-button-follow" id="followbutton_{{ $user->users_id }}">
-					@if($base_user->user_id === $user->user_id )
-					@elseif($user->is_canceled === 1)
-						<button class="follow-button" onclick="follow(this)" data-followid="{{ $user->users_id }}">フォロー</button>
-					@elseif ($user->subject_user_id === $base_user->user_id )
-						<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="{{ $user->users_id }}">フォロー中</button>
+				<div class="users-modal-button-follow" id="followbutton_{{ $current_user->users_id }}">
+					@if($user->user_id === $current_user->user_id )
+					@elseif($current_user->is_canceled === 1)
+						<button class="follow-button" onclick="follow(this)" data-followid="{{ $current_user->users_id }}">フォロー</button>
+					@elseif ($current_user->subject_user_id === $user->user_id )
+						<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="{{ $current_user->users_id }}">フォロー中</button>
 					@else
-						<button class="follow-button" onclick="follow(this)" data-followid="{{ $user->users_id }}">フォロー</button>
+						<button class="follow-button" onclick="follow(this)" data-followid="{{ $current_user->users_id }}">フォロー</button>
 					@endif
 				</div>
 			</div>

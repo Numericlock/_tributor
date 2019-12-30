@@ -418,6 +418,8 @@
 			var user_name = $(user).data("followname");
 			var user_id = $(user).data("followid");
 			base_checked_array = [];
+			checked_array_array=[];
+			$('.add-modal-list-checkbox').prop("checked",false);
 			$.ajax('/lists/add_user',{
 				type: 'get',
 				data: { user_id:  user_id},
