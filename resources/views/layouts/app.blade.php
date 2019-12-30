@@ -630,13 +630,14 @@
 			var files = [];
 			for(var i=0;i<preview_array.length;i++){
 				files.push(preview_array[i].src);
+                console.log(preview_array[i].src);
 			}
 			console.log(files);
 			console.log(lists_array);
 			var data = {
 				content_text: $('#textarea').val(),
 				lists:lists_array,
-				files:file_array
+				files:files
 			};
 			// 通信実行
 			$.ajax({

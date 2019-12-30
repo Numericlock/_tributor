@@ -34,7 +34,23 @@ class PostController extends Controller
         }
 		$files = $request->files;
         foreach($files as $file){
-			Log::debug("_________");
+            $canvas = $file;
+            $canvas = preg_replace("/data:[^,]+,/i","",$canvas);
+            $canvas = base64_decode($canvas);
+            $image = imagecreatefromstring($canvas);
+            $savepath=$id;
+            $path2 ='img/post_img/';
+            $path2 .=$savepath;
+            $img_path =  self::unique_filename($path2);
+            imagesavealpha($image, TRUE); // 透明色の有効
+            imagepng($image ,$img_path);
+            
+            Attached_content::create([
+                'post_id'=> $id,
+                'content_type'=>png,
+                'content_file_path'=>$img_path
+            ]);
+			
         }
 		return User_post::where('post_user_id', $request->base_user->user_id)->get();
 	}
@@ -52,5 +68,24 @@ class PostController extends Controller
 			'post_id'=>$request->post_id,
 			'is_canceled'=>0
 		]);
+	}
+    
+    	private static function unique_filename($org_path, $num=0){
+
+		if( $num > 0){
+			$info = pathinfo($org_path);
+			$path = $info['dirname'] . "/" . $info['filename'] . "_" . $num;
+			if(isset($info['extension'])) $path .= "." . $info['extension'];
+		} else {
+			$path = $org_path;
+		}
+
+		if(file_exists($path)){
+			$num++;
+			return unique_filename($org_path, $num);
+		} else {
+			$path.=".png";
+			return $path ;
+		}
 	}
 }
