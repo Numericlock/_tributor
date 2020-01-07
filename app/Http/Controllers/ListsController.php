@@ -63,6 +63,38 @@ class ListsController extends Controller
         }
 		return $list;
 	}
+	public function lists_update(listFormRequest $request){
+		$list = $request->list_id;
+		$count = Disclosure_list::where('id', $list)
+		->where('owner_user_id', $request->base_user->user_id)
+		->count();
+
+		if($count != 0){
+			Disclosure_list::where('owner_user_id', $request->base_user->user_id)
+			->where('id', $list)
+			->update(['name'=> $request->name, 'is_published'=> $request->publish]);
+			
+			foreach($request->users as $user){
+				$user_count = Disclosure_list_user::isMember($list, $user)->count();
+				if($user_count == 0){
+					Disclosure_list_user::create([
+						'list_id'=> $list,
+						'user_id'=> $user,
+						'is_deleted'=> 0
+					]);
+				}else{
+					Disclosure_list_user::isMember($list, $user)->update(['is_deleted'=> 0]);
+				}
+			}
+			$list_users = Disclosure_list_user::select('disclosure_lists.name as list_name', 'disclosure_lists.is_published as list_is_published', 'disclosure_lists_users.user_id as users_id', 'users.name as users_name')
+			->join('users', 'users.id', '=', 'disclosure_lists_users.user_id')
+			->join('disclosure_lists', 'disclosure_lists.id', '=', 'disclosure_lists_users.list_id')
+			->where('disclosure_lists_users.list_id', $request->list_id)
+			->where('disclosure_lists_users.is_deleted', 0)
+			->get();
+		}
+		return $list_users;
+	}
 
 	public function user_add_lists(Request $request){
 		$lists = $request->base_user_lists;
@@ -109,6 +141,7 @@ class ListsController extends Controller
 	
 	public function lists_member_post($id, Request $request){
 		$lists = $request->base_user_lists;
+		$user = $request->base_user;
 		//$id=$request->id;
 		$current_list = Disclosure_list::select('id as list_id','name','owner_user_id')
 		->where('id', $id)
@@ -120,7 +153,7 @@ class ListsController extends Controller
 			->where('disclosure_lists_users.is_deleted', 0)
 			->get();
 			$count = $list_users->count();
-			return view('lists_members',compact('lists', 'current_list', 'list_users', 'count'));
+			return view('lists_members',compact('lists','user', 'current_list', 'list_users', 'count'));
 		}else{
 			return redirect('/lists');
 		}

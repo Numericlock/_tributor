@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\UserSession;
 use App\Models\User_post;
 use App\Models\Post_valid_disclosure_list;
+use App\Models\Disclosure_list_user;
 use Log;
 
 class SearchController extends Controller
@@ -89,6 +90,25 @@ class SearchController extends Controller
 		->where('id', 'LIKE', $request->str."%")
 		->orWhere('name', 'LIKE', $request->str."%")	
 		->get();
+		Log::debug($users."さーちりくえすと");
+		return $users;
+	}
+	
+	public function list_users_search (searchRequest $request){
+		$list_users = Disclosure_list_user::select('user_id')
+		->where('list_id', $request->list_id)
+		->where('is_deleted', 0)
+		->get();
+		foreach($list_users as $value){
+			$value = $value['user_id'];
+			Log::debug($value."さーちりくえすと");
+		}
+		$users = User::select('id as users_id','name as users_name')
+		->whereNotIn('id', $list_users)
+		->where('id', 'LIKE', "%".$request->str."%")
+		->orWhere('name', 'LIKE', "%".$request->str."%")
+		->get();
+		Log::debug($list_users."さーちりくえすと");
 		Log::debug($users."さーちりくえすと");
 		return $users;
 	}

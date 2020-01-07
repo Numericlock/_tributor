@@ -16,10 +16,10 @@ class ProfileController extends Controller
     }
 	
 	public function profile ($user_id, Request $request){
-		$base_user = $request->base_user;
-		$base_user_id =$base_user->user_id;
+		$user = $request->base_user;
+		$base_user_id =$user->user_id;
 		$lists = $request->base_user_lists;
-		$user = User::select('users.id as user_id','users.name as name','users.introduction as introduction','users_follows.is_canceled as is_canceled', 'users_follows.subject_user_id as subject_user_id',
+		$current_user = User::select('users.id as user_id','users.name as name','users.introduction as introduction','users_follows.is_canceled as is_canceled', 'users_follows.subject_user_id as subject_user_id',
 		\DB::raw(//フォロー数
 			"(SELECT COUNT(subject_user_id = users.id  OR NULL) AS subject_count FROM users_follows) AS subject_count "
 		),
@@ -38,6 +38,6 @@ class ProfileController extends Controller
 		->first();
 
 		Log::debug($user."LISTMEMBERあいでwwwwwwwwwwwー");
-		return view('profile',compact('user', 'base_user', 'lists'));
+		return view('profile',compact('current_user', 'user', 'lists'));
 	}
 }

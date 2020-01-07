@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use \LaravelTreats\Model\Traits\HasCompositePrimaryKey;
 
 class Disclosure_list_user extends Model
 {

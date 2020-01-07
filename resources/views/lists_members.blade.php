@@ -19,7 +19,7 @@
 				    <img src="../img/list_icon/{{ $current_list->list_id }}.png" onerror="this.src='../img/list_icon/default.png'">
                 </div>
 			</div>
-			<div class="list-title">
+			<div class="list-title" id="list_title">
 
 					{{$current_list->name }}
 			</div>
@@ -64,7 +64,7 @@
 </div>
 <div id="list-modal-content" class=modal-content>
 	<div class="modal-title">
-		<span>リストを作成</span>
+		<span>リストを編集</span>
 		<svg class="modal-closeButton" id="modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 			 viewBox="0 0 512 512" xml:space="preserve">
 			<g>
@@ -108,7 +108,7 @@
 				<div class="search_box box">
 					<div class="search_inner inner">
 						<input id="search_text" class="text" maxlength="24" type="text">
-						<div class="search_string string">ユーザーを検索</div>
+						<div class="search_string string">ユーザーを招待</div>
 					</div>
 					<i class="fas fa-eye-slash"></i>
 				</div>
@@ -117,16 +117,6 @@
 			</div>
 		</div>
 		<div class="list-modal-addUsers-IntendAdd">
-			@foreach($list_users as $user)
-			<div id="{{ $user->users_id }}_box" class="list-modal-addUsers-IntendAdd-box">
-				<svg class="list-modal-addUsers-IntendAdd-box-close" onclick=remove(this) id="{{ $user->users_id }}_box_remove_button" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/></g></svg>
-				<div class="list-modal-addUsers-IntendAdd-users">
-					<span class="list-modal-addUsers-IntendAdd-users-name">{{ $user->users_name }}</span>
-					<span class="list-modal-addUsers-IntendAdd-users-id">{{ "@".$user->users_id }}</span>
-				</div>
-			</div>
-			@endforeach
-			
 		</div>
 	</div>
 
@@ -163,29 +153,16 @@
 	var searchTimer;
 	var searchStr;
 	var list_user_id_array = [];
-	var existing_array =[];
+	var existing_name="{{$current_list->name }}";
+	var existing_publish="{{$current_list->is_publish}}";
 	var list_id=@json($current_list->list_id);
 	console.log(list_id);
-	@foreach($list_users as $user)
-		list_user_id_array.push("{{$user->users_id }}");
-		existing_array.push("{{$user->users_id }}");
-	@endforeach
+	console.log(existing_name);
 	console.log(list_user_id_array);
-	console.log(existing_array);
 	$(window).resize(is_no_wrap);
 	jQuery(function($) {
 		is_no_wrap();
 	});
-	function root(rootDir){
-		$.ajax({
-		url: rootDir + "index.php",
-		cache: false,
-		success: function(html){
-		html = html.replace(/\{\$root\}/g, rootDir); //footer.htmlの{$root}を置換
-		document.write(html);
-		}
-		});
-	}
 	function is_no_wrap(){
 	  $('.list-title-p').each(function() {
 		var $target = $(this);
@@ -219,23 +196,81 @@
 		$clone.remove();
 	  });
 	}
-	function postForm(list_name_value, list_icon_value, list_users_id_value, is_publish_value) {
+	function postForm(nameVal,list_userVal,isPublishVal) {
+		console.log("wwwwwwwwww");
+		var publish='0';
+		if(isPublishVal === true){
+			publish='1';
+		}
+
+		var data = {
+			name: nameVal,
+			list_id: "{{$current_list->list_id }}",
+			users: list_user_id_array,
+			publish: publish
+		};
+
+		// 通信実行
 		$.ajax({
-			url: 'disclosure_list_insert.php',
-			type:'POST',
-			dataType: 'json',
-			data : {list_name : list_name_value, list_icon : list_icon_value, list_users_id_array : list_users_id_value, is_publish : is_publish_value },
-			timeout:3000,
-		}).done(function(data) {
-			alert("ok");
-		}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("error");
-		})
+			type:"post",                // method = "POST"
+			url:"/lists/update",        // POST送信先のURL
+			data:JSON.stringify(data),  // JSONデータ本体
+			contentType: 'application/json', // リクエストの Content-Type
+			processData: false,         // レスポンスをJSONとしてパースする
+			async : false,   // ← asyncをfalseに設定する
+			success: function(json_data) {   // 200 OK時
+				$('#list_title').text(data.name);
+				$('.lists-users').empty();
+				var count=0;
+				json_data.forEach(function( value ) {
+					count++;
+					$('.lists-users').append(
+					
+						'<div class="lists-users-wrapper" id="'+value.users_id+'">'
+					+		'<div class="lists-users-icon">'
+					+			'<img src="../img/icon_img/' + value.users_id + '.png" onerror="this.src=`../img/icon_img/default.png`">'
+					+		'</div>'
++							'<div class="lists-users-nameId">'
++								'<div class="lists-users-nameId-name">'
++									'<span>'+ value.users_name +'</span>'
++								'</div>'
++								'<div class="lists-users-nameId-id">'
++									'<span>@'+value.users_id+'</span>'
++								'</div>'
++							'</div>'
++							'<div class="members-control">'
++								 '<button class="members-positive-button"onclick="remove_user(this)" id="_x32_" type="button" data-userid="'+value.users_id+'" data-username="'+value.users_name+'">削除</button>'
++						   '</div>'
++						'</div>'
+					
+					
+					
+					);
+				});
+				$('#list_members_num').text("メンバー"+count+"人");
+				$('#list_members_num').data('num', count);
+				list_user_id_array = [];
+				modal_reset();
+				
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
+				console.log("Server Error. Pleasy try again later.");
+				console.log(data);
+				console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+				console.log("textStatus     : " + textStatus);
+				console.log("errorThrown    : " + errorThrown.message);
+				//error原因不明　要改善　内容:JSON.parse Error
+			},
+			complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
+			}
+		});
 
 	}
+	var remove_id;
 	function remove_user(id){
 		var user_id = $(id).data('userid');
 		var user_name = $(id).data('username');
+		remove_id = $($(id).parent()).parent();
 		verification_modal(user_name,user_id);
 	}
 	function verification_modal(name,id){
@@ -261,7 +296,7 @@
 			timeout:3000,
 		}).done(function(data) {
 			console.log("member_remove");
-			$('#user_id_'+id).remove();
+			$(remove_id).remove();
 			var num = $('#list_members_num').data('num');
 			num = num-1;
 			$('#list_members_num').data('num',num);
@@ -273,6 +308,7 @@
 			console.log("errorThrown    : " + errorThrown.message);
 		})
 	}
+	
 	function modal_reset(){
 		$('.modal').stop(true, true).fadeOut('500');
 		$('#list-modal-content').stop(true, true).animate({
@@ -282,15 +318,15 @@
 		}, 500, function(){
 			$('#list-modal-content').hide();
 		});
-		$('#text').val('');
 		$('#search_text').val('');
 		searchStr = null;
-		list_user_id_array = [];
-		list_icon_value = null;
-		$("#isPublish").prop('checked', false);
+		$('#list-modal-addUsers-searchArea-result-user-checkbox-input').prop('checked','false');
+		$('.list-modal-addUsers-searchArea-result').empty();
+		$('.list-modal-addUsers-IntendAdd').empty();
 		var target = document.getElementById("modal_submit");
 		target.disabled = false;
 	}
+	
 	function append_box(name, id){
 		$(".list-modal-addUsers-IntendAdd").append(
 			'<div id="'+id+'_box" class="list-modal-addUsers-IntendAdd-box">'
@@ -325,12 +361,13 @@
 	function search_for(){
 		// 各フィールドから値を取得してJSONデータを作成
 		var data = {
-			str: searchStr
+			str: searchStr,
+			list_id:@json($current_list->list_id)
 		};
 		// 通信実行
 		$.ajax({
 			type:"post",                // method = "POST"
-			url:"/lists/search",        // POST送信先のURL
+			url:"/lists/search/list",        // POST送信先のURL
 			data:JSON.stringify(data),  // JSONデータ本体
 			contentType: 'application/json', // リクエストの Content-Type
 			processData: false,    
@@ -363,7 +400,7 @@
 							+			'<div class="list-modal-addUsers-searchArea-result-user-checkbox">'
 							+				'<div class="checkbox">'
 							+					'<div>'
-							+						'<input type="checkbox" class="list-modal-addUsers-searchArea-result-user-checkbox-input" id='+ value.users_id +' name = '+value.users_id+' value="'+ value.users_name +'" />'
+							+						'<input type="checkbox" onchange="checkbox_change(this)"  class="list-modal-addUsers-searchArea-result-user-checkbox-input" id='+ value.users_id +' name = '+value.users_id+' value="'+ value.users_name +'" />'
 							+						'<label class="checkbox-label" for='+value.users_id+'>'
 							+							'<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>'
 							+						'</label>'
@@ -388,7 +425,7 @@
 							+			'<div class="list-modal-addUsers-searchArea-result-user-checkbox">'
 							+				'<div class="checkbox">'
 							+					'<div>'
-							+						'<input type="checkbox" class="list-modal-addUsers-searchArea-result-user-checkbox-input" id='+ value.users_id +' name = '+value.users_id+' value="'+ value.users_name +'" checked/>'
+							+						'<input type="checkbox" onchange="checkbox_change(this)" class="list-modal-addUsers-searchArea-result-user-checkbox-input" id='+ value.users_id +' name = '+value.users_id+' value="'+ value.users_name +'" checked/>'
 							+						'<label class="checkbox-label" for='+value.users_id+'>'
 							+							'<span class="checkbox-span"><!-- This span is needed to create the "checkbox" element --></span>'
 							+						'</label>'
@@ -403,7 +440,6 @@
 
 					 console.log( value.users_id );
 				});
-				$('.list-modal-addUsers-searchArea-result').append('<sc'+'ript src="/js/list_users_checkbox.js"></scr'+'ipt>');
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {         // HTTPエラー時
 				console.log("XMLHttpRequest : " + XMLHttpRequest.status);
@@ -420,7 +456,6 @@
 
 	$('.verification-modal-button-destruction').on('click',function(){
 		verification_modal_close();
-		post_modal_close();
 	});
 
 
@@ -435,6 +470,17 @@
 			$('.verification-modal-content').hide();
 		});
 	}
+	
+	function checkbox_change(id){
+		if($(id).prop("checked")==true){
+			append_box($(id).val(), $(id).attr("id"));
+			list_user_id_array.push($(id).attr("id"));
+			console.log(list_user_id_array);
+		}else{
+			remove_box($(id).attr("id"));
+		}
+	}
+	
 	$("#search_text").on("input", function() {
   //      document.getElementById("id_count").innerText = idStr.length+"/24";
 		searchStr = $(this).val();
@@ -442,11 +488,9 @@
 		searchTimer = window.setTimeout(search_for, 700);
 	});
 	$('#modal_submit').on('click',function(){
-		console.log($("#isPublish").prop("checked"));
-
-		postForm($('#text').val(), list_icon_value, list_user_id_array, $("#isPublish").prop("checked"));
+		postForm($('#text').val(), list_user_id_array, $("#isPublish").prop("checked"));
 	});	
-
+	
 	$('.btn-square').on('click', function() {
 		$('.modal').stop(true, true).fadeIn('500');
 		$('#list-modal-content').show().stop(true, true).animate({
