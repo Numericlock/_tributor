@@ -287,7 +287,7 @@
          </div>
         <div class="post-modal-control">
 
-            <span>内容が消えてしまいますがよろしいでしょうか？</span>
+            <span>内容が消えてしまいますがよろしいですか？</span>
 			<button class="post-modal-negative-button" id="post-modal_back" type='button'>いいえ</button>
 			<button class="post-modal-positive-button" id="post-modal_post" type='button'>はい</button>
             
@@ -691,8 +691,9 @@
             searchTimer = window.setTimeout(search_for, 700);
         });
 		$('#post-modal_post').on('click',function(){
-            if(lists_array != ""){
-			tribute_postForm();
+			console.log($('input[name="disclose"]:checkbox').prop('checked'));
+            if(lists_array != "" || $('input[name="disclose"]:checkbox').prop('checked') == false){
+				tribute_postForm();
             }else{
                 alert("リストが選択されていません")
             }
