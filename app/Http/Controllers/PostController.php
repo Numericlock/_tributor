@@ -37,18 +37,17 @@ class PostController extends Controller
         }
         
         Log::debug("あひる");
+            $count=0;
         foreach($request->filetati as $file){
-            Log::debug("あひる２");
             $canvas = $file;
             $canvas = preg_replace("/data:[^,]+,/i","",$canvas);
             $canvas = base64_decode($canvas);
             $image = imagecreatefromstring($canvas);
             $savepath=$id;
-            $path2 ='img/post_img/';
-            $path2 .=$savepath;
-            $img_path =  self::unique_filename($path2);
+            $img_path = 'img/post_img/'.$savepath."_".$count.".png";
             imagesavealpha($image, TRUE); // 透明色の有効
             imagepng($image ,$img_path);
+            $count++;
             
             Attached_content::create([
                 'post_id'=> $id,
