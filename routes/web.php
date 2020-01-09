@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth.login.before', 'prefix' => ''], function() {
 	Route::post('/register_insert', 'AuthController@register_insert');
 });
 
-
+Route::get('/logout', 'AuthController@logout');
 Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 	Route::get('/lists', 'ListsController@lists');
 	Route::post('/lists', 'ListsController@lists_insert');
@@ -55,4 +55,4 @@ Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 	});
 	Route::get('/{user_id}', 'ProfileController@profile');
 });
-Route::get('/logout', 'AuthController@logout');
+
