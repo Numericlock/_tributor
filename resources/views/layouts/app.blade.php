@@ -323,6 +323,7 @@
 		var file_array = [];
 		var reader_array  = [];
 		var preview_array = [];
+        var files = [];
 		function previewFiles() {
 			if(file_array.length<4){
 				var input_file_length = document.querySelector('input[type=file]').files.length;
@@ -354,24 +355,28 @@
 			if(length>0){
 				reader_array[0].addEventListener("load", function () {
 					preview_array[0].src = reader_array[0].result;
+                    files[0] = reader_array[0].result;
 				}, false);
 			}
 
 			if(length>1){
 				reader_array[1].addEventListener("load", function () {
 					preview_array[1].src = reader_array[1].result;
+                    files[1] = reader_array[1].result;
 				}, false);
 			}
 
 			if(length>2){
 				reader_array[2].addEventListener("load", function () {
 					preview_array[2].src = reader_array[2].result;
+                    files[2] = reader_array[2].result;
 				}, false);
 			}
 
 			if(length>3){
 				reader_array[3].addEventListener("load", function () {
 					preview_array[3].src = reader_array[3].result;
+                    files[3] = reader_array[3].result;
 				}, false);
 			}
 			switch(length){
@@ -627,17 +632,19 @@
                 }
         });
 		function tribute_postForm(){
-			var files = [];
+			/*var files = [];
 			for(var i=0;i<preview_array.length;i++){
-				files.push(preview_array[i].src);
-                console.log(preview_array[i].src);
+				files.push(reader_array[i].result);
+                console.log(reader_array[i].result);
 			}
+            */
 			console.log(files);
+            console.log(file_array);
 			console.log(lists_array);
 			var data = {
 				content_text: $('#textarea').val(),
 				lists:lists_array,
-				files:files
+				filetati:files
 			};
 			// 通信実行
 			$.ajax({

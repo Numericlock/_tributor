@@ -23,17 +23,22 @@ class PostController extends Controller
 		$post -> post_user_id = $request->base_user->user_id;
 		$post -> content_text = $request->content_text;
 		$post -> is_deleted = 0;
+        $png ="png";
 		$post -> save();
 		$id = $post->id;
-        foreach($request->lists as $list){	
+        foreach($request->lists as $list){
+            Log::debug($list);
+            Log::debug($id);
             Post_valid_disclosure_list::create([
                 'list_id'=> $list,
                 'post_id'=> $id,
                 'is_hidden'=> 0
             ]);
         }
-		$files = $request->files;
-        foreach($files as $file){
+        
+        Log::debug("あひる");
+        foreach($request->filetati as $file){
+            Log::debug("あひる２");
             $canvas = $file;
             $canvas = preg_replace("/data:[^,]+,/i","",$canvas);
             $canvas = base64_decode($canvas);
@@ -47,11 +52,12 @@ class PostController extends Controller
             
             Attached_content::create([
                 'post_id'=> $id,
-                'content_type'=>png,
+                'content_type'=>$png,
                 'content_file_path'=>$img_path
             ]);
 			
         }
+        Log::debug("あひる3");
 		return User_post::where('post_user_id', $request->base_user->user_id)->get();
 	}
 	
