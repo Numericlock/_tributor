@@ -24,6 +24,7 @@ class HomeController extends Controller
     public function home (Request $request){
 		$user = $request->base_user;
 		$posts = User_post::ofPosts($user->user_id)->latest()->offset(0)->limit(25)->get();
+		$posts = $posts->unique('posts_id');
         $userIds = $posts->unique('users_id'); 
         Log::debug($userIds."ごみごみごみごみごみごみ");
 		$lists = $request->base_user_lists;

@@ -370,6 +370,7 @@
 			post_users_ids.push("{{ $userId->users_id }}");
 		@endforeach
 		console.log(post_users_ids);
+		console.log(@json($posts));
 		
 		function users_href(id){
 			var user_id = $(id).data('modalid');

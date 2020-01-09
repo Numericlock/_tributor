@@ -10,7 +10,7 @@ class User_post extends Model
 	protected $fillable = ['post_user_id', 'content_text', 'parent_post_id', 'is_deleted', 'longitude', 'latitude'];
 	
 	public function scopeOfPosts($query,$user_id){
-		return $query->select('users_posts.*','users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled',
+		return $query->select('users_posts.*','users_posts.id as posts_id', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled',
 		\DB::raw(//フォロー数
 			"(SELECT COUNT(subject_user_id = users.id  OR NULL) AS subject_count FROM users_follows) AS subject_count "
 		),
