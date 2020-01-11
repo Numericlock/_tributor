@@ -157,6 +157,21 @@
                 </g>
             </svg>
         </div>
+		<div class="post-modal-parentPost">
+			<div class="post-modal-parentPost-icon">
+				<img src="/img/2.jpg">
+			</div>
+			<div class="post-modal-parentPost-content">
+				<div class="post-modal-parentPost-user">
+					<span id="parentPost_username">にゅーめり</span>
+					<span id="parentPost_userid">@numeric</span>
+					<span id="parentPost_time">12355134</span>
+				</div>
+				<div class="post-modal-parentPost-sentence">
+					<span id="parentPost_sentence">ばーかぼけかすしね</span>
+				</div>
+			</div>
+		</div>
         <div class="post-modal-textarea">
             <div class="post-modal-textarea-userImage">
                 <img src="/img/2.jpg">
@@ -181,7 +196,9 @@
 			
         </div>
         <div class="counter">
-            <span class="show-count">0</span>/256
+			<div>
+				<span class="show-count">0</span><span>/256</span>
+			</div>
          </div>
         <div class="post-modal-control">
             <label>
@@ -319,11 +336,11 @@
 		} else {
 		  alert('The File APIs are not fully supported in this browser.');
 		}
-		
 		var file_array = [];
 		var reader_array  = [];
 		var preview_array = [];
         var files = [];
+		var parent_post_id = null;
 		function previewFiles() {
 			if(file_array.length<4){
 				var input_file_length = document.querySelector('input[type=file]').files.length;
@@ -457,6 +474,27 @@
 		
 
 		$('#dotRadius').on('click',function(){
+			post_modal_open();
+		});
+		$('.comment').on('click',function(){
+			var id = $(this).data("id");
+			var content = $(this).data("content");
+			var user_id = $(this).data("userid");
+			var user_name = $(this).data("username");
+			var time = $(this).data("time");
+			//var post = $('#post_'+id).clone();
+			//post.css("background","white");
+			$('#parentPost_username').text(user_name);
+			$('#parentPost_userid').text(user_id);
+			$('#parentPost_time').text(time);
+			$('#parentPost_sentence').text(content);
+			//$('.post-modal-textarea').before(post);
+			$('.post-modal-parentPost').css("display","flex");
+			parent_post_id = id;
+			post_modal_open();
+		});
+		
+		function post_modal_open(){
 			$('.post-modal').stop(true, true).fadeIn('500');
 			$('#post-modal_content').show().stop(true, true).animate({
 				top: "50%",
@@ -472,7 +510,7 @@
 			}, 500, function(){
 				$('#post-modal_content_next').hide();
 			});
-		});
+		}
 		
 		$('.post-modal, .post-modal_cancel').on('click',function(){
 			if(is_blank($('#textarea').val()) && !Object.keys(file_array).length &&  !Object.keys(lists_array).length){
@@ -539,10 +577,13 @@
 				reader_array  = [];
 				preview_array = [];
 				imgFiles=[];
+				parent_post_id=null;
+				$('.post-modal-list-checkbox').prop('checked',false);
 				$("#preview-0, #preview-1, #preview-2, #preview-3").css({
 					'display':'none'
 				});
 				$('#textarea').height('50px');
+				$('.post-modal-parentPost').css("display","none");
 				
 			});
 			$('.post-modal').stop(true, true).fadeOut('500');
@@ -641,8 +682,10 @@
 			console.log(files);
             console.log(file_array);
 			console.log(lists_array);
+			console.log(parent_post_id);
 			var data = {
 				content_text: $('#textarea').val(),
+				parent_post_id:parent_post_id,
 				lists:lists_array,
 				filetati:files
 			};
@@ -655,23 +698,7 @@
                 processData: false,         // レスポンスをJSONとしてパースする
                 async : false,   // ← asyncをfalseに設定する
 				success: function(json_data) { // 200 OK時
-                    $('.show-count').text("0");
-                    $('#textarea').val("");
-                    $('.post-modal').stop(true, true).fadeOut('500');
-			     　　$('#post-modal_content').stop(true, true).animate({
-				        top: "-100px",
-				        left:"50%",
-                        opacity: 0
-			         }, 500, function(){
-				    $('#post-modal_content').hide();
-			             });
-			         $('.post-modal').stop(true, true).fadeOut('500');
-			         $('#post-modal_content_next').stop(true, true).animate({
-                         top: "-100px",
-				        　opacity: 0
-                     }, 500, function(){
-                    　$('#post-modal_content_next').hide();
-                     });
+					post_modal_close();
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
 					console.log("Server Error. Pleasy try again later.");
