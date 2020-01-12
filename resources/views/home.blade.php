@@ -92,7 +92,11 @@
             </div>
             @endforeach
             @foreach ($posts as $post)
-			<div class="users-content" id="{{ 'post_'.$post->posts_id }}">
+				@if($post->attached_count > 0)
+					<div class="users-content" id="{{ 'post_'.$post->posts_id }}" style="background-image:url(/img/post_img/{{$post->posts_id.'_0.png'}});">
+				@else
+					<div class="users-content" id="{{ 'post_'.$post->posts_id }}">
+				@endif
 				<div class="users-information-wrapper">
 				<!--	<img src="/img/1.jpg"></img>
 				-->
@@ -110,7 +114,11 @@
 				</div>
 				<div class="users-content-sentence">
 					<span>{{$post->content_text}}</span>
-				</div>				
+					@if($post->attached_count > 0)
+						<img src="/img/post_img/{{$post->posts_id.'_0.png'}}">
+					@endif
+				</div>		
+				
 				<div class="control">
 					<button type='button'>
 						<svg class="control-icon comment" data-id="{{ $post->id }}" data-content="{{ $post->content_text }}" data-userid="{{ $post->users_id }}" data-username="{{ $post->users_name }}" data-time="{{$post->updated_at}}" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -122,6 +130,8 @@
 								 M324,300v32H96v-32H324z"/>
 						</g>
 						</svg>
+						{{ $post->comment_count }} /
+						{{ $post->attached_count }}
 					</button>
 					<button type='button'>
 						<svg class="control-icon diffusion" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -215,6 +225,7 @@
 									l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z"/>
 							</g>
 						</svg>
+						{{ $post->favorite_count }}
 					</button>
 				</div>
 			</div>
