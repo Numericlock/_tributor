@@ -201,6 +201,43 @@ button {
     fill:white;
 	transition: fill 0.3s;
 }
+.post-modal-parentPost{
+	display: none;
+	flex-direction: row;
+	padding: 10px 15px;
+}
+
+.post-modal-parentPost-icon {
+	padding: 10px;
+	width: 15%;
+}
+
+.post-modal-parentPost-icon img{
+    width:100%;
+    border-radius: 100%;
+}
+
+.post-modal-parentPost-content{
+	width:85%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	text-align: left;
+    padding: 10px;
+    padding-left:5px;
+	line-height: 1.5;
+}
+
+#parentPost_username{
+	font-size:17px;
+	font-weight: bolder;
+}
+
+.post-modal-parentPost-sentence{
+	padding-top:10px;
+	font-size:15px;
+}
+
 
 .post-modal-textarea {
 	display: flex;
@@ -560,6 +597,12 @@ input[type="file"] {
 	width: 50px;
 }
 
+.counter{
+	display: flex;
+	flex-direction: row;
+	justify-content:flex-end;
+	margin-right:10px;
+}
 
 
 

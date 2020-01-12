@@ -92,7 +92,7 @@
             </div>
             @endforeach
             @foreach ($posts as $post)
-			<div class="users-content">
+			<div class="users-content" id="{{ 'post_'.$post->posts_id }}">
 				<div class="users-information-wrapper">
 				<!--	<img src="/img/1.jpg"></img>
 				-->
@@ -113,7 +113,7 @@
 				</div>				
 				<div class="control">
 					<button type='button'>
-						<svg class="control-icon comment" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						<svg class="control-icon comment" data-id="{{ $post->id }}" data-content="{{ $post->content_text }}" data-userid="{{ $post->users_id }}" data-username="{{ $post->users_name }}" data-time="{{$post->updated_at}}" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 							 viewBox="0 0 512 512" xml:space="preserve">
 						<g>
 							<path class="st0" d="M447.139,16H64.859C29.188,16,0,45.729,0,82.063v268.519c0,36.334,29.188,66.063,64.859,66.063h155.192
@@ -370,6 +370,7 @@
 			post_users_ids.push("{{ $userId->users_id }}");
 		@endforeach
 		console.log(post_users_ids);
+		console.log(@json($posts));
 		
 		function users_href(id){
 			var user_id = $(id).data('modalid');

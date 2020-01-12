@@ -23,6 +23,9 @@ class PostController extends Controller
 		$post -> post_user_id = $request->base_user->user_id;
 		$post -> content_text = $request->content_text;
 		$post -> is_deleted = 0;
+		if($request->parent_post_id){
+			$post -> parent_post_id = $request->parent_post_id;
+		}
         $png ="png";
 		$post -> save();
 		$id = $post->id;
