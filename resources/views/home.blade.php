@@ -114,8 +114,28 @@
 				</div>
 				<div class="users-content-sentence">
 					<span>{{$post->content_text}}</span>
-					@if($post->attached_count > 0)
-						<img src="/img/post_img/{{$post->posts_id.'_0.png'}}">
+					
+					@if($post->attached_count > 1)
+						<!--<img src="/img/post_img/{{$post->posts_id.'_0.png'}}" onclick="attached_modal_open(this)" data-num="{{ $post->attached_count }}" >-->
+					<div class="swiper-container">
+						<!-- Additional required wrapper -->
+						<div class="swiper-wrapper">
+							<!-- Slides -->
+							@for ($i = 0; $post->attached_count > $i ; $i++)
+							<div class="swiper-slide" style="margin:0 auto;">
+								<img src="/img/post_img/{{$post->posts_id.'_'.$i.'.png'}}" onclick="attached_modal_open(this)" data-num="{{ $post->attached_count }}" >
+							</div>
+							@endfor
+						</div>
+						<!-- If we need pagination -->
+						<div class="swiper-pagination"></div>
+
+						<!-- If we need navigation buttons -->
+						<div class="swiper-button-prev"></div>
+						<div class="swiper-button-next"></div>
+					</div>
+					@elseif($post->attached_count == 1)
+						<img src="/img/post_img/{{$post->posts_id.'_0.png'}}" onclick="attached_modal_open(this)" data-num="{{ $post->attached_count }}" >
 					@endif
 				</div>		
 				

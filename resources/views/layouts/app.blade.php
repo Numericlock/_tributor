@@ -6,8 +6,10 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>@yield('title')/-tributor</title>
 	<script src="/js/jquery-2.1.3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
     <link rel="icon" href="/favicon.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css">
 	<link rel="stylesheet" href="/css/common.css">
 	<link rel="stylesheet" href="/css/plus.css">
 	<link rel="stylesheet" href="/css/checkbox.css">
@@ -327,9 +329,36 @@
 			<button class="attention-modal-button-destruction">破棄</button>
 		</div>
 	</div>
+	
+	<div class="attached-modal">
+	</div>
+	
+	<div class="attached-modal-content">
+		<img id="attached_modal_content_img" src="">
+		<div onclick="img_slide(this)">
+			<svg version="1.1" viewBox="0 0 36 36" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="32" height="32" fill="currentColor">
+				<path class="clr-i-outline clr-i-outline-path-1" d="M29.52,22.52,18,10.6,6.48,22.52a1.7,1.7,0,0,0,2.45,2.36L18,15.49l9.08,9.39a1.7,1.7,0,0,0,2.45-2.36Z"/>
+			</svg>
+		</div>
+	</div>
 
 
 	<script>
+			function start_alert() {
+    alert("touchstart!!");
+}
+		var mySwiper = new Swiper ('.swiper-container', {
+			effect: "slide",
+			loop: true,
+			pagination: '.swiper-pagination',
+			nextButton: '.swiper-button-next',
+			prevButton: '.swiper-button-prev',
+			parallax:true,
+			onSlideChangeStart: function() {
+			  console.log(this);
+			}
+		});
+
 		// Check for the various File API support.
 		if (window.File && window.FileReader && window.FileList && window.Blob) {
 		  // Great success! All the File APIs are supported.
@@ -511,6 +540,46 @@
 				$('#post-modal_content_next').hide();
 			});
 		}
+		function img_slide(t){
+			var img = $(t).parent().find("img");
+			var src = img.attr('src'); 
+			src = src.slice(0, -4);
+			var max_num = img.data('num');
+			var num = src.substr(-1, 1);
+			if(max_num != 1){
+				num = Number(num)+1;
+				if(num >= max_num){
+					num=0;
+				}
+				src = src.slice(0, -1);
+				src = src + num + ".png";
+				console.log(max_num);
+				img.attr('src',src);	
+			}
+		}
+		var attached_num;
+		function attached_modal_open(t){
+			attached_num = $(t).data("num");
+			$('#attached_modal_content_img').attr('src',$(t).attr('src')); 
+			$('.attached-modal').stop(true, true).fadeIn('500');
+			$('.attached-modal-content').show().stop(true, true).animate({
+				display: "flex",
+				opacity: 1.0
+			}, 200);	
+		}
+		
+		function attached_modal_close(){
+			$('.attached-modal').stop(true, true).fadeOut('500');
+			$('.attached-modal-content').stop(true, true).animate({
+				opacity: 0,
+				display: "none"
+			}, 200, function(){
+				$('.attached-modal-content').hide();
+			});
+		}
+		$('.attached-modal, .attached-modal-close-button').on('click',function(){
+			attached_modal_close();
+		});	
 		
 		$('.post-modal, .post-modal_cancel').on('click',function(){
 			if(is_blank($('#textarea').val()) && !Object.keys(file_array).length &&  !Object.keys(lists_array).length){
