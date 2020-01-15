@@ -53,6 +53,8 @@ Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 	Route::get('/notice', function () {
 		return view('notice');
 	});
+    Route::get('{users_id}/{posts_id}', 'threadController@thread');
 	Route::get('/{user_id}', 'ProfileController@profile');
+    
 });
 
