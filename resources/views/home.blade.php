@@ -95,19 +95,24 @@
 
 				@if($post->attached_count > 0)
 					<div class="users-content" id="{{ 'post_'.$post->posts_id }}" style="background-image:url(/img/post_img/{{$post->posts_id.'_0.png'}});">
-                        <a href="/{{ $post->users_id }}/{{ $post->posts_id }}">ああああ</a>
+                        
 				@else
 					<div class="users-content" id="{{ 'post_'.$post->posts_id }}">
-                        <a href="/{{ $post->users_id }}/{{ $post->posts_id }}">ああああ</a>
+                        
 				@endif
-
+                
+                <div class="users-information-link">
+                    <a href="/{{ $post->users_id }}/{{ $post->posts_id }}">aaaa</a>
 				<div class="users-information-wrapper">
+                    
+                    
 				<!--	<img src="/img/1.jpg"></img>
 				-->
 					<div class="users-icon users-content-modal-open" onclick="users_href(this)" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
 						<img src="/img/{{ $post->users_id }}.png">
 					</div>
 					<div class="users-information">
+                        
 						<div class="users-name users-content-modal-open" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
 							<span>{{ $post->users_name }}</span>
 						</div>
@@ -121,7 +126,8 @@
 					@if($post->attached_count > 0)
 						<img src="/img/post_img/{{$post->posts_id.'_0.png'}}">
 					@endif
-				</div>		
+				</div>	
+                </div>
 				
 				<div class="control">
 					<button type='button'>
