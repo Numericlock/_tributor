@@ -19,7 +19,17 @@ class User_post extends Model
 		),
 		\DB::raw(//フォローされているかどうか
 			"(SELECT COUNT(followed_user_id = '$user_id' OR NULL) FROM `users_follows` WHERE subject_user_id = users.id AND is_canceled = 0) AS users_followed_count "
+		),
+		\DB::raw(//フォローされているかどうか
+			"(SELECT COUNT(*) FROM users_posts WHERE parent_post_id = posts_id AND is_deleted = 0) AS comment_count "
+		),
+		\DB::raw(//フォローされているかどうか
+			"(SELECT COUNT(*) FROM users_favorites WHERE post_id = posts_id AND is_canceled = 0) AS favorite_count "
+		),
+		\DB::raw(//フォローされているかどうか
+			"(SELECT COUNT(*) FROM attached_contents WHERE post_id = posts_id) AS attached_count "
 		)
+							  
 		)
 		->leftjoin('posts_valid_disclosure_lists', 'users_posts.id', '=', 'posts_valid_disclosure_lists.post_id')
 		->leftjoin('users_follows', 'users_follows.followed_user_id', '=', 'users_posts.post_user_id')
