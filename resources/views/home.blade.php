@@ -95,10 +95,8 @@
 
 				@if($post->attached_count > 0)
 					<div class="users-content" id="{{ 'post_'.$post->posts_id }}" style="background-image:url(/img/post_img/{{$post->posts_id.'_0.png'}});">
-                        <a href="/{{ $post->users_id }}/{{ $post->posts_id }}">ああああ</a>
 				@else
 					<div class="users-content" id="{{ 'post_'.$post->posts_id }}">
-                        <a href="/{{ $post->users_id }}/{{ $post->posts_id }}">ああああ</a>
 				@endif
 
 				<div class="users-information-wrapper">
