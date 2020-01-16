@@ -115,7 +115,7 @@
 		@yield('content')
 		<div class="list">
 			@foreach($lists as $list)
-			<a href="#"><img class="common-list-icon" src="/img/list_icon/{{ $list->id }}.png"></a>
+			<a href="/lists/{{ $list->id }}"><img class="common-list-icon" src="/img/list_icon/{{ $list->id }}.png"></a>
 			@endforeach
 			<a href="#">
 				<svg class="edit-list-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">

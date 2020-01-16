@@ -112,7 +112,13 @@ button {
 	top: 0;
 	height: 100vh;
 	background: #212226;
+	overflow-y:auto; 
+    -ms-overflow-style: none;    /* IE, Edge 対応 */
+    scrollbar-width: none;       /* Firefox 対応 */
 }
+.list::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+        display:none;
+ }
 
 .common-list-icon {
 	border-radius: 100%;
