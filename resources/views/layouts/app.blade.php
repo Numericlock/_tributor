@@ -110,6 +110,14 @@
 			<a href="/logout">
 				<span>ログアウト</span>
 			</a>
+<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512"  xml:space="preserve">
+<g>
+	<circle class="st0" cx="55.091" cy="256" r="55.091"/>
+	<circle class="st0" cx="256" cy="256" r="55.091"/>
+	<circle class="st0" cx="456.909" cy="256" r="55.091"/>
+</g>
+</svg>
 
 		</div>
 		@yield('content')
