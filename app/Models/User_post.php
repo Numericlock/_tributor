@@ -42,4 +42,65 @@ class User_post extends Model
 		->orWhere('users_posts.post_user_id',$user_id)
 		->distinct();
 	}
+    
+    	public function scopeThreadPosts($query,$user_id,$post_id){
+		return $query->select('users_posts.*','users_posts.id as posts_id', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled',
+		\DB::raw(//フォロー数
+			"(SELECT COUNT(subject_user_id = users.id  OR NULL) AS subject_count FROM users_follows) AS subject_count "
+		),
+		\DB::raw(//フォロワー数
+			"(SELECT COUNT(*) FROM users_follows WHERE followed_user_id = users.id) AS followed_count "
+		),
+		\DB::raw(//フォローされているかどうか
+			"(SELECT COUNT(followed_user_id = '$user_id' OR NULL) FROM `users_follows` WHERE subject_user_id = users.id AND is_canceled = 0) AS users_followed_count "
+		),
+		\DB::raw(//フォローされているかどうか
+			"(SELECT COUNT(*) FROM users_posts WHERE parent_post_id = posts_id AND is_deleted = 0) AS comment_count "
+		),
+		\DB::raw(//フォローされているかどうか
+			"(SELECT COUNT(*) FROM users_favorites WHERE post_id = posts_id AND is_canceled = 0) AS favorite_count "
+		),
+		\DB::raw(//フォローされているかどうか
+			"(SELECT COUNT(*) FROM attached_contents WHERE post_id = posts_id) AS attached_count "
+		)
+							  
+		)
+        
+		->leftjoin('posts_valid_disclosure_lists', 'users_posts.id', '=', 'posts_valid_disclosure_lists.post_id')
+		->leftjoin('users_follows', 'users_follows.followed_user_id', '=', 'users_posts.post_user_id')
+        ->leftjoin('users', 'users_posts.post_user_id', '=', 'users.id')
+		->leftjoin('disclosure_lists_users', 'disclosure_lists_users.list_id', '=', 'posts_valid_disclosure_lists.list_id')
+
+        ->orwhere('users_posts.id',$post_id)
+		->distinct();
+	}
+        	public function scopeParentPosts($query,$user_id,$post_parent){
+		return $query->select('users_posts.*','users_posts.id as posts_id', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled',
+		\DB::raw(//フォロー数
+			"(SELECT COUNT(subject_user_id = users.id  OR NULL) AS subject_count FROM users_follows) AS subject_count "
+		),
+		\DB::raw(//フォロワー数
+			"(SELECT COUNT(*) FROM users_follows WHERE followed_user_id = users.id) AS followed_count "
+		),
+		\DB::raw(//フォローされているかどうか
+			"(SELECT COUNT(followed_user_id = '$user_id' OR NULL) FROM `users_follows` WHERE subject_user_id = users.id AND is_canceled = 0) AS users_followed_count "
+		),
+		\DB::raw(//フォローされているかどうか
+			"(SELECT COUNT(*) FROM users_posts WHERE parent_post_id = posts_id AND is_deleted = 0) AS comment_count "
+		),
+		\DB::raw(//フォローされているかどうか
+			"(SELECT COUNT(*) FROM users_favorites WHERE post_id = posts_id AND is_canceled = 0) AS favorite_count "
+		),
+		\DB::raw(//フォローされているかどうか
+			"(SELECT COUNT(*) FROM attached_contents WHERE post_id = posts_id) AS attached_count "
+		)
+							  
+		)
+        ->leftjoin('posts_valid_disclosure_lists', 'users_posts.id', '=', 'posts_valid_disclosure_lists.post_id')
+		->leftjoin('users_follows', 'users_follows.followed_user_id', '=', 'users_posts.post_user_id')
+        ->leftjoin('users', 'users_posts.post_user_id', '=', 'users.id')
+		->leftjoin('disclosure_lists_users', 'disclosure_lists_users.list_id', '=', 'posts_valid_disclosure_lists.list_id')
+        ->orwhere('users_posts.parent_post_id',$post_parent)
+		->distinct();
+	}
 }

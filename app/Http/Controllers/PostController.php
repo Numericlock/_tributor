@@ -68,6 +68,14 @@ class PostController extends Controller
 		$posts = User_post::ofPosts($user->user_id)->offset($request->num)->limit(25)->get();
 		return $posts;
 	}
+    
+    public function get_parent (Request $request){
+		$user = $request->base_user;
+		$posts = User_post::parentPosts($user->user_id, $request->pearent)->offset($request->num)->limit(25)
+        ->get();
+        Log::debug($posts."あひる3");
+		return $posts;
+	}
 	
 	public function users_favorite (Request $request){
 		Log::debug($request->post_id);

@@ -101,8 +101,9 @@
                         
 				@endif
                 
-                <div class="users-information-link">
-                    <a href="/{{ $post->users_id }}/{{ $post->posts_id }}">aaaa</a>
+        
+                    
+                    
 				<div class="users-information-wrapper">
                     
                     
@@ -111,6 +112,7 @@
 					<div class="users-icon users-content-modal-open" onclick="users_href(this)" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
 						<img src="/img/{{ $post->users_id }}.png">
 					</div>
+                    
 					<div class="users-information">
                         
 						<div class="users-name users-content-modal-open" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
@@ -121,9 +123,14 @@
 						</div>
 					</div>
 				</div>
+               
+                   
 				<div class="users-content-sentence">
+                 <div class="users-information-link">
 					<span>{{$post->content_text}}</span>
+                    <a href="/{{ $post->users_id }}/{{ $post->posts_id }}">aaaa</a>
 					
+                </div>
 					@if($post->attached_count > 1)
 						<!--<img src="/img/post_img/{{$post->posts_id.'_0.png'}}" onclick="attached_modal_open(this)" data-num="{{ $post->attached_count }}" >-->
 					<div class="swiper-container">
@@ -147,7 +154,7 @@
 						<img src="/img/post_img/{{$post->posts_id.'_0.png'}}" onclick="attached_modal_open(this)" data-num="{{ $post->attached_count }}" >
 					@endif
 				</div>	
-                </div>
+                
 				
 				<div class="control">
 					<button type='button'>
