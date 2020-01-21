@@ -76,15 +76,6 @@ class PostController extends Controller
         Log::debug($posts."あひる3");
 		return $posts;
 	}
-	
-	public function users_favorite (Request $request){
-		Log::debug($request->post_id);
-		User_favorite::create([
-			'user_id'=>$request->base_user->user_id,
-			'post_id'=>$request->post_id,
-			'is_canceled'=>0
-		]);
-	}
     
     	private static function unique_filename($org_path, $num=0){
 

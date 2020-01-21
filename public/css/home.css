@@ -98,9 +98,15 @@
 	fill:#E8822A;
 	transition:fill 0.3s;
 }
+.diffusion-retribute{
+	fill:#E8822A;
+}
 .heart:hover{
 	fill:#C73C2E;
 	transition:fill 0.3s;
+}
+.heart-favorite{
+	fill:#C73C2E;
 }
 .users-icon{
 	z-index: 1;
