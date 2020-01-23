@@ -167,7 +167,7 @@
         </div>
 		<div class="post-modal-parentPost">
 			<div class="post-modal-parentPost-icon">
-				<img src="/img/2.jpg">
+				<img src="/img/icon_img/{{ $user->user_id }}.png">
 			</div>
 			<div class="post-modal-parentPost-content">
 				<div class="post-modal-parentPost-user">
@@ -182,7 +182,7 @@
 		</div>
         <div class="post-modal-textarea">
             <div class="post-modal-textarea-userImage">
-                <img src="/img/2.jpg">
+                <img src="/img/icon_img/{{ $user->user_id }}.png">
             </div>
 			<div class="post-modal-textarea-input">
 				<textarea id="textarea" name="post_message" title="今何してる？" aria-label="今何してる？" placeholder="何をトリビュートする？" maxlength="256" wrap="soft"></textarea>
@@ -264,7 +264,7 @@
 		<div class="post-modal-list-area">
 			@foreach($lists as $list)
 				<div class="post-modal-list">
-					<a href="#"><img class="post-modal-list-icon" src="/img/2.jpg"></a>
+					<a href="#"><img class="post-modal-list-icon" src="/img/list_icon/{{ $list->id }}.png"></a>
 					<span>{{ $list->name }}</span>
 					<div class="checkbox">
 						<div>

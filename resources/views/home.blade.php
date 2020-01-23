@@ -51,7 +51,7 @@
                 <div class="users-modal">
                     <div class="users-modal-top-wrapper" >
                         <div class="users-modal-icon">
-                            <img src="/img/2.jpg">
+                            <img src="/img/icon_img/{{$userId->users_id}}.png">
                         </div>
                         <div class="users-modal-button">
                         	<div class="users-modal-button-follow" id="followbutton_{{ $userId->users_id }}">

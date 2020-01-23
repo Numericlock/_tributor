@@ -52,7 +52,8 @@
 	display: flex;
 	-webkit-flex-direction: column;
 	flex-direction: column;
-    max-width:520px;
+    max-width:530px;
+	width:530px;
     
 }
 
@@ -117,8 +118,8 @@
 }
 .users-icon{
 	z-index: 1;
-	width:80px;
-	min-width:80px;
+	width:70px;
+	min-width:70px;
 }
 .users-icon img{
 	width:100%;
