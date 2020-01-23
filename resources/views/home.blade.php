@@ -103,7 +103,7 @@
 				<div class="content-information">
 					<span>								
 						@if($post->users2_id == $user->user_id)
-						@elseif($post->share_at)
+						@elseif($post->share_at == $post->post_at)
 							{{$post->users2_name."さんがリトリビュート"}}
 						@endif
 					</span>
@@ -209,6 +209,7 @@
 											C384.97,28.713,374.203,17.934,360.909,17.934z"/>
 									</g>
 								</svg>
+								
 								@else
 								<svg class="control-icon diffusion-retribute"  onclick="retribute_remove(this)"  data-id="{{ $post->id }}"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 									 viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">
@@ -223,7 +224,7 @@
 									</g>
 								</svg>
 								@endif
-
+								{{ $post->retribute_count }}
 							</button>
 							<button type='button'>
 								@if($post->is_favorite == 0)

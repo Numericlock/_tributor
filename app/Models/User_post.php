@@ -12,7 +12,7 @@ class User_post extends Model
 	public function scopeOfPosts($query,$user_id){
 		return $query->select('users_posts.*','users_posts.id as posts_id', 'users2.id as users2_id', 'users2.name as users2_name', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled','users_share_posts.updated_at as share_at',
 		\DB::raw(//フォロー数
-			"CASE WHEN users_follows2.subject_user_id != '$user_id' OR users_follows2.is_canceled = 1 OR users_share_posts.updated_at IS NULL THEN users_posts.created_at ELSE users_share_posts.updated_at END AS post_at"
+			"CASE WHEN users_follows2.subject_user_id != '$user_id' OR users_follows2.is_canceled = 1 OR users_share_posts.updated_at IS NULL OR users_share_posts.is_deleted = 1 THEN users_posts.created_at ELSE users_share_posts.updated_at END AS post_at"
 			//"COALESCE(users_share_posts.updated_at, users_posts.created_at) as post_at"
 		),
 		\DB::raw(//フォロー数
@@ -35,6 +35,9 @@ class User_post extends Model
 		),
 		\DB::raw(//いいねしているかどうか
 			"(SELECT COUNT(*) FROM users_share_posts WHERE origin_post_id = posts_id AND is_deleted = 0 AND repost_user_id = '$user_id') AS is_retribute "
+		),
+		\DB::raw(//いいねしているかどうか
+			"(SELECT COUNT(*) FROM users_share_posts WHERE origin_post_id = posts_id AND is_deleted = 0) AS retribute_count "
 		),
 		\DB::raw(//添付ファイルの数
 			"(SELECT COUNT(*) FROM attached_contents WHERE post_id = posts_id) AS attached_count "

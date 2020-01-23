@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'リスト')
+@section('title', 'プロフィール')
 @section('cssJs')
 	<link rel="stylesheet" href="/css/home.css">
 	<link rel="stylesheet" href="/css/profile.css">
