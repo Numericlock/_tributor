@@ -110,7 +110,7 @@
 				<!--	<img src="/img/1.jpg"></img>
 				-->
 					<div class="users-icon users-content-modal-open" onclick="users_href(this)" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
-						<img src="/img/{{ $post->users_id }}.png">
+						<img src="img/icon_img/{{ $post->users_id }}.png">
 					</div>
                     
 					<div class="users-information">
