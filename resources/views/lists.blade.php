@@ -241,6 +241,7 @@
                     
                     document.getElementById("preview2").src = base64;
                     modal_reset();
+                    document.getElementById("preview").src="../img/addimg.png";
                     $('.list-modal-addUsers-searchArea-result').empty();
                      $('.list-modal-addUsers-IntendAdd').empty();
                     
@@ -649,6 +650,7 @@
       base64 = out.toDataURL("public/img/png").replace("public/img/png", "public/img/octet-stream");
         console.log(base64);
     document.getElementById("preview").src = base64;
+        
     $('#dotRadius2').val('');
  
    
