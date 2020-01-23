@@ -22,6 +22,7 @@ class PostController extends Controller
 		$post = new User_post;
 		$post -> post_user_id = $request->base_user->user_id;
 		$post -> content_text = $request->content_text;
+		$post -> is_share_available = 0;
 		$post -> is_deleted = 0;
 		if($request->parent_post_id){
 			$post -> parent_post_id = $request->parent_post_id;
@@ -65,7 +66,7 @@ class PostController extends Controller
 	
 	public function get_posts (Request $request){
 		$user = $request->base_user;
-		$posts = User_post::ofPosts($user->user_id)->offset($request->num)->limit(25)->get();
+		$posts = User_post::ofPosts($user->user_id)->orderBy('post_at', 'desc')->offset($request->num)->limit(25)->get();
 		return $posts;
 	}
     
@@ -73,6 +74,7 @@ class PostController extends Controller
 		$user = $request->base_user;
 		$posts = User_post::parentPosts($user->user_id, $request->pearent)->offset($request->num)->limit(25)
         ->get();
+		$posts = $posts->unique('posts_id');
         Log::debug($posts."あひる3");
 		return $posts;
 	}

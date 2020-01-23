@@ -20,7 +20,7 @@
 <body>
 	<div class="wrapper">
 		<div class="nav">
-			<a href="/{{ $user->user_id }}"><img class="nav-icon common-user-icon" src="/img/2.jpg"></a>
+			<a href="/{{ $user->user_id }}"><img class="nav-icon common-user-icon" src="/img/icon_img/{{ $user->user_id }}.png"></a>
 			<a href="/home">
 				<svg class="nav-icon home-nav-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
@@ -511,12 +511,12 @@
 		$('#dotRadius').on('click',function(){
 			post_modal_open();
 		});
-		$('.comment').on('click',function(){
-			var id = $(this).data("id");
-			var content = $(this).data("content");
-			var user_id = $(this).data("userid");
-			var user_name = $(this).data("username");
-			var time = $(this).data("time");
+		function comment(t){
+			var id = $(t).data("id");
+			var content = $(t).data("content");
+			var user_id = $(t).data("userid");
+			var user_name = $(t).data("username");
+			var time = $(t).data("time");
 			//var post = $('#post_'+id).clone();
 			//post.css("background","white");
 			$('#parentPost_username').text(user_name);
@@ -527,7 +527,7 @@
 			$('.post-modal-parentPost').css("display","flex");
 			parent_post_id = id;
 			post_modal_open();
-		});
+		}
 		
 		function post_modal_open(){
 			$('.post-modal').stop(true, true).fadeIn('500');

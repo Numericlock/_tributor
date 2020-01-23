@@ -31,14 +31,14 @@
 					<span>フォロー中 - {{ $current_user->subject_count }}</span>
 					<span>フォロワー - {{ $current_user->followed_count }}</span>
 				</div>
-				<div class="users-modal-button-follow" id="followbutton_{{ $current_user->users_id }}">
+				<div class="users-modal-button-follow" id="followbutton_{{ $current_user->user_id }}">
 					@if($user->user_id === $current_user->user_id )
 					@elseif($current_user->is_canceled === 1)
-						<button class="follow-button" onclick="follow(this)" data-followid="{{ $current_user->users_id }}">フォロー</button>
+						<button class="follow-button" onclick="follow(this)" data-followid="{{ $current_user->user_id }}">フォロー</button>
 					@elseif ($current_user->subject_user_id === $user->user_id )
-						<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="{{ $current_user->users_id }}">フォロー中</button>
+						<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="{{ $current_user->user_id }}">フォロー中</button>
 					@else
-						<button class="follow-button" onclick="follow(this)" data-followid="{{ $current_user->users_id }}">フォロー</button>
+						<button class="follow-button" onclick="follow(this)" data-followid="{{ $current_user->user_id }}">フォロー</button>
 					@endif
 				</div>
 			</div>

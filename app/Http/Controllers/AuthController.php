@@ -128,7 +128,7 @@ class AuthController extends Controller{
                //ヘッダに「data:image/png;base64,」が付いているので、それは外す
         $canvas = $request->input('base64');
         $canvas = preg_replace("/data:[^,]+,/i","",$canvas);
- 
+ Log::debug("デストロイ");
 //残りのデータはbase64エンコードされているので、デコードする
         $canvas = base64_decode($canvas);
         $image = imagecreatefromstring($canvas);
