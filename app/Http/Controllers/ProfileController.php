@@ -33,11 +33,12 @@ class ProfileController extends Controller
 			"(SELECT COUNT(subject_user_id = '$base_user_id' OR NULL) FROM `users_follows` WHERE followed_user_id = '$user_id' AND is_canceled = 0) AS users_subject_count "
 		)
 		)
-		->join('users_follows', 'users_follows.followed_user_id', '=', 'users.id')
+		->leftjoin('users_follows', 'users_follows.followed_user_id', '=', 'users.id')
 		->where('users.id',$user_id)
 		->first();
 
-		Log::debug($user."LISTMEMBERあいでwwwwwwwwwwwー");
+		Log::debug($user_id."LISTMEMBERあいでwwwwwwwwwwwー");
+		Log::debug($current_user."LISTMEMBERあいでwwwwwwwwwwwー");
 		return view('profile',compact('current_user', 'user', 'lists'));
 	}
 }

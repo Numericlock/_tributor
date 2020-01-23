@@ -10,7 +10,11 @@ class User_post extends Model
 	protected $fillable = ['post_user_id', 'content_text', 'parent_post_id', 'is_deleted', 'longitude', 'latitude'];
 	
 	public function scopeOfPosts($query,$user_id){
-		return $query->select('users_posts.*','users_posts.id as posts_id', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled',
+		return $query->select('users_posts.*','users_posts.id as posts_id', 'users2.id as users2_id', 'users2.name as users2_name', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled','users_share_posts.updated_at as share_at',
+		\DB::raw(//フォロー数
+			"CASE WHEN users_follows2.subject_user_id != '$user_id' OR users_follows2.is_canceled = 1 OR users_share_posts.updated_at IS NULL THEN users_posts.created_at ELSE users_share_posts.updated_at END AS post_at"
+			//"COALESCE(users_share_posts.updated_at, users_posts.created_at) as post_at"
+		),
 		\DB::raw(//フォロー数
 			"(SELECT COUNT(subject_user_id = users.id  OR NULL) AS subject_count FROM users_follows) AS subject_count "
 		),
@@ -38,14 +42,22 @@ class User_post extends Model
 							  
 		)
 		->leftjoin('posts_valid_disclosure_lists', 'users_posts.id', '=', 'posts_valid_disclosure_lists.post_id')
+		->leftjoin('users_share_posts', 'users_posts.id', '=', 'users_share_posts.origin_post_id')
 		->leftjoin('users_follows', 'users_follows.followed_user_id', '=', 'users_posts.post_user_id')
+		->leftjoin('users_follows as users_follows2', 'users_follows2.followed_user_id', '=', 'users_share_posts.repost_user_id')
         ->leftjoin('users', 'users_posts.post_user_id', '=', 'users.id')
+        ->leftjoin('users as users2', 'users_share_posts.repost_user_id', '=', 'users2.id')
 		->leftjoin('disclosure_lists_users', 'disclosure_lists_users.list_id', '=', 'posts_valid_disclosure_lists.list_id')
 		->where('users_follows.subject_user_id',$user_id)
 		->where('disclosure_lists_users.user_id',$user_id)
 		->orWhere('users_follows.subject_user_id',$user_id)
+		->where('users_follows.is_canceled', 0)
 		->whereNull('disclosure_lists_users.user_id')
+		->orWhere('users_follows2.subject_user_id',$user_id)
+		->where('users_follows2.is_canceled', 0)
+		->where('users_share_posts.is_deleted', 0)
 		->orWhere('users_posts.post_user_id',$user_id)
+		
 		->distinct();
 	}
     
