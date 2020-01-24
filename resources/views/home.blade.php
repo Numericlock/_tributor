@@ -2,6 +2,7 @@
 @section('title', 'ホーム')
 @section('cssJs')
 	<link rel="stylesheet" href="/css/home.css">
+	<link rel="stylesheet" href="/css/home_nav_icon.css">
 	<link rel="stylesheet" href="/css/users_modal.css">
 @endsection
 @section('content')
@@ -190,10 +191,7 @@
 										 M324,300v32H96v-32H324z"/>
 								</g>
 								</svg>
-								{{ $post->comment_count }} /
-								{{ $post->attached_count }}
-								{{ $post->is_favorite }}
-								{{ $post->is_retribute }}
+								<span>{{ $post->comment_count >0 }}</span>
 							</button>
 							<button type='button'>
 								@if($post->is_retribute == 0)
@@ -224,7 +222,7 @@
 									</g>
 								</svg>
 								@endif
-								{{ $post->retribute_count }}
+								<span>{{ $post->retribute_count > 0 }}</span>
 							</button>
 							<button type='button'>
 								@if($post->is_favorite == 0)
@@ -246,7 +244,7 @@
 									</g>
 								</svg>
 								@endif
-								<span>{{ $post->favorite_count }}</span>
+								<span>{{ $post->favorite_count > 0 }} </span>
 							</button>
 						</div>
 					</div>
@@ -833,7 +831,6 @@
 		}
 		function favorite(t){
 			console.log(favorite_flag);
-			console.log($(t).parent().find('span').text());
 			if(favorite_flag ==true){
 				favorite_flag = false;
 				var id = $(t).data('id');
@@ -852,8 +849,9 @@
 						return classNames.replace('heart', '');
 					});
 					$(t).attr("onclick", "favorite_remove(this)");
-
-					console.log("favo");
+					var num = Number($(t).parent().find('span').text());
+					num = num + 1;
+					$(t).parent().find('span').text(num);
 				}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log("Server Error. Pleasy try again later.");
 					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
@@ -884,6 +882,12 @@
 						return classNames.replace('heart-favorite', '');
 					});
 					$(t).attr("onclick", "favorite(this)");
+					var num = Number($(t).parent().find('span').text());
+					num = num - 1;
+					if(num <= 0){
+						num="";
+					}
+					$(t).parent().find('span').text(num);
 					console.log("favoremove");
 				}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log("Server Error. Pleasy try again later.");
@@ -915,7 +919,9 @@
 						return classNames.replace('diffusion', '');
 					});
 					$(t).attr("onclick", "retribute_remove(this)");
-
+					var num = Number($(t).parent().find('span').text());
+					num = num + 1;
+					$(t).parent().find('span').text(num);
 					console.log("retribute");
 				}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log("Server Error. Pleasy try again later.");
@@ -947,6 +953,12 @@
 						return classNames.replace('diffusion-retribute', '');
 					});
 					$(t).attr("onclick", "retribute(this)");
+					var num = Number($(t).parent().find('span').text());
+					num = num - 1;
+					if(num <= 0){
+						num="";
+					}
+					$(t).parent().find('span').text(num);
 					console.log("retributeremove");
 				}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log("Server Error. Pleasy try again later.");

@@ -12,7 +12,7 @@ class User_post extends Model
 	public function scopeOfPosts($query,$user_id){
 		return $query->select('users_posts.*','users_posts.id as posts_id', 'users2.id as users2_id', 'users2.name as users2_name', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled','users_share_posts.updated_at as share_at',
 		\DB::raw(//フォロー数
-			"CASE WHEN users_follows2.subject_user_id != '$user_id' OR users_follows2.is_canceled = 1 OR users_share_posts.updated_at IS NULL OR users_share_posts.is_deleted = 1 THEN users_posts.created_at ELSE users_share_posts.updated_at END AS post_at"
+			"CASE WHEN users_follows2.subject_user_id != '$user_id' OR users_follows2.is_canceled = 1 OR users_share_posts.updated_at IS NULL OR users_share_posts.is_deleted = 1 OR users_share_posts.repost_user_id = '$user_id' OR users_posts.post_user_id = '$user_id' THEN users_posts.created_at ELSE users_share_posts.updated_at END AS post_at"
 			//"COALESCE(users_share_posts.updated_at, users_posts.created_at) as post_at"
 		),
 		\DB::raw(//フォロー数
@@ -53,18 +53,22 @@ class User_post extends Model
 		->leftjoin('disclosure_lists_users', 'disclosure_lists_users.list_id', '=', 'posts_valid_disclosure_lists.list_id')
 		->where('users_follows.subject_user_id',$user_id)
 		->where('disclosure_lists_users.user_id',$user_id)
+		->whereNull('users_posts.parent_post_id')
 		->orWhere('users_follows.subject_user_id',$user_id)
 		->where('users_follows.is_canceled', 0)
 		->whereNull('disclosure_lists_users.user_id')
+		->whereNull('users_posts.parent_post_id')
 		->orWhere('users_follows2.subject_user_id',$user_id)
 		->where('users_follows2.is_canceled', 0)
 		->where('users_share_posts.is_deleted', 0)
+		->whereNull('users_posts.parent_post_id')
 		->orWhere('users_posts.post_user_id',$user_id)
+		->whereNull('users_posts.parent_post_id')
 		
 		->distinct();
 	}
     
-    	public function scopeThreadPosts($query,$user_id,$post_id){
+   	public function scopeThreadPosts($query,$user_id,$post_id){
 		return $query->select('users_posts.*','users_posts.id as posts_id', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled',
 		\DB::raw(//フォロー数
 			"(SELECT COUNT(subject_user_id = users.id  OR NULL) AS subject_count FROM users_follows) AS subject_count "
@@ -95,7 +99,7 @@ class User_post extends Model
         ->orwhere('users_posts.id',$post_id)
 		->distinct();
 	}
-        	public function scopeParentPosts($query,$user_id,$post_parent){
+    public function scopeParentPosts($query,$user_id,$post_parent){
 		return $query->select('users_posts.*','users_posts.id as posts_id', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled',
 		\DB::raw(//フォロー数
 			"(SELECT COUNT(subject_user_id = users.id  OR NULL) AS subject_count FROM users_follows) AS subject_count "

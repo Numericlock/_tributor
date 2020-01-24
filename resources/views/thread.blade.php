@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'ホーム')
+@section('title', 'スレッド')
 @section('cssJs')
 	<link rel="stylesheet" href="/css/home.css">
 	<link rel="stylesheet" href="/css/users_modal.css">
@@ -7,7 +7,7 @@
 @section('content')
 		<div class="content">
 			<div class="content-title">
-				　<span>ホーム</span>
+				　<span>スレッド</span>
 			</div>
 			<div class="modal">
 			</div>
@@ -109,7 +109,7 @@
 				<!--	<img src="/img/1.jpg"></img>
 				-->
 					<div class="users-icon users-content-modal-open" onclick="users_href(this)" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
-						<img src="/img/{{ $post->users_id }}.png">
+						<img src="/img/icon_img/{{ $post->users_id }}.png">
 					</div>
 					<div class="users-information">
                         
@@ -239,10 +239,8 @@
 					</button>
 				</div>
 			</div>
-            @endforeach
-                        
-                 @foreach ($posts2 as $post)
-
+            @endforeach            
+            @foreach ($posts2 as $post)
 				@if($post->attached_count > 0)
 					<div class="users-content" id="{{ 'post_'.$post->posts_id }}" style="background-image:url(/img/post_img/{{$post->posts_id.'_0.png'}});">
                         
@@ -259,7 +257,7 @@
 				<!--	<img src="/img/1.jpg"></img>
 				-->
 					<div class="users-icon users-content-modal-open" onclick="users_href(this)" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
-						<img src="/img/{{ $post->users_id }}.png">
+						<img src="/img/icon_img/{{ $post->users_id }}.png">
 					</div>
 					<div class="users-information">
                         

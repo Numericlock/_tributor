@@ -110,14 +110,14 @@
 			<a href="/logout">
 				<span>ログアウト</span>
 			</a>
-<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 512 512"  xml:space="preserve">
-<g>
-	<circle class="st0" cx="55.091" cy="256" r="55.091"/>
-	<circle class="st0" cx="256" cy="256" r="55.091"/>
-	<circle class="st0" cx="456.909" cy="256" r="55.091"/>
-</g>
-</svg>
+			<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 512 512"  xml:space="preserve">
+			<g>
+				<circle class="st0" cx="55.091" cy="256" r="55.091"/>
+				<circle class="st0" cx="256" cy="256" r="55.091"/>
+				<circle class="st0" cx="456.909" cy="256" r="55.091"/>
+			</g>
+			</svg>
 
 		</div>
 		@yield('content')
@@ -167,7 +167,7 @@
         </div>
 		<div class="post-modal-parentPost">
 			<div class="post-modal-parentPost-icon">
-				<img src="/img/icon_img/{{ $user->user_id }}.png">
+				<img id="parentPost_usericon" src="/img/icon_img/{{ $user->user_id }}.png">
 			</div>
 			<div class="post-modal-parentPost-content">
 				<div class="post-modal-parentPost-user">
@@ -519,6 +519,7 @@
 			var time = $(t).data("time");
 			//var post = $('#post_'+id).clone();
 			//post.css("background","white");
+			$('#parentPost_usericon').attr('src', 'img/icon_img/'+user_id+'.png');
 			$('#parentPost_username').text(user_name);
 			$('#parentPost_userid').text(user_id);
 			$('#parentPost_time').text(time);
