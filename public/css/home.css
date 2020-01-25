@@ -68,6 +68,11 @@
 	font-size:15px;
 	padding:0 10px;
 }
+.swiper-container{
+    max-width:490px;
+	width:490px;
+		width:100%;
+}
 .users-content-sentence img{
 	width:100%;
 }
@@ -132,9 +137,13 @@
 	-webkit-flex-direction: column;
 	flex-direction: column;
 }
-.users-name{
+.users-information-name{
 	font-size:17px;
 	font-weight: bolder;
+}
+.users-information-id{
+	font-size:14px;
+	color:gray;
 }
 .information-icon{
 	width:12px;

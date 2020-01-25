@@ -117,9 +117,10 @@
 					</div>
 					<div class="users-information-wrapper">
 						<div class="users-information">
-							<div class="users-name users-content-modal-open" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
+							<div class="users-content-modal-open" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
 
-								<span>{{ $post->users_name }}</span>
+								<span class="users-information-name" >{{ $post->users_name }}</span>
+								<span class="users-information-id" >{{ "@".$post->users_id }}</span>
 							</div>
 							<div class="information">
 								<span>
@@ -150,11 +151,10 @@
 							</div>
 						</div>
 						<div class="users-content-sentence">
-						 <div class="users-information-link">
-							<span>{{$post->content_text}}</span>
-							<a href="/{{ $post->users_id }}/{{ $post->posts_id }}">aaaa</a>
-
-						</div>
+							<div class="users-information-link">
+								<span>{{$post->content_text}}</span>
+								<a href="/{{ $post->users_id }}/{{ $post->posts_id }}">aaaa</a>
+							</div>
 							@if($post->attached_count > 1)
 								<!--<img src="/img/post_img/{{$post->posts_id.'_0.png'}}" onclick="attached_modal_open(this)" data-num="{{ $post->attached_count }}" >-->
 							<div class="swiper-container">
