@@ -47,7 +47,19 @@
 	width:530px;
     
 }
-
+.content-information{
+	padding-left:20px;
+	margin-bottom:5px;
+}
+.content-information span{
+	height:16px;
+	line-height: 14px;
+}
+.retribute-icon{
+	height:16px;
+	fill:lightgray;
+	padding-top:4px;
+}
 .users-information-link{
     position: relative;
     z-index: 1; /* 必要であればリンク要素の重なりのベース順序指定 */  
@@ -73,6 +85,12 @@
 	width:490px;
 		width:100%;
 }
+.swiper-wrapper{
+	display:flex;
+	flex-wrap:nowrap;
+	align-items: center;
+}
+
 .users-content-sentence img{
 	width:100%;
 }
@@ -93,6 +111,7 @@
 	width:33%;
 	padding-left: 20px;
 }
+
 .control-icon{
 	position:relative;
 	height:18px;
@@ -147,6 +166,7 @@
 }
 .information-icon{
 	width:12px;
+	fill:white;
 }
 
 .follow-button{

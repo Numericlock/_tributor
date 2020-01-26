@@ -9,7 +9,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
     <link rel="icon" href="/favicon.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.6/css/swiper.min.css">
 	<link rel="stylesheet" href="/css/common.css">
 	<link rel="stylesheet" href="/css/plus.css">
 	<link rel="stylesheet" href="/css/checkbox.css">
@@ -352,18 +352,49 @@
 	<script>
 			function start_alert() {
     alert("touchstart!!");
-}
+}	
+
 		var mySwiper = new Swiper ('.swiper-container', {
 			effect: "slide",
 			loop: true,
 			pagination: '.swiper-pagination',
 			nextButton: '.swiper-button-next',
 			prevButton: '.swiper-button-prev',
-			parallax:true,
-			onSlideChangeStart: function() {
-			  console.log(this);
-			}
+			onSlideChangeEnd:function (idx) {
+				slide_flag = true;
+			},
 		});
+		var slide_flag = true;
+		function swiper_prev(t){
+			if(slide_flag == true){
+				slide_flag = false;
+				var parent = $(t).parent().parent().parent().parent().parent();
+				var num = Number($(t).parent().data('num'));
+				var maxnum = Number($(t).parent().data('maxnum'));
+				num = num-1;
+				if(num <= -1){
+					num=maxnum-1;
+				}
+				console.log(num);
+				$(t).parent().data('num',num);
+				parent.css('background-image', 'url(/img/post_img/'+$(t).parent().data('id')+'_'+ num +'.png)');
+			}
+		}		
+		function swiper_next(t){
+			if(slide_flag == true){
+				slide_flag = false;
+				var parent = $(t).parent().parent().parent().parent().parent();
+				var num = Number($(t).parent().data('num'));
+				var maxnum = Number($(t).parent().data('maxnum'));
+				num = num+1;
+				if(num >= maxnum){
+					num=0;
+				}
+				console.log(num);
+				$(t).parent().data('num',num);
+				parent.css('background-image', 'url(/img/post_img/'+$(t).parent().data('id')+'_'+ num +'.png)');
+			}
+		}
 
 		// Check for the various File API support.
 		if (window.File && window.FileReader && window.FileList && window.Blob) {

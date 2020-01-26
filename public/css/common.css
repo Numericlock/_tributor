@@ -802,12 +802,6 @@ input.cmn-toggle-round-flat:checked + label:after {
 	width:100px;
 }
 
-.swiper-wrapper{
-}
 
-.swiper-slide{
-	position: relative;
-	top:50%;
-}
 
 © 2019 GitHub,
