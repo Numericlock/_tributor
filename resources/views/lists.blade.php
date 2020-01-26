@@ -228,7 +228,7 @@
 				$('.lists-wrapper').prepend(
 					'<div class="list-content" data-list='+ json_data.id +'>'
 				+		'<div class="list-icon">'
-				+			'<img id="preview2" src="/img/2.jpg">'
+				+			'<img id="preview2" src="/img/list_icon/'+json_data.id+'.png">'
 				+		'</div>'
 				+		'<div class="list-title">'
 				+			'<p class="list-title-p" data-value="'+ json_data.name +'">'+ json_data.name +'</p>'

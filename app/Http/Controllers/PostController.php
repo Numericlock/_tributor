@@ -64,7 +64,9 @@ class PostController extends Controller
 			
         }
         Log::debug("あひる3");
-		return User_post::where('post_user_id', $request->base_user->user_id)->get();
+        $posts2 = User_post::threadPosts($request->base_user->user_id, $id)->limit(25)->get();
+        $posts2 = $posts2->unique('posts_id');
+		return $posts2;
 	}
 	
 	public function get_posts (Request $request){

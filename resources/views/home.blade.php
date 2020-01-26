@@ -47,6 +47,8 @@
 					<button class="modal-positive-button" id="add_modal_submit" type='button'>適応</button>
 				</div>
 			</div>
+           <div class="content2">
+            </div>
             @foreach($userIds as $userId)
             <div id="{{ $userId->users_id }}" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="{{ $userId->users_id }}">
                 <div class="users-modal">
@@ -289,7 +291,7 @@
 				</div>
 				<div class="users-content-sentence">
 					<span>二年坂行ってきました</span>
-					<img src="/img/3.jpg">
+					<img id ="hoge"src="/img/3.jpg">
 				</div>				
 				<div class="control">
 					<button type='button'>
@@ -751,17 +753,7 @@
 									+'</div>'
 						); 
 					});
-					$('#script-reload').empty();
-					$('#script-reload').append(
-						'<scr'+'ipt>'
-						+'$(".heart").on("click",function(){'
-						+'	console.log(favorite_flag);'
-						+'	favorite_flag = false;'
-						+'});	'
-						+'</scr'+'ipt>'
-					);
-					bottomPos = $(document).height() - $(window).height() - 1;    //画面下位置を取得
-					get_flag = true;
+
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
 					console.log("Server Error. Pleasy try again later.");

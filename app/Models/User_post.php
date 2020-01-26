@@ -95,8 +95,7 @@ class User_post extends Model
 		->leftjoin('users_follows', 'users_follows.followed_user_id', '=', 'users_posts.post_user_id')
         ->leftjoin('users', 'users_posts.post_user_id', '=', 'users.id')
 		->leftjoin('disclosure_lists_users', 'disclosure_lists_users.list_id', '=', 'posts_valid_disclosure_lists.list_id')
-
-        ->orwhere('users_posts.id',$post_id)
+        ->where('users_posts.id',$post_id)
 		->distinct();
 	}
     public function scopeParentPosts($query,$user_id,$post_parent){
