@@ -22,6 +22,9 @@ class PostController extends Controller
 		$post = new User_post;
 		$post -> post_user_id = $request->base_user->user_id;
 		$post -> content_text = $request->content_text;
+		if($request->filetati && !$request->content_text){
+			$post -> content_text = "";
+		}
 		$post -> is_share_available = 0;
 		$post -> is_deleted = 0;
 		if($request->parent_post_id){

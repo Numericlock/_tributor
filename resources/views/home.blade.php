@@ -122,10 +122,8 @@
 					</span>
 				</div> 
 				<div class="users-content-wrapper">
-					<div class="users-icon users-content-modal-open" onclick="users_href(this)" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
-
-						<img src="img/icon_img/{{ $post->users_id }}.png">
-
+					<div class="users-icon users-content-modal-open">
+						<img src="img/icon_img/{{ $post->users_id }}.png" onclick="users_href(this)" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">
 					</div>
 					<div class="users-information-wrapper">
 						<div class="users-information">
