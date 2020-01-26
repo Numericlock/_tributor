@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'リスト')
+@section('title', 'プロフィール')
 @section('cssJs')
 	<link rel="stylesheet" href="/css/home.css">
 	<link rel="stylesheet" href="/css/profile.css">
@@ -51,6 +51,28 @@
 			</div>
 
 			<div class="users-content">
+							<div class="swiper-container">
+								<!-- Additional required wrapper -->
+								<div class="swiper-wrapper">
+									<!-- Slides -->
+									<div class="swiper-slide" style="margin:0 auto;">
+										<img src="/img/post_img/293_0.png" onclick="attached_modal_open(this)" data-num="3" >
+									</div>
+									<div class="swiper-slide" style="margin:0 auto;">
+										<img src="/img/post_img/293_1.png" onclick="attached_modal_open(this)" data-num="3" >
+									</div>
+									<div class="swiper-slide" style="margin:0 auto;">
+										<img src="/img/post_img/293_2.png" onclick="attached_modal_open(this)" data-num="3" >
+									</div>
+							
+								</div>
+								<!-- If we need pagination -->
+								<div class="swiper-pagination"></div>
+
+								<!-- If we need navigation buttons -->
+								<div class="swiper-button-prev"></div>
+								<div class="swiper-button-next"></div>
+							</div>
 				<div class="users-information-wrapper">
 				<!--	<img src="/img/1.jpg"></img>
 				-->
@@ -289,7 +311,23 @@ s
 	
 
 	<script>
-        
+        var swiper;
+		$(window).load(function() {
+			swiper = new Swiper('.swiper-container', {
+					effect: "slide",
+					loop: true,
+					pagination: '.swiper-pagination',
+					nextButton: '.swiper-button-next',
+					prevButton: '.swiper-button-prev',
+
+			});
+			swiper.on('SlideChangeStart', function () {
+				console.log(swiper.realIndex);
+			});
+		});
+		function hoge(){
+			
+		}
 		var follow_flag =true;
 		var follow_remove_flag =true;
 		
