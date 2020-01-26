@@ -649,7 +649,7 @@
                
       base64 = out.toDataURL("public/img/png").replace("public/img/png", "public/img/octet-stream");
         console.log(base64);
-    document.getElementById("preview").src = base64;
+        document.getElementById("preview").src = base64;
         
     $('#dotRadius2').val('');
  
