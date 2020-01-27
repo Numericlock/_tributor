@@ -73,6 +73,8 @@ class PostController extends Controller
 	public function get_posts (Request $request){
 		$user = $request->base_user;
 		$posts = User_post::ofPosts($user->user_id)->orderBy('post_at', 'desc')->offset($request->num)->limit(25)->get();
+		
+		//$posts = $posts->unique('posts_id');
 		return $posts;
 	}
     

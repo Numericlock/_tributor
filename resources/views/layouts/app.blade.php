@@ -6,6 +6,7 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>@yield('title')/-tributor</title>
 	<script src="/js/jquery-2.1.3.js"></script>
+	<script src="/js/moment.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
     <link rel="icon" href="/favicon.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -853,18 +854,39 @@
 							append_text
 						);
 					}
-					append_text = "";
-					if(json_data.attached_count > 0){
-						append_text = '<div class="users-content" id="'+ json_data.posts_id +'" style="background-image:url(/img/post_img/'+ json_data.posts_id +'_0.png);">';
+					append_text = dom_post(json_data.posts_id, json_data.users_id, json_data.users_name, json_data.content_text, json_data.updated_at, json_data.share_at, json_data.post_at, json_data.id, json_data.users2_name, json_data.attached_count, json_data.comment_count, json_data.retribute_count, json_data.favorite_count, json_data.is_favorite, json_data.is_retribute);
+					$('.content').prepend(
+						append_text
+					);
+					bottomPos = $(document).height() - $(window).height() - 1;    //画面下位置を取得
+					get_flag = true;
+					post_modal_close();
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
+					console.log("Server Error. Pleasy try again later.");
+					console.log(data);
+					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+					console.log("textStatus     : " + textStatus);
+					console.log("errorThrown    : " + errorThrown.message);
+				},
+				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
+
+				}
+			});
+		};
+		function dom_post(posts_id, users_id, users_name, content_text, updated_at, share_at, post_at, id, users2_name, attached_count, comment_count, retribute_count, favorite_count, is_favorite, is_retribute){
+					var append_text;
+					if(attached_count > 0){
+						append_text = '<div class="users-content" id="'+ posts_id +'" style="background-image:url(/img/post_img/'+ posts_id +'_0.png);">';
 					}else{
-						append_text = '<div class="users-content" id="'+ json_data.posts_id +'">';
+						append_text = '<div class="users-content" id="'+ posts_id +'">';
 					}
 					append_text = append_text +
 							'<div class="content-information">'
 							+	'<span>';								
-								if(json_data.share_at == json_data.post_at){
+								if(share_at == post_at){
 									append_text = append_text +
-									'<svg class="retribute-icon"  onclick="retribute(this)"  data-id="' + json_data.id + '"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">'
+									'<svg class="retribute-icon"  onclick="retribute(this)"  data-id="' + id + '"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">'
 								+	'<g>'
 								+		'<path id="Loop" d="M360.909,17.934H24.061C10.767,17.934,0,28.713,0,41.995V258.54c0,13.293,10.767,24.061,24.061,24.061h60.152'
 								+			'c7.711,0,12.03-5.45,12.03-12.03c0-6.581-4.09-12.187-12.03-12.187H38.738c-8.036,0-14.557-6.52-14.557-14.557V57.093'
@@ -874,24 +896,24 @@
 								+			'c4.692-4.752,4.692-12.439,0-17.179l-62.774-63.688h151.714c13.293,0,24.061-10.767,24.061-24.061V42.007'
 								+			'C384.97,28.713,374.203,17.934,360.909,17.934z"/>'
 								+	'</g>'
-									+'</svg>'+json_data.users2_name+"さんがリトリビュート";
+									+'</svg>'+users2_name+"さんがリトリビュート";
 								}
 					append_text = append_text +
 								'</span>'
 							+'</div>'
 							+'<div class="users-content-wrapper">'
 							+	'<div class="users-icon users-content-modal-open">'
-							+		'<img src="img/icon_img/'+ json_data.users_id +'.png" onclick="users_href(this)" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="'+ json_data.users_id +'">'
+							+		'<img src="img/icon_img/'+ users_id +'.png" onclick="users_href(this)" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="'+ users_id +'">'
 							+	'</div>'
 							+	'<div class="users-information-wrapper">'
 							+		'<div class="users-information">'
 							+			'<div class="users-content-modal-open">'
-+											'<span class="users-information-name" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="'+ json_data.users_id +'">'+ json_data.users_name +'</span>'
-+											'<span class="users-information-id" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="'+ json_data.users_id +'"> @'+ json_data.users_id +'</span>'
++											'<span class="users-information-name" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="'+ users_id +'">'+ users_name +'</span>'
++											'<span class="users-information-id" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="'+ users_id +'"> @'+ users_id +'</span>'
 +										'</div>'
 +										'<div class="information">'
 +											'<span>';
-											if(json_data.attached_count > 0){
+											if(attached_count > 0){
 												append_text = append_text +
 												'<svg class="information-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">'
 												+	'<g>'
@@ -914,23 +936,38 @@
 												+'</g>'
 												+'</svg>';
 											}
+											var date = new Date() ;
+											var timestamp = Math.floor( (date.getTime() - Date.parse(post_at))/1000) ;
+											if(0 >= timestamp){
+												append_text = append_text + " 今";
+											}else if(60 >= timestamp){
+												append_text = append_text + " " + timestamp + "秒前";
+											}else if(3600 >= timestamp){
+												append_text = append_text + " " + Math.floor(timestamp/60) + "分前";	 
+											}else if(86400 >= timestamp){
+												append_text = append_text + " " + Math.floor(timestamp/3600) + "時間前";	 	 
+											}else{
+												var date = moment(post_at);
+												date = date.format('M月DD日');
+												append_text = append_text + " " + date;;	 
+											}
 											append_text = append_text +
-											' 今</span>'
+											'</span>'
 									+	'</div>'
 									+'</div>'
 									+'<div class="users-content-sentence">'
 									+	'<div class="users-information-link">'
-									+		'<span>'+ json_data.content_text +'</span>'
-									+		'<a href="/'+ json_data.users_id +'/'+ json_data.posts_id +'">aaaa</a>'
+									+		'<span>'+ content_text +'</span>'
+									+		'<a href="/'+ users_id +'/'+ posts_id +'">aaaa</a>'
 									+	'</div>';
-										if(json_data.attached_count > 1){
+										if(attached_count > 1){
 										append_text = append_text +
-										'<div class="swiper-container" data-id="'+ json_data.posts_id +'"  data-num="0"  data-maxnum="'+ json_data.attached_count +'">'
+										'<div class="swiper-container" data-id="'+ posts_id +'"  data-num="0"  data-maxnum="'+ attached_count +'">'
 											+'<div class="swiper-wrapper">';
-											for (var i = 0; json_data.attached_count > i ; i++){
+											for (var i = 0; attached_count > i ; i++){
 												append_text = append_text +
 												'<div class="swiper-slide" style="margin:0 auto;">'
-												+	'<img src="/img/post_img/'+ json_data.posts_id +'_'+ i +'.png" onclick="attached_modal_open(this)" data-num="'+ json_data.attached_count +'" >'
+												+	'<img src="/img/post_img/'+ posts_id +'_'+ i +'.png" onclick="attached_modal_open(this)" data-num="'+ attached_count +'" >'
 												+'</div>';
 											}
 											append_text = append_text +
@@ -939,14 +976,14 @@
 										+	'<div class="swiper-button-prev" onclick="swiper_prev(this);"></div>'
 										+	'<div class="swiper-button-next" onclick="swiper_next(this);"></div>'
 										+'</div>';
-										}else if(json_data.attached_count == 1){
-											append_text = append_text + '<img src="/img/post_img/'+ json_data.posts_id +'_0.png" onclick="attached_modal_open(this)" data-num="'+ json_data.attached_count +'" >';
+										}else if(attached_count == 1){
+											append_text = append_text + '<img src="/img/post_img/'+ posts_id +'_0.png" onclick="attached_modal_open(this)" data-num="'+ attached_count +'" >';
 										}
 									append_text = append_text +
 									'</div>'
 									+'<div class="control">'
 									+	'<button type="button">'
-									+		'<svg class="control-icon comment" onclick="comment(this)" data-id="'+ json_data.id +'" data-content="'+ json_data.content_text +'" data-userid="'+ json_data.users_id +'" data-username="'+ json_data.users_name +'" data-time="'+ json_data.updated_at +'" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">'
+									+		'<svg class="control-icon comment" onclick="comment(this)" data-id="'+ id +'" data-content="'+ content_text +'" data-userid="'+ users_id +'" data-username="'+ users_name +'" data-time="'+ updated_at +'" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">'
 									+		'<g>'
 									+			'<path class="st0" d="M447.139,16H64.859C29.188,16,0,45.729,0,82.063v268.519c0,36.334,29.188,66.063,64.859,66.063h155.192'
 									+				'l74.68,76.064c3.156,3.213,7.902,4.174,12.024,2.436c4.121-1.74,6.808-5.836,6.808-10.381v-68.119h133.576'
@@ -955,16 +992,16 @@
 									+		'</g>'
 									+		'</svg>'
 									+		'<span>';
-											if(json_data.comment_count > 0){
-												append_text = append_text + json_data.comment_count;
+											if(comment_count > 0){
+												append_text = append_text + comment_count;
 											}
 											append_text = append_text +
 											'</span>'
 										+'</button>'
 										+'<button type="button">';
-											if(json_data.is_retribute == 0){
+											if(is_retribute == 0){
 											append_text = append_text +
-											'<svg class="control-icon diffusion"  onclick="retribute(this)"  data-id="'+ json_data.id +'"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">'
+											'<svg class="control-icon diffusion"  onclick="retribute(this)"  data-id="'+ id +'"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">'
 											+	'<g>'
 											+		'<path id="Loop" d="M360.909,17.934H24.061C10.767,17.934,0,28.713,0,41.995V258.54c0,13.293,10.767,24.061,24.061,24.061h60.152'
 											+			'c7.711,0,12.03-5.45,12.03-12.03c0-6.581-4.09-12.187-12.03-12.187H38.738c-8.036,0-14.557-6.52-14.557-14.557V57.093'
@@ -977,7 +1014,7 @@
 											+'</svg>';
 											}else{
 											append_text = append_text +
-											'<svg class="control-icon diffusion-retribute"  onclick="retribute_remove(this)"  data-id="'+ json_data.id +'"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">'
+											'<svg class="control-icon diffusion-retribute"  onclick="retribute_remove(this)"  data-id="'+ id +'"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">'
 											+	'<g>'
 											+		'<path id="Loop" d="M360.909,17.934H24.061C10.767,17.934,0,28.713,0,41.995V258.54c0,13.293,10.767,24.061,24.061,24.061h60.152'
 											+			'c7.711,0,12.03-5.45,12.03-12.03c0-6.581-4.09-12.187-12.03-12.187H38.738c-8.036,0-14.557-6.52-14.557-14.557V57.093'
@@ -990,16 +1027,16 @@
 											+'</svg>'
 											+'<span>';
 											}
-											if(json_data.retribute_count > 0){
-												append_text = append_text + json_data.retribute_count;
+											if(retribute_count > 0){
+												append_text = append_text + retribute_count;
 											}
 											append_text = append_text +
 											'</span>'
 										+'</button>'
 										+'<button type="button">';
-											if(json_data.is_favorite == 0){
+											if(is_favorite == 0){
 											append_text = append_text +
-											'<svg class="control-icon heart" onclick="favorite(this)" data-id="'+ json_data.id +'" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">'
+											'<svg class="control-icon heart" onclick="favorite(this)" data-id="'+ id +'" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">'
 											+	'<g>'
 											+		'<path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391'
 											+			'c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547'
@@ -1008,7 +1045,7 @@
 											+'</svg>';
 											}else{
 											append_text = append_text +
-											'<svg class="control-icon heart-favorite" onclick="favorite_remove(this)" data-id="'+ json_data.id +'" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">'
+											'<svg class="control-icon heart-favorite" onclick="favorite_remove(this)" data-id="'+ id +'" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">'
 											+	'<g>'
 											+		'<path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391'
 											+			'c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547'
@@ -1017,8 +1054,8 @@
 											+'</svg>'
 											+'<span>';
 											}
-											if(json_data.favorite_count > 0){
-												append_text = append_text + json_data.favorite_count;
+											if(favorite_count > 0){
+												append_text = append_text + favorite_count;
 											}
 											append_text = append_text +
 											'</span>'
@@ -1039,25 +1076,8 @@
 					+			'},'
 					+		'});'
 					+'</scr'+'ipt>';
-					$('.content').prepend(
-						append_text
-					);
-					bottomPos = $(document).height() - $(window).height() - 1;    //画面下位置を取得
-					get_flag = true;
-					post_modal_close();
-				},
-				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
-					console.log("Server Error. Pleasy try again later.");
-					console.log(data);
-					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
-					console.log("textStatus     : " + textStatus);
-					console.log("errorThrown    : " + errorThrown.message);
-				},
-				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
-
-				}
-			});
-		};
+			return append_text;
+		}
         $("#search_text").on("input", function() {
             searchStr = $(this).val();
             clearTimeout(searchTimer);

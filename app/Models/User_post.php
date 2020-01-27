@@ -54,17 +54,19 @@ class User_post extends Model
 		->where('users_follows.subject_user_id',$user_id)
 		->where('disclosure_lists_users.user_id',$user_id)
 		->whereNull('users_posts.parent_post_id')
+		->where('users_posts.post_user_id', '!=', $user_id)
 		->orWhere('users_follows.subject_user_id',$user_id)
 		->where('users_follows.is_canceled', 0)
 		->whereNull('disclosure_lists_users.user_id')
 		->whereNull('users_posts.parent_post_id')
+		->where('users_posts.post_user_id', '!=', $user_id)
 		->orWhere('users_follows2.subject_user_id',$user_id)
 		->where('users_follows2.is_canceled', 0)
 		->where('users_share_posts.is_deleted', 0)
 		->whereNull('users_posts.parent_post_id')
+		->where('users_posts.post_user_id', '!=', $user_id)
 		->orWhere('users_posts.post_user_id',$user_id)
 		->whereNull('users_posts.parent_post_id')
-		
 		->distinct();
 	}
 	
