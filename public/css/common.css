@@ -66,7 +66,9 @@ button {
 .nav::-webkit-scrollbar {  /* Chrome, Safari 対応 */
         display:none;
  }
-
+.content-wrapper{
+	
+}
 .content{
 	max-width:600px;
 	width:600px;

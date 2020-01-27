@@ -33,6 +33,7 @@ class PostController extends Controller
         $png ="png";
 		$post -> save();
 		$id = $post->id;
+		$user = $request->base_user;
         foreach($request->lists as $list){
             Log::debug($list);
             Log::debug($id);
@@ -64,8 +65,8 @@ class PostController extends Controller
 			
         }
         Log::debug("あひる3");
-        $posts2 = User_post::threadPosts($request->base_user->user_id, $id)->limit(25)->get();
-        $posts2 = $posts2->unique('posts_id');
+        $posts2 = User_post::ofUserPosts($user->user_id, $id)->first();
+		Log::debug($posts2->post_user_id."あひる3");
 		return $posts2;
 	}
 	
