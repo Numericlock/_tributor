@@ -77,6 +77,15 @@ class PostController extends Controller
 		//$posts = $posts->unique('posts_id');
 		return $posts;
 	}
+	public function get_latest_posts (Request $request){
+		$user = $request->base_user;
+		//DB::enableQueryLog();
+		$posts = User_post::ofLatestPosts($user->user_id,$request->num)->orderBy('post_at', 'asc')->offset(0)->limit(25)->get();
+		//Log::debug(DB::getQueryLog());
+		
+		//$posts = $posts->unique('posts_id');
+		return $posts;
+	}
     
     public function get_parent (Request $request){
 		$user = $request->base_user;

@@ -403,6 +403,8 @@
 		</div>
 	<script>
 		var posts_num =25;
+		var start_post_at = @json($start_post->post_at);
+		console.log(start_post_at);
 		var users_modal_timer;
 		var users_modal_timer_close;
 		var users_modal_timer_close_comp;
@@ -556,12 +558,95 @@
 				$('#lists-add-modal-content').hide();
 			});
 		}
-		
+		function get_latest_posts(){
+			var data = {
+				num: start_post_at
+			};
+			$.ajax({
+				type:"post",                // method = "POST"
+				url:"/get_latest_posts",        // POST送信先のURL
+				data:JSON.stringify(data),  // JSONデータ本体
+				contentType: 'application/json', // リクエストの Content-Type
+                processData: false,         // レスポンスをJSONとしてパースする
+                async : false,   // ← asyncをfalseに設定する
+				success: function(json_data) { // 200 OK時
+					console.log(json_data);
+					posts_num = posts_num+25;
+					json_data.forEach(function( value ) {
+						start_post_at = value.post_at;
+						if(post_users_ids.indexOf(value.users_id)==-1){
+							post_users_ids.push(value.users_id);
+							console.log(post_users_ids);
+							var append_text = 	
+								'<div id="'+ value.users_id +'" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="'+ value.users_id +'">'
+								+	'<div class="users-modal">'
+								+		'<div class="users-modal-top-wrapper">'
+								+			'<div class="users-modal-icon">'
+								+				'<img src="/img/2.jpg">'
+								+			'</div>'
+								+			'<div class="users-modal-button">'
+								+				'<div class="users-modal-button-follow" id="followbutton_'+ value.users_id +'">';
+							if(value.users_id === user_id){
+							}else if(value.is_canceled === 1){
+								append_text = append_text + '<button class="follow-button" onclick="follow(this)" data-followid="'+ value.users_id +'">フォロー</button>';
+							}else if(value.subject_user_id === user_id){
+								append_text = append_text +	'<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="'+ value.users_id +'">フォロー中</button>' 
+							}else{
+								append_text = append_text +	'<button class="follow-button" onclick="follow(this)" data-followid="'+ value.users_id +'">フォロー</button>'
+							}
+							append_text = append_text +
+												'</div>'				
+								+				'<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="'+ value.users_id +'" data-followname="'+ value.users_name +'">リストに追加</button>'
+								+			'</div>'
+								+		'</div>'
+								+		'<div class="users-modal-middle-wrapper">'
+								+			'<span class="users-modal-name">'+ value.users_name +'</span>'
+								+			'<div>'
+								+			'<span class="users-modal-id">@'+ value.users_id +'</span>'
+								+			'</div>'
+								+		'</div>'
+								+		'<div class="users-modal-bottom-wrapper">'
+								+			'<div class="users-modal-introduction">'
+								+			'</div>'
+								+		'</div>'
+								+		'<div class="users-modal-end-wrapper">'
+								+			'<div class="users-modal-follow">'
+								+				'<span>フォロー数/'+ value.subject_count +'</span>'
+								+			'</div>'
+								+			'<div class="users-modal-follower">'
+								+				'<span>フォロワー数/'+ value.followed_count +'</span>'
+								+			'</div>'
+								+		'</div>'
+								+	'</div>'
+								+'</div>';
+							$('.content').append(
+								append_text
+							);
+						}
+						append_text = dom_post(value.posts_id, value.users_id, value.users_name, value.content_text, value.updated_at, value.share_at, value.post_at, value.id, value.users2_name, value.attached_count, value.comment_count, value.retribute_count, value.favorite_count, value.is_favorite, value.is_retribute);
+						$('.content').prepend(
+							append_text
+						); 
+					});
+
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
+					console.log("Server Error. Pleasy try again later.");
+					console.log(data);
+					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+					console.log("textStatus     : " + textStatus);
+					console.log("errorThrown    : " + errorThrown.message);
+				},
+				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
+                get_flag = true;
+				bottomPos = $(document).height() - $(window).height() - 1;    
+				}
+			});
+		};
 		function get_posts(){
 			var data = {
 				num: posts_num
 			};
-			
 			$.ajax({
 				type:"post",                // method = "POST"
 				url:"/get_posts",        // POST送信先のURL
@@ -649,10 +734,15 @@
 		var bottomPos = $(document).height() - $(window).height() - 1;    //画面下位置を取得
 		
 		$(window).scroll(function () {
+			
 			if ($(this).scrollTop() >= bottomPos && get_flag ==true ) {
 				console.log("bottomPos");
 				get_flag = false;
 				get_posts();
+			}else if($(this).scrollTop() <=0 && get_flag == true){
+				console.log("topPos");
+				get_flag = false;
+				get_latest_posts();
 			}
 		});
 		
