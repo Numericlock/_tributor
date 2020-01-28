@@ -7,6 +7,7 @@
 	<title>@yield('title')/-tributor</title>
 	<script src="/js/jquery-2.1.3.js"></script>
 	<script src="/js/moment.js"></script>
+	<script src="/js/ImageManager.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
     <link rel="icon" href="/favicon.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -855,6 +856,7 @@
 						);
 					}
 					append_text = dom_post(json_data.posts_id, json_data.users_id, json_data.users_name, json_data.content_text, json_data.updated_at, json_data.share_at, json_data.post_at, json_data.id, json_data.users2_name, json_data.attached_count, json_data.comment_count, json_data.retribute_count, json_data.favorite_count, json_data.is_favorite, json_data.is_retribute);
+					get_latest_posts();
 					$('.content').prepend(
 						append_text
 					);
@@ -877,9 +879,9 @@
 		function dom_post(posts_id, users_id, users_name, content_text, updated_at, share_at, post_at, id, users2_name, attached_count, comment_count, retribute_count, favorite_count, is_favorite, is_retribute){
 					var append_text;
 					if(attached_count > 0){
-						append_text = '<div class="users-content" id="'+ posts_id +'" style="background-image:url(/img/post_img/'+ posts_id +'_0.png);">';
+						append_text = '<div class="users-content" id="post_'+ posts_id +'" style="background-image:url(/img/post_img/'+ posts_id +'_0.png);">';
 					}else{
-						append_text = '<div class="users-content" id="'+ posts_id +'">';
+						append_text = '<div class="users-content" id="post_'+ posts_id +'">';
 					}
 					append_text = append_text +
 							'<div class="content-information">'

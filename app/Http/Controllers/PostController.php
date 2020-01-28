@@ -72,15 +72,25 @@ class PostController extends Controller
 	
 	public function get_posts (Request $request){
 		$user = $request->base_user;
-		$posts = User_post::ofPosts($user->user_id)->orderBy('post_at', 'desc')->offset($request->num)->limit(25)->get();
+		$posts = User_post::ofPosts($user->user_id)->having('post_at', '<', $request->num)->orderBy('post_at', 'desc')->offset(0)->limit(25)->get();
 		
-		//$posts = $posts->unique('posts_id');
+		$posts = $posts->unique('posts_id')->values();
+		Log::debug($posts."ごみんわどぁｗｗｗｗ");
 		return $posts;
 	}
 	public function get_latest_posts (Request $request){
 		$user = $request->base_user;
 		//DB::enableQueryLog();
-		$posts = User_post::ofLatestPosts($user->user_id,$request->num)->orderBy('post_at', 'asc')->offset(0)->limit(25)->get();
+		$posts = User_post::ofPosts($user->user_id)->having('post_at', '>', $request->num)->orderBy('post_at', 'asc')->get();
+		//Log::debug(DB::getQueryLog());
+		
+		$posts = $posts->unique('posts_id')->values();
+		return $posts;
+	}
+	public function get_new_posts (Request $request){
+		$user = $request->base_user;
+		//DB::enableQueryLog();
+		$posts = User_post::ofPosts($user->user_id,$request->num)->having('post_at', '>', $post_at)->orderBy('post_at', 'asc')->offset(0)->limit(25)->get();
 		//Log::debug(DB::getQueryLog());
 		
 		//$posts = $posts->unique('posts_id');

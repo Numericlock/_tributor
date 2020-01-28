@@ -31,10 +31,11 @@ class HomeController extends Controller
 
 		$posts = $posts->unique('posts_id');
 		$start_post = $posts->first();
+		$last_post = $posts->last();
 		///$posts = $posts->sortByDesc('created_at');
         $userIds = $posts->unique('users_id'); 
 		$lists = $request->base_user_lists;
-		return view('home',compact('posts', 'start_post', 'userIds', 'user','lists'));
+		return view('home',compact('posts', 'start_post', 'last_post', 'userIds', 'user','lists'));
 
 	}
 }
