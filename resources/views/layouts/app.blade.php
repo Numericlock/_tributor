@@ -127,7 +127,8 @@
 			@foreach($lists as $list)
 			<a href="/lists/{{ $list->id }}"><img class="common-list-icon" src="/img/list_icon/{{ $list->id }}.png"></a>
 			@endforeach
-			<a href="#">
+			<!--
+			<a >
 				<svg class="edit-list-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
 						<path class="st0" d="M504.16,183.326l-17.24-17.233c-10.453-10.461-27.415-10.452-37.868,0l-16.127,16.136l55.1,55.099
@@ -150,6 +151,7 @@
 					</g>
 				</svg>
 			</a>
+-->
 		</div>
 	</div>
 	<div class="post-modal">
@@ -224,7 +226,7 @@
 				</g>
 				</svg>			
 			</label>
-            <button type='button'><img class="post-modal-control-icon" src="/img/comment.svg"></button>
+      <!--      <button type='button'><img class="post-modal-control-icon" src="/img/comment.svg"></button>
             <button type='button'><img class="post-modal-control-icon" src="/img/爆発.svg"></button>
             <button type='button'>
                 <svg class="post-modal-control-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"  style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -249,6 +251,7 @@
                     </g>
                 </svg>
             </button>
+	-->
             <button class="post-modal-positive-button" id="post-modal_next" type='button'>次へ</button>
         </div>
 	</div>

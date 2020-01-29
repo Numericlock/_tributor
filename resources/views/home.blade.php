@@ -282,8 +282,8 @@
 		var users_modal_timer_close_comp;
         var user_id = @json($user->user_id);
 		
-		var page_height;
-		var past_posts_height;
+		var page_height = 0;
+		var past_posts_height = 0;
 
         var post_users = @json($userIds);
         var posts=  @json($posts);
@@ -311,21 +311,59 @@
 				// 実行させる処理を記述
 			console.log("deactive");
 		}
-		$img = $('img');
-		$img.originSrc = $img.src;
-		$img.src = ""; // これで一旦クリアできます！
-		// コールバックを設定
-		$img.bind('load', function(){
-			page_height=0;
-			posts.forEach(function(value ){
-				value.height = $('#post_'+value.id).height();
-				page_height= page_height+ value.height;
-			});
-			console.log(page_height);
-		});
+		var loaded_count = 0;
+		var load_count = 0;
+		var imagesLoadListener = (function() {
 
-		// 画像読み込み開始
-		$img.src = $img.originSrc;
+			var imageCollector = function(expectedCount, completeFn) {
+				var receivedCount = 0;
+				return function() {
+					receivedCount++;
+					if(receivedCount === expectedCount) {
+						completeFn();
+					}
+				};
+			};
+
+			var imagesLoadListener = function(element, callback) {
+				var images = element.querySelectorAll('img');
+				if(images === null) {
+					callback();
+					return;
+				}
+
+				//画像の数だけloadListenerが呼ばれたらcallbackが呼ばれる;
+				var loadListener = imageCollector(images.length, callback);
+				Array.prototype.forEach.call(images, function(img) {
+					if(img.complete) {
+						loadListener();
+					}else {
+						img.onload = loadListener;
+					}
+				});
+			};
+
+			return imagesLoadListener;
+		})();
+		
+	/*	imagesLoadListener(document.body, function() {
+				posts.forEach(function(value ){
+					value.height = $('#post_'+value.id).outerHeight();
+					page_height= page_height+ value.height;
+					console.log($(window).height()*4);
+					if(page_height > ($(window).height()*4)){
+						$('#post_'+value.id).remove();
+						$('#content').css('padding-top',0);
+						$('#content').css('padding-bottom',page_height - $(window).height()*2);
+					}
+				});
+				load_count=0;
+				bottomPos = $('#content').height();
+				get_flag = true;
+				console.log(page_height);
+				console.log($('#content').height());
+		});
+	*/
 		// ウィンドウをフォーカスしたら指定した関数を実行
 		window.addEventListener('focus', play);
 
@@ -537,6 +575,20 @@
 						append_text = dom_post(value.posts_id, value.users_id, value.users_name, value.content_text, value.updated_at, value.share_at, value.post_at, value.id, value.users2_name, value.attached_count, value.comment_count, value.retribute_count, value.favorite_count, value.is_favorite, value.is_retribute);
 						prependAdd(append_text);
 					});
+					imagesLoadListener(document.body, function() {
+							past_posts.forEach(function(value ){
+								value.height = $('#post_'+value.id).outerHeight();
+								page_height = page_height+ value.height;
+								posts.push(value);
+								console.log(value.height);
+								console.log(document.body.getBoundingClientRect().height);
+							});
+							past_posts = [];
+							load_count=0;
+							get_flag = true;
+							console.log(page_height);
+							console.log($('#content').height());
+					});
 
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
@@ -619,29 +671,20 @@
 						append_text = dom_post(value.posts_id, value.users_id, value.users_name, value.content_text, value.updated_at, value.share_at, value.post_at, value.id, value.users2_name, value.attached_count, value.comment_count, value.retribute_count, value.favorite_count, value.is_favorite, value.is_retribute);
 						appendAdd(append_text);
 					});
-						$img2 = $('img');
-						$img2.originSrc = $img.src;
-						$img2.src = ""; // これで一旦クリアできます！
-						// コールバックを設定
-						$img2.bind('load', function(){
-							past_posts_height = 0;
+					imagesLoadListener(document.body, function() {
 							past_posts.forEach(function(value ){
-								value.height = $('#post_'+value.id).height();
-								past_posts_height = past_posts_height + value.height;
+								value.height = $('#post_'+value.id).outerHeight();
+								page_height = page_height+ value.height;
+								posts.push(value);
+								console.log(value.height);
+								console.log(document.body.getBoundingClientRect().height);
 							});
-							console.log(past_posts_height);
-							//past_posts =[];
-						});
-
-						// 画像読み込み開始
-						$img2.src = $img.originSrc;
-						//$('#content').animate({scrollTop:minusHeight}, speed, 'swing');
-						past_posts.forEach(function(value ){
-							posts.push(value);
-							console.log(value.height);
-						});
-						console.log(page_height);
-						console.log(posts);
+							past_posts = [];
+							load_count=0;
+							get_flag = true;
+							console.log(page_height);
+							console.log($('#content').height());
+					});
 					console.log(existsSameValue(posts));
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
@@ -670,11 +713,13 @@
 		var bottomPos = $(document).height() - $(window).height() - 1;    //画面下位置を取得
 		var beforeHeight;
 		$(window).scroll(function () {
-		    scrollHeight = $('.content').height();
+		    scrollHeight = $('.content').outerHeight();
 		    scrollPosition = $('.content').height() + $('.content').scrollTop();
+			
 			if ($(this).scrollTop() >= bottomPos && get_flag ==true ) {
 				console.log("bottomPos");
 				get_flag = false;
+				
 				get_posts();
 			}else if($(this).scrollTop() <=0 && get_flag == true){
 				console.log("topPos");
