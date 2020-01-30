@@ -6,6 +6,8 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>@yield('title')/-tributor</title>
 	<script src="/js/jquery-2.1.3.js"></script>
+	<script src="/js/moment.js"></script>
+	<script src="/js/ImageManager.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
     <link rel="icon" href="/favicon.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -125,7 +127,8 @@
 			@foreach($lists as $list)
 			<a href="/lists/{{ $list->id }}"><img class="common-list-icon" src="/img/list_icon/{{ $list->id }}.png"></a>
 			@endforeach
-			<a href="#">
+			<!--
+			<a >
 				<svg class="edit-list-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
 						<path class="st0" d="M504.16,183.326l-17.24-17.233c-10.453-10.461-27.415-10.452-37.868,0l-16.127,16.136l55.1,55.099
@@ -148,6 +151,7 @@
 					</g>
 				</svg>
 			</a>
+-->
 		</div>
 	</div>
 	<div class="post-modal">
@@ -222,7 +226,7 @@
 				</g>
 				</svg>			
 			</label>
-            <button type='button'><img class="post-modal-control-icon" src="/img/comment.svg"></button>
+      <!--      <button type='button'><img class="post-modal-control-icon" src="/img/comment.svg"></button>
             <button type='button'><img class="post-modal-control-icon" src="/img/爆発.svg"></button>
             <button type='button'>
                 <svg class="post-modal-control-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"  style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -247,6 +251,7 @@
                     </g>
                 </svg>
             </button>
+	-->
             <button class="post-modal-positive-button" id="post-modal_next" type='button'>次へ</button>
         </div>
 	</div>
@@ -805,200 +810,64 @@
                 processData: false,         // レスポンスをJSONとしてパースする
                 async : false,   // ← asyncをfalseに設定する
 				success: function(json_data){
-                    json_data.forEach(function( value ) {
-						if(post_users_ids.indexOf(value.users_id)==-1){
-							post_users_ids.push(value.users_id);
-							console.log('aaaaaaaaaaaaaa');
-							var append_text = 	
-								'<div id="'+ value.users_id +'" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="'+ value.users_id +'">'
-								+	'<div class="users-modal">'
-								+		'<div class="users-modal-top-wrapper">'
-								+			'<div class="users-modal-icon">'
-								+				'<img src="/img/2.jpg">'
-								+			'</div>'
-								+			'<div class="users-modal-button">'
-								+				'<div class="users-modal-button-follow" id="followbutton_'+ value.users_id +'">';
-							if(value.users_id === user_id){
-							}else if(value.is_canceled === 1){
-								append_text = append_text + '<button class="follow-button" onclick="follow(this)" data-followid="'+ value.users_id +'">フォロー</button>';
-							}else if(value.subject_user_id === user_id){
-								append_text = append_text +	'<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="'+ value.users_id +'">フォロー中</button>' 
-							}else{
-								append_text = append_text +	'<button class="follow-button" onclick="follow(this)" data-followid="'+ value.users_id +'">フォロー</button>'
-							}
-							append_text = append_text +
-												'</div>'				
-								+				'<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="'+ value.users_id +'" data-followname="'+ value.users_name +'">リストに追加</button>'
-								+			'</div>'
-								+		'</div>'
-								+		'<div class="users-modal-middle-wrapper">'
-								+			'<span class="users-modal-name">'+ value.users_name +'</span>'
-								+			'<div>'
-								+			'<span class="users-modal-id">@'+ value.users_id +'</span>'
-								+			'</div>'
-								+		'</div>'
-								+		'<div class="users-modal-bottom-wrapper">'
-								+			'<div class="users-modal-introduction">'
-								+			'</div>'
-								+		'</div>'
-								+		'<div class="users-modal-end-wrapper">'
-								+			'<div class="users-modal-follow">'
-								+				'<span>フォロー数/'+ value.subject_count +'</span>'
-								+			'</div>'
-								+			'<div class="users-modal-follower">'
-								+				'<span>フォロワー数/'+ value.followed_count +'</span>'
-								+			'</div>'
-								+		'</div>'
-								+	'</div>'
-								+'</div>';
-							$('.content2').append(
-								append_text
-							);
+
+					if(post_users_ids.indexOf(json_data.users_id)==-1){
+						post_users_ids.push(json_data.users_id);
+						var append_text = 	
+							'<div id="'+ json_data.users_id +'" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="'+ json_data.users_id +'">'
+							+	'<div class="users-modal">'
+							+		'<div class="users-modal-top-wrapper">'
+							+			'<div class="users-modal-icon">'
+							+				'<img src="/img/2.jpg">'
+							+			'</div>'
+							+			'<div class="users-modal-button">'
+							+				'<div class="users-modal-button-follow" id="followbutton_'+ json_data.users_id +'">';
+						if(json_data.users_id === user_id){
+						}else if(json_data.is_canceled === 1){
+							append_text = append_text + '<button class="follow-button" onclick="follow(this)" data-followid="'+ json_data.users_id +'">フォロー</button>';
+						}else if(json_data.subject_user_id === user_id){
+							append_text = append_text +	'<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="'+ json_data.users_id +'">フォロー中</button>' 
+						}else{
+							append_text = append_text +	'<button class="follow-button" onclick="follow(this)" data-followid="'+ json_data.users_id +'">フォロー</button>'
+
 						}
-                        console.log('aaaaaaaaaaaaaa');
-						$('.content2').append(
-									'<div class="users-content">'
-									+	'<div class="users-information-wrapper">'
-									+'	<!--	<img src="/img/1.jpg"></img>'
-									+'	-->'
-									+		'<div class="users-icon users-content-modal-open" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="'+ value.users_id +'">'
-									+			'<img src="/img/icon_img/'+ value.users_id +'.png">'
-									+		'</div>'
-									+		'<div class="users-information users-content-modal-open" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="'+ value.users_id +'">'
-									+			'<div class="users-name">'
-									+				'<span>'+ value.users_name +'</span>'
-									+			'</div>'
-									+			'<div class="information">'
-									+				'<span><img class="information-icon" src="/img/comment.svg">'+ value.created_at +'-<img class="information-icon" src="/img/list2.svg"></span>'
-									+			'</div>'
-									+		'</div>'
-									+	'</div>'
-									+	'<div class="users-content-sentence">'
-									+		'<span>'+ value.content_text +'</span>'
-									+	'</div>'
-									+	'<div class="control">'
-									+		'<button type="button">'
-									+			'<svg class="control-icon comment" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 512 512" xml:space="preserve">'
-									+			'<g>'
-									+				'<path class="st0" d="M447.139,16H64.859C29.188,16,0,45.729,0,82.063v268.519c0,36.334,29.188,66.063,64.859,66.063h155.192'
-									+				'	l74.68,76.064c3.156,3.213,7.902,4.174,12.024,2.436c4.121-1.74,6.808-5.836,6.808-10.381v-68.119h133.576'
-									+				'	c35.674,0,64.861-29.729,64.861-66.063V82.063C512,45.729,482.812,16,447.139,16z M96,132v-32h320v32H96z M96,232v-32h320v32H96z'
-									+				'	 M324,300v32H96v-32H324z"/>'
-									+			'</g>'
-									+			'</svg>'
-									+'		</button>'
-									+'		<button type="button">'
-									+'			<svg class="control-icon diffusion" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"'
-									+'				 viewBox="0 0 512 512" xml:space="preserve">'
-									+'				<g>'
-									+'					<polygon class="st0" points="244.848,49.742 251.894,209.888 260.013,209.888 267.05,49.742 	"/>'
-									+'					<polygon class="st0" points="244.848,463.321 267.05,463.321 260.013,303.026 251.894,303.026 	"/>'
-									+'					<path class="st0" d="M255.944,23.611c6.542,0,11.834-5.292,11.834-11.778C267.778,5.292,262.486,0,255.944,0'
-									+'						c-6.486,0-11.796,5.292-11.796,11.834C244.148,18.32,249.458,23.611,255.944,23.611z"/>'
-									+'					<path class="st0" d="M255.944,488.379c-6.486,0-11.796,5.301-11.796,11.805c0,6.515,5.31,11.816,11.796,11.816'
-									+'						c6.542,0,11.834-5.301,11.834-11.816C267.778,493.68,262.486,488.379,255.944,488.379z"/>'
-									+'					<polygon class="st0" points="217.989,229.467 83.302,143.478 72.215,162.703 213.957,236.495 	"/>'
-									+'					<polygon class="st0" points="294.581,283.064 428.12,368.998 439.216,349.791 298.649,276.046 	"/>'
-									+'					<path class="st0" d="M39.01,144.364c1.792,1.018,3.836,1.568,5.889,1.568c4.218,0,8.138-2.268,10.248-5.916'
-									+'						c1.586-2.726,1.997-5.908,1.185-8.951c-0.821-3.042-2.781-5.59-5.506-7.167c-1.81-1.036-3.835-1.567-5.889-1.567'
-									+'						c-4.218,0-8.156,2.24-10.266,5.879C31.442,133.856,33.392,141.07,39.01,144.364z"/>'
-									+'					<path class="st0" d="M471.488,367.588c-1.792-1.026-3.836-1.567-5.908-1.567c-4.19,0-8.119,2.249-10.228,5.889'
-									+'						c-3.247,5.674-1.316,12.907,4.32,16.154c1.774,1.026,3.818,1.586,5.89,1.586c4.218,0,8.147-2.268,10.266-5.907'
-									+'						C479.056,378.088,477.124,370.864,471.488,367.588z"/>'
-									+'					<polygon class="st0" points="217.989,282.662 213.957,275.654 72.215,349.222 83.302,368.428 	"/>'
-									+'					<polygon class="st0" points="298.649,236.112 440.718,162.115 429.622,142.899 294.581,229.085 	"/>'
-									+'					<path class="st0" d="M44.899,365.974c-2.053,0-4.097,0.55-5.889,1.586c-5.637,3.239-7.568,10.5-4.34,16.136'
-									+'						c2.109,3.64,6.038,5.916,10.266,5.916c2.044,0,4.079-0.55,5.889-1.596c5.637-3.266,7.569-10.499,4.322-16.135'
-									+'						C53.037,368.242,49.117,365.974,44.899,365.974z"/>'
-									+'					<path class="st0" d="M467.082,145.886c2.081,0,4.106-0.541,5.908-1.586c5.628-3.257,7.569-10.481,4.322-16.127'
-									+'						c-2.101-3.63-6.029-5.908-10.238-5.908c-2.081,0-4.106,0.551-5.898,1.578c-2.716,1.586-4.685,4.134-5.487,7.186'
-									+'						c-0.822,3.043-0.401,6.244,1.166,8.969C458.963,143.637,462.874,145.886,467.082,145.886z"/>'
-									+'					<polygon class="st0" points="166.417,115.48 229.664,216.934 235.198,213.742 179.072,108.182 177.56,107.753 166.8,113.978 	"/>'
-									+'					<path class="st0" d="M155.918,97.02l12.431-7.205l-8.754-15.118l-1.474-0.411l-10.565,6.094c-0.541,0.327-0.709,0.962-0.411,1.466'
-									+'						L155.918,97.02z"/>'
-									+'					<polygon class="st0" points="345.489,396.426 282.262,295.206 276.708,298.407 333.506,404.247 333.805,404.274 334.346,404.153 '
-									+'						345.116,397.947 	"/>'
-									+'					<path class="st0" d="M356.025,414.904l-12.449,7.186l8.754,15.118c0.243,0.419,0.634,0.579,0.934,0.579l0.541-0.16l10.546-6.093'
-									+'						c0.505-0.308,0.7-0.99,0.411-1.474L356.025,414.904z"/>'
-									+'					<path class="st0" d="M88.761,262.952c0.206,0.206,0.458,0.299,0.775,0.299l119.382-3.985v-6.402l-119.382-4.21l-1.101,1.073'
-									+'						L88.761,262.952z"/>'
-									+'					<path class="st0" d="M49.714,249.841v12.206c0,0.607,0.476,1.083,1.092,1.083h17.47v-14.362H50.788'
-									+'						C50.19,248.768,49.714,249.244,49.714,249.841z"/>'
-									+'					<polygon class="st0" points="423.463,249.728 422.37,248.655 302.989,252.864 302.989,259.266 422.352,263.252 423.463,262.178 	'
-									+'						"/>'
-									+'					<path class="st0" d="M462.211,262.047v-12.206c0-0.495-0.589-1.055-1.083-1.055l-17.507-0.018v14.362h17.507'
-									+'						C461.716,263.13,462.211,262.654,462.211,262.047z"/>'
-									+'					<path class="st0" d="M229.664,295.206l-63.247,101.22l0.383,1.521l10.76,6.188c0.178,0.112,0.354,0.139,0.542,0.139l0.97-0.55'
-									+'						l56.144-105.317L229.664,295.206z"/>'
-									+'					<path class="st0" d="M147.146,430.061l0.429,1.474l10.546,6.093c0.158,0.094,0.326,0.16,0.504,0.16l0.971-0.579l8.754-15.118'
-									+'						l-12.431-7.186L147.146,430.061z"/>'
-									+'					<polygon class="st0" points="282.262,216.934 345.489,115.499 345.116,113.978 334.346,107.753 332.844,108.182 276.708,213.742 	'
-									+'						"/>'
-									+'					<polygon class="st0" points="364.761,81.865 364.369,80.38 353.804,74.286 352.32,74.697 343.576,89.816 356.025,97.02 	"/>'
-									+'					<path class="st0" d="M271.333,300.992l-6.187,1.661l38.86,154.482c0.065,0.028,0.14,0.046,0.233,0.046l10.835-3.508'
-									+'						L271.333,300.992z"/>'
-									+'					<path class="st0" d="M308.626,474.651l3.77,14.12c0.066,0.252,0.317,0.401,0.522,0.401l10.639-3.406l-3.78-14.111L308.626,474.651z'
-									+'						"/>'
-									+'					<polygon class="st0" points="240.62,211.157 246.826,209.514 207.602,54.764 196.944,58.244 	"/>'
-									+'					<polygon class="st0" points="203.309,37.292 198.922,22.771 188.424,26.159 192.231,40.27 	"/>'
-									+'					<path class="st0" d="M287.189,291.818L397.76,406.02c0.084,0.094,0.206,0.14,0.346,0.14l0.401-0.14l7.522-8.38L291.734,287.292'
-									+'						L287.189,291.818z"/>'
-									+'					<path class="st0" d="M410.901,419.038l10.378,10.341c0.112,0.121,0.251,0.139,0.345,0.139l0.364-0.158l7.391-8.166l-10.284-10.331'
-									+'						L410.901,419.038z"/>'
-									+'					<polygon class="st0" points="224.764,220.312 113.492,105.887 105.98,114.249 220.219,224.838 	"/>'
-									+'					<polygon class="st0" points="101.034,92.933 90.002,82.546 82.584,90.722 92.914,101.042 	"/>'
-									+'					<polygon class="st0" points="300.871,271.426 453.942,315.047 454.437,314.655 456.742,303.652 302.532,265.22 	"/>'
-									+'					<polygon class="st0" points="471.711,319.704 485.925,323.52 486.448,323.128 488.78,312.34 474.688,308.561 	"/>'
-									+'					<polygon class="st0" points="209.394,246.91 211.054,240.723 57.554,197.252 55.23,208.227 	"/>'
-									+'					<polygon class="st0" points="40.279,192.222 25.516,188.778 23.21,199.548 37.312,203.336 	"/>'
-									+'					<polygon class="st0" points="302.55,246.9 457.218,207.574 453.718,196.86 300.889,240.723 	"/>'
-									+'					<polygon class="st0" points="474.651,203.262 489.173,198.876 485.785,188.386 471.711,192.156 	"/>'
-									+'					<path class="st0" d="M209.421,265.23L54.8,304.333l3.024,10.639c0.076,0.056,0.168,0.075,0.252,0.075l152.997-43.621'
-									+'						L209.421,265.23z"/>'
-									+'					<path class="st0" d="M37.349,308.635l-14.522,4.377l2.706,10.126c0.084,0.214,0.29,0.382,0.542,0.382l14.231-3.789L37.349,308.635z'
-									+'						"/>'
-									+'					<polygon class="st0" points="291.716,224.838 406.057,113.427 397.696,105.905 287.208,220.312 	"/>'
-									+'					<polygon class="st0" points="429.416,89.946 421.242,82.546 410.901,92.858 419.029,100.978 	"/>'
-									+'					<path class="st0" d="M220.238,287.292L105.924,398.451l7.625,7.569c0.121,0.131,0.298,0.131,0.345,0.131l0.384-0.196'
-									+'						l110.487-114.137L220.238,287.292z"/>'
-									+'					<path class="st0" d="M82.602,421.979l7.4,7.382c0.103,0.121,0.262,0.158,0.364,0.158l0.411-0.186l10.303-10.294l-8.092-8.147'
-									+'						L82.602,421.979z"/>'
-									+'					<polygon class="st0" points="271.324,211.157 314.674,57.498 303.689,55.155 265.146,209.496 	"/>'
-									+'					<polygon class="st0" points="323.184,25.478 312.396,23.135 308.598,37.246 319.694,40.241 	"/>'
-									+'					<polygon class="st0" points="240.648,300.973 197.28,454.381 207.76,457.162 208.264,456.723 246.826,302.653 	"/>'
-									+'					<polygon class="st0" points="188.834,486.429 199.072,489.154 199.604,488.724 203.393,474.632 192.306,471.655 	"/>'
-									+'				</g>'
-									+'			</svg>'
-									+'		</button>'
-									+'		<button type="button">'
-									+'			<svg class="control-icon heart" data-id="'+ value.id +'" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"'
-									+'				 viewBox="0 0 512 512" xml:space="preserve">'
-									+'				<g>'
-									+'					<path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391'
-									+'						c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547'
-									+'						l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z"/>'
-									+'				</g>'
-									+'			</svg>'
-									+'		</button>'
-									+'	</div>'
-									+'</div>'
-						); 
-					});
-                    
-                    					$('#script-reload').empty();
-					$('#script-reload').append(
-						'<scr'+'ipt>'
-						+'$(".heart").on("click",function(){'
-						+'	console.log(favorite_flag);'
-						+'	favorite_flag = false;'
-						+'});	'
-						+'</scr'+'ipt>'
+						append_text = append_text +
+											'</div>'				
+							+				'<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="'+ json_data.users_id +'" data-followname="'+ json_data.users_name +'">リストに追加</button>'
+							+			'</div>'
+							+		'</div>'
+							+		'<div class="users-modal-middle-wrapper">'
+							+			'<span class="users-modal-name">'+ json_data.users_name +'</span>'
+							+			'<div>'
+							+			'<span class="users-modal-id">@'+ json_data.users_id +'</span>'
+							+			'</div>'
+							+		'</div>'
+							+		'<div class="users-modal-bottom-wrapper">'
+							+			'<div class="users-modal-introduction">'
+							+			'</div>'
+							+		'</div>'
+							+		'<div class="users-modal-end-wrapper">'
+							+			'<div class="users-modal-follow">'
+							+				'<span>フォロー数/'+ json_data.subject_count +'</span>'
+							+			'</div>'
+							+			'<div class="users-modal-follower">'
+							+				'<span>フォロワー数/'+ json_data.followed_count +'</span>'
+							+			'</div>'
+							+		'</div>'
+							+	'</div>'
+							+'</div>';
+						$('.content').append(
+							append_text
+						);
+					}
+					append_text = dom_post(json_data.posts_id, json_data.users_id, json_data.users_name, json_data.content_text, json_data.updated_at, json_data.share_at, json_data.post_at, json_data.id, json_data.users2_name, json_data.attached_count, json_data.comment_count, json_data.retribute_count, json_data.favorite_count, json_data.is_favorite, json_data.is_retribute);
+					get_latest_posts();
+					$('.content').prepend(
+						append_text
 					);
 					bottomPos = $(document).height() - $(window).height() - 1;    //画面下位置を取得
 					get_flag = true;
 					post_modal_close();
-       
-                    
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
 					console.log("Server Error. Pleasy try again later.");
@@ -1012,6 +881,210 @@
 				}
 			});
 		};
+		function dom_post(posts_id, users_id, users_name, content_text, updated_at, share_at, post_at, id, users2_name, attached_count, comment_count, retribute_count, favorite_count, is_favorite, is_retribute){
+					var append_text;
+					if(attached_count > 0){
+						append_text = '<div class="users-content" id="post_'+ posts_id +'" style="background-image:url(/img/post_img/'+ posts_id +'_0.png);">';
+					}else{
+						append_text = '<div class="users-content" id="post_'+ posts_id +'">';
+					}
+					append_text = append_text +
+							'<div class="content-information">'
+							+	'<span>';								
+								if(share_at == post_at){
+									append_text = append_text +
+									'<svg class="retribute-icon"  onclick="retribute(this)"  data-id="' + id + '"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">'
+								+	'<g>'
+								+		'<path id="Loop" d="M360.909,17.934H24.061C10.767,17.934,0,28.713,0,41.995V258.54c0,13.293,10.767,24.061,24.061,24.061h60.152'
+								+			'c7.711,0,12.03-5.45,12.03-12.03c0-6.581-4.09-12.187-12.03-12.187H38.738c-8.036,0-14.557-6.52-14.557-14.557V57.093'
+								+			'c0-8.036,6.52-14.557,14.557-14.557l307.627-0.373c8.036,0,14.557,6.52,14.557,14.557v187.107c0,8.036-6.52,14.557-14.557,14.557'
+								+			'H209.556l62.413-63.303c4.692-4.752,4.692-12.439,0-17.191c-4.704-4.74-12.319-4.74-17.011,0l-83.009,84.2'
+								+			'c-4.692,4.74-4.692,12.439,0,17.191c0,0,0,0,0.012,0l82.997,84.2c4.692,4.74,12.319,4.74,17.011,0'
+								+			'c4.692-4.752,4.692-12.439,0-17.179l-62.774-63.688h151.714c13.293,0,24.061-10.767,24.061-24.061V42.007'
+								+			'C384.97,28.713,374.203,17.934,360.909,17.934z"/>'
+								+	'</g>'
+									+'</svg>'+users2_name+"さんがリトリビュート";
+								}
+					append_text = append_text +
+								'</span>'
+							+'</div>'
+							+'<div class="users-content-wrapper">'
+							+	'<div class="users-icon users-content-modal-open">'
+							+		'<img src="img/icon_img/'+ users_id +'.png" onclick="users_href(this)" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="'+ users_id +'">'
+							+	'</div>'
+							+	'<div class="users-information-wrapper">'
+							+		'<div class="users-information">'
+							+			'<div class="users-content-modal-open">'
++											'<span class="users-information-name" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="'+ users_id +'">'+ users_name +'</span>'
++											'<span class="users-information-id" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="'+ users_id +'"> @'+ users_id +'</span>'
++										'</div>'
++										'<div class="information">'
++											'<span>';
+											if(attached_count > 0){
+												append_text = append_text +
+												'<svg class="information-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">'
+												+	'<g>'
+												+		'<path class="st0" d="M0,45.178v421.644h512V45.178H0z M471.841,426.662H40.159V85.329h431.682V426.662z"></path>'
+												+		'<path class="st0" d="M326.128,207.728c-4.148-6.289-11.183-10.077-18.72-10.069c-7.544,0.007-14.57,3.803-18.71,10.1'
+												+		'l-72.226,109.914l-39.862-45.178c-4.619-5.238-11.426-8.022-18.397-7.52c-6.971,0.486-13.308,4.211-17.142,10.053L74.17,376.96'
+												+		'h363.659L326.128,207.728z"></path>'
+												+		'<path class="st0" d="M174.972,230.713c25.102,0,45.453-20.35,45.453-45.461c0-25.102-20.35-45.452-45.453-45.452'
+												+		'c-25.11,0-45.46,20.35-45.46,45.452C129.511,210.363,149.862,230.713,174.972,230.713z" ></path>'
+												+	'</g>'
+												+'</svg>';
+											}else{
+												append_text = append_text +
+												'<svg class="information-icon" onclick="comment(this)" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">'
+												+'<g>'
+												+	'<path class="st0" d="M447.139,16H64.859C29.188,16,0,45.729,0,82.063v268.519c0,36.334,29.188,66.063,64.859,66.063h155.192'
+												+		'l74.68,76.064c3.156,3.213,7.902,4.174,12.024,2.436c4.121-1.74,6.808-5.836,6.808-10.381v-68.119h133.576'
+												+		'c35.674,0,64.861-29.729,64.861-66.063V82.063C512,45.729,482.812,16,447.139,16z M96,132v-32h320v32H96z M96,232v-32h320v32H96z'
+												+		 'M324,300v32H96v-32H324z"/>'
+												+'</g>'
+												+'</svg>';
+											}
+											var date = new Date() ;
+											var timestamp = Math.floor( (date.getTime() - Date.parse(post_at))/1000) ;
+											if(0 >= timestamp){
+												append_text = append_text + " 今";
+											}else if(60 >= timestamp){
+												append_text = append_text + " " + timestamp + "秒前";
+											}else if(3600 >= timestamp){
+												append_text = append_text + " " + Math.floor(timestamp/60) + "分前";	 
+											}else if(86400 >= timestamp){
+												append_text = append_text + " " + Math.floor(timestamp/3600) + "時間前";	 	 
+											}else{
+												var date = moment(post_at);
+												date = date.format('M月DD日');
+												append_text = append_text + " " + date;;	 
+											}
+											append_text = append_text +
+											'</span>'
+									+	'</div>'
+									+'</div>'
+									+'<div class="users-content-sentence">'
+									+	'<div class="users-information-link">'
+									+		'<span>'+ content_text +'</span>'
+									+		'<a href="/'+ users_id +'/'+ posts_id +'">aaaa</a>'
+									+	'</div>';
+										if(attached_count > 1){
+										append_text = append_text +
+										'<div class="swiper-container" data-id="'+ posts_id +'"  data-num="0"  data-maxnum="'+ attached_count +'">'
+											+'<div class="swiper-wrapper">';
+											for (var i = 0; attached_count > i ; i++){
+												append_text = append_text +
+												'<div class="swiper-slide" style="margin:0 auto;">'
+												+	'<img src="/img/post_img/'+ posts_id +'_'+ i +'.png" onclick="attached_modal_open(this)" data-num="'+ attached_count +'" >'
+												+'</div>';
+											}
+											append_text = append_text +
+											'</div>'
+										+	'<div class="swiper-pagination"></div>'
+										+	'<div class="swiper-button-prev" onclick="swiper_prev(this);"></div>'
+										+	'<div class="swiper-button-next" onclick="swiper_next(this);"></div>'
+										+'</div>';
+										}else if(attached_count == 1){
+											append_text = append_text + '<img src="/img/post_img/'+ posts_id +'_0.png" onclick="attached_modal_open(this)" data-num="'+ attached_count +'" >';
+										}
+									append_text = append_text +
+									'</div>'
+									+'<div class="control">'
+									+	'<button type="button">'
+									+		'<svg class="control-icon comment" onclick="comment(this)" data-id="'+ id +'" data-content="'+ content_text +'" data-userid="'+ users_id +'" data-username="'+ users_name +'" data-time="'+ updated_at +'" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">'
+									+		'<g>'
+									+			'<path class="st0" d="M447.139,16H64.859C29.188,16,0,45.729,0,82.063v268.519c0,36.334,29.188,66.063,64.859,66.063h155.192'
+									+				'l74.68,76.064c3.156,3.213,7.902,4.174,12.024,2.436c4.121-1.74,6.808-5.836,6.808-10.381v-68.119h133.576'
+									+				'c35.674,0,64.861-29.729,64.861-66.063V82.063C512,45.729,482.812,16,447.139,16z M96,132v-32h320v32H96z M96,232v-32h320v32H96z'
+									+				 'M324,300v32H96v-32H324z"/>'
+									+		'</g>'
+									+		'</svg>'
+									+		'<span>';
+											if(comment_count > 0){
+												append_text = append_text + comment_count;
+											}
+											append_text = append_text +
+											'</span>'
+										+'</button>'
+										+'<button type="button">';
+											if(is_retribute == 0){
+											append_text = append_text +
+											'<svg class="control-icon diffusion"  onclick="retribute(this)"  data-id="'+ id +'"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">'
+											+	'<g>'
+											+		'<path id="Loop" d="M360.909,17.934H24.061C10.767,17.934,0,28.713,0,41.995V258.54c0,13.293,10.767,24.061,24.061,24.061h60.152'
+											+			'c7.711,0,12.03-5.45,12.03-12.03c0-6.581-4.09-12.187-12.03-12.187H38.738c-8.036,0-14.557-6.52-14.557-14.557V57.093'
+											+			'c0-8.036,6.52-14.557,14.557-14.557l307.627-0.373c8.036,0,14.557,6.52,14.557,14.557v187.107c0,8.036-6.52,14.557-14.557,14.557'
+											+			'H209.556l62.413-63.303c4.692-4.752,4.692-12.439,0-17.191c-4.704-4.74-12.319-4.74-17.011,0l-83.009,84.2'
+											+			'c-4.692,4.74-4.692,12.439,0,17.191c0,0,0,0,0.012,0l82.997,84.2c4.692,4.74,12.319,4.74,17.011,0'
+											+			'c4.692-4.752,4.692-12.439,0-17.179l-62.774-63.688h151.714c13.293,0,24.061-10.767,24.061-24.061V42.007'
+											+			'C384.97,28.713,374.203,17.934,360.909,17.934z"/>'
+											+	'</g>'
+											+'</svg>';
+											}else{
+											append_text = append_text +
+											'<svg class="control-icon diffusion-retribute"  onclick="retribute_remove(this)"  data-id="'+ id +'"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">'
+											+	'<g>'
+											+		'<path id="Loop" d="M360.909,17.934H24.061C10.767,17.934,0,28.713,0,41.995V258.54c0,13.293,10.767,24.061,24.061,24.061h60.152'
+											+			'c7.711,0,12.03-5.45,12.03-12.03c0-6.581-4.09-12.187-12.03-12.187H38.738c-8.036,0-14.557-6.52-14.557-14.557V57.093'
+											+			'c0-8.036,6.52-14.557,14.557-14.557l307.627-0.373c8.036,0,14.557,6.52,14.557,14.557v187.107c0,8.036-6.52,14.557-14.557,14.557'
+											+			'H209.556l62.413-63.303c4.692-4.752,4.692-12.439,0-17.191c-4.704-4.74-12.319-4.74-17.011,0l-83.009,84.2'
+											+			'c-4.692,4.74-4.692,12.439,0,17.191c0,0,0,0,0.012,0l82.997,84.2c4.692,4.74,12.319,4.74,17.011,0'
+											+			'c4.692-4.752,4.692-12.439,0-17.179l-62.774-63.688h151.714c13.293,0,24.061-10.767,24.061-24.061V42.007'
+											+			'C384.97,28.713,374.203,17.934,360.909,17.934z"/>'
+											+	'</g>'
+											+'</svg>'
+											+'<span>';
+											}
+											if(retribute_count > 0){
+												append_text = append_text + retribute_count;
+											}
+											append_text = append_text +
+											'</span>'
+										+'</button>'
+										+'<button type="button">';
+											if(is_favorite == 0){
+											append_text = append_text +
+											'<svg class="control-icon heart" onclick="favorite(this)" data-id="'+ id +'" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">'
+											+	'<g>'
+											+		'<path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391'
+											+			'c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547'
+											+			'l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z"/>'
+											+	'</g>'
+											+'</svg>';
+											}else{
+											append_text = append_text +
+											'<svg class="control-icon heart-favorite" onclick="favorite_remove(this)" data-id="'+ id +'" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">'
+											+	'<g>'
+											+		'<path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391'
+											+			'c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547'
+											+			'l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z"/>'
+											+	'</g>'
+											+'</svg>'
+											+'<span>';
+											}
+											if(favorite_count > 0){
+												append_text = append_text + favorite_count;
+											}
+											append_text = append_text +
+											'</span>'
+						+				'</button>'
+						+			'</div>'
+						+		'</div>'
+						+	'</div>'
+						+'</div>'
+					+'<scr'+'ipt>'
+					+'mySwiper = new Swiper (".swiper-container", {'
+					+			'effect: "slide",'
+					+			'loop: true,'
+					+			'pagination: ".swiper-pagination",'
+					+			'nextButton: ".swiper-button-next",'
+					+			'prevButton: ".swiper-button-prev",'
+					+			'onSlideChangeEnd:function (idx) {'
+					+				'slide_flag = true;'
+					+			'},'
+					+		'});'
+					+'</scr'+'ipt>';
+			return append_text;
+		}
         $("#search_text").on("input", function() {
             searchStr = $(this).val();
             clearTimeout(searchTimer);

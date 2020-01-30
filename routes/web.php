@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth.before', 'prefix' => ''], function() {
 	Route::post('/search', 'searchController@post_search');
 	Route::post('/get_search_posts', 'searchController@get_search_posts');
 	Route::post('/get_posts', 'PostController@get_posts');
+	Route::post('/get_latest_posts', 'PostController@get_latest_posts');
     Route::post('/get_parent', 'PostController@get_parent');
 	Route::post('/favorite', 'FavoriteController@users_favorite');
 	Route::post('/favorite/remove', 'FavoriteController@remove');

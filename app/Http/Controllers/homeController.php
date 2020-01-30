@@ -9,6 +9,7 @@ use App\Models\UsersSharePost;
 use App\Models\Post_valid_disclosure_list;
 use App\Models\Disclosure_list;
 use App\Models\Disclosure_list_user;
+use App\Models\Attached_content;
 use App\Http\Requests\PostFormRequest;
 use Log;
 
@@ -30,11 +31,17 @@ class HomeController extends Controller
 		//$posts = $posts->sortByDesc('share_at')
 
 		$posts = $posts->unique('posts_id');
+		$start_post = $posts->first();
+		$last_post = $posts->last();
 		///$posts = $posts->sortByDesc('created_at');
         $userIds = $posts->unique('users_id'); 
-        Log::debug($posts."ごみごみごみごみごみごみ");
 		$lists = $request->base_user_lists;
-		return view('home',compact('posts', 'userIds', 'user','lists'));
+
+
+        $attached = Attached_content::select('id','post_id','content_type','content_file_path')->get();
+		
+		return view('home',compact('posts', 'start_post', 'last_post','userIds', 'user','lists','attached'));
+
 
 	}
 }

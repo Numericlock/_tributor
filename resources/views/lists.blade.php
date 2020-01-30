@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/css/modal.css">
 @endsection
 @section('content')
+    <div class="content2">
+</div>
 		<div class="content">
 			<div class="content-title">
 				　<span>リスト</span>
