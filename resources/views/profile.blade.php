@@ -304,7 +304,7 @@ s
     <div class="modal-content2">
         <input id='scal' type='range' value='' min='10' max='400' oninput="scaling(value)" style='width: 300px;'><br>
         <canvas id='cvs' width='300' height='400'></canvas><br>
-        <button id="modal_back" onclick='crop_img()'>CROP</button><br>
+        <button id="modal_back" onclick='crop_img()'>適応</button><br>
         <canvas id='out' width='200' height='200' style="display:none"></canvas>
 	</div>
 			
