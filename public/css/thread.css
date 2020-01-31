@@ -1,6 +1,6 @@
 .parent-users-content{
 	border-bottom:solid 1px transparent;
-	padding:10px;
+	padding:0 20px;
 	display: -webkit-flex;
 	display: flex;
 	-webkit-flex-direction: column;
@@ -15,7 +15,7 @@
 }
 .users-content{
 	border-bottom:solid 1px transparent;
-	padding:10px;
+	padding:10px 20px;
 	display: -webkit-flex;
 	display: flex;
 	-webkit-flex-direction: column;
@@ -125,7 +125,21 @@
 }
 .information{
 	z-index: 1;
-	padding:0 10px;
+	padding:0px;
+}
+.parent-information{
+	margin:0 10px;
+	padding:10px 10px;
+	border-bottom: solid 1px gray;
+}
+.parent-post-counts{
+	z-index: 1;
+	margin:0 10px;
+	padding:10px 10px;
+	border-bottom: solid 1px gray;
+}
+.parent-post-count{
+	font-weight: 600;
 }
 .control{
 	z-index:1;
@@ -143,6 +157,9 @@
 	flex-direction: row;
 	width:33%;
 	padding-left: 20px;
+}
+.parent-control button{
+	width:inherit;
 }
 
 .control-icon{

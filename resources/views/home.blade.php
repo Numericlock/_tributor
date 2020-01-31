@@ -7,9 +7,9 @@
 @endsection
 @section('content')
 		<div class="content-wrapper">
-				<div class="content-title">
-					　<span>ホーム</span>
-				</div>
+			<div class="content-title">
+				 <span>ホーム</span>
+			</div>
 			<div class="content" id="content" >
 				<div class="modal">
 				</div>
