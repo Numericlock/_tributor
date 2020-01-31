@@ -19,7 +19,8 @@ class threadController extends Controller
 
     public function thread (Request $request,$users_id,$posts_id){
 		$user = $request->base_user;
-		$posts = User_post::threadPosts($user->user_id,$posts_id)->latest()->offset(0)->limit(25)->get();
+		$posts = User_post::threadPosts($user->user_id,$posts_id)->latest()->offset(0)->limit(25)->latest()->get();
+        
 		$posts = $posts->unique('posts_id');
         $userIds = $posts->unique('users_id'); 
         Log::debug($userIds."ごみごみごみごみごみごみ");

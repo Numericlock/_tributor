@@ -48,18 +48,29 @@ class PostController extends Controller
             $count=0;
         foreach($request->filetati as $file){
             $canvas = $file;
+            $extension = mb_substr($canvas , 11, 3);
             $canvas = preg_replace("/data:[^,]+,/i","",$canvas);
             $canvas = base64_decode($canvas);
             $image = imagecreatefromstring($canvas);
             $savepath=$id;
-            $img_path = 'img/post_img/'.$savepath."_".$count.".png";
             imagesavealpha($image, TRUE); // 透明色の有効
-            imagepng($image ,$img_path);
+            
+            switch($extension){
+                case "gif":
+                $img_path = 'img/post_img/'.$savepath."_".$count.'.'.$extension;
+                imagegif($image ,$img_path);
+                break;
+                               
+                default:
+                $img_path = 'img/post_img/'.$savepath."_".$count.'.png';
+                imagepng($image ,$img_path);
+            break;
+            }
             $count++;
             
             Attached_content::create([
                 'post_id'=> $id,
-                'content_type'=>$png,
+                'content_type'=>$extension,
                 'content_file_path'=>$img_path
             ]);
 			
