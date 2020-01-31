@@ -810,7 +810,6 @@
                 processData: false,         // レスポンスをJSONとしてパースする
                 async : false,   // ← asyncをfalseに設定する
 				success: function(json_data){
-
 					if(post_users_ids.indexOf(json_data.users_id)==-1){
 						post_users_ids.push(json_data.users_id);
 						var append_text = 	
@@ -829,7 +828,6 @@
 							append_text = append_text +	'<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="'+ json_data.users_id +'">フォロー中</button>' 
 						}else{
 							append_text = append_text +	'<button class="follow-button" onclick="follow(this)" data-followid="'+ json_data.users_id +'">フォロー</button>'
-
 						}
 						append_text = append_text +
 											'</div>'				

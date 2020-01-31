@@ -6,11 +6,9 @@
 	<link rel="stylesheet" href="/css/users_modal.css">
 @endsection
 @section('content')
-
 		<div class="content-wrapper">
 				<div class="content-title">
 					　<span>ホーム</span>
-
 				</div>
 			<div class="content" id="content" >
 				<div class="modal">
@@ -80,7 +78,6 @@
 								@endif
 							</div>
 						</div>
-
 						<div class="users-modal-bottom-wrapper">
 							<div class="users-modal-introduction">
 							</div>
@@ -93,12 +90,10 @@
 								<span>フォロワー数/{{ $userId->followed_count }}</span>
 							</div>
 						</div>
-
 					</div>
 				</div>
 				@endforeach
 				@foreach ($posts as $post)
-
 
 					@if($post->attached_count > 0)
 						<div class="users-content" id="{{ 'post_'.$post->posts_id }}" style="background-image:url(/img/post_img/{{$post->posts_id.'_0.png'}});">
@@ -134,6 +129,7 @@
 						<div class="users-information-wrapper">
 							<div class="users-information">
 								<div class="users-content-modal-open">
+
 									<span class="users-information-name" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">{{ $post->users_name }}</span>
 									<span class="users-information-id" onmouseenter="users_content_modal_open(this); users_content_modal_close_reset()" onmouseleave="users_content_modal_close(this)" data-modalid="{{ $post->users_id }}">{{ "@".$post->users_id }}</span>
 								</div>
@@ -271,7 +267,6 @@
 								</button>
 							</div>
 						</div>
-
 					</div>
 				</div>
 				@endforeach
@@ -953,10 +948,5 @@
 				retribute_flag = true;
 			}
 		}
-        
-        $("#button").on("click", function(){
-            $(".users-content").remove();
-            $(".users-modal-wrapper").remove();
-        });
 	</script>
 @endsection

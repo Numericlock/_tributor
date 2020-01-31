@@ -12,7 +12,6 @@ class User_post extends Model
 	public function scopeOfPosts($query,$user_id){
 		return $query->select('users_posts.*','users_posts.id as posts_id', 'users2.id as users2_id', 'users2.name as users2_name', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled','users_share_posts.updated_at as share_at',
 		\DB::raw(//リツイートかどうか
-
 			"CASE WHEN users_follows2.subject_user_id != '$user_id' OR users_follows2.is_canceled = 1 OR users_share_posts.updated_at IS NULL OR users_share_posts.is_deleted = 1 OR users_share_posts.repost_user_id = '$user_id' OR users_posts.post_user_id = '$user_id' THEN users_posts.created_at ELSE users_share_posts.updated_at END AS post_at"
 			//"COALESCE(users_share_posts.updated_at, users_posts.created_at) as post_at"
 		),
@@ -74,7 +73,6 @@ class User_post extends Model
 	public function scopeOfLatestPosts($query,$user_id,$post_at){
 		return $query->select('users_posts.*','users_posts.id as posts_id', 'users2.id as users2_id', 'users2.name as users2_name', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled','users_share_posts.updated_at as share_at',
 		\DB::raw(//リツイートかどうか
-
 			"CASE WHEN users_follows2.subject_user_id != '$user_id' OR users_follows2.is_canceled = 1 OR users_share_posts.updated_at IS NULL OR users_share_posts.is_deleted = 1 OR users_share_posts.repost_user_id = '$user_id' OR users_posts.post_user_id = '$user_id' THEN users_posts.created_at ELSE users_share_posts.updated_at END AS post_at"
 			//"COALESCE(users_share_posts.updated_at, users_posts.created_at) as post_at"
 		),
@@ -130,11 +128,9 @@ class User_post extends Model
 		->where('users_posts.post_user_id', '!=', $user_id)
 		->orWhere('users_posts.post_user_id',$user_id)
 		->whereNull('users_posts.parent_post_id')
-
 		->having('post_at', '>', $post_at)
 		->distinct();
 	}
-
 	
 	public function scopeOfUserPosts($query, $user_id, $id){
 		return $query->select('users_posts.*','users_posts.id as posts_id', 'users2.id as users2_id', 'users2.name as users2_name', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled','users_share_posts.updated_at as share_at',
