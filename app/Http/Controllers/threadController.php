@@ -30,5 +30,5 @@ class threadController extends Controller
 		$lists = $request->base_user_lists;
         return view('thread',compact('posts','posts2', 'userIds', 'user','lists'));
 
-}
+	}
 }
