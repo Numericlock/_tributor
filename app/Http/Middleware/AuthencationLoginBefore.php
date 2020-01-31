@@ -27,7 +27,7 @@ class AuthencationLoginBefore
 				exit;
 			}else{
 				setcookie('session','',time()-1);
-				return view('login');
+				return view('/login');
 			}
 		}else{
 			return $next($request);
