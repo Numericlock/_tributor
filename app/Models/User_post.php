@@ -178,7 +178,7 @@ class User_post extends Model
 	}
     
     
-   	public function scopeThreadPosts($query,$user_id,$post_id){
+   	public function scopeParentPosts($query,$user_id,$post_id){
 		return $query->select('users_posts.*','users_posts.id as posts_id', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled',
 		\DB::raw(//フォロー数
 			"(SELECT COUNT(subject_user_id = users.id  OR NULL) AS subject_count FROM users_follows) AS subject_count "
@@ -192,10 +192,19 @@ class User_post extends Model
 		\DB::raw(//フォローされているかどうか
 			"(SELECT COUNT(*) FROM users_posts WHERE parent_post_id = posts_id AND is_deleted = 0) AS comment_count "
 		),
-		\DB::raw(//フォローされているかどうか
+		\DB::raw(//いいねの数
 			"(SELECT COUNT(*) FROM users_favorites WHERE post_id = posts_id AND is_canceled = 0) AS favorite_count "
 		),
-		\DB::raw(//フォローされているかどうか
+		\DB::raw(//いいねしているかどうか
+			"(SELECT COUNT(*) FROM users_favorites WHERE post_id = posts_id AND is_canceled = 0 AND user_id = '$user_id') AS is_favorite "
+		),
+		\DB::raw(//いいねしているかどうか
+			"(SELECT COUNT(*) FROM users_share_posts WHERE origin_post_id = posts_id AND is_deleted = 0 AND repost_user_id = '$user_id') AS is_retribute "
+		),
+		\DB::raw(//いいねしているかどうか
+			"(SELECT COUNT(*) FROM users_share_posts WHERE origin_post_id = posts_id AND is_deleted = 0) AS retribute_count "
+		),
+		\DB::raw(//添付ファイルの数
 			"(SELECT COUNT(*) FROM attached_contents WHERE post_id = posts_id) AS attached_count "
 		)
 							  
@@ -209,7 +218,7 @@ class User_post extends Model
 		->distinct();
 	}
 
-    public function scopeParentPosts($query,$user_id,$post_parent){
+    public function scopeChildPosts($query,$user_id,$post_parent){
 		return $query->select('users_posts.*','users_posts.id as posts_id', 'users.id as users_id', 'users.name as users_name', 'users_follows.subject_user_id as subject_user_id','users_follows.is_canceled as is_canceled',
 		\DB::raw(//フォロー数
 			"(SELECT COUNT(subject_user_id = users.id  OR NULL) AS subject_count FROM users_follows) AS subject_count "
@@ -223,10 +232,19 @@ class User_post extends Model
 		\DB::raw(//フォローされているかどうか
 			"(SELECT COUNT(*) FROM users_posts WHERE parent_post_id = posts_id AND is_deleted = 0) AS comment_count "
 		),
-		\DB::raw(//フォローされているかどうか
+		\DB::raw(//いいねの数
 			"(SELECT COUNT(*) FROM users_favorites WHERE post_id = posts_id AND is_canceled = 0) AS favorite_count "
 		),
-		\DB::raw(//フォローされているかどうか
+		\DB::raw(//いいねしているかどうか
+			"(SELECT COUNT(*) FROM users_favorites WHERE post_id = posts_id AND is_canceled = 0 AND user_id = '$user_id') AS is_favorite "
+		),
+		\DB::raw(//いいねしているかどうか
+			"(SELECT COUNT(*) FROM users_share_posts WHERE origin_post_id = posts_id AND is_deleted = 0 AND repost_user_id = '$user_id') AS is_retribute "
+		),
+		\DB::raw(//いいねしているかどうか
+			"(SELECT COUNT(*) FROM users_share_posts WHERE origin_post_id = posts_id AND is_deleted = 0) AS retribute_count "
+		),
+		\DB::raw(//添付ファイルの数
 			"(SELECT COUNT(*) FROM attached_contents WHERE post_id = posts_id) AS attached_count "
 		)
 							  
