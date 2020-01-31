@@ -22,7 +22,7 @@ class AuthencationLoginBefore
 				['id', $_COOKIE['session']],
 				['logout_at', null],
 			])->count();
-			if ($count = 1) {
+			if ($count == 1) {
 				header("Location: /home");
 				exit;
 			}else{
