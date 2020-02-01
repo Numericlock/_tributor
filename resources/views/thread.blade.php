@@ -110,7 +110,6 @@
 				<div class="users-content-sentence">
 					<div class="users-information-link">
 						<span class="parent-users-content-text">{{$parent_post->content_text}}</span>
-						<a href="/{{ $parent_post->users_id }}/{{ $parent_post->posts_id }}">aaaa</a>
 					</div>
 					@if($parent_post->attached_count > 1)
 					<div class="swiper-container parent-swiper-container" data-id="{{ $parent_post->posts_id }}"  data-num="0"  data-maxnum="{{ $parent_post->attached_count }}">
@@ -134,7 +133,7 @@
 						<img src="/img/post_img/{{$parent_post->posts_id.'_0.png'}}" onclick="attached_modal_open(this)" data-num="{{ $parent_post->attached_count }}" >
 					@endif
 				</div>	
-				<div class="information">
+				<div class="information parent-information">
 					<span>
 						@if($parent_post->attached_count > 0)
 						<svg class="information-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
@@ -161,74 +160,77 @@
 							{{date('Y年n月d日 G時i分', strtotime($parent_post->updated_at))}}
 					</span>
 				</div>
-
-					<div class="control">
-						<button type='button'>
-							<svg class="control-icon comment" onclick="comment(this)" data-id="{{ $parent_post->id }}" data-content="{{ $parent_post->content_text }}" data-userid="{{ $parent_post->users_id }}" data-username="{{ $parent_post->users_name }}" data-time="{{$parent_post->updated_at}}" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-								 viewBox="0 0 512 512" xml:space="preserve">
+				<div class="parent-post-counts">
+					@if($parent_post->retribute_count > 0)
+					<span class="parent-post-count">{{ $parent_post->retribute_count}}件の<span>リツイート</span></span>
+					@endif
+					@if($parent_post->favorite_count > 0)
+					<span class="parent-post-count">{{ $parent_post->favorite_count}}件の<span>いいね</span></span>
+					@endif
+				</div>
+				<div class="control parent-control">
+					<button type='button'>
+						<svg class="control-icon comment" onclick="comment(this)" data-id="{{ $parent_post->id }}" data-content="{{ $parent_post->content_text }}" data-userid="{{ $parent_post->users_id }}" data-username="{{ $parent_post->users_name }}" data-time="{{$parent_post->updated_at}}" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+							 viewBox="0 0 512 512" xml:space="preserve">
+						<g>
+							<path class="st0" d="M447.139,16H64.859C29.188,16,0,45.729,0,82.063v268.519c0,36.334,29.188,66.063,64.859,66.063h155.192
+								l74.68,76.064c3.156,3.213,7.902,4.174,12.024,2.436c4.121-1.74,6.808-5.836,6.808-10.381v-68.119h133.576
+								c35.674,0,64.861-29.729,64.861-66.063V82.063C512,45.729,482.812,16,447.139,16z M96,132v-32h320v32H96z M96,232v-32h320v32H96z
+								 M324,300v32H96v-32H324z"/>
+						</g>
+						</svg>
+					</button>
+					<button type='button'>
+						@if($parent_post->is_retribute == 0)
+						<svg class="control-icon diffusion"  onclick="retribute(this)"  data-id="{{ $parent_post->id }}"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+							 viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">
 							<g>
-								<path class="st0" d="M447.139,16H64.859C29.188,16,0,45.729,0,82.063v268.519c0,36.334,29.188,66.063,64.859,66.063h155.192
-									l74.68,76.064c3.156,3.213,7.902,4.174,12.024,2.436c4.121-1.74,6.808-5.836,6.808-10.381v-68.119h133.576
-									c35.674,0,64.861-29.729,64.861-66.063V82.063C512,45.729,482.812,16,447.139,16z M96,132v-32h320v32H96z M96,232v-32h320v32H96z
-									 M324,300v32H96v-32H324z"/>
+								<path id="Loop" d="M360.909,17.934H24.061C10.767,17.934,0,28.713,0,41.995V258.54c0,13.293,10.767,24.061,24.061,24.061h60.152
+									c7.711,0,12.03-5.45,12.03-12.03c0-6.581-4.09-12.187-12.03-12.187H38.738c-8.036,0-14.557-6.52-14.557-14.557V57.093
+									c0-8.036,6.52-14.557,14.557-14.557l307.627-0.373c8.036,0,14.557,6.52,14.557,14.557v187.107c0,8.036-6.52,14.557-14.557,14.557
+									H209.556l62.413-63.303c4.692-4.752,4.692-12.439,0-17.191c-4.704-4.74-12.319-4.74-17.011,0l-83.009,84.2
+									c-4.692,4.74-4.692,12.439,0,17.191c0,0,0,0,0.012,0l82.997,84.2c4.692,4.74,12.319,4.74,17.011,0
+									c4.692-4.752,4.692-12.439,0-17.179l-62.774-63.688h151.714c13.293,0,24.061-10.767,24.061-24.061V42.007
+									C384.97,28.713,374.203,17.934,360.909,17.934z"/>
 							</g>
-							</svg>
-							<span>{{ $parent_post->comment_count >0 }}</span>
-						</button>
-						<button type='button'>
-							@if($parent_post->is_retribute == 0)
-							<svg class="control-icon diffusion"  onclick="retribute(this)"  data-id="{{ $parent_post->id }}"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-								 viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">
-								<g>
-									<path id="Loop" d="M360.909,17.934H24.061C10.767,17.934,0,28.713,0,41.995V258.54c0,13.293,10.767,24.061,24.061,24.061h60.152
-										c7.711,0,12.03-5.45,12.03-12.03c0-6.581-4.09-12.187-12.03-12.187H38.738c-8.036,0-14.557-6.52-14.557-14.557V57.093
-										c0-8.036,6.52-14.557,14.557-14.557l307.627-0.373c8.036,0,14.557,6.52,14.557,14.557v187.107c0,8.036-6.52,14.557-14.557,14.557
-										H209.556l62.413-63.303c4.692-4.752,4.692-12.439,0-17.191c-4.704-4.74-12.319-4.74-17.011,0l-83.009,84.2
-										c-4.692,4.74-4.692,12.439,0,17.191c0,0,0,0,0.012,0l82.997,84.2c4.692,4.74,12.319,4.74,17.011,0
-										c4.692-4.752,4.692-12.439,0-17.179l-62.774-63.688h151.714c13.293,0,24.061-10.767,24.061-24.061V42.007
-										C384.97,28.713,374.203,17.934,360.909,17.934z"/>
-								</g>
-							</svg>
-
-							@else
-							<svg class="control-icon diffusion-retribute"  onclick="retribute_remove(this)"  data-id="{{ $parent_post->id }}"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-								 viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">
-								<g>
-									<path id="Loop" d="M360.909,17.934H24.061C10.767,17.934,0,28.713,0,41.995V258.54c0,13.293,10.767,24.061,24.061,24.061h60.152
-										c7.711,0,12.03-5.45,12.03-12.03c0-6.581-4.09-12.187-12.03-12.187H38.738c-8.036,0-14.557-6.52-14.557-14.557V57.093
-										c0-8.036,6.52-14.557,14.557-14.557l307.627-0.373c8.036,0,14.557,6.52,14.557,14.557v187.107c0,8.036-6.52,14.557-14.557,14.557
-										H209.556l62.413-63.303c4.692-4.752,4.692-12.439,0-17.191c-4.704-4.74-12.319-4.74-17.011,0l-83.009,84.2
-										c-4.692,4.74-4.692,12.439,0,17.191c0,0,0,0,0.012,0l82.997,84.2c4.692,4.74,12.319,4.74,17.011,0
-										c4.692-4.752,4.692-12.439,0-17.179l-62.774-63.688h151.714c13.293,0,24.061-10.767,24.061-24.061V42.007
-										C384.97,28.713,374.203,17.934,360.909,17.934z"/>
-								</g>
-							</svg>
-							@endif
-							<span>{{ $parent_post->retribute_count > 0 }}</span>
-						</button>
-						<button type='button'>
-							@if($parent_post->is_favorite == 0)
-							<svg class="control-icon heart" onclick="favorite(this)" data-id="{{ $parent_post->id }}" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-								 viewBox="0 0 512 512" xml:space="preserve">
-								<g>
-									<path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391
-										c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547
-										l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z"/>
-								</g>
-							</svg>
-							@else
-							<svg class="control-icon heart-favorite" onclick="favorite_remove(this)" data-id="{{ $parent_post->id }}" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-								 viewBox="0 0 512 512" xml:space="preserve">
-								<g>
-									<path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391
-										c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547
-										l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z"/>
-								</g>
-							</svg>
-							@endif
-							<span>{{ $parent_post->favorite_count > 0 }} </span>
-						</button>
-					</div>
+						</svg>
+						@else
+						<svg class="control-icon diffusion-retribute"  onclick="retribute_remove(this)"  data-id="{{ $parent_post->id }}"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+							 viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">
+							<g>
+								<path id="Loop" d="M360.909,17.934H24.061C10.767,17.934,0,28.713,0,41.995V258.54c0,13.293,10.767,24.061,24.061,24.061h60.152
+									c7.711,0,12.03-5.45,12.03-12.03c0-6.581-4.09-12.187-12.03-12.187H38.738c-8.036,0-14.557-6.52-14.557-14.557V57.093
+									c0-8.036,6.52-14.557,14.557-14.557l307.627-0.373c8.036,0,14.557,6.52,14.557,14.557v187.107c0,8.036-6.52,14.557-14.557,14.557
+									H209.556l62.413-63.303c4.692-4.752,4.692-12.439,0-17.191c-4.704-4.74-12.319-4.74-17.011,0l-83.009,84.2
+									c-4.692,4.74-4.692,12.439,0,17.191c0,0,0,0,0.012,0l82.997,84.2c4.692,4.74,12.319,4.74,17.011,0
+									c4.692-4.752,4.692-12.439,0-17.179l-62.774-63.688h151.714c13.293,0,24.061-10.767,24.061-24.061V42.007
+									C384.97,28.713,374.203,17.934,360.909,17.934z"/>
+							</g>
+						</svg>
+						@endif
+					</button>
+					<button type='button'>
+						@if($parent_post->is_favorite == 0)
+						<svg class="control-icon heart" onclick="favorite(this)" data-id="{{ $parent_post->id }}" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+							 viewBox="0 0 512 512" xml:space="preserve">
+							<g>
+								<path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391
+									c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547
+									l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z"/>
+							</g>
+						</svg>
+						@else
+						<svg class="control-icon heart-favorite" onclick="favorite_remove(this)" data-id="{{ $parent_post->id }}" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+							 viewBox="0 0 512 512" xml:space="preserve">
+							<g>
+								<path class="st0" d="M473.984,74.248c-50.688-50.703-132.875-50.703-183.563,0c-17.563,17.547-29.031,38.891-34.438,61.391
+									c-5.375-22.5-16.844-43.844-34.406-61.391c-50.688-50.703-132.875-50.703-183.563,0c-50.688,50.688-50.688,132.875,0,183.547
+									l217.969,217.984l218-217.984C524.672,207.123,524.672,124.936,473.984,74.248z"/>
+							</g>
+						</svg>
+						@endif
+					</button>
+				</div>
 		</div>
             @foreach ($child_posts as $post)
 
