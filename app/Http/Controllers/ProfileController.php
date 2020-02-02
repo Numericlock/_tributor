@@ -44,21 +44,17 @@ class ProfileController extends Controller
 		->get();
 		$current_user = $posts->first();
         
-		$reposts = UsersSharePost::ofReposts($user->user_id)->latest()->get();
-		$myposts = User_post::myPosts($user->user_id)->orderBy('post_at', 'desc')->offset(0)->limit(25)->get();
-        $imgposts = User_post::imgPosts($user->user_id)->orderBy('post_at', 'desc')->offset(0)->limit(25)->get();
-		///$posts = $posts->merge($reposts);
-		//$posts = $posts->sortByDesc('share_at')
-
-		$myposts = $myposts->unique('posts_id');
-		$start_post = $myposts->first();
-		$last_post = $myposts->last();
-		///$posts = $posts->sortByDesc('created_at');
-        $userIds = $myposts->unique('users_id');
-        $myposts = $imgposts->unique('posts_id');
-        $userIdsimg = $imgposts->unique('users_id');
+		$reposts = UsersSharePost::ofReposts($user_id)->latest()->get();
+		$myPosts = User_post::MyPosts($base_user_id,$user_id)->orderBy('post_at', 'desc')->offset(0)->limit(25)->get();
+        $imgPosts = User_post::MyPosts($base_user_id,$user_id)->having('attached_count','>',0)->orderBy('post_at', 'desc')->offset(0)->limit(25)->get();
+		$myPosts = $myPosts->unique('posts_id');
+		$start_post = $myPosts->first();
+		$last_post = $myPosts->last();
+        $userIds = $myPosts->unique('users_id');
+        $imgPosts = $imgPosts->unique('posts_id');
+        $userIdsimg = $imgPosts->unique('users_id');
 		$lists = $request->base_user_lists;
-		return view('profile',compact('current_user','myposts','userIdsimg','imgposts', 'start_post', 'last_post', 'userIds', 'user','lists'));
+		return view('profile',compact('current_user','myPosts','userIdsimg','imgPosts', 'start_post', 'last_post', 'userIds', 'user','lists'));
 
 		
 	}
