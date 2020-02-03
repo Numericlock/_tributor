@@ -1,91 +1,95 @@
+var tribute_flag;
 var textarea;
 var lists_array=[];	
 function tribute_postForm(){
-	var data = {
-		content_text: $('#textarea').val(),
-		parent_post_id:parent_post_id,
-		lists:lists_array,
-		filetati:files
-	};
-	// 通信実行
-	$.ajax({
-		type:"post",                // method = "POST"
-		url:"/post",        // POST送信先のURL
-		data:JSON.stringify(data),  // JSONデータ本体
-		contentType: 'application/json', // リクエストの Content-Type
-		processData: false,         // レスポンスをJSONとしてパースする
-		async : false,   // ← asyncをfalseに設定する
-		success: function(json_data){
-			if(window.hasOwnProperty('post_users_ids')){
-				if(post_users_ids.indexOf(json_data.users_id)==-1){
-					post_users_ids.push(json_data.users_id);
-					var append_text = 	
-						'<div id="'+ json_data.users_id +'" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="'+ json_data.users_id +'">'
-						+	'<div class="users-modal">'
-						+		'<div class="users-modal-top-wrapper">'
-						+			'<div class="users-modal-icon">'
-						+				'<img src="/img/2.jpg">'
-						+			'</div>'
-						+			'<div class="users-modal-button">'
-						+				'<div class="users-modal-button-follow" id="followbutton_'+ json_data.users_id +'">';
-					if(json_data.users_id === user_id){
-					}else if(json_data.is_canceled === 1){
-						append_text = append_text + '<button class="follow-button" onclick="follow(this)" data-followid="'+ json_data.users_id +'">フォロー</button>';
-					}else if(json_data.subject_user_id === user_id){
-						append_text = append_text +	'<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="'+ json_data.users_id +'">フォロー中</button>' 
-					}else{
-						append_text = append_text +	'<button class="follow-button" onclick="follow(this)" data-followid="'+ json_data.users_id +'">フォロー</button>'
+	if(tribute_flag == true){
+		tribute_flag = false;
+		var data = {
+			content_text: $('#textarea').val(),
+			parent_post_id:parent_post_id,
+			lists:lists_array,
+			filetati:files
+		};
+		// 通信実行
+		$.ajax({
+			type:"post",                // method = "POST"
+			url:"/post",        // POST送信先のURL
+			data:JSON.stringify(data),  // JSONデータ本体
+			contentType: 'application/json', // リクエストの Content-Type
+			processData: false,         // レスポンスをJSONとしてパースする
+			async : false,   // ← asyncをfalseに設定する
+			success: function(json_data){
+				if(window.hasOwnProperty('post_users_ids')){
+					if(post_users_ids.indexOf(json_data.users_id)==-1){
+						post_users_ids.push(json_data.users_id);
+						var append_text = 	
+							'<div id="'+ json_data.users_id +'" class="users-modal-wrapper" onmouseenter="users_content_modal_close_reset()" onmouseleave="users_content_modal_close_comp(this)" data-modalid="'+ json_data.users_id +'">'
+							+	'<div class="users-modal">'
+							+		'<div class="users-modal-top-wrapper">'
+							+			'<div class="users-modal-icon">'
+							+				'<img src="/img/2.jpg">'
+							+			'</div>'
+							+			'<div class="users-modal-button">'
+							+				'<div class="users-modal-button-follow" id="followbutton_'+ json_data.users_id +'">';
+						if(json_data.users_id === user_id){
+						}else if(json_data.is_canceled === 1){
+							append_text = append_text + '<button class="follow-button" onclick="follow(this)" data-followid="'+ json_data.users_id +'">フォロー</button>';
+						}else if(json_data.subject_user_id === user_id){
+							append_text = append_text +	'<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="'+ json_data.users_id +'">フォロー中</button>' 
+						}else{
+							append_text = append_text +	'<button class="follow-button" onclick="follow(this)" data-followid="'+ json_data.users_id +'">フォロー</button>'
+						}
+						append_text = append_text +
+											'</div>'				
+							+				'<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="'+ json_data.users_id +'" data-followname="'+ json_data.users_name +'">リストに追加</button>'
+							+			'</div>'
+							+		'</div>'
+							+		'<div class="users-modal-middle-wrapper">'
+							+			'<span class="users-modal-name">'+ json_data.users_name +'</span>'
+							+			'<div>'
+							+			'<span class="users-modal-id">@'+ json_data.users_id +'</span>'
+							+			'</div>'
+							+		'</div>'
+							+		'<div class="users-modal-bottom-wrapper">'
+							+			'<div class="users-modal-introduction">'
+							+			'</div>'
+							+		'</div>'
+							+		'<div class="users-modal-end-wrapper">'
+							+			'<div class="users-modal-follow">'
+							+				'<span>フォロー数/'+ json_data.subject_count +'</span>'
+							+			'</div>'
+							+			'<div class="users-modal-follower">'
+							+				'<span>フォロワー数/'+ json_data.followed_count +'</span>'
+							+			'</div>'
+							+		'</div>'
+							+	'</div>'
+							+'</div>';
+						$('.content').append(
+							append_text
+						);
 					}
-					append_text = append_text +
-										'</div>'				
-						+				'<button class="follow-button" onclick="show_list_add_modal(this)" data-followid="'+ json_data.users_id +'" data-followname="'+ json_data.users_name +'">リストに追加</button>'
-						+			'</div>'
-						+		'</div>'
-						+		'<div class="users-modal-middle-wrapper">'
-						+			'<span class="users-modal-name">'+ json_data.users_name +'</span>'
-						+			'<div>'
-						+			'<span class="users-modal-id">@'+ json_data.users_id +'</span>'
-						+			'</div>'
-						+		'</div>'
-						+		'<div class="users-modal-bottom-wrapper">'
-						+			'<div class="users-modal-introduction">'
-						+			'</div>'
-						+		'</div>'
-						+		'<div class="users-modal-end-wrapper">'
-						+			'<div class="users-modal-follow">'
-						+				'<span>フォロー数/'+ json_data.subject_count +'</span>'
-						+			'</div>'
-						+			'<div class="users-modal-follower">'
-						+				'<span>フォロワー数/'+ json_data.followed_count +'</span>'
-						+			'</div>'
-						+		'</div>'
-						+	'</div>'
-						+'</div>';
-					$('.content').append(
+					append_text = dom_post(json_data.posts_id, json_data.users_id, json_data.users_name, json_data.content_text, json_data.updated_at, json_data.share_at, json_data.post_at, json_data.id, json_data.users2_name, json_data.attached_count, json_data.comment_count, json_data.retribute_count, json_data.favorite_count, json_data.is_favorite, json_data.is_retribute);
+					get_latest_posts();
+					$('.content').prepend(
 						append_text
 					);
+					bottomPos = $(document).height() - $(window).height() - 1;    //画面下位置を取得
 				}
-				append_text = dom_post(json_data.posts_id, json_data.users_id, json_data.users_name, json_data.content_text, json_data.updated_at, json_data.share_at, json_data.post_at, json_data.id, json_data.users2_name, json_data.attached_count, json_data.comment_count, json_data.retribute_count, json_data.favorite_count, json_data.is_favorite, json_data.is_retribute);
-				get_latest_posts();
-				$('.content').prepend(
-					append_text
-				);
-				bottomPos = $(document).height() - $(window).height() - 1;    //画面下位置を取得
-			}
-			post_modal_close();
-			get_flag = true;
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
-			console.log("Server Error. Pleasy try again later.");
-			console.log(data);
-			console.log("XMLHttpRequest : " + XMLHttpRequest.status);
-			console.log("textStatus     : " + textStatus);
-			console.log("errorThrown    : " + errorThrown.message);
-		},
-		complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
+				post_modal_close();
+				get_flag = true;
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
+				console.log("Server Error. Pleasy try again later.");
+				console.log(data);
+				console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+				console.log("textStatus     : " + textStatus);
+				console.log("errorThrown    : " + errorThrown.message);
+			},
+			complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
 
-		}
-	});
+			}
+		});
+	}
 };
 function dom_post(posts_id, users_id, users_name, content_text, updated_at, share_at, post_at, id, users2_name, attached_count, comment_count, retribute_count, favorite_count, is_favorite, is_retribute){
 	var append_text;

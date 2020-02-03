@@ -105,21 +105,27 @@
 				</svg>
 			</a>
 			<div>
+				<div class="other-nav-modal">
+				</div>
+				<div class="other-nav-wrapper">						
+					<a href="/logout">
+						<button>ログアウト</button>
+					</a>
+				</div>
+				<svg class="nav-icon" onclick="other_nav_open();" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+					 viewBox="0 0 512 512"  xml:space="preserve">
+					<g>
+						<circle class="st0" cx="55.091" cy="256" r="55.091"/>
+						<circle class="st0" cx="256" cy="256" r="55.091"/>
+						<circle class="st0" cx="456.909" cy="256" r="55.091"/>
+					</g>
+				</svg>
+			</div>
+			<div>
 				<button type="button" id="dotRadius" class="dotRadius" data-toggle="post-modal" >
 					<span id="plus"></span>
 				</button>
 			</div>
-			<a href="/logout">
-				<span>ログアウト</span>
-			</a>
-			<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-				 viewBox="0 0 512 512"  xml:space="preserve">
-			<g>
-				<circle class="st0" cx="55.091" cy="256" r="55.091"/>
-				<circle class="st0" cx="256" cy="256" r="55.091"/>
-				<circle class="st0" cx="456.909" cy="256" r="55.091"/>
-			</g>
-			</svg>
 
 		</div>
 		@yield('content')
@@ -388,6 +394,17 @@
 			file_array.splice(id,1);
 			preview_array.splice(id,1);
 			create_imgArea(file_array.length);
+		});
+		function other_nav_open(){
+			$('.other-nav-modal').stop(true, true).fadeIn();
+			$('.other-nav-wrapper').css('display','flex');
+		}		
+		function other_nav_close(){
+			$('.other-nav-modal').stop(true, true).fadeOut();
+			$('.other-nav-wrapper').css('display','none');
+		}
+		$('.other-nav-modal').on('click',function(){
+			other_nav_close();
 		});
 		function create_imgArea(length){
 			//なぜかfor文回せない。
