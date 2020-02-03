@@ -76,7 +76,7 @@
 	<div class="list-modal-minimumInputs">
 		<div class="list-modal-profileImageInput">
 			<label>
-				<img class="profile-image" id="preview" src="../img/addimg.png"><br>
+				<img class="profile-image" id="preview" src="../img/list_icon/{{ $current_list->list_id }}.png"><br>
 				<input type="file" id="dotRadius2" accept="image/*"　 stylesheet="display:none"hidden>
 			</label>
 		</div>
@@ -389,7 +389,7 @@
 						$('.list-modal-addUsers-searchArea-result').append(
 							 '<div class="list-modal-addUsers-searchArea-result-user">'
 							+			'<div class="list-modal-addUsers-searchArea-result-user-icon">'
-							+				'<img src="/img/2.jpg">'
+							+				'<img src="/img/icon_img/'+ value.users_id +'.png">'
 							+			'</div>'
 							+			'<div class="list-modal-addUsers-searchArea-result-user-name">'
 							+				'<span title='+value.users_name+'>'+ value.users_name +'</span>'
@@ -414,7 +414,7 @@
 						$('.list-modal-addUsers-searchArea-result').append(
 							 '<div class="list-modal-addUsers-searchArea-result-user">'
 							+			'<div class="list-modal-addUsers-searchArea-result-user-icon">'
-							+				'<img src="/img/2.jpg">'
+							+				'<img src="/img/icon_img/'+ value.users_id +'.png">'
 							+			'</div>'
 							+			'<div class="list-modal-addUsers-searchArea-result-user-name">'
 							+				'<span title='+value.users_name+'>'+ value.users_name +'</span>'

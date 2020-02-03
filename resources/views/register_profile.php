@@ -70,7 +70,7 @@
 	<div class="modal-content3">
 	<input id='scal' type='range' value='' min='10' max='400'  style='width: 300px;'><br>
 <canvas id='cvs' width='300' height='400'></canvas><br>
-<button id="crop_img">CROP</button><br>
+<button id="crop_img">適応</button><br>
 <canvas id='out' width='200' height='200' style="display:none"></canvas>
 	</div>
             

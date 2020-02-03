@@ -6,10 +6,12 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>@yield('title')/-tributor</title>
 	<script src="/js/jquery-2.1.3.js"></script>
+	<script src="/js/moment.js"></script>
+	<script src="/js/ImageManager.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
     <link rel="icon" href="/favicon.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.6/css/swiper.min.css">
 	<link rel="stylesheet" href="/css/common.css">
 	<link rel="stylesheet" href="/css/plus.css">
 	<link rel="stylesheet" href="/css/checkbox.css">
@@ -20,7 +22,7 @@
 <body>
 	<div class="wrapper">
 		<div class="nav">
-			<a href="/{{ $user->user_id }}"><img class="nav-icon common-user-icon" src="/img/2.jpg"></a>
+			<a href="/{{ $user->user_id }}"><img class="nav-icon common-user-icon" src="/img/icon_img/{{ $user->user_id }}.png"></a>
 			<a href="/home">
 				<svg class="nav-icon home-nav-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
@@ -110,14 +112,14 @@
 			<a href="/logout">
 				<span>ログアウト</span>
 			</a>
-<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 512 512"  xml:space="preserve">
-<g>
-	<circle class="st0" cx="55.091" cy="256" r="55.091"/>
-	<circle class="st0" cx="256" cy="256" r="55.091"/>
-	<circle class="st0" cx="456.909" cy="256" r="55.091"/>
-</g>
-</svg>
+			<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				 viewBox="0 0 512 512"  xml:space="preserve">
+			<g>
+				<circle class="st0" cx="55.091" cy="256" r="55.091"/>
+				<circle class="st0" cx="256" cy="256" r="55.091"/>
+				<circle class="st0" cx="456.909" cy="256" r="55.091"/>
+			</g>
+			</svg>
 
 		</div>
 		@yield('content')
@@ -125,7 +127,8 @@
 			@foreach($lists as $list)
 			<a href="/lists/{{ $list->id }}"><img class="common-list-icon" src="/img/list_icon/{{ $list->id }}.png"></a>
 			@endforeach
-			<a href="#">
+			<!--
+			<a >
 				<svg class="edit-list-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
 						<path class="st0" d="M504.16,183.326l-17.24-17.233c-10.453-10.461-27.415-10.452-37.868,0l-16.127,16.136l55.1,55.099
@@ -148,12 +151,11 @@
 					</g>
 				</svg>
 			</a>
+-->
 		</div>
 	</div>
 	<div class="post-modal">
 	</div>
-
-
 	<div id="post-modal_content" class="post-modal-content">
         <div class="post-modal-title">
             <span>投稿</span>
@@ -167,7 +169,7 @@
         </div>
 		<div class="post-modal-parentPost">
 			<div class="post-modal-parentPost-icon">
-				<img src="/img/2.jpg">
+				<img id="parentPost_usericon" src="/img/icon_img/{{ $user->user_id }}.png">
 			</div>
 			<div class="post-modal-parentPost-content">
 				<div class="post-modal-parentPost-user">
@@ -182,7 +184,7 @@
 		</div>
         <div class="post-modal-textarea">
             <div class="post-modal-textarea-userImage">
-                <img src="/img/2.jpg">
+                <img src="/img/icon_img/{{ $user->user_id }}.png">
             </div>
 			<div class="post-modal-textarea-input">
 				<textarea id="textarea" name="post_message" title="今何してる？" aria-label="今何してる？" placeholder="何をトリビュートする？" maxlength="256" wrap="soft"></textarea>
@@ -222,7 +224,7 @@
 				</g>
 				</svg>			
 			</label>
-            <button type='button'><img class="post-modal-control-icon" src="/img/comment.svg"></button>
+      <!--      <button type='button'><img class="post-modal-control-icon" src="/img/comment.svg"></button>
             <button type='button'><img class="post-modal-control-icon" src="/img/爆発.svg"></button>
             <button type='button'>
                 <svg class="post-modal-control-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"  style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -247,6 +249,7 @@
                     </g>
                 </svg>
             </button>
+	-->
             <button class="post-modal-positive-button" id="post-modal_next" type='button'>次へ</button>
         </div>
 	</div>
@@ -264,7 +267,7 @@
 		<div class="post-modal-list-area">
 			@foreach($lists as $list)
 				<div class="post-modal-list">
-					<a href="#"><img class="post-modal-list-icon" src="/img/2.jpg"></a>
+					<a href="#"><img class="post-modal-list-icon" src="/img/list_icon/{{ $list->id }}.png"></a>
 					<span>{{ $list->name }}</span>
 					<div class="checkbox">
 						<div>
@@ -348,22 +351,15 @@
 		</div>
 	</div>
 
-
+	<script src="/js/post_img_swiper.js"></script>
+	<script src="/js/tribute_post.js"></script>
+	<script src="/js/follow.js"></script>
+	<script src="/js/retribute.js"></script>
+	<script src="/js/favorite.js"></script>
 	<script>
-			function start_alert() {
-    alert("touchstart!!");
-}
-		var mySwiper = new Swiper ('.swiper-container', {
-			effect: "slide",
-			loop: true,
-			pagination: '.swiper-pagination',
-			nextButton: '.swiper-button-next',
-			prevButton: '.swiper-button-prev',
-			parallax:true,
-			onSlideChangeStart: function() {
-			  console.log(this);
-			}
-		});
+		function start_alert() {
+			alert("touchstart!!");
+		}	
 
 		// Check for the various File API support.
 		if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -511,14 +507,15 @@
 		$('#dotRadius').on('click',function(){
 			post_modal_open();
 		});
-		$('.comment').on('click',function(){
-			var id = $(this).data("id");
-			var content = $(this).data("content");
-			var user_id = $(this).data("userid");
-			var user_name = $(this).data("username");
-			var time = $(this).data("time");
+		function comment(t){
+			var id = $(t).data("id");
+			var content = $(t).data("content");
+			var user_id = $(t).data("userid");
+			var user_name = $(t).data("username");
+			var time = $(t).data("time");
 			//var post = $('#post_'+id).clone();
 			//post.css("background","white");
+			$('#parentPost_usericon').attr('src', '/img/icon_img/'+user_id+'.png');
 			$('#parentPost_username').text(user_name);
 			$('#parentPost_userid').text(user_id);
 			$('#parentPost_time').text(time);
@@ -527,7 +524,7 @@
 			$('.post-modal-parentPost').css("display","flex");
 			parent_post_id = id;
 			post_modal_open();
-		});
+		}
 		
 		function post_modal_open(){
 			$('.post-modal').stop(true, true).fadeIn('500');
@@ -545,23 +542,6 @@
 			}, 500, function(){
 				$('#post-modal_content_next').hide();
 			});
-		}
-		function img_slide(t){
-			var img = $(t).parent().find("img");
-			var src = img.attr('src'); 
-			src = src.slice(0, -4);
-			var max_num = img.data('num');
-			var num = src.substr(-1, 1);
-			if(max_num != 1){
-				num = Number(num)+1;
-				if(num >= max_num){
-					num=0;
-				}
-				src = src.slice(0, -1);
-				src = src + num + ".png";
-				console.log(max_num);
-				img.attr('src',src);	
-			}
 		}
 		var attached_num;
 		function attached_modal_open(t){
@@ -672,6 +652,7 @@
 		}
 
 		$('#post-modal_next').on('click',function(){
+			console.log("wwwwwwww")
             var count = $('#textarea').val().length;
             if(count != 0 || Object.keys(file_array).length){
 			$('#post-modal_content_next').show().stop(true, true).animate({
@@ -747,46 +728,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
         });
-		function tribute_postForm(){
-			/*var files = [];
-			for(var i=0;i<preview_array.length;i++){
-				files.push(reader_array[i].result);
-                console.log(reader_array[i].result);
-			}
-            */
-			console.log(files);
-            console.log(file_array);
-			console.log(lists_array);
-			console.log(parent_post_id);
-			var data = {
-				content_text: $('#textarea').val(),
-				parent_post_id:parent_post_id,
-				lists:lists_array,
-				filetati:files
-			};
-			// 通信実行
-			$.ajax({
-				type:"post",                // method = "POST"
-				url:"/post",        // POST送信先のURL
-				data:JSON.stringify(data),  // JSONデータ本体
-				contentType: 'application/json', // リクエストの Content-Type
-                processData: false,         // レスポンスをJSONとしてパースする
-                async : false,   // ← asyncをfalseに設定する
-				success: function(json_data) { // 200 OK時
-					post_modal_close();
-				},
-				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
-					console.log("Server Error. Pleasy try again later.");
-					console.log(data);
-					console.log("XMLHttpRequest : " + XMLHttpRequest.status);
-					console.log("textStatus     : " + textStatus);
-					console.log("errorThrown    : " + errorThrown.message);
-				},
-				complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
-
-				}
-			});
-		};
         $("#search_text").on("input", function() {
             searchStr = $(this).val();
             clearTimeout(searchTimer);

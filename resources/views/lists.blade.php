@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/css/modal.css">
 @endsection
 @section('content')
+    <div class="content2">
+</div>
 		<div class="content">
 			<div class="content-title">
 				　<span>リスト</span>
@@ -95,11 +97,11 @@
     <div class="modal2">
 	</div>
 	<div class="modal-content3">
-	<input id='scal' type='range' value='' min='10' max='400'  style='width: 300px;'><br>
-<canvas id='cvs' width='300' height='400'></canvas><br>
-<button id="crop_img">CROP</button><br>
-<canvas id='out' width='200' height='200' style="display:none"></canvas>
-	</div>
+		<input id='scal' type='range' value='' min='10' max='400'  style='width: 300px;'><br>
+		<canvas id='cvs' width='300' height='400'></canvas><br>
+		<button id="crop_img">適応</button><br>
+		<canvas id='out' width='200' height='200' style="display:none"></canvas>
+		</div>
     <script>
 /*\
 |*|
@@ -228,7 +230,7 @@
 				$('.lists-wrapper').prepend(
 					'<div class="list-content" data-list='+ json_data.id +'>'
 				+		'<div class="list-icon">'
-				+			'<img id="preview2" src="/img/2.jpg">'
+				+			'<img id="preview2" src="/img/list_icon/'+json_data.id+'.png">'
 				+		'</div>'
 				+		'<div class="list-title">'
 				+			'<p class="list-title-p" data-value="'+ json_data.name +'">'+ json_data.name +'</p>'
@@ -241,6 +243,7 @@
                     
                     document.getElementById("preview2").src = base64;
                     modal_reset();
+                    document.getElementById("preview").src="../img/addimg.png";
                     $('.list-modal-addUsers-searchArea-result').empty();
                      $('.list-modal-addUsers-IntendAdd').empty();
                     
@@ -648,7 +651,8 @@
                
       base64 = out.toDataURL("public/img/png").replace("public/img/png", "public/img/octet-stream");
         console.log(base64);
-    document.getElementById("preview").src = base64;
+        document.getElementById("preview").src = base64;
+        
     $('#dotRadius2').val('');
  
    

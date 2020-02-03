@@ -24,7 +24,7 @@ class LoginFormRequest extends FormRequest
     public function rules()
     {
         return [
-			'id' => 'bail|required|alpha_num|exists:users,id',  // 必須・文字列・２５５文字以内
+			'id' => 'bail|required|regex:/^[a-zA-Z0-9_]+$/|exists:users,id',  // 必須・文字列・２５５文字以内
 			'password' => 'bail|required|max:256',          // 必須・整数		
         ];
     }
