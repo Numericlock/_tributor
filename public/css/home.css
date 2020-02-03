@@ -1,6 +1,15 @@
 *{
     color: white;
 }
+.home-nav-icon{
+	max-width:115%;
+	width:115%;
+	padding-left:5px;
+	padding-top:0;
+	padding-bottom:0;
+	fill:white;
+	filter: drop-shadow(0 0 0.5rem white);
+}
 .users-content{
 	border-bottom:solid 1px transparent;
 	padding:10px;
@@ -32,34 +41,15 @@
 	width: 100%;
 	background: rgba(0, 0, 0, 0.5);
 }
-.users-content-wrapper{
+.users-information-wrapper{
 	display: -webkit-flex;
 	display: flex;
 	-webkit-flex-direction: row;
 	flex-direction: row;
-}
-.users-information-wrapper{
-	display: -webkit-flex;
-	display: flex;
-	-webkit-flex-direction: column;
-	flex-direction: column;
-    max-width:530px;
-	width:530px;
+    
     
 }
-.content-information{
-	padding-left:20px;
-	margin-bottom:5px;
-}
-.content-information span{
-	height:16px;
-	line-height: 14px;
-}
-.retribute-icon{
-	height:16px;
-	fill:lightgray;
-	padding-top:4px;
-}
+
 .users-information-link{
     position: relative;
     z-index: 1; /* 必要であればリンク要素の重なりのベース順序指定 */  
@@ -78,19 +68,7 @@
 .users-content-sentence{
 	z-index: 1;
 	font-size:15px;
-	padding:0 10px;
 }
-.swiper-container{
-    max-width:490px;
-	width:490px;
-	width:100%;
-}
-.swiper-wrapper{
-	display:flex;
-	flex-wrap:nowrap;
-	align-items: center;
-}
-
 .users-content-sentence img{
 	width:100%;
 }
@@ -103,22 +81,14 @@
 	flex-direction: row;	
 	justify-content: space-around;
 }
-.control button{
-	display: -webkit-inline-flex;
-	display: inline-flex;
-	-webkit-flex-direction: row;
-	flex-direction: row;
-	width:33%;
-	padding-left: 20px;
-}
-
 .control-icon{
 	position:relative;
+	max-width: 100%;
+	width:100%;
 	height:18px;
 	fill:#4B4B4B;
 	fill:white;
 	transition:fill 0.3s;
-	margin-right:10px;
 }
 .comment:hover{
 	fill:#77B8DA;
@@ -128,20 +98,13 @@
 	fill:#E8822A;
 	transition:fill 0.3s;
 }
-.diffusion-retribute{
-	fill:#E8822A;
-}
 .heart:hover{
 	fill:#C73C2E;
 	transition:fill 0.3s;
 }
-.heart-favorite{
-	fill:#C73C2E;
-}
 .users-icon{
 	z-index: 1;
-	width:70px;
-	min-width:70px;
+	width:60px;
 }
 .users-icon img{
 	width:100%;
@@ -149,24 +112,19 @@
 }
 .users-information{
 	z-index: 1;
-	
+	width:90%;
 	padding:0 10px;
 	display: -webkit-flex;
 	display: flex;
 	-webkit-flex-direction: column;
 	flex-direction: column;
 }
-.users-information-name{
+.users-name{
 	font-size:17px;
 	font-weight: bolder;
 }
-.users-information-id{
-	font-size:14px;
-	color:gray;
-}
 .information-icon{
 	width:12px;
-	fill:white;
 }
 
 .follow-button{
@@ -235,6 +193,16 @@
 	min-width:30px;
 	line-height: 80px;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

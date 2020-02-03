@@ -6,12 +6,10 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>@yield('title')/-tributor</title>
 	<script src="/js/jquery-2.1.3.js"></script>
-	<script src="/js/moment.js"></script>
-	<script src="/js/ImageManager.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
     <link rel="icon" href="/favicon.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.6/css/swiper.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css">
 	<link rel="stylesheet" href="/css/common.css">
 	<link rel="stylesheet" href="/css/plus.css">
 	<link rel="stylesheet" href="/css/checkbox.css">
@@ -22,7 +20,7 @@
 <body>
 	<div class="wrapper">
 		<div class="nav">
-			<a href="/{{ $user->user_id }}"><img class="nav-icon common-user-icon" src="/img/icon_img/{{ $user->user_id }}.png"></a>
+			<a href="/{{ $user->user_id }}"><img class="nav-icon common-user-icon" src="/img/2.jpg"></a>
 			<a href="/home">
 				<svg class="nav-icon home-nav-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
@@ -112,14 +110,14 @@
 			<a href="/logout">
 				<span>ログアウト</span>
 			</a>
-			<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-				 viewBox="0 0 512 512"  xml:space="preserve">
-			<g>
-				<circle class="st0" cx="55.091" cy="256" r="55.091"/>
-				<circle class="st0" cx="256" cy="256" r="55.091"/>
-				<circle class="st0" cx="456.909" cy="256" r="55.091"/>
-			</g>
-			</svg>
+<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512"  xml:space="preserve">
+<g>
+	<circle class="st0" cx="55.091" cy="256" r="55.091"/>
+	<circle class="st0" cx="256" cy="256" r="55.091"/>
+	<circle class="st0" cx="456.909" cy="256" r="55.091"/>
+</g>
+</svg>
 
 		</div>
 		@yield('content')
@@ -127,8 +125,7 @@
 			@foreach($lists as $list)
 			<a href="/lists/{{ $list->id }}"><img class="common-list-icon" src="/img/list_icon/{{ $list->id }}.png"></a>
 			@endforeach
-			<!--
-			<a >
+			<a href="#">
 				<svg class="edit-list-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
 					<g>
 						<path class="st0" d="M504.16,183.326l-17.24-17.233c-10.453-10.461-27.415-10.452-37.868,0l-16.127,16.136l55.1,55.099
@@ -151,7 +148,6 @@
 					</g>
 				</svg>
 			</a>
--->
 		</div>
 	</div>
 	<div class="post-modal">
@@ -171,7 +167,7 @@
         </div>
 		<div class="post-modal-parentPost">
 			<div class="post-modal-parentPost-icon">
-				<img id="parentPost_usericon" src="/img/icon_img/{{ $user->user_id }}.png">
+				<img src="/img/2.jpg">
 			</div>
 			<div class="post-modal-parentPost-content">
 				<div class="post-modal-parentPost-user">
@@ -186,7 +182,7 @@
 		</div>
         <div class="post-modal-textarea">
             <div class="post-modal-textarea-userImage">
-                <img src="/img/icon_img/{{ $user->user_id }}.png">
+                <img src="/img/2.jpg">
             </div>
 			<div class="post-modal-textarea-input">
 				<textarea id="textarea" name="post_message" title="今何してる？" aria-label="今何してる？" placeholder="何をトリビュートする？" maxlength="256" wrap="soft"></textarea>
@@ -226,7 +222,7 @@
 				</g>
 				</svg>			
 			</label>
-      <!--      <button type='button'><img class="post-modal-control-icon" src="/img/comment.svg"></button>
+            <button type='button'><img class="post-modal-control-icon" src="/img/comment.svg"></button>
             <button type='button'><img class="post-modal-control-icon" src="/img/爆発.svg"></button>
             <button type='button'>
                 <svg class="post-modal-control-icon" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"  style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -251,7 +247,6 @@
                     </g>
                 </svg>
             </button>
-	-->
             <button class="post-modal-positive-button" id="post-modal_next" type='button'>次へ</button>
         </div>
 	</div>
@@ -269,7 +264,7 @@
 		<div class="post-modal-list-area">
 			@foreach($lists as $list)
 				<div class="post-modal-list">
-					<a href="#"><img class="post-modal-list-icon" src="/img/list_icon/{{ $list->id }}.png"></a>
+					<a href="#"><img class="post-modal-list-icon" src="/img/2.jpg"></a>
 					<span>{{ $list->name }}</span>
 					<div class="checkbox">
 						<div>
@@ -357,14 +352,19 @@
 	<script>
 			function start_alert() {
     alert("touchstart!!");
+<<<<<<< HEAD
 }	
 
+=======
+}
+>>>>>>> parent of b314691... Merge branch 'master' of https://github.com/Numericlock/_tributor
 		var mySwiper = new Swiper ('.swiper-container', {
 			effect: "slide",
 			loop: true,
 			pagination: '.swiper-pagination',
 			nextButton: '.swiper-button-next',
 			prevButton: '.swiper-button-prev',
+<<<<<<< HEAD
 			onSlideChangeEnd:function (idx) {
 				slide_flag = true;
 			},
@@ -402,6 +402,13 @@
 				$('#post_'+id).css('background-image', 'url(/img/post_img/'+$(t).parent().data('id')+'_'+ num +'.png)');
 			}
 		}
+=======
+			parallax:true,
+			onSlideChangeStart: function() {
+			  console.log(this);
+			}
+		});
+>>>>>>> parent of b314691... Merge branch 'master' of https://github.com/Numericlock/_tributor
 
 		// Check for the various File API support.
 		if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -549,15 +556,18 @@
 		$('#dotRadius').on('click',function(){
 			post_modal_open();
 		});
-		function comment(t){
-			var id = $(t).data("id");
-			var content = $(t).data("content");
-			var user_id = $(t).data("userid");
-			var user_name = $(t).data("username");
-			var time = $(t).data("time");
+		$('.comment').on('click',function(){
+			var id = $(this).data("id");
+			var content = $(this).data("content");
+			var user_id = $(this).data("userid");
+			var user_name = $(this).data("username");
+			var time = $(this).data("time");
 			//var post = $('#post_'+id).clone();
 			//post.css("background","white");
+<<<<<<< HEAD
 			$('#parentPost_usericon').attr('src', 'img/icon_img/'+user_id+'.png');
+=======
+>>>>>>> parent of b314691... Merge branch 'master' of https://github.com/Numericlock/_tributor
 			$('#parentPost_username').text(user_name);
 			$('#parentPost_userid').text(user_id);
 			$('#parentPost_time').text(time);
@@ -566,7 +576,7 @@
 			$('.post-modal-parentPost').css("display","flex");
 			parent_post_id = id;
 			post_modal_open();
-		}
+		});
 		
 		function post_modal_open(){
 			$('.post-modal').stop(true, true).fadeIn('500');
@@ -811,6 +821,7 @@
 				contentType: 'application/json', // リクエストの Content-Type
                 processData: false,         // レスポンスをJSONとしてパースする
                 async : false,   // ← asyncをfalseに設定する
+<<<<<<< HEAD
 				success: function(json_data){
 					if(window.hasOwnProperty('post_users_ids')){
 						if(post_users_ids.indexOf(json_data.users_id)==-1){
@@ -869,6 +880,9 @@
 						bottomPos = $(document).height() - $(window).height() - 1;    //画面下位置を取得
 					}
 					get_flag = true;
+=======
+				success: function(json_data) { // 200 OK時
+>>>>>>> parent of b314691... Merge branch 'master' of https://github.com/Numericlock/_tributor
 					post_modal_close();
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {       // HTTPエラー時
@@ -883,6 +897,7 @@
 				}
 			});
 		};
+<<<<<<< HEAD
 		function dom_post(posts_id, users_id, users_name, content_text, updated_at, share_at, post_at, id, users2_name, attached_count, comment_count, retribute_count, favorite_count, is_favorite, is_retribute){
 					var append_text;
 					if(attached_count > 0){
@@ -1087,6 +1102,8 @@
 					+'</scr'+'ipt>';
 			return append_text;
 		}
+=======
+>>>>>>> parent of b314691... Merge branch 'master' of https://github.com/Numericlock/_tributor
         $("#search_text").on("input", function() {
             searchStr = $(this).val();
             clearTimeout(searchTimer);
