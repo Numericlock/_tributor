@@ -66,9 +66,7 @@ button {
 .nav::-webkit-scrollbar {  /* Chrome, Safari 対応 */
         display:none;
  }
-.content-wrapper{
-	
-}
+
 .content{
 	max-width:600px;
 	width:600px;
@@ -804,6 +802,12 @@ input.cmn-toggle-round-flat:checked + label:after {
 	width:100px;
 }
 
+.swiper-wrapper{
+}
 
+.swiper-slide{
+	position: relative;
+	top:50%;
+}
 
 © 2019 GitHub,
