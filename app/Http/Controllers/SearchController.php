@@ -89,6 +89,7 @@ class SearchController extends Controller
 		$users = User::select('id as users_id','name as users_name')
 		->where('id', 'LIKE', $request->str."%")
 		->orWhere('name', 'LIKE', $request->str."%")	
+		->having('id','!=',$request->base_user->user_id)
 		->get();
 		Log::debug($users."さーちりくえすと");
 		return $users;
@@ -106,7 +107,9 @@ class SearchController extends Controller
 		$users = User::select('id as users_id','name as users_name')
 		->whereNotIn('id', $list_users)
 		->where('id', 'LIKE', "%".$request->str."%")
+		->where('id','!=',$request->base_user->user_id)
 		->orWhere('name', 'LIKE', "%".$request->str."%")
+		->where('id','!=',$request->base_user->user_id)
 		->get();
 		Log::debug($list_users."さーちりくえすと");
 		Log::debug($users."さーちりくえすと");

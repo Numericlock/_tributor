@@ -12,13 +12,7 @@
 		<div class="content-title">
 			 <span>プロフィール</span>
 		</div>
-        <div class="setting">
-            <button type="button" class="setting" name="aaa" value="aaa">
-                <img src="/img/setting.png"><br>
-            </button>
-        </div>
 		<div class="profile">
- 
 			<div class="profile-icon-wrapper" style="background-image:url(/img/3.jpg);">
 				<div class="profile-icon" >
 					<img src="img/icon_img/{{$current_user->user_id}}.png">
@@ -30,6 +24,7 @@
 			<div class="information">
 				<span>フォロー中 - {{ $current_user->subject_count }}</span>
 				<span>フォロワー - {{ $current_user->followed_count }}</span>
+<<<<<<< HEAD
 			</div>
 			<div class="users-modal-button-follow" id="followbutton_{{ $current_user->user_id }}">
 				@if($user->user_id === $current_user->user_id )
@@ -41,6 +36,19 @@
 					<button class="follow-button" onclick="follow(this)" data-followid="{{ $current_user->user_id }}">フォロー</button>
 				@endif
 			</div>
+=======
+			</div>
+			<div class="users-modal-button-follow" id="followbutton_{{ $current_user->user_id }}">
+				@if($user->user_id === $current_user->user_id )
+				@elseif($current_user->is_canceled === 1)
+					<button class="follow-button" onclick="follow(this)" data-followid="{{ $current_user->user_id }}">フォロー</button>
+				@elseif ($current_user->subject_user_id === $user->user_id )
+					<button class="follow-remove-button" onclick="follow_remove(this)" data-followid="{{ $current_user->user_id }}">フォロー中</button>
+				@else
+					<button class="follow-button" onclick="follow(this)" data-followid="{{ $current_user->user_id }}">フォロー</button>
+				@endif
+			</div>
+>>>>>>> parent of 12bdb7b... ghg
 		</div>
 		<div class="tab-wrapper">
 			<button type='button' id="my_post">投稿</button>
@@ -503,6 +511,7 @@
                 </div>
 				@endforeach
            </div>
+<<<<<<< HEAD
 	   </div>
         	<div class="profile-modal">
 	</div>
@@ -704,6 +713,15 @@
 	</div>
             
 
+=======
+		
+		
+		
+		
+		
+	</div>
+        
+>>>>>>> parent of 12bdb7b... ghg
 	<script>
 		var last_post_at =@json($last_post->post_at);
 		var start_post_at = @json($start_post->post_at);
@@ -1343,7 +1361,7 @@
 				retribute_flag = true;
 			}
 		}
-		function retribute_remove(t){ 
+		function retribute_remove(t){
 			console.log("くそやろう");
 			
 			if(retribute_flag ==true){
@@ -1391,6 +1409,7 @@
 			$('.img_post').hide();
 			$("html, body").animate({scrollTop:0}, 250, "swing");
 		});	
+<<<<<<< HEAD
 		var file_array = [];
 		var reader_array  = [];
 		var preview_array = [];
@@ -1766,5 +1785,8 @@
             }
 		});
         
+=======
+
+>>>>>>> parent of 12bdb7b... ghg
 	</script>
 @endsection

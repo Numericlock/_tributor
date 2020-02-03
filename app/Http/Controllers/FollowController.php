@@ -17,13 +17,14 @@ class FollowController extends Controller
 		$user = $request->base_user;
 		$count = User_follow::isFollow($user->user_id,$request->user_id)->count();
 		Log::debug($count."followカウント");
-		if($count = 0){
+		if($count == 0){
 			User_follow::create([
 				'subject_user_id'=>$user->user_id,
 				'followed_user_id'=>$request->user_id,
 				'is_canceled'=>0
 			]);
-		}elseif($count = 1){
+			Log::debug($count."followカウント");
+		}elseif($count == 1){
 			User_follow::isFollow($user->user_id,$request->user_id)->update(['is_canceled'=> 0]);
 		}
 		return $count;

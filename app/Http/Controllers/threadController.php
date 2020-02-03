@@ -19,15 +19,13 @@ class threadController extends Controller
 
     public function thread (Request $request,$users_id,$posts_id){
 		$user = $request->base_user;
-		$posts = User_post::threadPosts($user->user_id,$posts_id)->latest()->offset(0)->limit(25)->get();
-		$posts = $posts->unique('posts_id');
-        $userIds = $posts->unique('users_id'); 
-        Log::debug($userIds."ごみごみごみごみごみごみ");
+		$parent_post = User_post::parentPosts($user->user_id,$posts_id)->first();
         
-        $posts2 = User_post::parentPosts($user->user_id,$posts_id)->latest()->offset(0)->limit(25)->get();
-        $posts2 = $posts2->unique('posts_id');
+        $child_posts = User_post::childPosts($user->user_id,$posts_id)->latest()->offset(0)->limit(25)->get();
+        $child_posts = $child_posts->unique('posts_id');
+		$userIds = $child_posts->unique('users_id'); 
 		$lists = $request->base_user_lists;
-        return view('thread',compact('posts','posts2', 'userIds', 'user','lists'));
+        return view('thread',compact('parent_post','child_posts', 'userIds', 'user','lists'));
 
-}
+	}
 }
