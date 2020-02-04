@@ -41,20 +41,3 @@ function swiper_next(t){
 		$('#post_'+id).css('background-image', 'url(/img/post_img/'+$(t).parent().data('id')+'_'+ num +'.png)');
 	}
 }
-function img_slide(t){
-	var img = $(t).parent().find("img");
-	var src = img.attr('src'); 
-	src = src.slice(0, -4);
-	var max_num = img.data('num');
-	var num = src.substr(-1, 1);
-	if(max_num != 1){
-		num = Number(num)+1;
-		if(num >= max_num){
-			num=0;
-		}
-		src = src.slice(0, -1);
-		src = src + num + ".png";
-		console.log(max_num);
-		img.attr('src',src);	
-	}
-}

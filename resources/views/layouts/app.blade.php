@@ -357,271 +357,57 @@
 		</div>
 	</div>
 
-	<script src="/js/post_img_swiper.js"></script>
-	<script src="/js/tribute_post.js"></script>
-	<script src="/js/follow.js"></script>
-	<script src="/js/retribute.js"></script>
-	<script src="/js/favorite.js"></script>
+	<script src="/js/post_img_swiper.js"></script><!--投稿の画像と背景をスライドする-->
+	<script src="/js/other_nav_modal.js"></script><!--ナビゲーションの三点リードをクリックしたときのモーダルの制御-->
+	<script src="/js/attention_modal.js"></script><!--投稿時、なんらかの入力をした後、投稿せずにモーダルを消そうとしたときの処理-->
+	<script src="/js/attached_modal.js"></script><!--添付画像をクリック時に画面全体に画像を表示するモーダルの制御　表示した画像の切り替え処理も-->
+	<script src="/js/tribute_post.js"></script><!--投稿モーダルの表示から投稿までの処理-->
+	<script src="/js/post_input_img.js"></script><!--投稿に画像を添付する際のプレビュー処理と配列処理-->
+	<script src="/js/follow.js"></script><!--フォロー、フォロー解除処理-->
+	<script src="/js/retribute.js"></script><!--リトリビュート、リトリビュート解除処理-->
+	<script src="/js/favorite.js"></script><!--いいね、いいね解除処理-->
 	<script>
-		function start_alert() {
-			alert("touchstart!!");
-		}	
-
 		// Check for the various File API support.
 		if (window.File && window.FileReader && window.FileList && window.Blob) {
 		  // Great success! All the File APIs are supported.
 		} else {
 		  alert('The File APIs are not fully supported in this browser.');
 		}
-		var file_array = [];
-		var reader_array  = [];
-		var preview_array = [];
-        var files = [];
-		var parent_post_id = null;
-		function previewFiles() {
-			if(file_array.length<4){
-				var input_file_length = document.querySelector('input[type=file]').files.length;
-				var file_length = document.querySelector('input[type=file]').files.length + file_array.length;
-				for(var i=0; i<input_file_length; i++){
-					file_array.push(document.querySelector('input[type=file]').files[i]);
-					reader_array.push(new FileReader());
-				}
-				create_imgArea(file_length);
-			}
-		}
-		$('.input-images').on('click',function(){
-			var id=$(this).attr("id").substr(8,1)
-			file_array.splice(id,1);
-			preview_array.splice(id,1);
-			create_imgArea(file_array.length);
-		});
-		function other_nav_open(){
-			$('.other-nav-modal').stop(true, true).fadeIn();
-			$('.other-nav-wrapper').css('display','flex');
-		}		
-		function other_nav_close(){
-			$('.other-nav-modal').stop(true, true).fadeOut();
-			$('.other-nav-wrapper').css('display','none');
-		}
-		$('.other-nav-modal').on('click',function(){
-			other_nav_close();
-		});
-		function create_imgArea(length){
-			//なぜかfor文回せない。
-			reader_array  = [];
-			preview_array = [];
-			for(var i=0; i<length; i++){
-				preview_array.push(document.querySelector('img[id="preview-' + i + '"]'));
-			}
-			for(var i=0; i<length; i++){
-				reader_array.push(new FileReader());
-				reader_array[i].readAsDataURL(file_array[i]);
-			}
-			if(length>0){
-				reader_array[0].addEventListener("load", function () {
-					preview_array[0].src = reader_array[0].result;
-                    files[0] = reader_array[0].result;
-				}, false);
-			}
-
-			if(length>1){
-				reader_array[1].addEventListener("load", function () {
-					preview_array[1].src = reader_array[1].result;
-                    files[1] = reader_array[1].result;
-				}, false);
-			}
-
-			if(length>2){
-				reader_array[2].addEventListener("load", function () {
-					preview_array[2].src = reader_array[2].result;
-                    files[2] = reader_array[2].result;
-				}, false);
-			}
-
-			if(length>3){
-				reader_array[3].addEventListener("load", function () {
-					preview_array[3].src = reader_array[3].result;
-                    files[3] = reader_array[3].result;
-				}, false);
-			}
-			switch(length){
-				case 0:
-					$("#preview-0, #preview-1, #preview-2, #preview-3").css({
-						'display':'none'
-					});
-					break;
-				case 1:
-					$(".post-modal-inputFiles-left").css({
-						'display':'block',
-						'width':'100%'
-					});
-					$(".post-modal-inputFiles-right").css({
-						'display':'none'
-					});
-					$("#preview-0").css({
-						'display':'block',
-						'width':'100%',
-						'height':'300px',
-						'object-fit':'cover'
-					});
-					$("#preview-1, #preview-2, #preview-3").css({
-						'display':'none'
-					});
-					break;
-				case 2:
-					$(".post-modal-inputFiles-left,.post-modal-inputFiles-right").css({
-						'display':'block',
-						'width':'50%',
-					});
-					$("#preview-0,#preview-1").css({
-						'display':'block',
-						'width':'100%',
-						'height':'300px',
-						'object-fit':'cover'
-					});
-					$("#preview-2, #preview-3").css({
-						'display':'none'
-					});
-					break;
-				case 3:
-					$(".post-modal-inputFiles-left,.post-modal-inputFiles-right").css({
-						'display':'block',
-						'width':'50%',
-					});
-					$("#preview-0").css({
-						'display':'block',
-						'width':'100%',
-						'height':'300px',
-						'object-fit':'cover'
-					});
-					$("#preview-1,#preview-2").css({
-						'display':'block',
-						'width':'100%',
-						'height':'150px',
-						'object-fit':'cover'
-					});
-					$("#preview-3").css({
-						'display':'none'
-					});
-
-					break;
-				case 4:
-					$(".post-modal-inputFiles-left,.post-modal-inputFiles-right").css({
-						'display':'block',
-						'width':'50%',
-					});
-					$("#preview-0,#preview-1,#preview-2,#preview-3").css({
-						'display':'block',
-						'width':'100%',
-						'height':'150px',
-						'object-fit':'cover'
-					});
-					break;
-			}
-		}
 		
+		$('.input-images').on('click',function(){
+			remove_previewFile(this);
+		});
 
 		$('#dotRadius').on('click',function(){
 			post_modal_open();
 		});
-		function comment(t){
-			var id = $(t).data("id");
-			var content = $(t).data("content");
-			var user_id = $(t).data("userid");
-			var user_name = $(t).data("username");
-			var time = $(t).data("time");
-			//var post = $('#post_'+id).clone();
-			//post.css("background","white");
-			$('#parentPost_usericon').attr('src', '/img/icon_img/'+user_id+'.png');
-			$('#parentPost_username').text(user_name);
-			$('#parentPost_userid').text(user_id);
-			$('#parentPost_time').text(time);
-			$('#parentPost_sentence').text(content);
-			//$('.post-modal-textarea').before(post);
-			$('.post-modal-parentPost').css("display","flex");
-			parent_post_id = id;
-			post_modal_open();
-		}
-		
-		function post_modal_open(){
-			$('.post-modal').stop(true, true).fadeIn('500');
-			$('#post-modal_content').show().stop(true, true).animate({
-				top: "50%",
-				
-				display: "fixed",
-				opacity: 1.0
-			}, 500);
-			$('#post-modal_content_next').show().stop(true, true).animate({
-				left: "120%",
-				top:"50%",
-				display: "fixed",
-				opacity: 0
-			}, 500, function(){
-				$('#post-modal_content_next').hide();
-			});
-		}
-		var attached_num;
-		function attached_modal_open(t){
-			attached_num = $(t).data("num");
-			$('#attached_modal_content_img').attr('src',$(t).attr('src')); 
-			$('.attached-modal').stop(true, true).fadeIn('500');
-			$('.attached-modal-content').show().stop(true, true).animate({
-				display: "flex",
-				opacity: 1.0
-			}, 200);	
-		}
-		
-		function attached_modal_close(){
-			$('.attached-modal').stop(true, true).fadeOut('500');
-			$('.attached-modal-content').stop(true, true).animate({
-				opacity: 0,
-				display: "none"
-			}, 200, function(){
-				$('.attached-modal-content').hide();
-			});
-		}
+
 		$('.attached-modal, .attached-modal-close-button').on('click',function(){
 			attached_modal_close();
 		});	
-		
-		$('.post-modal, .post-modal_cancel').on('click',function(){
-			if(is_blank($('#textarea').val()) && !Object.keys(file_array).length &&  !Object.keys(lists_array).length){
-				console.log(!Object.keys(file_array).length);
-				console.log(!Object.keys(lists_array).length);
-				console.log(is_blank($('#textarea').val()));
-				post_modal_close();
-			}else{
-				$('.attention-modal').stop(true, true).fadeIn('500');
-				$('.attention-modal-content').show().stop(true, true).animate({
-					display: "flex",
-					opacity: 1.0
-				}, 200);
-			}
-		});
 		
 		
 		$('.attention-modal, .attention-modal-button-cancel').on('click',function(){
 			attention_modal_close();
 		});	
-		
+
 		$('.attention-modal-button-destruction').on('click',function(){
 			attention_modal_close();
 			post_modal_close();
 		});
-
 		
-		function attention_modal_close(){
-			console.log( $("input[type='file']").val());
-			console.log(file_array);
-			$('.attention-modal').stop(true, true).fadeOut('500');
-			$('.attention-modal-content').stop(true, true).animate({
-				opacity: 0,
-				display: "none"
-			}, 200, function(){
-				$('.attention-modal-content').hide();
-			});
-		}
-		
+		$('.post-modal, .post-modal_cancel').on('click',function(){
+			if(is_blank($('#textarea').val()) && !Object.keys(file_array).length &&  !Object.keys(lists_array).length){
+				post_modal_close();
+			}else{
+				attention_modal_open();
+			}
+		});
+        $("#search_text").on("input", function() {
+            searchStr = $(this).val();
+            clearTimeout(searchTimer);
+            searchTimer = window.setTimeout(search_for, 700);
+        });
 		function is_blank(str){
 			// チェックのために、タブ(\t)、スペース(\s)、全角スペース（ ）を削除
 			var check_str = str.replace(/[\t\s ]/g, '');
@@ -633,131 +419,12 @@
 				return true;
 			}
 		}
-		function post_modal_close(){
-			$('.post-modal').stop(true, true).fadeOut('500');
-			$('#post-modal_content').stop(true, true).animate({
-				top: "-100px",
-				left:"50%",
-				opacity: 0
-			}, 500, function(){
-				$('#post-modal_content').hide();
-			
-				$('#textarea').val("");
-				$('.show-count').text("0");
-				lists_array=[];
-				file_array=[];
-				reader_array  = [];
-				preview_array = [];
-				imgFiles=[];
-				parent_post_id=null;
-				$('.post-modal-list-checkbox').prop('checked',false);
-				$("#preview-0, #preview-1, #preview-2, #preview-3").css({
-					'display':'none'
-				});
-				$('#textarea').height('50px');
-				$('.post-modal-parentPost').css("display","none");
-				
-			});
-			$('.post-modal').stop(true, true).fadeOut('500');
-			$('#post-modal_content_next').stop(true, true).animate({
-				top: "-100px",
-				left:"50%",
-				opacity: 0
-			}, 500, function(){
-				$('#post-modal_content_next').hide();
-			});
-		}
 
-		$('#post-modal_next').on('click',function(){
-			console.log("wwwwwwww")
-            var count = $('#textarea').val().length;
-            if(count != 0 || Object.keys(file_array).length){
-			$('#post-modal_content_next').show().stop(true, true).animate({
-				left: "50%",
-				display: "fixed",
-				opacity: 1.0
-			}, 500);
-			$('#post-modal_content').stop(true, true).animate({
-				left: "-100px",
-				opacity: 0
-			}, 500, function(){
-				$('#post-modal_content').hide();
-			});
-            }
-		});
-		$('#post-modal_back').on('click',function(){
-			$('#post-modal_content').show().stop(true, true).animate({
-				left: "50%",
-				display: "fixed",
-				opacity: 1.0
-			}, 500);
-			$('#post-modal_content_next').stop(true, true).animate({
-				left: "120%",
-				opacity: 0
-			}, 500, function(){
-				$('#post-modal_content_next').hide();
-			});
-		});
-		$(function() {
-
-			const sampleTextarea = document.querySelector('#textarea');
-			sampleTextarea.addEventListener('input', () => {
-			  sampleTextarea.style.height = "20px";
-			  sampleTextarea.style.height = sampleTextarea.scrollHeight + 5 +"px";
-			})
-
-			$('#textarea').on('input',function(){
-				var count = $(this).val().length;
-				$('.show-count').text(count);
-			});
-		
-		});
-		$( 'input[name="disclose"]:checkbox' ).change( function() {
-			var elements = document.getElementsByName('disclose') ;
-			var radioval = $(this).val();
-			if(elements[0].checked == false){
-				$('.post-modal-list-area').slideUp();
-				document.getElementById("disclose_status").innerHTML="公開";
-				$('#disclose_status').css('color','#8ce196');
-			}else{
-				//$(".cmn-toggle-small").prop("checked", true);
-				$('.post-modal-list-area').slideDown();
-				document.getElementById("disclose_status").innerHTML="非公開";
-				$('#disclose_status').css('color','#a61a37');
-			}
-		});
-		var textarea;
-		var lists_array=[];
-
-
-		$(".post-modal-list-checkbox").change(function() {
-				if($(this).prop("checked")==true){
-					lists_array.push($(this).attr("id"));
-				}else{
-					var target = $(this).attr("id");
-					lists_array.some(function(v, i){
-						if (v==target) lists_array.splice(i,1);
-					});
-				}
-		});
         $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
         });
-        $("#search_text").on("input", function() {
-            searchStr = $(this).val();
-            clearTimeout(searchTimer);
-            searchTimer = window.setTimeout(search_for, 700);
-        });
-		$('#post-modal_post').on('click',function(){
-			console.log($('input[name="disclose"]:checkbox').prop('checked'));
-            if(lists_array != "" || $('input[name="disclose"]:checkbox').prop('checked') == false){
-				tribute_postForm();
-            }else{
-                alert("リストが選択されていません")
-            }
-		});
 	</script>
 </body>
 </html>

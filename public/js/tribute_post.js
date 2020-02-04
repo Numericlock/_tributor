@@ -1,6 +1,156 @@
-var tribute_flag;
+var tribute_flag=true;
 var textarea;
 var lists_array=[];	
+var parent_post_id = null;
+
+const sampleTextarea = document.querySelector('#textarea');
+sampleTextarea.addEventListener('input', () => {
+  sampleTextarea.style.height = "20px";
+  sampleTextarea.style.height = sampleTextarea.scrollHeight + 5 +"px";
+})
+
+$('#textarea').on('input',function(){
+	var count = $(this).val().length;
+	$('.show-count').text(count);
+});
+
+$('#post-modal_post').on('click',function(){
+	if(lists_array != "" || $('input[name="disclose"]:checkbox').prop('checked') == false){
+		tribute_postForm();
+	}else{
+		alert("リストが選択されていません")
+	}
+});
+
+$(".post-modal-list-checkbox").change(function() {
+		if($(this).prop("checked")==true){
+			lists_array.push($(this).attr("id"));
+		}else{
+			var target = $(this).attr("id");
+			lists_array.some(function(v, i){
+				if (v==target) lists_array.splice(i,1);
+			});
+		}
+});
+
+$( 'input[name="disclose"]:checkbox' ).change( function() {
+	var elements = document.getElementsByName('disclose') ;
+	var radioval = $(this).val();
+	if(elements[0].checked == false){
+		$('.post-modal-list-area').slideUp();
+		document.getElementById("disclose_status").innerHTML="公開";
+		$('#disclose_status').css('color','#8ce196');
+	}else{
+		//$(".cmn-toggle-small").prop("checked", true);
+		$('.post-modal-list-area').slideDown();
+		document.getElementById("disclose_status").innerHTML="非公開";
+		$('#disclose_status').css('color','#a61a37');
+	}
+});
+
+$('#post-modal_next').on('click',function(){
+	var count = $('#textarea').val().length;
+	if(count != 0 || Object.keys(file_array).length){
+	$('#post-modal_content_next').show().stop(true, true).animate({
+		left: "50%",
+		display: "fixed",
+		opacity: 1.0
+	}, 500);
+	$('#post-modal_content').stop(true, true).animate({
+		left: "-100px",
+		opacity: 0
+	}, 500, function(){
+		$('#post-modal_content').hide();
+	});
+	}
+});
+
+$('#post-modal_back').on('click',function(){
+	$('#post-modal_content').show().stop(true, true).animate({
+		left: "50%",
+		display: "fixed",
+		opacity: 1.0
+	}, 500);
+	$('#post-modal_content_next').stop(true, true).animate({
+		left: "120%",
+		opacity: 0
+	}, 500, function(){
+		$('#post-modal_content_next').hide();
+	});
+});
+
+function comment(t){
+	var id = $(t).data("id");
+	var content = $(t).data("content");
+	var user_id = $(t).data("userid");
+	var user_name = $(t).data("username");
+	var time = $(t).data("time");
+	//var post = $('#post_'+id).clone();
+	//post.css("background","white");
+	$('#parentPost_usericon').attr('src', '/img/icon_img/'+user_id+'.png');
+	$('#parentPost_username').text(user_name);
+	$('#parentPost_userid').text(user_id);
+	$('#parentPost_time').text(time);
+	$('#parentPost_sentence').text(content);
+	//$('.post-modal-textarea').before(post);
+	$('.post-modal-parentPost').css("display","flex");
+	parent_post_id = id;
+	post_modal_open();
+}
+
+function post_modal_open(){
+	$('.post-modal').stop(true, true).fadeIn('500');
+	$('#post-modal_content').show().stop(true, true).animate({
+		top: "50%",
+
+		display: "fixed",
+		opacity: 1.0
+	}, 500);
+	$('#post-modal_content_next').show().stop(true, true).animate({
+		left: "120%",
+		top:"50%",
+		display: "fixed",
+		opacity: 0
+	}, 500, function(){
+		$('#post-modal_content_next').hide();
+	});
+}
+
+function post_modal_close(){
+	$('.post-modal').stop(true, true).fadeOut('500');
+	$('#post-modal_content').stop(true, true).animate({
+		top: "-100px",
+		left:"50%",
+		opacity: 0
+	}, 500, function(){
+		$('#post-modal_content').hide();
+
+		$('#textarea').val("");
+		$('.show-count').text("0");
+		lists_array=[];
+		file_array=[];
+		reader_array  = [];
+		preview_array = [];
+		imgFiles=[];
+		parent_post_id=null;
+		$('.post-modal-list-checkbox').prop('checked',false);
+		$("#preview-0, #preview-1, #preview-2, #preview-3").css({
+			'display':'none'
+		});
+		$('#textarea').height('50px');
+		$('.post-modal-parentPost').css("display","none");
+
+	});
+	$('.post-modal').stop(true, true).fadeOut('500');
+	$('#post-modal_content_next').stop(true, true).animate({
+		top: "-100px",
+		left:"50%",
+		opacity: 0
+	}, 500, function(){
+		$('#post-modal_content_next').hide();
+	});
+}
+
 function tribute_postForm(){
 	if(tribute_flag == true){
 		tribute_flag = false;
@@ -68,11 +218,9 @@ function tribute_postForm(){
 							append_text
 						);
 					}
-					append_text = dom_post(json_data.posts_id, json_data.users_id, json_data.users_name, json_data.content_text, json_data.updated_at, json_data.share_at, json_data.post_at, json_data.id, json_data.users2_name, json_data.attached_count, json_data.comment_count, json_data.retribute_count, json_data.favorite_count, json_data.is_favorite, json_data.is_retribute);
+					//append_text = dom_post(json_data.posts_id, json_data.users_id, json_data.users_name, json_data.content_text, json_data.updated_at, json_data.share_at, json_data.post_at, json_data.id, json_data.users2_name, json_data.attached_count, json_data.comment_count, json_data.retribute_count, json_data.favorite_count, json_data.is_favorite, json_data.is_retribute);
 					get_latest_posts();
-					$('.content').prepend(
-						append_text
-					);
+
 					bottomPos = $(document).height() - $(window).height() - 1;    //画面下位置を取得
 				}
 				post_modal_close();
@@ -91,6 +239,7 @@ function tribute_postForm(){
 		});
 	}
 };
+
 function dom_post(posts_id, users_id, users_name, content_text, updated_at, share_at, post_at, id, users2_name, attached_count, comment_count, retribute_count, favorite_count, is_favorite, is_retribute){
 	var append_text;
 	if(attached_count > 0){
