@@ -12,12 +12,18 @@
 		<div class="content-title">
 			 <span>プロフィール</span>
 		</div>
+        <div class="setting">
+            <button type="button" class="setting" name="aaa" value="aaa">
+                <img src="/img/setting.png"><br>
+            </button>
+        </div>
 		<div class="profile">
-			<div class="profile-icon-wrapper" style="background-image:url(/img/3.jpg);">
+ 
+			
 				<div class="profile-icon" >
 					<img src="img/icon_img/{{$current_user->user_id}}.png">
 				</div>
-			</div>
+			
 			<span class="profile-userName">{{ $current_user->name }}</span>
 			<span class="profile-userId">{{ "@".$current_user->user_id }}</span>
 			<h4>{{ $current_user->introduction }}</h4>
@@ -497,13 +503,138 @@
                 </div>
 				@endforeach
            </div>
-		
-		
-		
-		
-		
+	   </div>
+    <div class="profile-modal">
 	</div>
-        
+	<div id="profile-modal_content" class="profile-modal-content">
+        <div class="profile-modal-title">
+            <span>プロファイル編集</span>
+            <svg class="profile-modal-closeButton profile-modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 512 512" xml:space="preserve">
+                <g>
+                    <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
+                        52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
+                </g>
+            </svg>
+        </div>
+		<div class="profile-modal-parentPost">
+			<div class="profile-modal-parentPost-icon">
+                <label>
+				<img class="profile-image" id="preview" src="/img/icon_img/{{ $user->user_id }}.png"class="nav-icon common-user-icon">>
+                <input type="file" id="profile-modal_next2" accept="image/*" stylesheet="display:none"hidden>
+                </label>
+			</div>
+
+		</div>
+        <div class="profile-modal-textarea">
+  
+            <div class="profile-modal-textarea-userImage">
+                <label>
+                    <img src="/img/icon_img/{{ $user->user_id }}.png" id="crop">
+                    <input type="file" id="profile-modal_next" accept="image/*" stylesheet="display:none"hidden>
+                </label>
+            </div>
+			<div class="profile-modal-textarea-input">
+                <span>名前</span>
+                <input type="text" id="name">
+                <br>
+                <span>自己紹介</span>
+				<textarea id="introduction" name="post_message" title="自己紹介" aria-label="自己紹介" placeholder="自己紹介" maxlength="256" wrap="soft"></textarea>
+
+			</div>
+			
+        </div>
+        <div class="counter">
+			<div>
+                <span class="show-count">0</span><span>/256</span>
+			</div>
+        </div>
+        <div class="profile-modal-control">
+            <button class="profile-modal-positive-button" id="profile-modal_post" type='button'>変更</button>
+        </div>
+	</div>
+	<div id="profile-modal_content_next" class="profile-modal-img">
+        <div class="profile-modal-title">
+            
+            <svg class="profile-modal-closeButton profile-modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 512 512" xml:space="preserve">
+                <g>
+                    <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
+                        52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
+                </g>
+            </svg>
+        </div>
+		
+            <input id='scal' type='range' value='' min='10' max='400' oninput="scaling(value)" style='width: 300px;'><br>
+            <canvas id='cvs' width='300' height='400'></canvas><br>
+            <canvas id='out' width='200' height='200' style="display:none"></canvas>
+		
+
+		<div class="profile-modal-control">
+			<button class="profile-modal-negative-button" id="profile-modal_back" type='button'onclick='crop_img()'>適応</button>
+		</div>
+	</div>
+    
+    <div id="profile-modal_content" class="profile-modal-content">
+        <div class="profile-modal-title">
+            <span>投稿</span>
+            <svg class="profile-modal-closeButton profile-modal_cancel" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 512 512" xml:space="preserve">
+                <g>
+                    <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465
+                        52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"/>
+                </g>
+            </svg>
+        </div>
+        <div class="profile-modal-textarea">
+            <div class="profile-modal-textarea-userImage">
+                <img src="/img/2.jpg">
+            </div>
+            <textarea  id="textarea" name="post_message" title="今何してる？"　aria-label="今何してる？"　placeholder="今何してる？" maxlength="256"></textarea>
+
+        </div>
+        <div class="counter">
+            <span class="show-count">0</span>/256
+         </div>
+        <div class="profile-modal-control">
+
+            <span>内容が消えてしまいますがよろしいですか？</span>
+			<button class="profile-modal-negative-button" id="profile-modal_back" type='button'>いいえ</button>
+			<button class="profile-modal-positive-button" id="profile-modal_post" type='button'>はい</button>
+            
+        </div>
+	</div>
+	<div id="script-reload">
+
+	</div>
+	
+	<div class="attention-modal">
+	</div>
+	
+	<div class="attention-modal-content">
+		<div class="attention-modal-text">
+			<span class = "attention-modal-title">破棄しますか？</span>
+			<span class = "attention-modal-sentence">書き込み中の内容は完全に失われます。</span>
+		</div>
+		<div class="attention-modal-button">
+			<button class="attention-modal-button-cancel">キャンセル</button>
+			<button class="attention-modal-button-destruction">破棄</button>
+		</div>
+	</div>
+	
+	<div class="attached-modal">
+	</div>
+	
+	<div class="attached-modal-content">
+		<img id="attached_modal_content_img" src="">
+		<div onclick="img_slide(this)">
+			<svg version="1.1" viewBox="0 0 36 36" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false" role="img" width="32" height="32" fill="currentColor">
+				<path class="clr-i-outline clr-i-outline-path-1" d="M29.52,22.52,18,10.6,6.48,22.52a1.7,1.7,0,0,0,2.45,2.36L18,15.49l9.08,9.39a1.7,1.7,0,0,0,2.45-2.36Z"/>
+			</svg>
+		</div>
+	</div>
+            
+
 	<script>
 		var last_post_at =@json($last_post->post_at);
 		var start_post_at = @json($start_post->post_at);
@@ -1143,7 +1274,7 @@
 				retribute_flag = true;
 			}
 		}
-		function retribute_remove(t){
+		function retribute_remove(t){ 
 			console.log("くそやろう");
 			
 			if(retribute_flag ==true){
@@ -1191,6 +1322,529 @@
 			$('.img_post').hide();
 			$("html, body").animate({scrollTop:0}, 250, "swing");
 		});	
+		var file_array = [];
+		var reader_array  = [];
+		var preview_array = [];
+        var files = [];
+		var parent_post_id = null;
+		function previewFiles() {
+			if(file_array.length<4){
+				var input_file_length = document.querySelector('input[type=file]').files.length;
+				var file_length = document.querySelector('input[type=file]').files.length + file_array.length;
+				for(var i=0; i<input_file_length; i++){
+					file_array.push(document.querySelector('input[type=file]').files[i]);
+					reader_array.push(new FileReader());
+				}
+				create_imgArea(file_length);
+			}
+		}
+		$('.input-images').on('click',function(){
+			var id=$(this).attr("id").substr(8,1)
+			file_array.splice(id,1);
+			preview_array.splice(id,1);
+			create_imgArea(file_array.length);
+		});
+		function create_imgArea(length){
+			//なぜかfor文回せない。
+			reader_array  = [];
+			preview_array = [];
+			for(var i=0; i<length; i++){
+				preview_array.push(document.querySelector('img[id="preview-' + i + '"]'));
+			}
+			for(var i=0; i<length; i++){
+				reader_array.push(new FileReader());
+				reader_array[i].readAsDataURL(file_array[i]);
+			}
+			if(length>0){
+				reader_array[0].addEventListener("load", function () {
+					preview_array[0].src = reader_array[0].result;
+                    files[0] = reader_array[0].result;
+				}, false);
+			}
 
+			if(length>1){
+				reader_array[1].addEventListener("load", function () {
+					preview_array[1].src = reader_array[1].result;
+                    files[1] = reader_array[1].result;
+				}, false);
+			}
+
+			if(length>2){
+				reader_array[2].addEventListener("load", function () {
+					preview_array[2].src = reader_array[2].result;
+                    files[2] = reader_array[2].result;
+				}, false);
+			}
+
+			if(length>3){
+				reader_array[3].addEventListener("load", function () {
+					preview_array[3].src = reader_array[3].result;
+                    files[3] = reader_array[3].result;
+				}, false);
+			}
+			switch(length){
+				case 0:
+					$("#preview-0, #preview-1, #preview-2, #preview-3").css({
+						'display':'none'
+					});
+					break;
+				case 1:
+					$(".profile-modal-inputFiles-left").css({
+						'display':'block',
+						'width':'100%'
+					});
+					$(".profile-modal-inputFiles-right").css({
+						'display':'none'
+					});
+					$("#preview-0").css({
+						'display':'block',
+						'width':'100%',
+						'height':'300px',
+						'object-fit':'cover'
+					});
+					$("#preview-1, #preview-2, #preview-3").css({
+						'display':'none'
+					});
+					break;
+				case 2:
+					$(".profile-modal-inputFiles-left,.profile-modal-inputFiles-right").css({
+						'display':'block',
+						'width':'50%',
+					});
+					$("#preview-0,#preview-1").css({
+						'display':'block',
+						'width':'100%',
+						'height':'300px',
+						'object-fit':'cover'
+					});
+					$("#preview-2, #preview-3").css({
+						'display':'none'
+					});
+					break;
+				case 3:
+					$(".profile-modal-inputFiles-left,.profile-modal-inputFiles-right").css({
+						'display':'block',
+						'width':'50%',
+					});
+					$("#preview-0").css({
+						'display':'block',
+						'width':'100%',
+						'height':'300px',
+						'object-fit':'cover'
+					});
+					$("#preview-1,#preview-2").css({
+						'display':'block',
+						'width':'100%',
+						'height':'150px',
+						'object-fit':'cover'
+					});
+					$("#preview-3").css({
+						'display':'none'
+					});
+
+					break;
+				case 4:
+					$(".profile-modal-inputFiles-left,.profile-modal-inputFiles-right").css({
+						'display':'block',
+						'width':'50%',
+					});
+					$("#preview-0,#preview-1,#preview-2,#preview-3").css({
+						'display':'block',
+						'width':'100%',
+						'height':'150px',
+						'object-fit':'cover'
+					});
+					break;
+			}
+		}
+		
+
+		$('.setting').on('click',function(){
+			profile_modal_open();
+		});
+		function comment(t){
+			var id = $(t).data("id");
+			var content = $(t).data("content");
+			var user_id = $(t).data("userid");
+			var user_name = $(t).data("username");
+			var time = $(t).data("time");
+			//var post = $('#post_'+id).clone();
+			//post.css("background","white");
+			$('#parentPost_usericon').attr('src', '/img/icon_img/'+user_id+'.png');
+			$('#parentPost_username').text(user_name);
+			$('#parentPost_userid').text(user_id);
+			$('#parentPost_time').text(time);
+			$('#parentPost_sentence').text(content);
+			//$('.profile-modal-textarea').before(post);
+			$('.profile-modal-parentPost').css("display","flex");
+			parent_post_id = id;
+			profile_modal_open();
+		}
+		
+		function profile_modal_open(){
+			$('.profile-modal').stop(true, true).fadeIn('500');
+			$('#profile-modal_content').show().stop(true, true).animate({
+				top: "50%",
+				
+				display: "fixed",
+				opacity: 1.0
+			}, 500);
+			$('#profile-modal_content_next').show().stop(true, true).animate({
+				left: "120%",
+				top:"50%",
+				display: "fixed",
+				opacity: 0
+			}, 500, function(){
+				$('#profile-modal_content_next').hide();
+			});
+		}
+		var attached_num;
+		function attached_modal_open(t){
+			attached_num = $(t).data("num");
+			$('#attached_modal_content_img').attr('src',$(t).attr('src')); 
+			$('.attached-modal').stop(true, true).fadeIn('500');
+			$('.attached-modal-content').show().stop(true, true).animate({
+				display: "flex",
+				opacity: 1.0
+			}, 200);	
+		}
+		
+		function attached_modal_close(){
+			$('.attached-modal').stop(true, true).fadeOut('500');
+			$('.attached-modal-content').stop(true, true).animate({
+				opacity: 0,
+				display: "none"
+			}, 200, function(){
+				$('.attached-modal-content').hide();
+			});
+		}
+		$('.attached-modal, .attached-modal-close-button').on('click',function(){
+			attached_modal_close();
+		});	
+		
+		$('.profile-modal, .profile-modal_cancel').on('click',function(){
+			if(is_blank($('#textarea').val()) && !Object.keys(file_array).length &&  !Object.keys(lists_array).length){
+				console.log(!Object.keys(file_array).length);
+				console.log(!Object.keys(lists_array).length);
+				console.log(is_blank($('#textarea').val()));
+				profile_modal_close();
+			}else{
+				$('.attention-modal').stop(true, true).fadeIn('500');
+				$('.attention-modal-content').show().stop(true, true).animate({
+					display: "flex",
+					opacity: 1.0
+				}, 200);
+			}
+		});
+		
+		
+		$('.attention-modal, .attention-modal-button-cancel').on('click',function(){
+			attention_modal_close();
+		});	
+		
+		$('.attention-modal-button-destruction').on('click',function(){
+			attention_modal_close();
+			profile_modal_close();
+		});
+
+		
+		function attention_modal_close(){
+			console.log( $("input[type='file']").val());
+			console.log(file_array);
+			$('.attention-modal').stop(true, true).fadeOut('500');
+			$('.attention-modal-content').stop(true, true).animate({
+				opacity: 0,
+				display: "none"
+			}, 200, function(){
+				$('.attention-modal-content').hide();
+			});
+		}
+		
+		function is_blank(str){
+			// チェックのために、タブ(\t)、スペース(\s)、全角スペース（ ）を削除
+			var check_str = str.replace(/[\t\s ]/g, '');
+			if(str == ""){
+				return true;
+				// 名前未入力
+			}else if(check_str.length == 0){
+				// チェックの文字が長さ0なので、スペース系のみだったと判断。
+				return true;
+			}
+		}
+		function profile_modal_close(){
+			$('.profile-modal').stop(true, true).fadeOut('500');
+			$('#profile-modal_content').stop(true, true).animate({
+				top: "-100px",
+				left:"50%",
+				opacity: 0
+			}, 500, function(){
+				$('#profile-modal_content').hide();
+			
+				$('#textarea').val("");
+				$('.show-count').text("0");
+				lists_array=[];
+				file_array=[];
+				reader_array  = [];
+				preview_array = [];
+				imgFiles=[];
+				parent_post_id=null;
+				$('.profile-modal-list-checkbox').prop('checked',false);
+				$("#preview-0, #preview-1, #preview-2, #preview-3").css({
+					'display':'none'
+				});
+				$('#textarea').height('50px');
+				$('.profile-modal-parentPost').css("display","none");
+				
+			});
+			$('.profile-modal').stop(true, true).fadeOut('500');
+			$('#profile-modal_content_next').stop(true, true).animate({
+				top: "-100px",
+				left:"50%",
+				opacity: 0
+			}, 500, function(){
+				$('#profile-modal_content_next').hide();
+			});
+		}
+
+		$('#profile-modal_next').on('change',function(e){
+             var reader = new FileReader();
+             var file = e.target.files[0];
+
+                reader.onload = function(e){
+                console.log(e.target.result);
+                load_img(e.target.result);
+                };
+                reader.readAsDataURL(file);
+
+			$('#profile-modal_content_next').show().stop(true, true).animate({
+				left: "50%",
+				display: "fixed",
+				opacity: 1.0
+			}, 500);
+			$('#profile-modal_content').stop(true, true).animate({
+				left: "-100px",
+				opacity: 0
+			}, 500, function(){
+				$('#profile-modal_content').hide();
+			});
+            
+		});
+		$('#profile-modal_back').on('click',function(){
+			$('#profile-modal_content').show().stop(true, true).animate({
+				left: "50%",
+				display: "fixed",
+				opacity: 1.0
+			}, 500);
+			$('#profile-modal_content_next').stop(true, true).animate({
+				left: "120%",
+				opacity: 0
+			}, 500, function(){
+				$('#profile-modal_content_next').hide();
+			});
+		});
+		$(function() {
+
+			const sampleTextarea = document.querySelector('#textarea');
+			sampleTextarea.addEventListener('input', () => {
+			  sampleTextarea.style.height = "20px";
+			  sampleTextarea.style.height = sampleTextarea.scrollHeight + 5 +"px";
+			})
+
+			$('#textarea').on('input',function(){
+				var count = $(this).val().length;
+				$('.show-count').text(count);
+			});
+		
+		});
+		$( 'input[name="disclose"]:checkbox' ).change( function() {
+			var elements = document.getElementsByName('disclose') ;
+			var radioval = $(this).val();
+			if(elements[0].checked == false){
+				$('.profile-modal-list-area').slideUp();
+				document.getElementById("disclose_status").innerHTML="公開";
+				$('#disclose_status').css('color','#8ce196');
+			}else{
+				//$(".cmn-toggle-small").prop("checked", true);
+				$('.profile-modal-list-area').slideDown();
+				document.getElementById("disclose_status").innerHTML="非公開";
+				$('#disclose_status').css('color','#a61a37');
+			}
+		});
+		var textarea;
+		var lists_array=[];
+
+
+		$(".profile-modal-list-checkbox").change(function() {
+				if($(this).prop("checked")==true){
+					lists_array.push($(this).attr("id"));
+				}else{
+					var target = $(this).attr("id");
+					lists_array.some(function(v, i){
+						if (v==target) lists_array.splice(i,1);
+					});
+				}
+		});
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+        });
+        $("#search_text").on("input", function() {
+            searchStr = $(this).val();
+            clearTimeout(searchTimer);
+            searchTimer = window.setTimeout(search_for, 700);
+        });
+		$('#profile-modal_post').on('click',function(){
+			console.log($('input[name="disclose"]:checkbox').prop('checked'));
+            if(lists_array != "" || $('input[name="disclose"]:checkbox').prop('checked') == false){
+				tribute_postForm();
+            }else{
+                alert("リストが選択されていません")
+            }
+		});
+            const cvs = document.getElementById( 'cvs' )
+    const cw = cvs.width
+    const ch = cvs.height
+    const out = document.getElementById( 'out' )
+    const oh = out.height
+    const ow = out.width
+    
+
+    let ix = 0    // 中心座標
+    let iy = 0
+    let v = 1.0   // 拡大縮小率
+    const img  = new Image()
+    img.onload = function( _ev ){   // 画像が読み込まれた
+        ix = img.width  / 2
+        iy = img.height / 2
+        let scl = parseInt( cw / img.width * 100 )
+        document.getElementById( 'scal' ).value = scl
+         if(img.width>=img.height){
+       	    document.getElementById( 'scal' ).min = (100/iy)*100
+        }else{
+        	document.getElementById( 'scal' ).min = (100/ix)*100
+        }
+        scaling( scl )
+    }
+    function load_img( _url ){  // 画像の読み込み
+        img.src = (_url);
+    }
+    
+    function scaling( _v ) {        // スライダーが変った
+
+        v = parseInt( _v ) * 0.01        	  
+        draw_canvas( ix, iy )  
+        console.log(v);
+             
+    }
+      
+      $("input[type=range]").on("input",function(){
+          var val = $(this).val();
+          $(this).attr("value",val);
+        v = parseInt(val) * 0.01        	  
+        draw_canvas( ix, iy )  
+        console.log(v);
+          
+          });
+
+    function draw_canvas( _x, _y ){     // 画像更新
+    	console.log(_x);
+    	console.log(_y);
+        const ctx = cvs.getContext( '2d' )
+        ctx.fillStyle = 'rgb(200, 200, 200)'
+        ctx.fillRect( 0, 0, cw, ch )    // 背景を塗る
+
+       	  if( _x <= 100/v){
+              _x=100/v+1;
+       	 }
+      	  if(_x >= img.width-(100/v)){
+				_x = img.width-(100/v+1 );
+      	  }
+
+        if( _y <= 100/v){
+			_y=(100/v+1);
+        }
+        if( _y >= img.height-(100/v )){
+			_y=img.height-(100/v+1);
+        }
+
+
+
+              ctx.drawImage( img,
+      	      0, 0, img.width, img.height,
+     	       (cw/2)-_x*v, (ch/2)-_y*v, img.width*v, img.height*v,
+        )
+        ctx.strokeStyle = 'rgba(200, 0, 0, 0.8)'
+        ctx.beginPath();
+        ctx.arc( 150,200,100, 0*Math.PI/180,360*Math.PI/180);
+        ctx.stroke();
+        ctx.closePath();
+    }
+     
+    function crop_img(){      
+        // 画像切り取り
+        const ctx = out.getContext( '2d' )
+        ctx.fillStyle = 'rgb(200, 200, 200)'
+        ctx.fillRect( 0, 0, ow, oh )    // 背景を塗る
+        ctx.drawImage( img, 0, 0, img.width, img.height,(ow/2)-ix*v, (oh/2)-iy*v, img.width*v, img.height*v,)
+               
+      base64 = out.toDataURL("public/img/png").replace("public/img/png", "public/img/octet-stream");
+    document.getElementById("crop").src = base64;
+    $('#dotRadius2').val('');
+ 
+   
+    }
+
+    let mouse_down = false      // canvas ドラッグ中フラグ
+    let sx = 0                  // canvas ドラッグ開始位置
+    let sy = 0
+    cvs.ontouchstart =
+    cvs.onmousedown = function ( _ev ){     // canvas ドラッグ開始位置
+        mouse_down = true
+        sx = _ev.pageX
+        sy = _ev.pageY
+        return false // イベントを伝搬しない
+    }
+    cvs.ontouchend =
+    cvs.onmouseout =
+    cvs.onmouseup = function ( _ev ){       // canvas ドラッグ終了位置
+        if ( mouse_down == false ) return
+ 		ix += (sx-_ev.pageX)/v;
+ 		iy += (sy-_ev.pageY)/v;
+       
+		if( ix <= 100/v ){
+			ix=(100/v+1);
+   
+        if(ix >= img.width-(100/v)){
+			ix = img.width-(100*v+1);
+        }
+        if( iy <= 100/v ){
+			iy=(100/v+1);
+        }
+        if( iy >= img.height-(101/v)){
+			iy=img.height-(100/v+1);
+        }
+        }
+        mouse_down = false
+        draw_canvas(ix ,iy )
+        return false // イベントを伝搬しない
+    
+    }
+    cvs.ontouchmove =
+    cvs.onmousemove = function ( _ev ){     // canvas ドラッグ中
+        if ( mouse_down == false ) return
+        draw_canvas( ix + (sx-_ev.pageX)/v, iy + (sy-_ev.pageY)/v )
+        return false // イベントを伝搬しない
+    }
+    cvs.onmousewheel = function ( _ev ){    // canvas ホイールで拡大縮小
+        let scl = parseInt( parseInt( document.getElementById( 'scal' ).value ) + _ev.wheelDelta * 0.05 )
+        if ( scl < 10  ) scl = 10
+        if ( scl > 400 ) scl = 400
+        document.getElementById( 'scal' ).value = scl
+
+        scaling( scl)
+        return false // イベントを伝搬しない
+    }
+        
 	</script>
 @endsection
