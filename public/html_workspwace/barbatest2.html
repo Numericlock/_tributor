@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<title>ホーム/</title>
+	<script src="https://unpkg.com/@barba/core"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+	<script src="../../public/js/jquery-2.1.3.js"></script>
+	<link rel="stylesheet" href="../../public/css/mask.scss">
+</head>
+<body>
+	<a href="barbatest2.html">2</a>
+	<a href="barbatest3.html">3</a>
+	<a href="barbatest.html">1</a>
+	<div data-barba="wrapper">
+	   <div data-barba="container" data-barba-namespace="page">
+		   うんち
+	   </div>
+	</div>
+
+
+	<div class="mask"></div>
+	<script>
+const preventSettings = {
+    // 外部リンクはtarget="_blank"に
+    let site_url = location.protocol + '//' + location.host;
+    if (!href.startsWith(site_url)) {
+        el.setAttribute('target','_blank');
+        return true;
+    }
+    // アンカーリンクであり同一ページでなければbarbaを有効に
+    let url = location.protocol + '//' + location.host + location.pathname;
+    let extract_hash = href.replace(/#.*$/,"");
+    if (href.startsWith(location.protocol + '//' + location.host)) {
+        if (href.indexOf('#') > -1 && extract_hash != url ){
+            return false;
+        }
+    }
+    // 拡張子が該当する場合はtarget="_blank"に
+    if (/\.(xlsx?|docx?|pptx?|pdf|jpe?g|png|gif|svg)/.test(href.toLowerCase())) {
+        el.setAttribute('target','_blank');
+        return true;
+    }
+    // 該当クラスに属していればBarbaを無効に
+    let ignoreClasses = ['ab-item'];
+    ignoreClasses.forEach((cls) => {
+        if (el.classList.contains(cls)) {
+            return true;
+        }
+    })
+}
+barba.init({
+    prevent: preventSettings,
+})
+	</script>
+</body>
+</html>

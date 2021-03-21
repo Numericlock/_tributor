@@ -5,7 +5,7 @@
 	<link rel="stylesheet" href="/css/checkbox.css">
 @endsection
 @section('content')
-		<div class="content">
+<div  class="content-wrapper">
 			<div class="content-title">
 				　<span>ホーム</span>
 			</div>
@@ -283,11 +283,7 @@
 					</button>
 				</div>
 			</div>
-			
-			
-			
-			
-		</div>
+			</div>
 	<script>
 		var posts_num =25;
 		var searchTimer;

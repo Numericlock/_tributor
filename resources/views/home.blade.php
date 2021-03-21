@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="/css/users_modal.css">
 @endsection
 @section('content')
-		<div class="content-wrapper">
+<div  class="content-wrapper">
 			<div class="content-title">
 				 <span>ホーム</span>
 			</div>
@@ -271,7 +271,7 @@
 				</div>
 				@endforeach
 			</div>
-		</div>
+			</div>
 	<script>
 		var last_post_at =@json($last_post->post_at);
 		var start_post_at = @json($start_post->post_at);

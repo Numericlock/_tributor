@@ -21,6 +21,22 @@ class HomeController extends Controller
         $this->middleware('auth.before');
     }
 
+    public function index (Request $request){
+		$user = $request->base_user;
+		$reposts = UsersSharePost::ofReposts($user->user_id)->latest()->get();
+		$posts = User_post::ofPosts($user->user_id)->orderBy('post_at', 'desc')->offset(0)->limit(25)->get();
+		///$posts = $posts->merge($reposts);
+		//$posts = $posts->sortByDesc('share_at')
+
+		$posts = $posts->unique('posts_id');
+		$start_post = $posts->first();
+		$last_post = $posts->last();
+		///$posts = $posts->sortByDesc('created_at');
+        $userIds = $posts->unique('users_id'); 
+		$lists = $request->base_user_lists;
+		return compact('posts', 'start_post', 'last_post', 'userIds', 'user','lists');
+
+	}
 
     public function home (Request $request){
 		$user = $request->base_user;

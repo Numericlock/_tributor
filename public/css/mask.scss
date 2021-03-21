@@ -1,0 +1,26 @@
+$ease-cubic-bezier: cubic-bezier(.165, .84, .44, 1);
+$color-lightgray: #f5f8fa;
+
+.mask {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  display: block;
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
+  transition: transform 1s $ease-cubic-bezier;
+  transition-property: transform, visibility;
+  transform: rotateY(90deg);
+  transform-origin: right;
+  pointer-events: none;
+  background-color: $color-lightgray;
+
+  &.active{
+    visibility: visible;
+    transform: rotateY(0deg);
+    transform-origin: left;
+    pointer-events: auto;
+  }
+}
